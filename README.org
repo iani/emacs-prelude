@@ -1,0 +1,13 @@
+These are the contents of folder "personal" in my .emacs.d folder.
+
+I use emacs-prelude (https://github.com/bbatsov/prelude) to manage configuration.
+
+This loads all emacs-lisp files in folder "preload" first, and then runs init.el.
+
+My init.el first adds all packages from folder "packages" to the load path to make them available.  Then it runs my init file, which is user/iani2.org.
+
+iani2.org contains all the configuration code, as org-babel blocks containing emacs-lisp.
+
+The present repository also contains chuck-mode, for the computer music language ChucK and sclang for SuperCollider.
+
+IZ Dec 23, 2013 (10:52 PM)
