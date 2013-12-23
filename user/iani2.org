@@ -1,0 +1,614 @@
+* Documentation: List of packages used
+
+This is an (incomplete) list of the packages used in this configuration.
+Mostly use command package-install, or list-packages to install these.
+Some of these have been downloaded manually and put in packages folder.
+
+Some of the packages configurations (for example: wanderlust) have not yet been moved to the present file.
+
+** General
+
+- bookmark+ :: Bookmark enhancement.
+- ido-mode :: Enhancement of autocomplete for minibuffer.
+              But also autocompletion when coding.
+- smex :: Enhancement of autocomplete for commands in minibuffer.
+- solarized-dark :: Additional emacs color theme.
+
+Not used, but in preparation/evaluation:
+
+- dired+ :: Enhancement of dired.
+
+** Editing, coding
+
+- paredit :: Paredit mode.
+- rainbow-delimiters-mode :: Multi-color parentheses, brackets, braces.
+- highlight-sexps-mode :: highight regions enclosed in parentheses, brackets, braces
+- multiple-cursors :: Magnar Sveen's multiple cursor package.
+- key-chord :: Trigger a command or keyboard macro by typing two characters in quick succession or together.
+- AceJump :: Jump to any one of displayed characters/words/lines starting with a character typed (triggered by key-chord combinations).
+- whitespace mode :: mark unnecessary white space and long lines (disabled in org-mode).
+- yasnippets :: Expand keywords into code snippets.
+- auto-complete :: Provide auto-completion with popup window
+
+** Org-mode
+
+- org :: Org-mode.
+- org-bibedit :: Bibtex integration for orgmode.
+- org-reveal :: Convert org-mode files to reveal.js presentations.
+- epresent :: Present slides directly from org-mode.
+- calfw :: Present org-mode agenda in calendar-style day, week and month views.
+- flashcard, flashcard-sm% :: Flashcard memorization drill software for org-mode.
+- collector :: Collect property data into org-mode table.
+
+** SuperCollider
+
+- sclang :: SuperCollider.
+- sclang-ac-mode :: auto-complete mode for SuperCollider.
+- sclang-snippets :: yasnippets for SuperCollider.
+
+Not used, because it seems to interfere with sclang-ac-mode:
+
+- sclang-extensions :: Context sensitive moving and evaluation in SuperCollider
+
+** ChucK
+
+- chuck :: chuck-mode.
+
+** Wanderlust: Email client for emacs
+
+- wanderlust :: Email-client for emacs.
+- bbdb-hooks :: Needed for wanderlust.
+- bbdb-wl :: Neeed for wanderlust.
+
+* Generic Emacs Customization
+** Theme: solarized-dark
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'solarized-dark)
+#+END_SRC
+** Internationalization: Set mac-native fonts for japanese/greek
+:PROPERTIES:
+:DATE:     <2013-12-08 Sun 15:12>
+:END:
+
+Here is a solution that works fine for displaying Latin, Greek and Japanese texts in the same buffer.  The Menlo font displays Greek clearly and smoothly, and since it is a mono-space font, it also works well in tables.  The two lisp expressions have to be evaluated in the following order for this to work.
+
+#+BEGIN_SRC emacs-lisp
+(set-fontset-font "fontset-default"
+                  'japanese-jisx0208
+                  '("Hiragino Mincho Pro" . "iso10646-1"))
+(set-fontset-font "fontset-default"
+                  'greek
+ ;; Note: iso10646-1 = Universal Character set (UCS)
+ ;; It is compatible to Unicode, in its basic range
+                  '("Menlo" . "iso10646-1"))
+#+END_SRC
+
+Links for further reading:
+
+http://sunsite.univie.ac.at/textbooks/emacs/emacs_22.html#SEC203
+http://www.gnu.org/software/emacs/manual/html_node/emacs/Modifying-Fontsets.html
+For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
+
+** Maximize/toggle frame
+#+BEGIN_SRC emacs-lisp
+(maximize-frame) ;; maximize frame on startup
+(defun toggle-fullscreen ()
+  "Toggle full screen"
+  (interactive)
+  (set-frame-parameter
+   nil 'fullscreen
+   (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+(tool-bar-mode -1)
+#+END_SRC
+
+** Generic Packages
+
+*** bookmark+, ido-mode, imenu(+), yasnippets (yas-global-mode)
+
+Note: imenu+ ?
+
+#+BEGIN_SRC emacs-lisp
+(require 'bookmark+)
+(require 'ido)
+(require 'imenu+)
+(ido-mode t)
+(yas-global-mode)
+#+END_SRC
+
+Ido-imenu command and jump back after completion, by Magnar Sveen, and others.
+
+#+BEGIN_SRC emacs-lisp
+  ;;; ido-imenu
+  (defun ido-imenu ()
+    "Update the imenu index and then use ido to select a symbol to navigate to.
+  Symbols matching the text at point are put first in the completion list."
+    (interactive)
+    (imenu--make-index-alist)
+    (let ((name-and-pos '())
+          (symbol-names '()))
+      (flet ((addsymbols
+            (symbol-list)
+            (when (listp symbol-list)
+              (dolist (symbol symbol-list)
+                (let ((name nil) (position nil))
+                  (cond
+                   ((and (listp symbol) (imenu--subalist-p symbol))
+                    (addsymbols symbol))
+
+                   ((listp symbol)
+                    (setq name (car symbol))
+                    (setq position (cdr symbol)))
+
+                   ((stringp symbol)
+                    (setq name symbol)
+                    (setq position
+                          (get-text-property 1 'org-imenu-marker symbol))))
+
+                  (unless (or (null position) (null name))
+                    (add-to-list 'symbol-names name)
+                    (add-to-list 'name-and-pos (cons name position))))))))
+        (addsymbols imenu--index-alist))
+  ;; If there are matching symbols at point, put them at the beginning of `symbol-names'.
+      (let ((symbol-at-point (thing-at-point 'symbol)))
+        (when symbol-at-point
+          (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
+                 (matching-symbols
+                  (delq nil (mapcar (lambda (symbol)
+                                      (if (string-match regexp symbol) symbol))
+                                    symbol-names))))
+            (when matching-symbols
+              (sort matching-symbols (lambda (a b) (> (length a) (length b))))
+              (mapc
+               (lambda (symbol)
+                 (setq symbol-names (cons symbol (delete symbol symbol-names))))
+               matching-symbols)))))
+      (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
+             (position (cdr (assoc selected-symbol name-and-pos))))
+        (goto-char position))))
+
+  ;; Push mark when using ido-imenu
+
+  (defvar push-mark-before-goto-char nil)
+
+  (defadvice goto-char (before push-mark-first activate)
+    (when push-mark-before-goto-char
+      (push-mark)))
+
+  (defun ido-imenu-push-mark ()
+    (interactive)
+    (let ((push-mark-before-goto-char t))
+      (ido-imenu)))
+#+END_SRC
+
+#+RESULTS:
+: ido-imenu-push-mark
+
+*** smex (auto-complete minibuffer commands called with Meta-x)
+
+#+BEGIN_SRC emacs-lisp
+;; Smex: Autocomplete meta-x command
+(global-set-key [(meta x)]
+                (lambda ()
+                  (interactive)
+                  (or (boundp 'smex-cache)
+                      (smex-initialize))
+                  (global-set-key [(meta x)] 'smex)
+                  (smex)))
+
+(global-set-key [(shift meta x)]
+                (lambda ()
+                  (interactive)
+                  (or (boundp 'smex-cache)
+                      (smex-initialize))
+                  (global-set-key [(shift meta x)] 'smex-major-mode-commands)
+                  (smex-major-mode-commands)))
+#+END_SRC
+
+*** Multiple Cursors
+
+#+BEGIN_SRC emacs-lisp
+(require 'multiple-cursors)
+(global-set-key (kbd "C-c m") 'helm-mini)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+END_SRC
+
+*** Whitespace Mode
+
+#+BEGIN_SRC emacs-lisp
+  (defun turn-off-whitespace-mode () (whitespace-mode -1))
+  (defun turn-on-whitespace-mode () (whitespace-mode 1))
+#+END_SRC
+
+*** Key Chords
+
+#+BEGIN_SRC emacs-lisp
+  (require 'key-chord)
+  (key-chord-mode 1)
+
+  (defun paren-sexp ()
+    (interactive)
+    (insert "(")
+    (forward-sexp)
+    (insert ")"))
+
+  (defun code-quote-sexp ()
+    (interactive)
+    (insert "=")
+    (forward-sexp)
+    (insert "="))
+
+  (key-chord-define-global "jk"     'ace-jump-char-mode)
+  (key-chord-define-global "jj"     'ace-jump-word-mode)
+  (key-chord-define-global "jl"     'ace-jump-line-mode)
+
+  (key-chord-define-global "hj"     'undo)
+
+  (key-chord-define-global "{}"     "{   }\C-b\C-b\C-b")
+  (key-chord-define-global "()"     'paren-sexp)
+  (key-chord-define-global "(_"     "()\C-b")
+  (key-chord-define-global "=="     'code-quote-sexp)
+
+  ;; Exit auto-complete, keeping the current selection,
+  ;; while avoiding possible side-effects of TAB or RETURN.
+  (key-chord-define-global "KK"      "\C-f\C-b")
+  ;; Trick for triggering yasnippet when using in tandem with auto-complete:
+  ;; Move forward once to get out of auto-complete, then backward once to
+  ;; end of keyword, and enter tab to trigger yasnippet.
+  (key-chord-define-global "KL"      "\C-f\C-b\C-i")
+
+  ;; Jump to any symbol in buffer using ido-imenu
+  (key-chord-define-global "KJ"      'ido-imenu)
+#+END_SRC
+
+*** Highlight-Sexps / or hl-sexp mode
+
+Highlight expressions enclosed by (), {} or [] in code.  Uses 2 different colors, 1 for the innermost region and another for the one surrounding it.
+
+There are 2 versions around:
+1. highlight-sexps.el, from http://www.emacswiki.org/emacs/HighlightSexp.
+   Package name: highlight-sexps
+   Mode name: highlight-sexps-mode
+2. hl-sexp package available from elpa.
+   Package name: hl-sexp
+   Mode name: hl-sexp-mode
+
+I prefer 1, highlight-sexps.el, because it highlights both the innermost s-expression and the one enclosing it, and it does not un-highlight the line where the cursor is on.
+
+#+BEGIN_SRC emacs-lisp
+  ;;(require 'hl-sexp)
+  (require 'highlight-sexps)
+  ;; Include color customization for dark color theme here.
+  (custom-set-variables
+   '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
+#+END_SRC
+
+*** NEEDS_REVIEW Dired extensions and customization
+**** Dired+ (not yet used)
+
+#+BEGIN_SRC emacs-lisp
+;; (require 'dired+)
+#+END_SRC
+
+**** Dired customization from Healy's startup kit
+(From Healy's startup kit)
+
+Note: Perhaps these are not used.  Need to test.
+
+***** Open pdf files with default macos app in dired
+:PROPERTIES:
+:DATE:     <2013-12-01 Sun 15:01>
+:END:
+
+From: http://stackoverflow.com/questions/20019732/define-keybinding-for-dired-to-run-a-command-open-on-the-file-under-the-cur
+
+#+BEGIN_SRC emacs-lisp
+  (define-key dired-mode-map (kbd "<SPC>")
+    (lambda () (interactive)
+      (let ((lawlist-filename (dired-get-file-for-visit)))
+        (if (equal (file-name-extension lawlist-filename) "pdf")
+            (start-process "default-pdf-app" nil "open" lawlist-filename)))))
+#+END_SRC
+***** Dired-x
+Dired extensions
+#+SOURCE: Dired-x
+#+BEGIN_SRC emacs-lisp
+  (load "dired-x")
+#+END_SRC
+
+#+RESULTS:
+: t
+
+***** Dired open multiple files
+In dired mode, visit all marked files using. Bound to the "F" key.
+#+SOURCE: dired-F
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "dired"
+  '(progn
+     (define-key dired-mode-map "F" 'my-dired-find-file)
+     (defun my-dired-find-file (&optional arg)
+       "Open each of the marked files, or the file under the point, or when prefix arg, the next N files "
+       (interactive "P")
+       (let* ((fn-list (dired-get-marked-files nil arg)))
+         (mapc 'find-file fn-list)))))
+#+END_SRC
+
+#+RESULTS:
+: my-dired-find-file
+
+***** Stripe Dired buffers
+#+name: stripe-dired
+#+begin_src [emacs-lisp (This part is disabled)]
+(require 'stripe-buffer)
+(add-hook 'org-mode-hook 'org-table-stripes-enable)
+(add-hook 'dired-mode-hook 'stripe-listify-buffer)
+#+end_src
+
+*** TODO Fixme minor mode?
+
+http://www.emacswiki.org/emacs/FixmeMode
+http://www.emacswiki.org/emacs/fixme-mode.el
+
+Or see: hl-todo, and further packages like it, listed in hl-todo Help file:
+
+- [[http://emacswiki.org/fic-ext-mode.el][fic-ext-mode]]
+- [[https://github.com/lewang/fic-mode][fic-mode]]
+- [[http://emacswiki.org/FixmeMode][fixme-mode]]
+- [[https://github.com/rolandwalker/fixmee][fixmee]]
+- see http://emacswiki.org/FixmeMode for more alternatives
+
+If you like this you might also like [[https://github.com/tarsius/orglink][orglink]].
+
+* Customization of Specific Authoring Modes
+** SuperCollider
+*** Sclang Setup
+#+BEGIN_SRC emacs-lisp
+;;; Directory of SuperCollider support, for quarks, plugins, help etc.
+(defvar sc_userAppSupportDir
+  (expand-file-name "~/Library/Application Support/SuperCollider"))
+
+;; Make path of sclang executable available to emacs shell load path
+(add-to-list
+ 'exec-path
+ "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/")
+
+;; Global keyboard shortcut for starting sclang
+(global-set-key (kbd "C-c M-s") 'sclang-start)
+;; overrides alt-meta switch command
+(global-set-key (kbd "C-c W") 'sclang-switch-to-workspace)
+
+;; Disable switching to default SuperCollider Workspace when recompiling SClang
+(setq sclang-show-workspace-on-startup nil)
+
+;; Save results of sc evaluation in elisp variable for access in emacs
+(defvar sclang-return-string  nil
+  "The string returned by sclang process after evaluating expressions.")
+
+(defadvice sclang-process-filter (before provide-sclang-eval-results)
+  "Pass sc eval return string to elisp by setting sclang-return-string variable."
+  (setq sclang-return-string (ad-get-arg 1)))
+
+(ad-activate 'sclang-process-filter)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(require 'sclang)
+#+END_SRC
+
+*** SuperCollider-specific minor modes
+
+Paredit mode breaks re-starting sclang! Therefore, do not use it. Paredit-style bracket movement commands d, u, f, b, n, p work in sclang-mode without loading Paredit.
+
+Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it out for now.
+
+#+BEGIN_SRC emacs-lisp
+  ;; paredit mode breaks re-starting sclang! Therefore, do not use it.
+  ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
+  ;; in sclang-mode without loading Paredit.
+  ;; (add-hook 'sclang-mode-hook 'paredit-mode)
+  (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'sclang-mode-hook 'highlight-sexps-mode)
+  (add-hook 'sclang-mode-hook 'sclang-ac-mode)
+  ;; Following possibly breaks auto-complete in my setup:  Disabled for now.
+  ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
+#+END_SRC
+
+*** Sclang keyboard shortcuts
+
+#+BEGIN_SRC emacs-lisp
+;; Global keyboard shortcut for starting sclang
+(global-set-key (kbd "C-c M-s") 'sclang-start)
+;; Show workspace
+(global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
+#+END_SRC
+** emacs-lisp
+#+BEGIN_SRC emacs-lisp
+  ;; (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
+  (add-hook 'emacs-lisp-mode-hook 'highlight-sexps-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
+  #+END_SRC
+
+#+RESULTS:
+** org-mode
+*** Org-mode hooks
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
+#+END_SRC
+
+*** Customize Org-mode display
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-indented t) ;; auto-indent text in subtrees
+  (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
+  (setq org-src-fontify-natively t) ;; colorize source blocks natively
+#+END_SRC
+
+*** Log: (simplified alternative to capture)
+:PROPERTIES:
+:DATE:     <2013-12-07 Sat 21:59>
+:ID:       1E0A70E5-7417-48E7-B17A-9C727D995AE4
+:END:
+
+Time tasks and keep log file, in a very short way
+
+- Very simple and fast input mechanism
+- New task simply also sets the timestamp for the end of the previous one.
+- Following properties are set:
+  START_TIME (= active timestamp set at time of start)
+  END_TIME (= active timestamp set at time of start of next log entry)
+  TIME_SPAN (= START_TIME--END_TIME as timestamps)
+  DURATION (= START_TIME-END_TIME as hours:minutes)
+- Keeps current task in file "stopwatch.txt"
+  This is read by geeklet CountUp, to display duration of current task.
+  (sh code of geeklet is included below).
+
+**** CountUp geeklet code
+
+#+BEGIN_SRC sh
+#!/bin/bash
+# Homework countdown
+# BETA - I will update this when I get more time
+function countdown
+{
+	CURRENT=$(date -j -f %D_%T $1 +%s)
+	TARGET=$(date +%s)
+	LEFT=$((TARGET-CURRENT))
+	WEEKS=$((LEFT/604800))
+	DAYS=$(( (LEFT%604800)/86400))
+	HOURS=$(( (LEFT%86400)/3600))
+	MINS=$(( (LEFT%3600)/60))
+	SECS=$((LEFT%60))
+
+	lblWEEKS="Weeks"
+	lblDAYS="Days"
+
+	if [ $DAYS == 1 ]
+	then
+	lblDAYS="Day"
+	fi
+
+	if [ $WEEKS == 1 ]
+	then
+	lblWEEKS="Weeky"
+	fi
+
+	if [ $HOURS -lt 10 ]
+	then
+		HOURS=0$HOURS
+	fi
+
+	if [ $MINS -lt 10 ]
+	then
+		MINS=0$MINS
+	fi
+
+
+	if [ $SECS -lt 10 ]
+	then
+		SECS=0$SECS
+	fi
+
+
+	echo $2 $HOURS:$MINS:$SECS
+	# Optional extra line between timers
+	# echo
+}
+DATES=( $( cat /Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt ) )
+# Even numbered indices are names, odd numbered indices are dates
+
+if [ ${#DATES[@]} == 0 ]
+then
+echo "No Deadlines!"
+return
+fi
+
+for (( i = 0 ; i < ${#DATES[@]} ; i+=2 ))
+do
+countdown ${DATES[i+1]} ${DATES[i]}
+done
+#+END_SRC
+
+**** Emacs-lisp log function
+
+#+BEGIN_SRC emacs-lisp
+  (defun log (topic)
+    "Write countdown file for countdown geeklet.
+    Ask user number of seconds to plan countdown in future."
+    (interactive "MEnter task topic: ")
+    (if (< (length topic) 1) (setq topic "Untitled task"))
+    (let ((timer-string
+           (concat
+            (replace-regexp-in-string " " "_" topic)
+            (format-time-string ": %D_%T" (current-time)))))
+      (find-file
+       "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
+      (beginning-of-buffer)
+      (kill-line)
+      (insert-string timer-string)
+      (save-buffer)
+      (message (concat "Now timing: " timer-string))
+      (find-file
+       "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/log.org")
+      (widen)
+      (end-of-buffer)
+      (insert-string "-")
+      (org-insert-time-stamp (current-time) t)
+      (beginning-of-line)
+      (kill-line)
+      (if (> (org-outline-level) 1) (outline-up-heading 100 t))
+      (org-set-property
+       "END_TIME"
+       (replace-regexp-in-string
+        ">" "]"
+        (replace-regexp-in-string "<" "[" org-last-inserted-timestamp)))
+      (org-set-property
+       "TIMER_SPAN"
+       (concat
+        (replace-regexp-in-string
+         ">" "]"
+         (replace-regexp-in-string "<" "[" (org-entry-get (point) "START_TIME")))
+        "--"
+        (org-entry-get (point) "END_TIME")))
+      (let* ((seconds
+              (-
+               (org-float-time
+                (apply
+                 'encode-time
+                 (org-parse-time-string (org-entry-get (point) "END_TIME"))))
+               (org-float-time
+                (apply
+                 'encode-time
+                 (org-parse-time-string (org-entry-get (point) "START_TIME"))))
+               ))
+             (hours (floor (/ seconds 3600)))
+             (seconds (- seconds (* 3600 hours)))
+             (minutes (floor (/ seconds 60))))
+        (org-set-property
+         "DURATION"
+         (replace-regexp-in-string " " "0" (format "%2d:%2d" hours minutes))))
+      (end-of-buffer)
+      (insert-string "\n* ")
+      (insert-string (replace-regexp-in-string "_" " " timer-string))
+      ;;      (insert-string "\n")
+      (org-set-property "START_TIME" org-last-inserted-timestamp)
+      (org-id-get-create)
+      (org-set-tags-command)
+  ;;    (if narrow-p
+      (org-narrow-to-subtree)
+      (goto-char (point-max))
+      (org-show-subtree)
+      (org-show-entry)
+      (save-buffer)
+  ;;    )
+      ))
+
+  (global-set-key (kbd "C-M-l") 'log)
+#+END_SRC
+
+#+RESULTS:
+: log

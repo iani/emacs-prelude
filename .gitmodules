@@ -1,0 +1,3 @@
+[submodule "packages/org-reveal"]
+	path = packages/org-reveal
+	url = https://github.com/yjwen/org-reveal.git

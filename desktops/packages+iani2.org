@@ -1,0 +1,49 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Mon Dec 23 16:12:31 2013
+;; Desktop file format version 206
+;; Emacs version 24.3.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq register-alist nil)
+(setq file-name-history '("~/.emacs.d/personal/desktops/packages+iani2.org" "~/.emacs.d/personal/desktops" "~/Dropbox/000WORKFILES/doc/personal/eforia/ekkatharistikoIZ2013.pdf" "/Volumes/NO NAME/000PRINT-PDF/" "/Volumes/NO NAME/000PRINT-PDF" "/Volumes/NO NAME/OTHER/" "/Volumes/NO NAME/PRINT-PDF/PRINT-PDF" "~/Dropbox/000WORKFILES/doc/personal/eforia/ekkatharistikoIZ2013.pdf" "~/Dropbox/000WORKFILES/doc/personal/eforia/rwservlet.pdf" "~/Dropbox/000WORKFILES/doc/personal/eforia" "/Users/iani2/.emacs.d/personal-disabled/user/iani2.org" "~/.emacs.d/personal/preload/sc-snippets.el" "~/.emacs.d/personal/preload/highlight-sexps.el" "~/.emacs.d/personal/preload/chuck-mode.el" "~/.emacs.d/personal/packages/org-reveal" "~/.emacs.d/personal/packages/org-bibedit" "~/.emacs.d/personal/packages/htmlize" "~/.emacs.d/personal/packages/flashcard-sm5" "~/.emacs.d/personal/packages/flashcard" "~/.emacs.d/personal/packages/fc" "~/.emacs.d/personal/packages/epresent" "~/.emacs.d/personal/packages/collector" "~/.emacs.d/personal/packages/calfw" "~/.emacs.d/personal/packages/bbdb-wl" "~/.emacs.d/personal/packages/bbdb-hooks" "~/.emacs.d/personal-disabled/" "~/.emacs.d/personal/user/iani2.org" "~/.emacs.d/personal/user" "~/.emacs.d/personal/packages/sclang" "~/.emacs.d/personal/init.el"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  nil
+  "packages"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode yas-minor-mode)
+  240
+  '(nil nil)
+  t
+  '("/Users/iani2/.emacs.d/personal/packages/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "personal"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode yas-minor-mode)
+  409
+  '(nil nil)
+  t
+  '("/Users/iani2/.emacs.d/personal/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/iani2/.emacs.d/personal/user/iani2.org"
+  "iani2.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode yas-minor-mode org-indent-mode)
+  689
+  '(3552 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
