@@ -39,6 +39,9 @@ Not used, but in preparation/evaluation:
 - calfw :: Present org-mode agenda in calendar-style day, week and month views.
 - flashcard, flashcard-sm% :: Flashcard memorization drill software for org-mode.
 - collector :: Collect property data into org-mode table.
+- ox-latex :: Latex support
+- org-crypt :: Encrypt org-mode entries tagged with =crypt=
+- ox-reveal :: Export org-mode files as reveal.js slide presentations.
 
 ** SuperCollider
 
@@ -448,6 +451,11 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   (setq org-src-fontify-natively t) ;; colorize source blocks natively
 #+END_SRC
 
+*** Calendar framework: Show org agenda in iCal-style layout
+
+#+BEGIN_SRC emacs-lisp
+ (require 'calfw)
+#+END_SRC
 *** Log: (simplified alternative to capture)
 :PROPERTIES:
 :DATE:     <2013-12-07 Sat 21:59>
@@ -612,3 +620,120 @@ done
 
 #+RESULTS:
 : log
+*** Org-Babel: enable some languages
+
+Enable some cool languages in org-babel mode.
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (sh . t)
+   (ruby . t)
+   (python . t)
+   (perl . t)
+   ))
+#+END_SRC
+
+*** Orgmode latex customization
+
+#+BEGIN_SRC emacs-lisp
+;;; Load latex package
+(require 'ox-latex)
+
+;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
+(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
+
+;;; Add beamer to available latex classes, for slide-presentaton format
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;;; Add memoir class (experimental)
+(add-to-list 'org-latex-classes
+             '("memoir"
+               "\\documentclass[12pt,a4paper,article]{memoir}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+END_SRC
+*** Org-crypt: Encrypt selected org-mode entries
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)
+#+END_SRC
+
+*** org-reveal: Export slides for Reveal.js from orgmode
+
+Load org-reveal to make slides with reveal.js
+
+#+BEGIN_SRC emacs-lisp
+(require 'ox-reveal)
+#+END_SRC
+*** Macro: toggle drawer visibility for this node
+:PROPERTIES:
+:DATE:     <2013-12-09 Mon 17:19>
+:END:
+
+See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specific-emacs-mode
+
+#+BEGIN_SRC emacs-lisp
+  (fset 'org-toggle-drawer
+     (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
+#+END_SRC
+
+#+RESULTS:
+: org-toggle-drawer
+*** Keyboard Command Shortcut: Select heading of this node (for editing)
+
+Note: outline-previous-heading (C-c p) places the point at the beginning of the heading line.  To edit the heading, one has to go past the * that mark the heading.  org-select heading places the mark at the beginning of the heading text and selects the heading, so one can start editing the heading right away.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-select-heading ()
+    "Go to heading of current node, select heading."
+    (interactive)
+    (outline-previous-heading)
+    (search-forward (plist-get (cadr (org-element-at-point)) :raw-value))
+    (set-mark (point))
+    (beginning-of-line)
+    (search-forward " "))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c h") 'org-select-heading))
+#+END_SRC
+** Add git repositories to Magit (git for emacs)
+
+Magit config: Manage git repos from inside emacs
+
+#+BEGIN_SRC emacs-lisp
+(setq magit-repo-dirs
+      '(
+        "~/Dropbox/000WORKFILES/org"
+        "~/Documents/Dev"
+        "~/.emacs.d/personal"
+))
+#+END_SRC
+
+** Encryption
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)
+#+END_SRC
