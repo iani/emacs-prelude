@@ -58,7 +58,7 @@ Not used, but in preparation/evaluation:
 
 Not used, because it seems to interfere with sclang-ac-mode:
 
-- sclang-extensions :: Context sensitive moving and evaluation in SuperCollider
+- sclang-extensions :: Context sensitive moving and evaluation in SuperCollide
 
 ** ChucK
 
