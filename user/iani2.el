@@ -19,72 +19,14 @@
    (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 (tool-bar-mode -1)
 
+(desktop-save-mode 1)
+
 (require 'bookmark+)
 (require 'ido)
 (require 'imenu+)
 (ido-mode t)
+(icicle-mode)
 (yas-global-mode)
-
-;;; ido-imenu
-(defun ido-imenu ()
-  "Update the imenu index and then use ido to select a symbol to navigate to.
-Symbols matching the text at point are put first in the completion list."
-  (interactive)
-  (imenu--make-index-alist)
-  (let ((name-and-pos '())
-        (symbol-names '()))
-    (flet ((addsymbols
-          (symbol-list)
-          (when (listp symbol-list)
-            (dolist (symbol symbol-list)
-              (let ((name nil) (position nil))
-                (cond
-                 ((and (listp symbol) (imenu--subalist-p symbol))
-                  (addsymbols symbol))
-
-                 ((listp symbol)
-                  (setq name (car symbol))
-                  (setq position (cdr symbol)))
-
-                 ((stringp symbol)
-                  (setq name symbol)
-                  (setq position
-                        (get-text-property 1 'org-imenu-marker symbol))))
-
-                (unless (or (null position) (null name))
-                  (add-to-list 'symbol-names name)
-                  (add-to-list 'name-and-pos (cons name position))))))))
-      (addsymbols imenu--index-alist))
-;; If there are matching symbols at point, put them at the beginning of `symbol-names'.
-    (let ((symbol-at-point (thing-at-point 'symbol)))
-      (when symbol-at-point
-        (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
-               (matching-symbols
-                (delq nil (mapcar (lambda (symbol)
-                                    (if (string-match regexp symbol) symbol))
-                                  symbol-names))))
-          (when matching-symbols
-            (sort matching-symbols (lambda (a b) (> (length a) (length b))))
-            (mapc
-             (lambda (symbol)
-               (setq symbol-names (cons symbol (delete symbol symbol-names))))
-             matching-symbols)))))
-    (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
-           (position (cdr (assoc selected-symbol name-and-pos))))
-      (goto-char position))))
-
-;; Push mark when using ido-imenu
-
-(defvar push-mark-before-goto-char nil)
-
-(defadvice goto-char (before push-mark-first activate)
-  (when push-mark-before-goto-char
-    (push-mark)))
-
-(defun ido-imenu-push-mark ()
-  (interactive)
-  (let ((push-mark-before-goto-char t))
-    (ido-imenu)))
 
 ;; Smex: Autocomplete meta-x command
 (global-set-key [(meta x)]
@@ -155,6 +97,9 @@ Symbols matching the text at point are put first in the completion list."
 ;; Include color customization for dark color theme here.
 (custom-set-variables
  '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
+
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 
 ;; (require 'dired+)
 
@@ -232,6 +177,8 @@ Symbols matching the text at point are put first in the completion list."
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
 (setq org-src-fontify-natively t) ;; colorize source blocks natively
 
+(require 'calfw)
+
 (defun log (topic)
   "Write countdown file for countdown geeklet.
   Ask user number of seconds to plan countdown in future."
@@ -304,3 +251,87 @@ Symbols matching the text at point are put first in the completion list."
     ))
 
 (global-set-key (kbd "C-M-l") 'log)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (sh . t)
+   (ruby . t)
+   (python . t)
+   (perl . t)
+   ))
+
+;;; Load latex package
+(require 'ox-latex)
+
+;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
+(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
+
+;;; Add beamer to available latex classes, for slide-presentaton format
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;;; Add memoir class (experimental)
+(add-to-list 'org-latex-classes
+             '("memoir"
+               "\\documentclass[12pt,a4paper,article]{memoir}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)
+
+(require 'ox-reveal)
+
+(fset 'org-toggle-drawer
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
+
+(defun org-cycle-current-entry ()
+  "toggle visibility of current entry from within the etnry."
+  (interactive)
+  (save-excursion)
+  (outline-back-to-heading)
+  (org-cycle))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-/") 'org-cycle-current-entry))
+
+(defun org-select-heading ()
+  "Go to heading of current node, select heading."
+  (interactive)
+  (outline-previous-heading)
+  (search-forward (plist-get (cadr (org-element-at-point)) :raw-value))
+  (set-mark (point))
+  (beginning-of-line)
+  (search-forward " "))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-h") 'org-select-heading))
+
+(setq magit-repo-dirs
+      '(
+        "~/Dropbox/000WORKFILES/org"
+        "~/Documents/Dev"
+        "~/.emacs.d/personal"
+))
+
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)

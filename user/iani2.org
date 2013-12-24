@@ -8,9 +8,15 @@ Some of the packages configurations (for example: wanderlust) have not yet been 
 
 ** General
 
-- bookmark+ :: Bookmark enhancement.
-- ido-mode :: Enhancement of autocomplete for minibuffer.
+- ido-mode :: Basic enhancement of autocomplete for minibuffer.
               But also autocompletion when coding.
+- icicles :: More powerful enhancement of autocomplete in all sorts of situations.
+             See: http://www.emacswiki.org/emacs/EmacsNewbieWithIcicles
+
+Note: ido-mode and icicles are mutually compatible and can be on at the same time.
+Icicles can be switched on and off with M-x icy-mode.
+
+- bookmark+ :: Bookmark enhancement.
 - smex :: Enhancement of autocomplete for commands in minibuffer.
 - solarized-dark :: Additional emacs color theme.
 
@@ -29,19 +35,19 @@ Not used, but in preparation/evaluation:
 - whitespace mode :: mark unnecessary white space and long lines (disabled in org-mode).
 - yasnippets :: Expand keywords into code snippets.
 - auto-complete :: Provide auto-completion with popup window
+- ElDoc :: Show arguments required by current function in minibuffeer.
 
 ** Org-mode
 
 - org :: Org-mode.
-- org-bibedit :: Bibtex integration for orgmode.
-- org-reveal :: Convert org-mode files to reveal.js presentations.
 - epresent :: Present slides directly from org-mode.
 - calfw :: Present org-mode agenda in calendar-style day, week and month views.
-- flashcard, flashcard-sm% :: Flashcard memorization drill software for org-mode.
 - collector :: Collect property data into org-mode table.
+- org-bibedit :: Bibtex integration for orgmode.
 - ox-latex :: Latex support
 - org-crypt :: Encrypt org-mode entries tagged with =crypt=
 - ox-reveal :: Export org-mode files as reveal.js slide presentations.
+- org-drill, flashcard, flashcard-sm5 :: Flashcard memorization drill software for org-mode.
 
 ** SuperCollider
 
@@ -64,6 +70,7 @@ Not used, because it seems to interfere with sclang-ac-mode:
 - bbdb-wl :: Neeed for wanderlust.
 
 * Generic Emacs Customization
+
 ** Theme: solarized-dark
 #+BEGIN_SRC emacs-lisp
   (load-theme 'solarized-dark)
@@ -106,7 +113,15 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
 ** Generic Packages
 
-*** bookmark+, ido-mode, imenu(+), yasnippets (yas-global-mode)
+*** desktop
+
+Save desktop between sessions.  To clear desktop: M-x desktop-clear
+
+#+begin_src emacs-lisp :tangle yes
+(desktop-save-mode 1)
+#+end_src
+
+*** bookmark+, ido-mode, imenu(+), yasnippets (yas-global-mode), icicles
 
 Note: imenu+ ?
 
@@ -115,12 +130,45 @@ Note: imenu+ ?
 (require 'ido)
 (require 'imenu+)
 (ido-mode t)
+(icicle-mode)
 (yas-global-mode)
 #+END_SRC
+*** Note on icicle key bindings and org-mode
 
-Ido-imenu command and jump back after completion, by Magnar Sveen, and others.
+C-c ' in org mode runs the command org-edit-special, for editing babel commands and other blocks.  To avoid conflict with icicles binding of the same key to icicle-occur, remap the latter to something else (e.g. C-c C-M-'), like this:
+1. type M-x customize-group <RET> Icicles-Key-Bindings <RET>
+2. Scroll down to Icicle Top Level Key Bindings, open the list, find icicle-occur, enter C-c C-M-' to the =Key:= field, go to top of buffer, use the =State= button to save this.
 
-#+BEGIN_SRC emacs-lisp
+See also discussion here: http://www.emacswiki.org/emacs/Icicles_-_Key_Binding_Discussion
+The relevant part is cited below:
+
+#+BEGIN_QUOTE
+But what is the best way to remove an internal value in the option `icicle-top-level-key-bindings’? It is a quite big list in its value. If I choose to remove that specific line through customize that variable, it would make my init file un-readable. So I need to write some function to make it in the runtime. Here is my function:
+#+END_QUOTE
+
+#+BEGIN_SRC elisp
+  (eval-after-load "icicles-opt.el"
+    (add-hook
+     'icicle-mode-hook
+     (lambda ()
+       (setq my-icicle-top-level-key-bindings
+             (mapcar (lambda (lst)
+                       (unless (string= "icicle-occur" (nth 1 lst)) lst))
+                     icicle-top-level-key-bindings))
+       (setq icicle-top-level-key-bindings my-icicle-top-level-key-bindings) )))
+
+  (icy-mode)
+#+END_SRC
+
+#+BEGIN_QUOTE
+DavidYoung
+#+END_QUOTE
+
+*** Ido-imenu command and jump back after completion, by Magnar Sveen, and others.
+
+Disabled.
+
+#+BEGIN_SRC elisp
   ;;; ido-imenu
   (defun ido-imenu ()
     "Update the imenu index and then use ido to select a symbol to navigate to.
@@ -130,7 +178,7 @@ Ido-imenu command and jump back after completion, by Magnar Sveen, and others.
     (let ((name-and-pos '())
           (symbol-names '()))
       (flet ((addsymbols
-            (symbol-list)
+            (symbol-liost)
             (when (listp symbol-list)
               (dolist (symbol symbol-list)
                 (let ((name nil) (position nil))
@@ -288,6 +336,12 @@ I prefer 1, highlight-sexps.el, because it highlights both the innermost s-expre
    '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
 #+END_SRC
 
+*** ElDoc: Show arguments for emacs-lisp function in minibuffer
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+#+END_SRC
 *** NEEDS_REVIEW Dired extensions and customization
 **** Dired+ (not yet used)
 
@@ -695,8 +749,20 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
     '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 #+END_SRC
 
-#+RESULTS:
-: org-toggle-drawer
+*** Toggle folding of current item (Command and keyboard command)
+
+#+begin_src emacs-lisp :tangle yes
+  (defun org-cycle-current-entry ()
+    "toggle visibility of current entry from within the etnry."
+    (interactive)
+    (save-excursion)
+    (outline-back-to-heading)
+    (org-cycle))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-/") 'org-cycle-current-entry))
+#+end_src
+
 *** Keyboard Command Shortcut: Select heading of this node (for editing)
 
 Note: outline-previous-heading (C-c p) places the point at the beginning of the heading line.  To edit the heading, one has to go past the * that mark the heading.  org-select heading places the mark at the beginning of the heading text and selects the heading, so one can start editing the heading right away.
@@ -712,7 +778,7 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
     (search-forward " "))
 
   (eval-after-load 'org
-    '(define-key org-mode-map (kbd "C-c h") 'org-select-heading))
+    '(define-key org-mode-map (kbd "C-c C-h") 'org-select-heading))
 #+END_SRC
 ** Add git repositories to Magit (git for emacs)
 
