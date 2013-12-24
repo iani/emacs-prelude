@@ -26,7 +26,10 @@
 (require 'imenu+)
 (ido-mode t)
 (icicle-mode)
-(yas-global-mode)
+;; (yas-global-mode)
+
+(require 'lacarte)
+(global-set-key [?\e ?\M-x] 'lacarte-execute-command)
 
 ;; Smex: Autocomplete meta-x command
 (global-set-key [(meta x)]
@@ -92,12 +95,6 @@
 ;; Jump to any symbol in buffer using ido-imenu
 (key-chord-define-global "KJ"      'ido-imenu)
 
-;;(require 'hl-sexp)
-(require 'highlight-sexps)
-;; Include color customization for dark color theme here.
-(custom-set-variables
- '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
-
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 
@@ -154,7 +151,7 @@
 ;; in sclang-mode without loading Paredit.
 ;; (add-hook 'sclang-mode-hook 'paredit-mode)
 (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'sclang-mode-hook 'highlight-sexps-mode)
+(add-hook 'sclang-mode-hook 'hl-sexp-mode)
 (add-hook 'sclang-mode-hook 'sclang-ac-mode)
 ;; Following possibly breaks auto-complete in my setup:  Disabled for now.
 ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
@@ -165,7 +162,7 @@
 (global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
 
 ;; (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
-(add-hook 'emacs-lisp-mode-hook 'highlight-sexps-mode)
+(add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
@@ -322,6 +319,17 @@
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-h") 'org-select-heading))
 
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)
+
+(add-hook 'org-mode-hook
+          (lambda () (imenu-add-to-menubar "Imenu")))
+(setq org-imenu-depth 3)
+
 (setq magit-repo-dirs
       '(
         "~/Dropbox/000WORKFILES/org"
@@ -329,9 +337,26 @@
         "~/.emacs.d/personal"
 ))
 
-(require 'org-crypt)
-(org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
-;; GPG key to use for encryption
-;; Either the Key ID or set to nil to use symmetric encryption.
-(setq org-crypt-key nil)
+(defun org-icicle-occur ()
+  "In org-mode, show entire buffer contents before running icicle-occur.
+Otherwise icicle-occur will not place cursor at found location,
+if the location is hidden."
+  (interactive)
+  (show-all)
+  (icicle-occur (point-min) (point-max)))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
+
+(defun org-icicle-imenu ()
+  "In org-mode, show entire buffer contents before running icicle-imenu.
+Otherwise icicle-occur will not place cursor at found location,
+if the location is hidden."
+  (interactive)
+  (show-all)
+  (icicle-imenu (point-min) (point-max) t))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
+
+(setq org-outline-path-complete-in-steps nil)

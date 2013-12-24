@@ -19,6 +19,7 @@ Icicles can be switched on and off with M-x icy-mode.
 - bookmark+ :: Bookmark enhancement.
 - smex :: Enhancement of autocomplete for commands in minibuffer.
 - solarized-dark :: Additional emacs color theme.
+- lacarte :: execute menu commands from the keyboard
 
 Not used, but in preparation/evaluation:
 
@@ -121,18 +122,18 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 (desktop-save-mode 1)
 #+end_src
 
-*** bookmark+, ido-mode, imenu(+), yasnippets (yas-global-mode), icicles
-
-Note: imenu+ ?
+*** bookmark+, ido-mode, imenu(+), auto-complete, yasnippets, icicles
 
 #+BEGIN_SRC emacs-lisp
-(require 'bookmark+)
-(require 'ido)
-(require 'imenu+)
-(ido-mode t)
-(icicle-mode)
-(yas-global-mode)
+  (require 'bookmark+)
+  (require 'ido)
+  (require 'imenu+)
+  (require 'auto-complete)
+  (ido-mode t)
+  (icicle-mode)
+  ;; (yas-global-mode)
 #+END_SRC
+
 *** Note on icicle key bindings and org-mode
 
 C-c ' in org mode runs the command org-edit-special, for editing babel commands and other blocks.  To avoid conflict with icicles binding of the same key to icicle-occur, remap the latter to something else (e.g. C-c C-M-'), like this:
@@ -157,12 +158,19 @@ But what is the best way to remove an internal value in the option `icicle-top-l
                      icicle-top-level-key-bindings))
        (setq icicle-top-level-key-bindings my-icicle-top-level-key-bindings) )))
 
-  (icy-mode)
+;;  (icy-mode)
 #+END_SRC
 
 #+BEGIN_QUOTE
 DavidYoung
 #+END_QUOTE
+
+*** lacarte: select menu items from the keyboard (good for org-mode with imenu)
+
+#+BEGIN_SRC emacs-lisp
+(require 'lacarte)
+(global-set-key [?\e ?\M-x] 'lacarte-execute-command)
+#+END_SRC
 
 *** Ido-imenu command and jump back after completion, by Magnar Sveen, and others.
 
@@ -326,11 +334,11 @@ There are 2 versions around:
    Package name: hl-sexp
    Mode name: hl-sexp-mode
 
-I prefer 1, highlight-sexps.el, because it highlights both the innermost s-expression and the one enclosing it, and it does not un-highlight the line where the cursor is on.
+highlight-sexps.el looks nicer, because it highlights both the innermost s-expression and the one enclosing it, and it does not un-highlight the line where the cursor is on.  But it sometimes stops working.  So I use hl-sexp
 
-#+BEGIN_SRC emacs-lisp
-  ;;(require 'hl-sexp)
-  (require 'highlight-sexps)
+#+BEGIN_SRC emacslisp
+  (require 'hl-sexp)
+  ;; (require 'highlight-sexps)
   ;; Include color customization for dark color theme here.
   (custom-set-variables
    '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
@@ -466,7 +474,7 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   ;; in sclang-mode without loading Paredit.
   ;; (add-hook 'sclang-mode-hook 'paredit-mode)
   (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'sclang-mode-hook 'highlight-sexps-mode)
+  (add-hook 'sclang-mode-hook 'hl-sexp-mode)
   (add-hook 'sclang-mode-hook 'sclang-ac-mode)
   ;; Following possibly breaks auto-complete in my setup:  Disabled for now.
   ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
@@ -483,7 +491,7 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
 ** emacs-lisp
 #+BEGIN_SRC emacs-lisp
   ;; (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
-  (add-hook 'emacs-lisp-mode-hook 'highlight-sexps-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
@@ -780,6 +788,79 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-h") 'org-select-heading))
 #+END_SRC
+*** Encryption
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+;; GPG key to use for encryption
+;; Either the Key ID or set to nil to use symmetric encryption.
+(setq org-crypt-key nil)
+#+END_SRC
+
+*** Create menu for org-mode entries (lacarte lets you reach it from the keyboard, too)
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook
+            (lambda () (imenu-add-to-menubar "Imenu")))
+  (setq org-imenu-depth 3)
+#+END_SRC
+
+*** making icicle-imenu and icicle-occur work with org-mode
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-icicle-occur ()
+    "In org-mode, show entire buffer contents before running icicle-occur.
+  Otherwise icicle-occur will not place cursor at found location,
+  if the location is hidden."
+    (interactive)
+    (show-all)
+    (icicle-occur (point-min) (point-max)))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
+
+  (defun org-icicle-imenu ()
+    "In org-mode, show entire buffer contents before running icicle-imenu.
+  Otherwise icicle-occur will not place cursor at found location,
+  if the location is hidden."
+    (interactive)
+    (show-all)
+    (icicle-imenu (point-min) (point-max) t))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
+
+  (setq org-outline-path-complete-in-steps nil)
+#+END_SRC
+
+*** Providing alternative to refile using icicles
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-refile-icy (as-subtree)
+    "Alternative to org-refile using icicles.
+  Icicles seems to break org-modes headline buffer display, so one
+  has to use icicles for all headline navigation if it is loaded.
+  If quit with C-g, this function will have removed the section that
+  is to be refiled.  To get it back, one has to undo, or paste."
+    (interactive "P")
+    (outline-back-to-heading)
+    (org-cut-subtree)
+    (show-all)
+    (icicle-imenu (point-min) (point-max) t)
+    (outline-next-heading)
+    (unless (eq (current-column) 0) (insert "\n"))
+    (org-paste-subtree)
+    (if as-subtree (org-demote-subtree )))
+
+  ;; Using key binding for org-reveal, since org-reveal
+  ;; does nothing for me.
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-R") 'org-refile-icy))
+#+END_SRC
+
+
 ** Add git repositories to Magit (git for emacs)
 
 Magit config: Manage git repos from inside emacs
@@ -791,15 +872,4 @@ Magit config: Manage git repos from inside emacs
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
-#+END_SRC
-
-** Encryption
-
-#+BEGIN_SRC emacs-lisp
-(require 'org-crypt)
-(org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
-;; GPG key to use for encryption
-;; Either the Key ID or set to nil to use symmetric encryption.
-(setq org-crypt-key nil)
 #+END_SRC
