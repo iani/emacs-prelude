@@ -24,9 +24,32 @@
 (require 'bookmark+)
 (require 'ido)
 (require 'imenu+)
+(require 'auto-complete)
 (ido-mode t)
 (icicle-mode)
 ;; (yas-global-mode)
+
+(require 'switch-window)
+(global-set-key (kbd "C-x o") 'switch-window)
+
+(require 'windmove)
+(global-set-key (kbd "<C-prior>")     'windmove-up)
+(global-set-key (kbd "<C-next>")   'windmove-down)
+(global-set-key (kbd "<C-end>")   'windmove-left)
+(global-set-key (kbd "<C-home>")  'windmove-right)
+
+(require 'buffer-move)
+(global-set-key (kbd "<S-prior>")     'buf-move-up)
+(global-set-key (kbd "<S-next>")   'buf-move-down)
+(global-set-key (kbd "<S-end>")   'buf-move-left)
+(global-set-key (kbd "<S-home>")  'buf-move-right)
+
+(global-set-key (kbd "<C-s-left>")  'previous-buffer)
+(global-set-key (kbd "<C-s-right>")  'next-buffer)
+
+(require 'windmove )
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
 
 (require 'lacarte)
 (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
@@ -94,9 +117,6 @@
 
 ;; Jump to any symbol in buffer using ido-imenu
 (key-chord-define-global "KJ"      'ido-imenu)
-
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 
 ;; (require 'dired+)
 
@@ -166,13 +186,19 @@
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
+(add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 (setq org-startup-indented t) ;; auto-indent text in subtrees
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
-(setq org-src-fontify-natively t) ;; colorize source blocks natively
+(setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 
 (require 'calfw)
 
@@ -330,13 +356,6 @@
           (lambda () (imenu-add-to-menubar "Imenu")))
 (setq org-imenu-depth 3)
 
-(setq magit-repo-dirs
-      '(
-        "~/Dropbox/000WORKFILES/org"
-        "~/Documents/Dev"
-        "~/.emacs.d/personal"
-))
-
 (defun org-icicle-occur ()
   "In org-mode, show entire buffer contents before running icicle-occur.
 Otherwise icicle-occur will not place cursor at found location,
@@ -360,3 +379,31 @@ if the location is hidden."
   '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
 
 (setq org-outline-path-complete-in-steps nil)
+
+(defun org-refile-icy (as-subtree)
+  "Alternative to org-refile using icicles.
+Icicles seems to break org-modes headline buffer display, so one
+has to use icicles for all headline navigation if it is loaded.
+If quit with C-g, this function will have removed the section that
+is to be refiled.  To get it back, one has to undo, or paste."
+  (interactive "P")
+  (outline-back-to-heading)
+  (org-cut-subtree)
+  (show-all)
+  (icicle-imenu (point-min) (point-max) t)
+  (outline-next-heading)
+  (unless (eq (current-column) 0) (insert "\n"))
+  (org-paste-subtree)
+  (if as-subtree (org-demote-subtree )))
+
+;; Using key binding for org-reveal, since org-reveal
+;; does nothing for me.
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-R") 'org-refile-icy))
+
+(setq magit-repo-dirs
+      '(
+        "~/Dropbox/000WORKFILES/org"
+        "~/Documents/Dev"
+        "~/.emacs.d/personal"
+))

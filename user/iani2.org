@@ -20,10 +20,11 @@ Icicles can be switched on and off with M-x icy-mode.
 - smex :: Enhancement of autocomplete for commands in minibuffer.
 - solarized-dark :: Additional emacs color theme.
 - lacarte :: execute menu commands from the keyboard
-
-Not used, but in preparation/evaluation:
-
 - dired+ :: Enhancement of dired.
+
+- windmove :: move cursor between windows (using function-shift-cursor keys)
+- switch-window :: When more than 2 windows, then select window by number, showing window number in large font overlay.
+- buffer-move :: Switch buffer positions in windows (using function-control-cursor keys)
 
 ** Editing, coding
 
@@ -132,6 +133,36 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (ido-mode t)
   (icicle-mode)
   ;; (yas-global-mode)
+#+END_SRC
+
+*** Switch window
+
+#+BEGIN_SRC emacs-lisp
+  (require 'switch-window)
+  (global-set-key (kbd "C-x o") 'switch-window)
+#+END_SRC
+
+*** Buffer-move, windmove, buffer switching
+
+- windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to fn-control-<cursor key>.
+- buffer-move (package) :: Use cursor keys to switch buffer position between windows.  Bound to fn-shift-<cursor key>.
+- next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.  Bound to function-super-<cursor key>
+
+#+BEGIN_SRC emacs-lisp
+  (require 'windmove)
+  (global-set-key (kbd "<C-prior>") 'windmove-up)
+  (global-set-key (kbd "<C-next>") 'windmove-down)
+  (global-set-key (kbd "<C-end>") 'windmove-right)
+  (global-set-key (kbd "<C-home>") 'windmove-left)
+
+  (require 'buffer-move)
+  (global-set-key (kbd "<S-prior>") 'buf-move-up)
+  (global-set-key (kbd "<S-next>") 'buf-move-down)
+  (global-set-key (kbd "<S-end>") 'buf-move-right)
+  (global-set-key (kbd "<S-home>") 'buf-move-left)
+
+  (global-set-key (kbd "<s-home>") 'previous-buffer)
+  (global-set-key (kbd "<s-end>") 'next-buffer)
 #+END_SRC
 
 *** Note on icicle key bindings and org-mode
@@ -344,12 +375,6 @@ highlight-sexps.el looks nicer, because it highlights both the innermost s-expre
    '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
 #+END_SRC
 
-*** ElDoc: Show arguments for emacs-lisp function in minibuffer
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-#+END_SRC
 *** NEEDS_REVIEW Dired extensions and customization
 **** Dired+ (not yet used)
 
@@ -495,14 +520,19 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
+  (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   #+END_SRC
 
-#+RESULTS:
 ** org-mode
-*** Org-mode hooks
+*** Use visual line, whitespace and windmove in org-mode
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
 #+END_SRC
 
 *** Customize Org-mode display
@@ -510,7 +540,7 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-indented t) ;; auto-indent text in subtrees
   (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
-  (setq org-src-fontify-natively t) ;; colorize source blocks natively
+  (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 #+END_SRC
 
 *** Calendar framework: Show org agenda in iCal-style layout

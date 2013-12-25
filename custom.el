@@ -14,4 +14,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(hl-sexp-face ((t (:background "gray0"))))
- '(org-todo ((t (:background "#c60007" :foreground "gray100" :inverse-video nil :underline nil :slant normal :weight bold)))))
+ '(org-todo ((t (:background "#c60007" :foreground "gray100" :inverse-video nil :underline nil :slant normal :weight bold))))
+ '(whitespace-empty ((t (:background "#031a1f" :foreground "#c60007"))))
+ '(whitespace-tab ((t (:background "#05292d" :foreground "#0a2832")))))
