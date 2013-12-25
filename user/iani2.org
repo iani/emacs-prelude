@@ -6,7 +6,7 @@ Some of these have been downloaded manually and put in packages folder.
 
 Some of the packages configurations (for example: wanderlust) have not yet been moved to the present file.
 
-** General
+** Generic packages for overall Emacs configuration
 
 - ido-mode :: Basic enhancement of autocomplete for minibuffer.
               But also autocompletion when coding.
@@ -26,20 +26,24 @@ Icicles can be switched on and off with M-x icy-mode.
 - switch-window :: When more than 2 windows, then select window by number, showing window number in large font overlay.
 - buffer-move :: Switch buffer positions in windows (using function-control-cursor keys)
 
-** Editing, coding
+** Packages for specific authoring modes (emacs-lisp, SuperCollider etc.)
 
+*** Generic authoring/editing packages
 - paredit :: Paredit mode.
 - rainbow-delimiters-mode :: Multi-color parentheses, brackets, braces.
-- highlight-sexps-mode :: highight regions enclosed in parentheses, brackets, braces
+- hl-sexp-mode (alternative: highlight-sexps-mode) :: highight regions enclosed in parentheses, brackets, braces
 - multiple-cursors :: Magnar Sveen's multiple cursor package.
 - key-chord :: Trigger a command or keyboard macro by typing two characters in quick succession or together.
 - AceJump :: Jump to any one of displayed characters/words/lines starting with a character typed (triggered by key-chord combinations).
 - whitespace mode :: mark unnecessary white space and long lines (disabled in org-mode).
 - yasnippets :: Expand keywords into code snippets.
 - auto-complete :: Provide auto-completion with popup window
-- ElDoc :: Show arguments required by current function in minibuffeer.
 
-** Org-mode
+*** Emacs-lisp
+
+- ElDoc :: Show arguments required by current function in minibuffer.
+
+*** Org-mode
 
 - org :: Org-mode.
 - epresent :: Present slides directly from org-mode.
@@ -51,7 +55,7 @@ Icicles can be switched on and off with M-x icy-mode.
 - ox-reveal :: Export org-mode files as reveal.js slide presentations.
 - org-drill, flashcard, flashcard-sm5 :: Flashcard memorization drill software for org-mode.
 
-** SuperCollider
+*** SuperCollider
 
 - sclang :: SuperCollider.
 - sclang-ac-mode :: auto-complete mode for SuperCollider.
@@ -61,11 +65,12 @@ Not used, because it seems to interfere with sclang-ac-mode:
 
 - sclang-extensions :: Context sensitive moving and evaluation in SuperCollide
 
-** ChucK
+*** ChucK
 
 - chuck :: chuck-mode.
 
-** Wanderlust: Email client for emacs
+** Other extensions: Email, shells etc.
+*** Wanderlust: Email client for emacs
 
 - wanderlust :: Email-client for emacs.
 - bbdb-hooks :: Needed for wanderlust.
@@ -144,16 +149,16 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
 *** Buffer-move, windmove, buffer switching
 
-- windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to fn-control-<cursor key>.
+- windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to control-super-<cursor key>.
 - buffer-move (package) :: Use cursor keys to switch buffer position between windows.  Bound to fn-shift-<cursor key>.
 - next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.  Bound to function-super-<cursor key>
 
 #+BEGIN_SRC emacs-lisp
   (require 'windmove)
-  (global-set-key (kbd "<C-prior>") 'windmove-up)
-  (global-set-key (kbd "<C-next>") 'windmove-down)
-  (global-set-key (kbd "<C-end>") 'windmove-right)
-  (global-set-key (kbd "<C-home>") 'windmove-left)
+  (global-set-key (kbd "<C-s-up>") 'windmove-up)
+  (global-set-key (kbd "<C-s-down>") 'windmove-down)
+  (global-set-key (kbd "<C-s-right>") 'windmove-right)
+  (global-set-key (kbd "<C-s-left>") 'windmove-left)
 
   (require 'buffer-move)
   (global-set-key (kbd "<S-prior>") 'buf-move-up)
@@ -353,17 +358,18 @@ Disabled.
   (key-chord-define-global "KJ"      'ido-imenu)
 #+END_SRC
 
-*** Highlight-Sexps / or hl-sexp mode
+*** hl-sexp mode (also: highlight-sexps)
 
-Highlight expressions enclosed by (), {} or [] in code.  Uses 2 different colors, 1 for the innermost region and another for the one surrounding it.
+Highlight expressions enclosed by (), {} or [] in code.
 
-There are 2 versions around:
-1. highlight-sexps.el, from http://www.emacswiki.org/emacs/HighlightSexp.
-   Package name: highlight-sexps
-   Mode name: highlight-sexps-mode
-2. hl-sexp package available from elpa.
+There exist 2 versions:
+
+1. hl-sexp package available from elpa.
    Package name: hl-sexp
    Mode name: hl-sexp-mode
+2. highlight-sexps.el, from http://www.emacswiki.org/emacs/HighlightSexp.
+   Package name: highlight-sexps
+   Mode name: highlight-sexps-mode
 
 highlight-sexps.el looks nicer, because it highlights both the innermost s-expression and the one enclosing it, and it does not un-highlight the line where the cursor is on.  But it sometimes stops working.  So I use hl-sexp
 
@@ -376,10 +382,10 @@ highlight-sexps.el looks nicer, because it highlights both the innermost s-expre
 #+END_SRC
 
 *** NEEDS_REVIEW Dired extensions and customization
-**** Dired+ (not yet used)
+**** Dired+
 
 #+BEGIN_SRC emacs-lisp
-;; (require 'dired+)
+(require 'dired+)
 #+END_SRC
 
 **** Dired customization from Healy's startup kit
@@ -450,7 +456,44 @@ Or see: hl-todo, and further packages like it, listed in hl-todo Help file:
 - see http://emacswiki.org/FixmeMode for more alternatives
 
 If you like this you might also like [[https://github.com/tarsius/orglink][orglink]].
+*** Mac-OS extension: Open file in finder
 
+From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
+
+#+BEGIN_SRC emacs-lisp
+  (defun open-finder ()
+    (interactive)
+    ;; IZ Dec 25, 2013 (3:25 PM): Making this work in dired:
+    (if (equal major-mode 'dired-mode)
+        (open-finder-dired)
+        (let ((path
+               (if (equal major-mode 'dired-mode)
+                   (file-truename (dired-file-name-at-point))
+                 (buffer-file-name)))
+              dir file)
+          (when path
+            (setq dir (file-name-directory path))
+            (setq file (file-name-nondirectory path))
+            (open-finder-1 dir file)))))
+
+  (defun open-finder-1 (dir file)
+    (message "open-finder-1 dir: %s\nfile: %s" dir file)
+    (let ((script
+           (if file
+               (concat
+                "tell application \"Finder\"\n"
+                " set frontmost to true\n"
+                " make new Finder window to (POSIX file \"" dir "\")\n"
+                " select file \"" file "\"\n"
+                "end tell\n")
+             (concat
+              "tell application \"Finder\"\n"
+              " set frontmost to true\n"
+              " make new Finder window to {path to desktop folder}\n"
+              "end tell\n"))))
+      (start-process "osascript-getinfo" nil "osascript" "-e" script)))
+
+#+END_SRC
 * Customization of Specific Authoring Modes
 ** SuperCollider
 *** Sclang Setup
@@ -889,8 +932,6 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-R") 'org-refile-icy))
 #+END_SRC
-
-
 ** Add git repositories to Magit (git for emacs)
 
 Magit config: Manage git repos from inside emacs

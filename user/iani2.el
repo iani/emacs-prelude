@@ -33,23 +33,19 @@
 (global-set-key (kbd "C-x o") 'switch-window)
 
 (require 'windmove)
-(global-set-key (kbd "<C-prior>")     'windmove-up)
-(global-set-key (kbd "<C-next>")   'windmove-down)
-(global-set-key (kbd "<C-end>")   'windmove-left)
-(global-set-key (kbd "<C-home>")  'windmove-right)
+(global-set-key (kbd "<C-s-up>") 'windmove-up)
+(global-set-key (kbd "<C-s-down>") 'windmove-down)
+(global-set-key (kbd "<C-s-right>") 'windmove-right)
+(global-set-key (kbd "<C-s-left>") 'windmove-left)
 
 (require 'buffer-move)
-(global-set-key (kbd "<S-prior>")     'buf-move-up)
-(global-set-key (kbd "<S-next>")   'buf-move-down)
-(global-set-key (kbd "<S-end>")   'buf-move-left)
-(global-set-key (kbd "<S-home>")  'buf-move-right)
+(global-set-key (kbd "<S-prior>") 'buf-move-up)
+(global-set-key (kbd "<S-next>") 'buf-move-down)
+(global-set-key (kbd "<S-end>") 'buf-move-right)
+(global-set-key (kbd "<S-home>") 'buf-move-left)
 
-(global-set-key (kbd "<C-s-left>")  'previous-buffer)
-(global-set-key (kbd "<C-s-right>")  'next-buffer)
-
-(require 'windmove )
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
+(global-set-key (kbd "<s-home>") 'previous-buffer)
+(global-set-key (kbd "<s-end>") 'next-buffer)
 
 (require 'lacarte)
 (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
@@ -118,7 +114,7 @@
 ;; Jump to any symbol in buffer using ido-imenu
 (key-chord-define-global "KJ"      'ido-imenu)
 
-;; (require 'dired+)
+(require 'dired+)
 
 (define-key dired-mode-map (kbd "<SPC>")
   (lambda () (interactive)
@@ -136,6 +132,38 @@
      (interactive "P")
      (let* ((fn-list (dired-get-marked-files nil arg)))
        (mapc 'find-file fn-list)))))
+
+(defun open-finder ()
+  (interactive)
+  ;; IZ Dec 25, 2013 (3:25 PM): Making this work in dired:
+  (if (equal major-mode 'dired-mode)
+      (open-finder-dired)
+      (let ((path
+             (if (equal major-mode 'dired-mode)
+                 (file-truename (dired-file-name-at-point))
+               (buffer-file-name)))
+            dir file)
+        (when path
+          (setq dir (file-name-directory path))
+          (setq file (file-name-nondirectory path))
+          (open-finder-1 dir file)))))
+
+(defun open-finder-1 (dir file)
+  (message "open-finder-1 dir: %s\nfile: %s" dir file)
+  (let ((script
+         (if file
+             (concat
+              "tell application \"Finder\"\n"
+              " set frontmost to true\n"
+              " make new Finder window to (POSIX file \"" dir "\")\n"
+              " select file \"" file "\"\n"
+              "end tell\n")
+           (concat
+            "tell application \"Finder\"\n"
+            " set frontmost to true\n"
+            " make new Finder window to {path to desktop folder}\n"
+            "end tell\n"))))
+    (start-process "osascript-getinfo" nil "osascript" "-e" script)))
 
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
