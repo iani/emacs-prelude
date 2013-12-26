@@ -21,13 +21,97 @@
 
 (desktop-save-mode 1)
 
-(require 'bookmark+)
 (require 'ido)
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)
 (icicle-mode)
-;; (yas-global-mode)
+;; Use grizzl for autocompletion in projectile:
+(setq projectile-completion-system 'grizzl)
+;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
+
+(global-set-key (kbd "H-x") 'helm-M-x)
+(global-set-key (kbd "C-M-g") 'helm-do-grep)
+
+(require 'bookmark+)
+
+(defvar bmkp-last-desktop-name "desktop"
+  "Name of last selected desktop bookmark.
+ Used to provide default to bmkp-save-desktop.")
+(defun bmkp-save-desktop ()
+  ""
+  (interactive)
+  (let* ((root (file-truename "~/.emacs.d/personal/desktop/"))
+       (query-func
+        (if (fboundp 'ido-completing-read) 'ido-completing-read 'completing-read))
+       (files
+        (mapcar
+         (lambda (path)
+           (cons (file-name-sans-extension (file-name-nondirectory path)) path))
+         (file-expand-wildcards (concat root "*.el"))))
+       path name)
+   (add-to-list 'files (list bmkp-last-desktop-name))
+   (setq name (apply query-func (list "Save to (M-backspace to show existing choices): "
+                                      (mapcar (lambda (f) (car f)) files)
+                                      nil nil bmkp-last-desktop-name)))
+   (setq path (cdr (assoc name files)))
+   (unless path (setq path (concat root bmkp-last-desktop-name ".el")))
+   (bmkp-set-desktop-bookmark-1 path nil name)
+;;   (bmkp-set-desktop-bookmark-w-name selection nil name)
+   ))
+
+;; mod bmkp-set-desktop-bookmark: add name argument
+(defun bmkp-set-desktop-bookmark-w-name (desktop-file &optional nosavep name)
+                                        ; Bound globally to `C-x p K', `C-x r K', `C-x p c K'
+  "Save the desktop as a bookmark.
+You are prompted for the desktop-file location and the bookmark name.
+The default value for the desktop-file location is the current value
+of DESKTOP-FILE.  As always, you can use `M-n' to retrieve it.
+
+With a prefix arg, set a bookmark to an existing DESKTOP-FILE - do not
+save the current desktop; that is, do not overwrite DESKTOP-FLIE.
+
+If you also use library Icicles, then the desktop files of all
+existing desktop bookmarks are available during the desktop file-name
+completion as proxy candidates.  To see them, use `C-M-_' to turn on
+the display of proxy candidates."
+  (interactive
+   (progn (unless (condition-case nil (require 'desktop nil t) (error nil))
+            (error "You must have library `desktop.el' to use this command"))
+          (let ((icicle-proxy-candidates                     (and (boundp 'icicle-mode) icicle-mode
+                                                                  (mapcar (lambda (bmk)
+                                                                            (bookmark-prop-get
+                                                                             bmk 'desktop-file))
+                                                                          (bmkp-desktop-alist-only))))
+                (icicle-unpropertize-completion-result-flag  t))
+            (list (read-file-name (if current-prefix-arg
+                                      "Use existing desktop file: "
+                                    "Save desktop in file: ")
+                                  nil (if (boundp 'desktop-base-file-name)
+                                          desktop-base-file-name
+                                        desktop-basefilename) ; Emacs < 22 name.
+                                  current-prefix-arg)
+                  current-prefix-arg))))
+  (set-text-properties 0 (length desktop-file) nil desktop-file)
+  (unless (file-name-absolute-p desktop-file) (setq desktop-file  (expand-file-name desktop-file)))
+  (unless (or nosavep  (condition-case nil (require 'desktop nil t) (error nil)))
+    (error "You must have library `desktop.el' to use this command"))
+  (if nosavep
+      (unless (bmkp-desktop-file-p desktop-file) (error "Not a desktop file: `%s'" desktop-file))
+    (let ((desktop-basefilename     (file-name-nondirectory desktop-file)) ; Emacs < 22
+          (desktop-base-file-name   (file-name-nondirectory desktop-file)) ; Emacs 23+
+          (desktop-dir              (file-name-directory desktop-file))
+          (desktop-restore-eager    t)  ; Don't bother with lazy restore.
+          (desktop-globals-to-save  (bmkp-remove-if (lambda (elt) (memq elt bmkp-desktop-no-save-vars))
+                                                    desktop-globals-to-save)))
+      (if (< emacs-major-version 22)
+          (desktop-save desktop-dir)    ; Emacs < 22 has no locking.
+        (desktop-save desktop-dir 'RELEASE))
+      (message "Desktop saved in `%s'" desktop-file)))
+  (let ((bookmark-make-record-function  (lexical-let ((df  desktop-file))
+                                          (lambda () (bmkp-make-desktop-record df))))
+        (current-prefix-arg             99)) ; Use all bookmarks for completion, for `bookmark-set'.
+    (bookmark-set name)))
 
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
