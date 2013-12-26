@@ -6,13 +6,13 @@
 ;; sd/save-desktop: (C-c c-d s) save current set to selected or new name.
 ;; sd/load-desktop (C-c c-d l) :
 ;;    - Kill current buffers with files,
-        (or if called with C-u prefix: Do not kill current buffers)
+;;      !!! if called with C-u prefix: Do not kill current buffers
 ;;    - Select desktop
 ;;    - Load files of selected desktop
 ;; Note: Saving multiple desktops with bookmark+ is complex:
-;; difficult to figure out the options to overwriting or not overwiting current
+;; Difficult to figure out the options to overwriting or not overwiting current
 ;; desktop.  Results in unwanted overwriting of desktops.
-;; Simple desktops does not interfere with desktop.
+;; Simple desktops does not interfere with the desktop package.
 
 (defvar sd/desktops nil
   "Associative list of desktops by name.")
@@ -74,11 +74,11 @@ sd/desktops under that name. Save sd/desktops to disk."
    (setq sd/desktops (assoc-replace sd/desktops selection buffers))
    (sd/save-desktop-list-to-file)))
 
-(defun sd/load-desktop ()
+(defun sd/load-desktop (kill-current-buffers-p)
   "Ask user to select or input a desktop name.
 Add list of all paths of all open buffers that belong to files to 
 sd/desktops under that name. Save sd/desktops to disk."
-  (interactive)
+  (interactive "P")
   ;; make sure you have the up-to-date list, without auto-loading at boot
   (sd/load-desktop-list-from-file)
   (let ((query-func
@@ -88,11 +88,12 @@ sd/desktops under that name. Save sd/desktops to disk."
           (apply query-func 
                  (list "Select a desktop to load: "
                        (mapcar (lambda (d) (car d)) sd/desktops) nil t)))
-    (dolist (buffer (buffer-list)) (if (buffer-file-name buffer) (kill-buffer buffer)))
+   (unless kill-current-buffers-p
+	(dolist (buffer (buffer-list)) (if (buffer-file-name buffer) (kill-buffer buffer))))
     (dolist (path (cdr (assoc selection sd/desktops)))
       (if (file-exists-p path) (find-file path)))))
 
-(global-set-key (kbd "C-c C-d l") 'sd/load-desktop)
-(global-set-key (kbd "C-c C-d s") 'sd/save-desktop)
+(global-set-key (kbd "H-d l") 'sd/load-desktop)
+(global-set-key (kbd "H-d s") 'sd/save-desktop)
 
 (provide 'simple-desktops)
