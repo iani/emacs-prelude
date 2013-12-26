@@ -47,146 +47,29 @@ asks to select a *subdir* of selected project to dired."
   (interactive)
   (message (projectile-project-root)))
 
+(defun projectile-add-project ()
+  "Add folder of current buffer's file to list of projectile projects"
+  (interactive)
+  (if (buffer-file-name (current-buffer))
+      (projectile-add-known-project
+       (file-name-directory (buffer-file-name (current-buffer))))))
+
 (global-set-key (kbd "C-c p w") 'projectile-post-project)
 (global-set-key (kbd "C-c p C-d") 'projectile-dired-project-root)
+(global-set-key (kbd "C-c p +") 'projectile-dired-project-root)
+
+(require 'helm-files)
+
+(nconc (assoc 'action helm-source-find-files)
+       '(("Add to projectile" . helm-add-to-projectile)))
+
+(defun helm-add-to-projectile (path)
+  "Add directory of file to projectile projects.
+Used as helm action in helm-source-find-files"
+  (projectile-add-known-project (file-name-directory path)))
 
 (global-set-key (kbd "H-x") 'helm-M-x)
 (global-set-key (kbd "C-M-g") 'helm-do-grep)
-
-(defvar bmkp-current-desktop-file nil
-  "Store file name of most recently loaded desktop for posting
-with bmkp-post-current-desktop.")
-
-(defun bmkp-post-current-desktop (list-files-p)
-  "Which desktop are we currently in?"
-  (interactive "P")
-  (cond (bmkp-current-desktop-file
-         (message "The current desktop is: %s" bmkp-current-desktop-file)
-         (when list-files-p
-             (find-file bmkp-current-desktop-file)
-             (multi-occur-in-matching-buffers
-              (concat "^" (buffer-file-name) "$") "  \"/")
-             (kill-buffer (current-buffer)))
-         )
-    (t (message "No (further) desktop has been loaded since startup."))))
-
-(defadvice bmkp-jump-desktop (before bmkp-record-current-desktop
-                                     (&optional args))
-  "Store file name of most recently loaded desktop for posting
-with bmkp-post-current-desktop."
-  (setq bmkp-current-desktop-file
-        (cdr (assoc 'desktop-file (ad-get-arg 0)))))
-
-(ad-activate 'bmkp-jump-desktop)
-
-(defvar bmkp-desktop-save-path
-  (file-truename "~/.emacs.d/personal/desktop/")
-  "Where bmkp-save-desktop saves desktop bookmarks.")
-
-(defvar bmkp-last-desktop-name-save-path
-  (concat bmkp-desktop-save-path "last-saved-desktop.txt")
-  "bmkp-set-desktop-bookmark-w-name saves name of last saved desktop here.
-This is then read by bmkp-save-desktop to provide default for user.")
-
-(defun bmkp-save-desktop ()
-  "Provide list for choosing which desktop to save.
-The list is derived from the contents of ~/.emacs.d/personal/desktop/*.el
-User can create new desktop bookmarks by entering a name not in the list.
-New desktop files are saved in the same directory as above.
-This function derives the name for the file by adding .el to the bookmark name."
-  (interactive)
-  (let* ((saved-name
-          (if (file-exists-p bmkp-last-desktop-name-save-path)
-              (save-excursion
-                (let ((buf (find-file-noselect bmkp-last-desktop-name-save-path)))
-                  (set-buffer buf)
-                  (setq test (eval (read (buffer-string))))
-                  (message (buffer-string))
-                  (kill-buffer)))
-            "desktop"))
-       (query-func
-        (if (fboundp 'ido-completing-read) 'ido-completing-read 'completing-read))
-       (files
-        (mapcar
-         (lambda (path)
-           (cons (file-name-sans-extension (file-name-nondirectory path)) path))
-         (file-expand-wildcards (concat bmkp-desktop-save-path "*.el"))))
-       path name)
-   (add-to-list 'files (list saved-name))
-   (setq name (apply query-func (list "Save to (M-backspace to show existing choices): "
-                                      (mapcar (lambda (f) (car f)) files)
-                                      nil nil saved-name)))
-   (setq path (cdr (assoc name files)))
-   (unless path (setq path (concat bmkp-desktop-save-path name ".el")))
-   (bmkp-set-desktop-bookmark-w-name path nil name)))
-
-;; mod bmkp-set-desktop-bookmark: add name argument
-(defun bmkp-set-desktop-bookmark-w-name (desktop-file &optional nosavep name)
-                                        ; Bound globally to `C-x p K', `C-x r K', `C-x p c K'
-  "Save the desktop as a bookmark.
-You are prompted for the desktop-file location and the bookmark name.
-The default value for the desktop-file location is the current value
-of DESKTOP-FILE.  As always, you can use `M-n' to retrieve it.
-
-With a prefix arg, set a bookmark to an existing DESKTOP-FILE - do not
-save the current desktop; that is, do not overwrite DESKTOP-FLIE.
-
-If you also use library Icicles, then the desktop files of all
-existing desktop bookmarks are available during the desktop file-name
-completion as proxy candidates.  To see them, use `C-M-_' to turn on
-the display of proxy candidates."
-  (interactive
-   (progn (unless (condition-case nil (require 'desktop nil t) (error nil))
-            (error "You must have library `desktop.el' to use this command"))
-          (let ((icicle-proxy-candidates
-             (and (boundp 'icicle-mode) icicle-mode
-                  (mapcar (lambda (bmk)
-                            (bookmark-prop-get
-                             bmk 'desktop-file))
-                          (bmkp-desktop-alist-only))))
-                (icicle-unpropertize-completion-result-flag  t))
-            (list (read-file-name (if current-prefix-arg
-                                      "Use existing desktop file: "
-                                    "Save desktop in file: ")
-                                  nil (if (boundp 'desktop-base-file-name)
-                                          desktop-base-file-name
-                                        desktop-basefilename) ; Emacs < 22 name.
-                                  current-prefix-arg)
-                  current-prefix-arg))))
-  (save-excursion
-    (let ((buf (find-file-noselect bmkp-last-desktop-name-save-path)))
-      (set-buffer buf)
-      (erase-buffer)
-      (insert (concat "\"" name "\""))
-      (save-buffer)
-      (kill-buffer)))
-  (set-text-properties 0 (length desktop-file) nil desktop-file)
-  (unless (file-name-absolute-p desktop-file)
-    (setq desktop-file  (expand-file-name desktop-file)))
-  (unless (or nosavep  (condition-case nil (require 'desktop nil t) (error nil)))
-    (error "You must have library `desktop.el' to use this command"))
-  (if nosavep
-      (unless (bmkp-desktop-file-p desktop-file)
-        (error "Not a desktop file: `%s'" desktop-file))
-    (let ((desktop-basefilename     (file-name-nondirectory desktop-file)) ; Emacs < 22
-          (desktop-base-file-name   (file-name-nondirectory desktop-file)) ; Emacs 23+
-          (desktop-dir              (file-name-directory desktop-file))
-          (desktop-restore-eager    t)  ; Don't bother with lazy restore.
-          (desktop-globals-to-save
-           (bmkp-remove-if (lambda (elt) (memq elt bmkp-desktop-no-save-vars))
-                           desktop-globals-to-save)))
-      (if (< emacs-major-version 22)
-          (desktop-save desktop-dir)    ; Emacs < 22 has no locking.
-        (desktop-save desktop-dir 'RELEASE))
-      (message "Desktop saved in `%s'" desktop-file)))
-  (let ((bookmark-make-record-function
-         (lexical-let ((df  desktop-file))
-           (lambda () (bmkp-make-desktop-record df))))
-        (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
-    (bookmark-set name)))
-
-(global-set-key (kbd "C-x p C-w") 'bmkp-post-current-desktop)
-(global-set-key (kbd "C-x p C-k") 'bmkp-save-desktop)
 
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
