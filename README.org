@@ -22,6 +22,14 @@ Some of the packages configurations (for example: wanderlust) have not yet been 
 
 ** Generic packages for overall Emacs configuration
 
+*** Persistence
+
+(See: http://www.emacswiki.org/emacs/CategoryPersistence)
+
+- desktop :: Automatically save and restore buffer configurations between sessions.
+             Note: Works with bookmark+, but interactive interface and settings are unclear as to what gets overwritten when.  So I use my own alternative "simple-desktop" package:
+- simple-desktops :: Simple scheme for saving and reloading of file lists, independent of desktop or bookmark+.
+
 *** Windows and buffers
 
 - windmove :: move cursor between windows (using function-shift-cursor keys)
