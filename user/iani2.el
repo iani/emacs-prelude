@@ -27,15 +27,57 @@
 (ido-mode t)
 (icicle-mode)
 ;; Use grizzl for autocompletion in projectile:
-(setq projectile-completion-system 'grizzl)
+
 ;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
+
+(setq projectile-completion-system 'grizzl)
+
+(defun projectile-dired-project-root ()
+  "Dired root of current project.  Can be set as value of
+projectile-switch-project-action to dired root of project when switching.
+Note: projectile-find-dir (with grizzl) does not do this, but it
+asks to select a *subdir* of selected project to dired."
+  (interactive)
+  (dired (projectile-project-root)))
+
+(setq projectile-switch-project-action 'projectile-dired-project-root)
+
+(defun projectile-post-project ()
+  "Which project am I actually in?"
+  (interactive)
+  (message (projectile-project-root)))
+
+(global-set-key (kbd "C-c p w") 'projectile-post-project)
+(global-set-key (kbd "C-c p C-d") 'projectile-dired-project-root)
 
 (global-set-key (kbd "H-x") 'helm-M-x)
 (global-set-key (kbd "C-M-g") 'helm-do-grep)
 
-(require 'bookmark+)
+(defvar bmkp-current-desktop-file nil
+  "Store file name of most recently loaded desktop for posting
+with bmkp-post-current-desktop.")
 
-(global-set-key (kbd "C-x p C-k") 'bmkp-save-desktop)
+(defun bmkp-post-current-desktop (list-files-p)
+  "Which desktop are we currently in?"
+  (interactive "P")
+  (cond (bmkp-current-desktop-file
+         (message "The current desktop is: %s" bmkp-current-desktop-file)
+         (when list-files-p
+             (find-file bmkp-current-desktop-file)
+             (multi-occur-in-matching-buffers
+              (concat "^" (buffer-file-name) "$") "  \"/")
+             (kill-buffer (current-buffer)))
+         )
+    (t (message "No (further) desktop has been loaded since startup."))))
+
+(defadvice bmkp-jump-desktop (before bmkp-record-current-desktop
+                                     (&optional args))
+  "Store file name of most recently loaded desktop for posting
+with bmkp-post-current-desktop."
+  (setq bmkp-current-desktop-file
+        (cdr (assoc 'desktop-file (ad-get-arg 0)))))
+
+(ad-activate 'bmkp-jump-desktop)
 
 (defvar bmkp-desktop-save-path
   (file-truename "~/.emacs.d/personal/desktop/")
@@ -53,9 +95,7 @@ User can create new desktop bookmarks by entering a name not in the list.
 New desktop files are saved in the same directory as above.
 This function derives the name for the file by adding .el to the bookmark name."
   (interactive)
-  (let* ((root (file-truename "~/.emacs.d/personal/desktop/"))
-         (saved-name-file (concat root "last-desktop-name"))
-         (saved-name
+  (let* ((saved-name
           (if (file-exists-p bmkp-last-desktop-name-save-path)
               (save-excursion
                 (let ((buf (find-file-noselect bmkp-last-desktop-name-save-path)))
@@ -70,14 +110,14 @@ This function derives the name for the file by adding .el to the bookmark name."
         (mapcar
          (lambda (path)
            (cons (file-name-sans-extension (file-name-nondirectory path)) path))
-         (file-expand-wildcards (concat root "*.el"))))
+         (file-expand-wildcards (concat bmkp-desktop-save-path "*.el"))))
        path name)
    (add-to-list 'files (list saved-name))
    (setq name (apply query-func (list "Save to (M-backspace to show existing choices): "
                                       (mapcar (lambda (f) (car f)) files)
                                       nil nil saved-name)))
    (setq path (cdr (assoc name files)))
-   (unless path (setq path (concat root name ".el")))
+   (unless path (setq path (concat bmkp-desktop-save-path name ".el")))
    (bmkp-set-desktop-bookmark-w-name path nil name)))
 
 ;; mod bmkp-set-desktop-bookmark: add name argument
@@ -145,10 +185,15 @@ the display of proxy candidates."
         (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
     (bookmark-set name)))
 
+(global-set-key (kbd "C-x p C-w") 'bmkp-post-current-desktop)
+(global-set-key (kbd "C-x p C-k") 'bmkp-save-desktop)
+
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
 
-(require 'windmove)
+(require 'lacarte)
+(global-set-key [?\e ?\M-x] 'lacarte-execute-command)
+
 (global-set-key (kbd "<C-s-up>") 'windmove-up)
 (global-set-key (kbd "<C-s-down>") 'windmove-down)
 (global-set-key (kbd "<C-s-right>") 'windmove-right)
@@ -162,9 +207,6 @@ the display of proxy candidates."
 
 (global-set-key (kbd "<s-home>") 'previous-buffer)
 (global-set-key (kbd "<s-end>") 'next-buffer)
-
-(require 'lacarte)
-(global-set-key [?\e ?\M-x] 'lacarte-execute-command)
 
 ;; Smex: Autocomplete meta-x command
 (global-set-key [(meta x)]

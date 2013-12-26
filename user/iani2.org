@@ -4,7 +4,7 @@
 #+BEGIN_SRC emacs-lisp
   (load-theme 'solarized-dark)
 #+END_SRC
-** Internationalization: Set mac-native fonts for japanese/greek
+** Internationalization: Set Mac OS native fonts for japanese/greek
 :PROPERTIES:
 :DATE:     <2013-12-08 Sun 15:12>
 :END:
@@ -60,8 +60,32 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (ido-mode t)
   (icicle-mode)
   ;; Use grizzl for autocompletion in projectile:
-  (setq projectile-completion-system 'grizzl)
+
   ;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
+#+END_SRC
+
+**** projectile
+
+#+BEGIN_SRC emacs-lisp
+  (setq projectile-completion-system 'grizzl)
+
+  (defun projectile-dired-project-root ()
+    "Dired root of current project.  Can be set as value of
+  projectile-switch-project-action to dired root of project when switching.
+  Note: projectile-find-dir (with grizzl) does not do this, but it
+  asks to select a *subdir* of selected project to dired."
+    (interactive)
+    (dired (projectile-project-root)))
+
+  (setq projectile-switch-project-action 'projectile-dired-project-root)
+
+  (defun projectile-post-project ()
+    "Which project am I actually in?"
+    (interactive)
+    (message (projectile-project-root)))
+
+  (global-set-key (kbd "C-c p w") 'projectile-post-project)
+  (global-set-key (kbd "C-c p C-d") 'projectile-dired-project-root)
 #+END_SRC
 
 **** Helm fast access: helm-meta-x: fn-x, helm-do-grep: ctl-meta-g
@@ -73,12 +97,36 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
 **** bookmark+
 
++ Save/post name of currently loaded desktop.
 + Interactive form for selecting/creating a file to save bookmarks to.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'bookmark+)
 
-  (global-set-key (kbd "C-x p C-k") 'bmkp-save-desktop)
+  (defvar bmkp-current-desktop-file nil
+    "Store file name of most recently loaded desktop for posting
+  with bmkp-post-current-desktop.")
+
+  (defun bmkp-post-current-desktop (list-files-p)
+    "Which desktop are we currently in?"
+    (interactive "P")
+    (cond (bmkp-current-desktop-file
+           (message "The current desktop is: %s" bmkp-current-desktop-file)
+           (when list-files-p
+               (find-file bmkp-current-desktop-file)
+               (multi-occur-in-matching-buffers
+                (concat "^" (buffer-file-name) "$") "  \"/")
+               (kill-buffer (current-buffer)))
+           )
+      (t (message "No (further) desktop has been loaded since startup."))))
+
+  (defadvice bmkp-jump-desktop (before bmkp-record-current-desktop
+                                       (&optional args))
+    "Store file name of most recently loaded desktop for posting
+  with bmkp-post-current-desktop."
+    (setq bmkp-current-desktop-file
+          (cdr (assoc 'desktop-file (ad-get-arg 0)))))
+
+  (ad-activate 'bmkp-jump-desktop)
 
   (defvar bmkp-desktop-save-path
     (file-truename "~/.emacs.d/personal/desktop/")
@@ -188,6 +236,8 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
           (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
       (bookmark-set name)))
 
+  (global-set-key (kbd "C-x p C-w") 'bmkp-post-current-desktop)
+  (global-set-key (kbd "C-x p C-k") 'bmkp-save-desktop)
 #+END_SRC
 
 
@@ -243,7 +293,7 @@ DavidYoung
 - next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.  Bound to =function-super-<cursor key>=
 
 #+BEGIN_SRC emacs-lisp
-  (require 'windmove)
+
   (global-set-key (kbd "<C-s-up>") 'windmove-up)
   (global-set-key (kbd "<C-s-down>") 'windmove-down)
   (global-set-key (kbd "<C-s-right>") 'windmove-right)
