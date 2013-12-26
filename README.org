@@ -100,4 +100,4 @@ Not used, because it seems to interfere with sclang-ac-mode:
 
 - wanderlust :: Email-client for emacs.
 - bbdb-hooks :: Needed for wanderlust.
-- bbdb-wl :: Neeed for wanderlust.
+- bbdb-wl :: Needed for wanderlust.
