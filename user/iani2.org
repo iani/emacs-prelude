@@ -198,29 +198,6 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (global-set-key (kbd "C-x o") 'switch-window)
 #+END_SRC
 
-*** Buffer-move, windmove, buffer switching
-
-- windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to control-super-<cursor key>.
-- buffer-move (package) :: Use cursor keys to switch buffer position between windows.  Bound to fn-shift-<cursor key>.
-- next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.  Bound to function-super-<cursor key>
-
-#+BEGIN_SRC emacs-lisp
-  (require 'windmove)
-  (global-set-key (kbd "<C-s-up>") 'windmove-up)
-  (global-set-key (kbd "<C-s-down>") 'windmove-down)
-  (global-set-key (kbd "<C-s-right>") 'windmove-right)
-  (global-set-key (kbd "<C-s-left>") 'windmove-left)
-
-  (require 'buffer-move)
-  (global-set-key (kbd "<S-prior>") 'buf-move-up)
-  (global-set-key (kbd "<S-next>") 'buf-move-down)
-  (global-set-key (kbd "<S-end>") 'buf-move-right)
-  (global-set-key (kbd "<S-home>") 'buf-move-left)
-
-  (global-set-key (kbd "<s-home>") 'previous-buffer)
-  (global-set-key (kbd "<s-end>") 'next-buffer)
-#+END_SRC
-
 *** Note on icicle key bindings and org-mode
 
 C-c ' in org mode runs the command org-edit-special, for editing babel commands and other blocks.  To avoid conflict with icicles binding of the same key to icicle-occur, remap the latter to something else (e.g. C-c C-M-'), like this:
@@ -257,6 +234,29 @@ DavidYoung
 #+BEGIN_SRC emacs-lisp
 (require 'lacarte)
 (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
+#+END_SRC
+
+*** Buffer-move, windmove, buffer switching
+
+- windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to =control-super-<cursorkey>=.
+- buffer-move (package) :: Use cursor keys to switch buffer position between windows.  Bound to =fn-shift-<cursor key>=.
+- next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.  Bound to =function-super-<cursor key>=
+
+#+BEGIN_SRC emacs-lisp
+  (require 'windmove)
+  (global-set-key (kbd "<C-s-up>") 'windmove-up)
+  (global-set-key (kbd "<C-s-down>") 'windmove-down)
+  (global-set-key (kbd "<C-s-right>") 'windmove-right)
+  (global-set-key (kbd "<C-s-left>") 'windmove-left)
+
+  (require 'buffer-move)
+  (global-set-key (kbd "<S-prior>") 'buf-move-up)
+  (global-set-key (kbd "<S-next>") 'buf-move-down)
+  (global-set-key (kbd "<S-end>") 'buf-move-right)
+  (global-set-key (kbd "<S-home>") 'buf-move-left)
+
+  (global-set-key (kbd "<s-home>") 'previous-buffer)
+  (global-set-key (kbd "<s-end>") 'next-buffer)
 #+END_SRC
 
 *** Ido-imenu command and jump back after completion, by Magnar Sveen, and others.
