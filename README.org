@@ -10,4 +10,6 @@ iani2.org contains all the configuration code, as org-babel blocks containing em
 
 The present repository also contains chuck-mode, for the computer music language ChucK and sclang for SuperCollider.
 
+See more in: [[file:user/iani2.org]]
+
 IZ Dec 23, 2013 (10:52 PM)
