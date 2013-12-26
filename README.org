@@ -49,29 +49,34 @@ Some of the packages configurations (for example: wanderlust) have not yet been 
 - bookmark+ :: Bookmark enhancement.
 - smex :: Enhancement of autocomplete for commands in minibuffer.
 - lacarte :: execute menu commands from the keyboard
+- AceJump :: Jump to any one of displayed characters/words/lines starting with a character typed (triggered by key-chord combinations).
 - dired+ :: Enhancement of dired.
 **** for later: ack, ag
 - ack-and-a-half :: Perl based search in files.  Used by projectile.  See:
                     http://www.emacswiki.org/emacs/Ack
 - ag :: Silver replacement for ack.  See:
         https://github.com/Wilfred/ag.el
-*** Display, colors
 
-- solarized-dark :: Additional emacs color theme.
+*** Snippets and macros
 
-
-** Packages for specific authoring modes (emacs-lisp, SuperCollider etc.)
+- yasnippets :: Expand keywords into code snippets.
+- auto-complete :: Provide auto-completion with popup window
 
 *** Generic authoring/editing packages
+
 - paredit :: Paredit mode.
 - rainbow-delimiters-mode :: Multi-color parentheses, brackets, braces.
 - hl-sexp-mode (alternative: highlight-sexps-mode) :: highight regions enclosed in parentheses, brackets, braces
 - multiple-cursors :: Magnar Sveen's multiple cursor package.
 - key-chord :: Trigger a command or keyboard macro by typing two characters in quick succession or together.
-- AceJump :: Jump to any one of displayed characters/words/lines starting with a character typed (triggered by key-chord combinations).
 - whitespace mode :: mark unnecessary white space and long lines (disabled in org-mode).
-- yasnippets :: Expand keywords into code snippets.
 - auto-complete :: Provide auto-completion with popup window
+
+*** Display, colors
+
+- solarized-dark :: Additional emacs color theme.
+
+** Packages for specific authoring modes (emacs-lisp, SuperCollider etc.)
 
 *** Emacs-lisp
 
