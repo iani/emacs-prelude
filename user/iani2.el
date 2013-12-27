@@ -54,22 +54,59 @@ asks to select a *subdir* of selected project to dired."
       (projectile-add-known-project
        (file-name-directory (buffer-file-name (current-buffer))))))
 
-(global-set-key (kbd "C-c p w") 'projectile-post-project)
-(global-set-key (kbd "C-c p C-d") 'projectile-dired-project-root)
-(global-set-key (kbd "C-c p +") 'projectile-dired-project-root)
+(setq projectile-keymap-prefix (kbd "H-p"))
+(global-set-key (kbd "H-p w") 'projectile-post-project)
+(global-set-key (kbd "H-p C-d") 'projectile-dired-project-root)
+(global-set-key (kbd "H-p +") 'projectile-add-project)
 
-(require 'helm-files)
+;; must call these to initialize  helm-source-find-files
 
-(nconc (assoc 'action helm-source-find-files)
-       '(("Add to projectile" . helm-add-to-projectile)))
+(require 'helm-files) ;; (not auto-loaded by system!)
+(require 'helm-projectile)
+(let ((action (assoc 'action helm-source-find-files)))
+  ;; we want the projectile action at the top.
+  (setcdr action (cons '("Add to projectile" . helm-add-to-projectile)
+                       (cdr action))))
 
 (defun helm-add-to-projectile (path)
   "Add directory of file to projectile projects.
 Used as helm action in helm-source-find-files"
   (projectile-add-known-project (file-name-directory path)))
 
-(global-set-key (kbd "H-x") 'helm-M-x)
-(global-set-key (kbd "C-M-g") 'helm-do-grep)
+;; Fixes.  The names say it all.
+
+(defun helm-projectile-not-frustrating ()
+  "Use projectile with Helm instead of ido."
+  (interactive)
+  (projectile-project-root-not-frustrating)
+  (let ((helm-ff-transformer-show-only-basename nil))
+    (helm :sources '(helm-source-projectile-files-list
+                     helm-source-projectile-buffers-list
+                     helm-source-projectile-recentf-list)
+          :buffer "*helm projectile*"
+          :prompt (projectile-prepend-project-name "pattern: "))))
+
+
+(defun projectile-project-root-not-frustrating ()
+  "Retrieves the root directory of a project if available.
+The current directory is assumed to be the project's root otherwise."
+  (let ((project-root
+         (or (->> projectile-project-root-files
+               (--map (locate-dominating-file (file-truename default-directory) it))
+               (-remove #'null)
+               (car)
+               (projectile-file-truename))
+             (if projectile-require-project-root
+                 (projectile-switch-project)
+               default-directory))))
+    project-root))
+
+(global-set-key (kbd "H-M-h") 'helm-M-x)
+(global-set-key (kbd "H-h g") 'helm-do-grep)
+(global-set-key (kbd "H-h f") 'helm-find-files)
+(global-set-key (kbd "H-h r") 'helm-resume)
+(global-set-key (kbd "H-h b") 'helm-bookmark)
+(global-set-key (kbd "H-h p") 'helm-projectile-not-frustrating)
 
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)

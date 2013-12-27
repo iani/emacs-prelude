@@ -1,0 +1,2 @@
+
+(quote (("emacs-config" "/Users/iani2/Documents/Dev/Emacs/my-emacs-prelude-config/preload/simple-desktops.el" "/Users/iani2/Documents/Dev/Emacs/my-emacs-prelude-config/preload/sc-snippets.el" "/Users/iani2/Documents/Dev/Emacs/my-emacs-prelude-config/preload/chuck-mode.el" "/Users/iani2/Documents/Dev/Emacs/my-emacs-prelude-config/README.org" "/Users/iani2/Documents/Dev/Emacs/my-emacs-prelude-config/init.el" "/Users/iani2/Documents/Dev/Emacs/my-emacs-prelude-config/custom.el") ("empty")))
