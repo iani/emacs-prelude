@@ -77,7 +77,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
     (interactive)
     (dired (projectile-project-root)))
 
-  (setq projectile-switch-project-action 'projectile-dired-project-root)
+  ;; (setq projectile-switch-project-action 'projectile-dired-project-root)
 
   (defun projectile-post-project ()
     "Which project am I actually in?"
@@ -91,7 +91,10 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
         (projectile-add-known-project
          (file-name-directory (buffer-file-name (current-buffer))))))
 
-  (setq projectile-keymap-prefix (kbd "H-p"))
+  (global-set-key (kbd "H-p g") 'projectile-grep)
+  (global-set-key (kbd "H-p s") 'projectile-switch-project)
+  (global-set-key (kbd "H-p d") 'projectile-find-dir)
+  (global-set-key (kbd "H-p f") 'projectile-find-file)
   (global-set-key (kbd "H-p w") 'projectile-post-project)
   (global-set-key (kbd "H-p C-d") 'projectile-dired-project-root)
   (global-set-key (kbd "H-p +") 'projectile-add-project)

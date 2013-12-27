@@ -40,7 +40,7 @@ asks to select a *subdir* of selected project to dired."
   (interactive)
   (dired (projectile-project-root)))
 
-(setq projectile-switch-project-action 'projectile-dired-project-root)
+;; (setq projectile-switch-project-action 'projectile-dired-project-root)
 
 (defun projectile-post-project ()
   "Which project am I actually in?"
@@ -54,7 +54,10 @@ asks to select a *subdir* of selected project to dired."
       (projectile-add-known-project
        (file-name-directory (buffer-file-name (current-buffer))))))
 
-(setq projectile-keymap-prefix (kbd "H-p"))
+(global-set-key (kbd "H-p g") 'projectile-grep)
+(global-set-key (kbd "H-p s") 'projectile-switch-project)
+(global-set-key (kbd "H-p d") 'projectile-find-dir)
+(global-set-key (kbd "H-p f") 'projectile-find-file)
 (global-set-key (kbd "H-p w") 'projectile-post-project)
 (global-set-key (kbd "H-p C-d") 'projectile-dired-project-root)
 (global-set-key (kbd "H-p +") 'projectile-add-project)
@@ -78,31 +81,6 @@ Used as helm action in helm-source-find-files"
   (projectile-add-known-project (file-name-directory path)))
 
 ;; Fixes.  The names say it all.
-
-(defun helm-projectile-not-frustrating ()
-  "Use projectile with Helm instead of ido."
-  (interactive)
-  (projectile-project-root-not-frustrating)
-  (let ((helm-ff-transformer-show-only-basename nil))
-    (helm :sources '(helm-source-projectile-files-list
-                     helm-source-projectile-buffers-list
-                     helm-source-projectile-recentf-list)
-          :buffer "*helm projectile*"
-          :prompt (projectile-prepend-project-name "pattern: "))))
-
-(defun projectile-project-root-not-frustrating ()
-  "Retrieves the root directory of a project if available.
-The current directory is assumed to be the project's root otherwise."
-  (let ((project-root
-         (or (->> projectile-project-root-files
-               (--map (locate-dominating-file (file-truename default-directory) it))
-               (-remove #'null)
-               (car)
-               (projectile-file-truename))
-             (if projectile-require-project-root
-                 (projectile-switch-project)
-               default-directory))))
-    project-root))
 
 (global-set-key (kbd "H-M-h") 'helm-M-x)
 (global-set-key (kbd "H-h g") 'helm-do-grep)
