@@ -63,6 +63,10 @@ asks to select a *subdir* of selected project to dired."
 
 (require 'helm-files) ;; (not auto-loaded by system!)
 (require 'helm-projectile)
+
+;; Don't bicker if not in a project:
+(setq projectile-require-project-root)
+
 (let ((action (assoc 'action helm-source-find-files)))
   ;; we want the projectile action at the top.
   (setcdr action (cons '("Add to projectile" . helm-add-to-projectile)
@@ -86,7 +90,6 @@ Used as helm action in helm-source-find-files"
           :buffer "*helm projectile*"
           :prompt (projectile-prepend-project-name "pattern: "))))
 
-
 (defun projectile-project-root-not-frustrating ()
   "Retrieves the root directory of a project if available.
 The current directory is assumed to be the project's root otherwise."
@@ -105,8 +108,8 @@ The current directory is assumed to be the project's root otherwise."
 (global-set-key (kbd "H-h g") 'helm-do-grep)
 (global-set-key (kbd "H-h f") 'helm-find-files)
 (global-set-key (kbd "H-h r") 'helm-resume)
-(global-set-key (kbd "H-h b") 'helm-bookmark)
-(global-set-key (kbd "H-h p") 'helm-projectile-not-frustrating)
+(global-set-key (kbd "H-h b") 'helm-bookmarks)
+(global-set-key (kbd "H-h p") 'helm-projectile)
 
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
