@@ -42,6 +42,22 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
 ** Generic Packages
 
+*** Bring emacs-lisp up-to-date: dash.el
+
+#+BEGIN_QUOTE
+A modern list api for Emacs. No 'cl required.
+#+END_QUOTE
+
+See: https://github.com/magnars/dash.el#functions
+
+Used in my packages as well as in projectile and other packages.
+
+I load it here to have it available when experimenting with code.
+
+#+BEGIN_SRC emacs-lisp
+(require 'dash)
+#+END_SRC
+
 *** desktop
 
 Save desktop between sessions.  To clear desktop: M-x desktop-clear
@@ -49,20 +65,17 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 #+begin_src emacs-lisp :tangle yes
 (desktop-save-mode 1)
 #+end_src
+*** Completion help: icicles, imenu+, auto-complete, ido
 
-*** finding things: helm, projectile, icicles ... ...
-
-**** ido-mode, imenu(+), auto-complete, yasnippets, icicles
 #+BEGIN_SRC emacs-lisp
   (require 'ido)
   (require 'imenu+)
   (require 'auto-complete)
   (ido-mode t)
   (icicle-mode)
-  ;; Use grizzl for autocompletion in projectile:
-
   ;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
 #+END_SRC
+*** File-system navigation: projectile, helm
 
 **** projectile
 
@@ -77,7 +90,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
     (interactive)
     (dired (projectile-project-root)))
 
-  ;; (setq projectile-switch-project-action 'projectile-dired-project-root)
+  (setq projectile-switch-project-action 'projectile-commander)
 
   (defun projectile-post-project ()
     "Which project am I actually in?"
@@ -91,16 +104,20 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
         (projectile-add-known-project
          (file-name-directory (buffer-file-name (current-buffer))))))
 
-  (global-set-key (kbd "H-p g") 'projectile-grep)
+  (global-set-key (kbd "H-p c") 'projectile-commander)
+  (global-set-key (kbd "H-p h") 'helm-projectile)
   (global-set-key (kbd "H-p s") 'projectile-switch-project)
   (global-set-key (kbd "H-p d") 'projectile-find-dir)
   (global-set-key (kbd "H-p f") 'projectile-find-file)
   (global-set-key (kbd "H-p w") 'projectile-post-project)
-  (global-set-key (kbd "H-p C-d") 'projectile-dired-project-root)
+  (global-set-key (kbd "H-p D") 'projectile-dired-project-root)
   (global-set-key (kbd "H-p +") 'projectile-add-project)
+  (global-set-key (kbd "H-p -") 'projectile-remove-known-project)
+  (global-set-key (kbd "H-p g") 'projectile-grep) ;; could not work it
+
 #+END_SRC
 
-**** Helm meta/grep keys, add to projectile
+**** helm
 
 #+BEGIN_SRC emacs-lisp
   ;; must call these to initialize  helm-source-find-files
@@ -111,24 +128,30 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   ;; Don't bicker if not in a project:
   (setq projectile-require-project-root)
 
-  (let ((action (assoc 'action helm-source-find-files)))
-    ;; we want the projectile action at the top.
-    (setcdr action (cons '("Add to projectile" . helm-add-to-projectile)
-                         (cdr action))))
+  ;; Add add-to-projectile action after helm-find-files.
+  (let ((find-files-action (assoc 'action helm-source-find-files)))
+    (setcdr find-files-action
+            (cons
+             (cadr find-files-action)
+             (cons '("Add to projectile" . helm-add-to-projectile)
+                   (cddr find-files-action)))))
+
+  ;; Use helm-find-files actions in helm-projectile
+  (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
+      (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
 
   (defun helm-add-to-projectile (path)
     "Add directory of file to projectile projects.
   Used as helm action in helm-source-find-files"
     (projectile-add-known-project (file-name-directory path)))
 
-  ;; Fixes.  The names say it all.
-
-  (global-set-key (kbd "H-M-h") 'helm-M-x)
+  (global-set-key (kbd "H-h p") 'helm-projectile)
   (global-set-key (kbd "H-h g") 'helm-do-grep)
   (global-set-key (kbd "H-h f") 'helm-find-files)
   (global-set-key (kbd "H-h r") 'helm-resume)
   (global-set-key (kbd "H-h b") 'helm-bookmarks)
-  (global-set-key (kbd "H-h p") 'helm-projectile)
+  (global-set-key (kbd "H-h l") 'helm-buffers-list)
+  (global-set-key (kbd "H-M-h") 'helm-M-x)
 #+END_SRC
 
 *** Switch window
@@ -746,7 +769,9 @@ done
 
 #+RESULTS:
 : log
-*** Org-Babel: enable some languages
+
+*** Org-Babel
+**** Org-Babel: enable some languages
 
 Enable some cool languages in org-babel mode.
 
@@ -760,6 +785,22 @@ Enable some cool languages in org-babel mode.
    (perl . t)
    ))
 #+END_SRC
+**** Org-Babel: load current file
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-babel-load-current-file ()
+    (interactive)
+    (org-babel-load-file (buffer-file-name (current-buffer))))
+
+  ;; Note: Overriding default key binding to provide consistent pattern:
+  ;; C-c C-v f -> tangle, C-c C-v C-f -> load
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
+#+END_SRC
+
+#+RESULTS:
+: org-babel-load-current-file
+
 
 *** Orgmode latex customization
 
@@ -871,7 +912,9 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
   (setq org-imenu-depth 3)
 #+END_SRC
 
-*** making icicle-imenu and icicle-occur work with org-mode
+*** Working with icicles in org-mode
+
+**** making icicle-imenu and icicle-occur work with org-mode
 
 #+BEGIN_SRC emacs-lisp
   (defun org-icicle-occur ()
@@ -884,7 +927,8 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
-
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
   (defun org-icicle-imenu ()
     "In org-mode, show entire buffer contents before running icicle-imenu.
   Otherwise icicle-occur will not place cursor at found location,
@@ -895,33 +939,46 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c i m") 'org-icicle-imenu))
 
   (setq org-outline-path-complete-in-steps nil)
 #+END_SRC
 
-*** Providing alternative to refile using icicles
+**** Providing alternatives for refile and copy using icicles
 
 #+BEGIN_SRC emacs-lisp
-  (defun org-refile-icy (as-subtree)
+  (defun org-refile-icy (as-subtree &optional do-copy-p)
     "Alternative to org-refile using icicles.
-  Icicles seems to break org-modes headline buffer display, so one
-  has to use icicles for all headline navigation if it is loaded.
-  If quit with C-g, this function will have removed the section that
-  is to be refiled.  To get it back, one has to undo, or paste."
+  Refile or copy current section, to a location in the file selected with icicles.
+  Without prefix argument: Place the copied/cut section it *after* the selected section.
+  With prefix argument: Make the copied/cut section *a subtree* of the selected section.
+
+  Note 1: If quit with C-g, this function will have removed the section that
+  is to be refiled.  To get it back, one has to undo, or paste.
+
+  Note 2: Reason for this function is that icicles seems to break org-modes headline
+  buffer display, so onehas to use icicles for all headline navigation if it is loaded."
     (interactive "P")
     (outline-back-to-heading)
-    (org-cut-subtree)
+    (if do-copy-p (org-copy-subtree) (org-cut-subtree))
     (show-all)
     (icicle-imenu (point-min) (point-max) t)
     (outline-next-heading)
     (unless (eq (current-column) 0) (insert "\n"))
     (org-paste-subtree)
-    (if as-subtree (org-demote-subtree )))
+    (if as-subtree (org-demote-subtree)))
 
-  ;; Using key binding for org-reveal, since org-reveal
-  ;; does nothing for me.
+  (defun org-copy-icy (as-subtree)
+    "Copy section to another location in file, selecting the location with icicles.
+  See org-refile-icy."
+    (interactive "P")
+    (org-refile-icy as-subtree t))
+
   (eval-after-load 'org
-    '(define-key org-mode-map (kbd "C-c C-R") 'org-refile-icy))
+    '(define-key org-mode-map (kbd "C-c i r") 'org-refile-icy))
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 #+END_SRC
 ** Add git repositories to Magit (git for emacs)
 

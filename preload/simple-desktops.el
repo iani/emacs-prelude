@@ -74,7 +74,7 @@ sd/desktops under that name. Save sd/desktops to disk."
    (setq sd/desktops (assoc-replace sd/desktops selection buffers))
    (sd/save-desktop-list-to-file)))
 
-(defun sd/load-desktop (kill-current-buffers-p)
+(defun sd/load-desktop (preserve-current-buffers)
   "Ask user to select or input a desktop name.
 Add list of all paths of all open buffers that belong to files to 
 sd/desktops under that name. Save sd/desktops to disk."
@@ -88,8 +88,9 @@ sd/desktops under that name. Save sd/desktops to disk."
           (apply query-func 
                  (list "Select a desktop to load: "
                        (mapcar (lambda (d) (car d)) sd/desktops) nil t)))
-   (unless kill-current-buffers-p
-	(dolist (buffer (buffer-list)) (if (buffer-file-name buffer) (kill-buffer buffer))))
+   (unless preserve-current-buffers
+	(dolist (buffer (buffer-list)) 
+          (if (buffer-file-name buffer) (kill-buffer buffer))))
     (dolist (path (cdr (assoc selection sd/desktops)))
       (if (file-exists-p path) (find-file path)))))
 

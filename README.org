@@ -81,6 +81,8 @@ Some of the packages configurations (for example: wanderlust) have not yet been 
 *** Emacs-lisp
 
 - ElDoc :: Show arguments required by current function in minibuffer.
+- dash.el :: "A modern list api for Emacs. No 'cl required."
+             https://github.com/magnars/dash.el#functions
 
 *** Org-mode
 

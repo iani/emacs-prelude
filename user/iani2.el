@@ -19,6 +19,8 @@
    (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 (tool-bar-mode -1)
 
+(require 'dash)
+
 (desktop-save-mode 1)
 
 (require 'ido)
@@ -26,8 +28,6 @@
 (require 'auto-complete)
 (ido-mode t)
 (icicle-mode)
-;; Use grizzl for autocompletion in projectile:
-
 ;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
 
 (setq projectile-completion-system 'grizzl)
@@ -40,7 +40,7 @@ asks to select a *subdir* of selected project to dired."
   (interactive)
   (dired (projectile-project-root)))
 
-;; (setq projectile-switch-project-action 'projectile-dired-project-root)
+(setq projectile-switch-project-action 'projectile-commander)
 
 (defun projectile-post-project ()
   "Which project am I actually in?"
@@ -54,13 +54,16 @@ asks to select a *subdir* of selected project to dired."
       (projectile-add-known-project
        (file-name-directory (buffer-file-name (current-buffer))))))
 
-(global-set-key (kbd "H-p g") 'projectile-grep)
+(global-set-key (kbd "H-p c") 'projectile-commander)
+(global-set-key (kbd "H-p h") 'helm-projectile)
 (global-set-key (kbd "H-p s") 'projectile-switch-project)
 (global-set-key (kbd "H-p d") 'projectile-find-dir)
 (global-set-key (kbd "H-p f") 'projectile-find-file)
 (global-set-key (kbd "H-p w") 'projectile-post-project)
-(global-set-key (kbd "H-p C-d") 'projectile-dired-project-root)
+(global-set-key (kbd "H-p D") 'projectile-dired-project-root)
 (global-set-key (kbd "H-p +") 'projectile-add-project)
+(global-set-key (kbd "H-p -") 'projectile-remove-known-project)
+(global-set-key (kbd "H-p g") 'projectile-grep) ;; could not work it
 
 ;; must call these to initialize  helm-source-find-files
 
@@ -70,24 +73,30 @@ asks to select a *subdir* of selected project to dired."
 ;; Don't bicker if not in a project:
 (setq projectile-require-project-root)
 
-(let ((action (assoc 'action helm-source-find-files)))
-  ;; we want the projectile action at the top.
-  (setcdr action (cons '("Add to projectile" . helm-add-to-projectile)
-                       (cdr action))))
+;; Add add-to-projectile action after helm-find-files.
+(let ((find-files-action (assoc 'action helm-source-find-files)))
+  (setcdr find-files-action
+          (cons
+           (cadr find-files-action)
+           (cons '("Add to projectile" . helm-add-to-projectile)
+                 (cddr find-files-action)))))
+
+;; Use helm-find-files actions in helm-projectile
+(let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
+    (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
 
 (defun helm-add-to-projectile (path)
   "Add directory of file to projectile projects.
 Used as helm action in helm-source-find-files"
   (projectile-add-known-project (file-name-directory path)))
 
-;; Fixes.  The names say it all.
-
-(global-set-key (kbd "H-M-h") 'helm-M-x)
+(global-set-key (kbd "H-h p") 'helm-projectile)
 (global-set-key (kbd "H-h g") 'helm-do-grep)
 (global-set-key (kbd "H-h f") 'helm-find-files)
 (global-set-key (kbd "H-h r") 'helm-resume)
 (global-set-key (kbd "H-h b") 'helm-bookmarks)
-(global-set-key (kbd "H-h p") 'helm-projectile)
+(global-set-key (kbd "H-h l") 'helm-buffers-list)
+(global-set-key (kbd "H-M-h") 'helm-M-x)
 
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
