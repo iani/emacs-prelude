@@ -605,6 +605,26 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
 #+BEGIN_SRC emacs-lisp
  (require 'calfw)
 #+END_SRC
+*** Insert DATE property with current time
+:PROPERTIES:
+:DATE:     <2014-01-02 Thu 13:35>
+:END:
+
+#+BEGIN_SRC emacs-lisp
+
+  (defun org-set-date ()
+    "Set DATE property with current time.  Active timestamp."
+    (interactive)
+    (org-set-property
+     "DATE" (format-time-string (cdr org-time-stamp-formats) (current-time))))
+
+  ;; Note: This keybinding is in analogy to the standard keybinding:
+  ;; C-c . -> org-time-stamp
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-.") 'org-set-date))
+#+END_SRC
+
+
 *** Log: (simplified alternative to capture)
 :PROPERTIES:
 :DATE:     <2013-12-07 Sat 21:59>
@@ -769,7 +789,6 @@ done
 
 #+RESULTS:
 : log
-
 *** Org-Babel
 **** Org-Babel: enable some languages
 

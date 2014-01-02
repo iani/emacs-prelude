@@ -15,8 +15,10 @@ IZ Dec 23, 2013 (10:52 PM)
 * List of packages used
 
 This is an (incomplete) list of the packages used in this configuration.
-Mostly use command package-install, or list-packages to install these.
-Some of these have been downloaded manually and put in packages folder.
+
+Note: *use command =package-install=, or =list-packages= to install these*.
+
+Some of these packages have been downloaded manually and put in packages folder.
 
 Some of the packages configurations (for example: wanderlust) have not yet been moved to the present file.
 
@@ -70,7 +72,6 @@ Some of the packages configurations (for example: wanderlust) have not yet been 
 - multiple-cursors :: Magnar Sveen's multiple cursor package.
 - key-chord :: Trigger a command or keyboard macro by typing two characters in quick succession or together.
 - whitespace mode :: mark unnecessary white space and long lines (disabled in org-mode).
-- auto-complete :: Provide auto-completion with popup window
 
 *** Display, colors
 

@@ -380,6 +380,15 @@ Used as helm action in helm-source-find-files"
    (perl . t)
    ))
 
+(defun org-babel-load-current-file ()
+  (interactive)
+  (org-babel-load-file (buffer-file-name (current-buffer))))
+
+;; Note: Overriding default key binding to provide consistent pattern:
+;; C-c C-v f -> tangle, C-c C-v C-f -> load
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
+
 ;;; Load latex package
 (require 'ox-latex)
 
@@ -462,7 +471,8 @@ if the location is hidden."
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
-
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
 (defun org-icicle-imenu ()
   "In org-mode, show entire buffer contents before running icicle-imenu.
 Otherwise icicle-occur will not place cursor at found location,
@@ -473,29 +483,42 @@ if the location is hidden."
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c i m") 'org-icicle-imenu))
 
 (setq org-outline-path-complete-in-steps nil)
 
-(defun org-refile-icy (as-subtree)
+(defun org-refile-icy (as-subtree &optional do-copy-p)
   "Alternative to org-refile using icicles.
-Icicles seems to break org-modes headline buffer display, so one
-has to use icicles for all headline navigation if it is loaded.
-If quit with C-g, this function will have removed the section that
-is to be refiled.  To get it back, one has to undo, or paste."
+Refile or copy current section, to a location in the file selected with icicles.
+Without prefix argument: Place the copied/cut section it *after* the selected section.
+With prefix argument: Make the copied/cut section *a subtree* of the selected section.
+
+Note 1: If quit with C-g, this function will have removed the section that
+is to be refiled.  To get it back, one has to undo, or paste.
+
+Note 2: Reason for this function is that icicles seems to break org-modes headline
+buffer display, so onehas to use icicles for all headline navigation if it is loaded."
   (interactive "P")
   (outline-back-to-heading)
-  (org-cut-subtree)
+  (if do-copy-p (org-copy-subtree) (org-cut-subtree))
   (show-all)
   (icicle-imenu (point-min) (point-max) t)
   (outline-next-heading)
   (unless (eq (current-column) 0) (insert "\n"))
   (org-paste-subtree)
-  (if as-subtree (org-demote-subtree )))
+  (if as-subtree (org-demote-subtree)))
 
-;; Using key binding for org-reveal, since org-reveal
-;; does nothing for me.
+(defun org-copy-icy (as-subtree)
+  "Copy section to another location in file, selecting the location with icicles.
+See org-refile-icy."
+  (interactive "P")
+  (org-refile-icy as-subtree t))
+
 (eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-R") 'org-refile-icy))
+  '(define-key org-mode-map (kbd "C-c i r") 'org-refile-icy))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 
 (setq magit-repo-dirs
       '(
