@@ -298,6 +298,21 @@ Used as helm action in helm-source-find-files"
 
 (require 'calfw)
 
+(defun org-set-date (&optional inactive property)
+  "Set DATE property with current time.  Active timestamp."
+  (interactive "P")
+  (org-set-property
+   (if property property "DATE")
+   (let ((stamp (format-time-string (cdr org-time-stamp-formats) (current-time))))
+     (if inactive
+         (concat "[" (substring stamp 1 -1) "]")
+       stamp))))
+
+;; Note: This keybinding is in analogy to the standard keybinding:
+;; C-c . -> org-time-stamp
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-.") 'org-set-date))
+
 (defun log (topic)
   "Write countdown file for countdown geeklet.
   Ask user number of seconds to plan countdown in future."
@@ -318,16 +333,8 @@ Used as helm action in helm-source-find-files"
      "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/log.org")
     (widen)
     (end-of-buffer)
-    (insert-string "-")
-    (org-insert-time-stamp (current-time) t)
-    (beginning-of-line)
-    (kill-line)
     (if (> (org-outline-level) 1) (outline-up-heading 100 t))
-    (org-set-property
-     "END_TIME"
-     (replace-regexp-in-string
-      ">" "]"
-      (replace-regexp-in-string "<" "[" org-last-inserted-timestamp)))
+    (org-set-date t "END_TIME")
     (org-set-property
      "TIMER_SPAN"
      (concat
@@ -357,7 +364,7 @@ Used as helm action in helm-source-find-files"
     (insert-string "\n* ")
     (insert-string (replace-regexp-in-string "_" " " timer-string))
     ;;      (insert-string "\n")
-    (org-set-property "START_TIME" org-last-inserted-timestamp)
+    (org-set-date nil "START_TIME")
     (org-id-get-create)
     (org-set-tags-command)
 ;;    (if narrow-p
