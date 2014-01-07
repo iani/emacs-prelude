@@ -324,9 +324,10 @@ Used as helm action in helm-source-find-files"
           (format-time-string ": %D_%T" (current-time)))))
     (find-file
      "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
-    (beginning-of-buffer)
-    (kill-line)
-    (insert-string timer-string)
+;;    (beginning-of-buffer)
+;;    (kill-line)
+    (erase-buffer)
+    (insert timer-string)
     (save-buffer)
     (message (concat "Now timing: " timer-string))
     (find-file

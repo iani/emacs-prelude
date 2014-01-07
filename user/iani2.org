@@ -994,6 +994,30 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 #+END_SRC
+
+*** Property shortcuts for collaboration: From-To
+
+Note: searchable both with org-mode match: C-c / p and with icicles search,
+org-icicle-occur or icicle-occur, here: C-c C-'
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-from ()
+    "Set property 'FROM'."
+    (interactive)
+    (org-set-property "FROM" (ido-completing-read "From whom? " '("ab" "iz"))))
+
+  (defun org-to ()
+    "Set property 'TO'."
+    (interactive)
+    (org-set-property "TO" (ido-completing-read "To whom? " '("ab" "iz"))))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c x f") 'org-from))
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c x t") 'org-to))
+
+#+END_SRC
+
 ** Add git repositories to Magit (git for emacs)
 
 Magit config: Manage git repos from inside emacs
