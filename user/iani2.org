@@ -316,12 +316,16 @@ Disabled.
 *** Multiple Cursors
 
 #+BEGIN_SRC emacs-lisp
-(require 'multiple-cursors)
-(global-set-key (kbd "C-c m") 'helm-mini)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  (require 'multiple-cursors)
+  (global-set-key (kbd "C-c m") 'helm-mini)
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-M->") 'mc/mark-more-like-this-extended)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  ;; (global-set-key (kbd "C->") 'mc/mark-next-symbol-like-this)
+  ;; (global-set-key (kbd "C->") 'mc/mark-next-word-like-this)
+
 #+END_SRC
 
 *** Whitespace Mode
@@ -582,6 +586,14 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   #+END_SRC
 
 ** org-mode
+
+*** Global key for org-agenda: C-c a
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-ca" 'org-agenda)
+#+END_SRC
+
+*
+
 *** Use visual line, whitespace and windmove in org-mode
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'visual-line-mode)
@@ -933,8 +945,8 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 #+BEGIN_SRC emacs-lisp
   (defun org-icicle-occur ()
     "In org-mode, show entire buffer contents before running icicle-occur.
-  Otherwise icicle-occur will not place cursor at found location,
-  if the location is hidden."
+   Otherwise icicle-occur will not place cursor at found location,
+   if the location is hidden."
     (interactive)
     (show-all)
     (icicle-occur (point-min) (point-max)))
@@ -945,8 +957,8 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
     '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
   (defun org-icicle-imenu ()
     "In org-mode, show entire buffer contents before running icicle-imenu.
-  Otherwise icicle-occur will not place cursor at found location,
-  if the location is hidden."
+   Otherwise icicle-occur will not place cursor at found location,
+   if the location is hidden."
     (interactive)
     (show-all)
     (icicle-imenu (point-min) (point-max) t))
@@ -956,8 +968,30 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c i m") 'org-icicle-imenu))
 
+  ;; install alternative for org-mode C-c = org-table-eval-formula
+  ;; which is stubbornly overwritten by icy-mode.
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
+
+  ;; this is a redundant second try for the above, to be removed after testing:
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)))
+
+  ;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
+  ;;; Still problems. Cannot use standard org refiling with icicles activated!
   (setq org-outline-path-complete-in-steps nil)
 #+END_SRC
+
+**** Definitely switch prelude off in org mode, as it totally screws-up key bindings
+
+Especially in the case of Meta-shift-up and Meta-shift-down for spreadsheets.
+Have not figured out yet how to override those keys specifically.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
+#+END_SRC#+END_SRC
+
 
 **** Providing alternatives for refile and copy using icicles
 
@@ -1029,4 +1063,18 @@ Magit config: Manage git repos from inside emacs
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+#+END_SRC
+** Macro: toggle drawer visibility for this node
+:PROPERTIES:
+:DATE:     <2013-12-09 Mon 17:19>
+:END:
+
+See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specific-emacs-mode
+
+#+BEGIN_SRC emacs-lisp
+  (fset 'org-toggle-drawer
+     (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 #+END_SRC

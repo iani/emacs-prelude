@@ -285,6 +285,8 @@ Used as helm action in helm-source-find-files"
 (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 
+(global-set-key "\C-ca" 'org-agenda)
+
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -471,8 +473,8 @@ Used as helm action in helm-source-find-files"
 
 (defun org-icicle-occur ()
   "In org-mode, show entire buffer contents before running icicle-occur.
-Otherwise icicle-occur will not place cursor at found location,
-if the location is hidden."
+ Otherwise icicle-occur will not place cursor at found location,
+ if the location is hidden."
   (interactive)
   (show-all)
   (icicle-occur (point-min) (point-max)))
@@ -483,8 +485,8 @@ if the location is hidden."
   '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
 (defun org-icicle-imenu ()
   "In org-mode, show entire buffer contents before running icicle-imenu.
-Otherwise icicle-occur will not place cursor at found location,
-if the location is hidden."
+ Otherwise icicle-occur will not place cursor at found location,
+ if the location is hidden."
   (interactive)
   (show-all)
   (icicle-imenu (point-min) (point-max) t))
@@ -494,6 +496,18 @@ if the location is hidden."
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c i m") 'org-icicle-imenu))
 
+;; install alternative for org-mode C-c = org-table-eval-formula
+;; which is stubbornly overwritten by icy-mode.
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
+
+;; this is a redundant second try for the above, to be removed after testing:
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)))
+
+;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
+;;; Still problems. Cannot use standard org refiling with icicles activated!
 (setq org-outline-path-complete-in-steps nil)
 
 (defun org-refile-icy (as-subtree &optional do-copy-p)
@@ -528,9 +542,30 @@ See org-refile-icy."
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 
+(defun org-from ()
+  "Set property 'FROM'."
+  (interactive)
+  (org-set-property "FROM" (ido-completing-read "From whom? " '("ab" "iz"))))
+
+(defun org-to ()
+  "Set property 'TO'."
+  (interactive)
+  (org-set-property "TO" (ido-completing-read "To whom? " '("ab" "iz"))))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c x f") 'org-from))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c x t") 'org-to))
+
 (setq magit-repo-dirs
       '(
         "~/Dropbox/000WORKFILES/org"
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+
+(fset 'org-toggle-drawer
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
