@@ -19,6 +19,18 @@
    (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 (tool-bar-mode -1)
 
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+
 (require 'dash)
 
 (desktop-save-mode 1)
@@ -140,7 +152,10 @@ Used as helm action in helm-source-find-files"
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-M->") 'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; (global-set-key (kbd "C->") 'mc/mark-next-symbol-like-this)
+;; (global-set-key (kbd "C->") 'mc/mark-next-word-like-this)
 
 (defun turn-off-whitespace-mode () (whitespace-mode -1))
 (defun turn-on-whitespace-mode () (whitespace-mode 1))

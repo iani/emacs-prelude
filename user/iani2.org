@@ -42,6 +42,23 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
 ** Generic Packages
 
+*** Install el-get for installing of packages from github etc.
+
+See: https://github.com/dimitri/el-get/blob/master/README.md
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+  (unless (require 'el-get nil 'noerror)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+
+  (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+  (el-get 'sync)
+#+END_SRC
 *** Bring emacs-lisp up-to-date: dash.el
 
 #+BEGIN_QUOTE
@@ -425,7 +442,14 @@ From: http://stackoverflow.com/questions/20019732/define-keybinding-for-dired-to
         (if (equal (file-name-extension lawlist-filename) "pdf")
             (start-process "default-pdf-app" nil "open" lawlist-filename)))))
 #+END_SRC
-***** Dired-x
+***** Dired
+****** TODO Copy folder / file path from DIRED
+
+****** TODO Open home folder in finder
+
+****** TODO Open selected folder or file in finder
+
+****** Dired-x
 Dired extensions
 #+SOURCE: Dired-x
 #+BEGIN_SRC emacs-lisp
@@ -435,7 +459,7 @@ Dired extensions
 #+RESULTS:
 : t
 
-***** Dired open multiple files
+****** Dired open multiple files
 In dired mode, visit all marked files using. Bound to the "F" key.
 #+SOURCE: dired-F
 #+BEGIN_SRC emacs-lisp
@@ -452,7 +476,7 @@ In dired mode, visit all marked files using. Bound to the "F" key.
 #+RESULTS:
 : my-dired-find-file
 
-***** Stripe Dired buffers
+****** Stripe Dired buffers
 #+name: stripe-dired
 #+begin_src [emacs-lisp (This part is disabled)]
 (require 'stripe-buffer)
@@ -780,6 +804,7 @@ done
       (insert-string (replace-regexp-in-string "_" " " timer-string))
       ;;      (insert-string "\n")
       (org-set-date nil "START_TIME")
+      (org-set-date t) ;; also set DATE property: for blog entries
       (org-id-get-create)
       (org-set-tags-command)
   ;;    (if narrow-p
