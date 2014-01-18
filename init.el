@@ -25,7 +25,6 @@
     (if (file-exists-p user-custom-org-file)
         (org-babel-load-file user-custom-org-file))
 ;;; 2: user/<username>/*.el
-    (dolist (path (file-expand-wildcards (concat base "user/" 
-                                                 (user-login-name) "/*.el")))
-      (load-file path))
-    )
+    (dolist (path (file-expand-wildcards 
+                   (concat base "user/" (user-login-name) "/*.el")))
+      (load-file path)))

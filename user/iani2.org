@@ -610,14 +610,6 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   #+END_SRC
 
 ** org-mode
-
-*** Global key for org-agenda: C-c a
-#+BEGIN_SRC emacs-lisp
-  (global-set-key "\C-ca" 'org-agenda)
-#+END_SRC
-
-*
-
 *** Use visual line, whitespace and windmove in org-mode
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'visual-line-mode)
@@ -636,11 +628,23 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 #+END_SRC
 
+*** Global key for org-agenda: C-c a
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-ca" 'org-agenda)
+#+END_SRC
+
 *** Calendar framework: Show org agenda in iCal-style layout
 
 #+BEGIN_SRC emacs-lisp
  (require 'calfw)
 #+END_SRC
+
+*** Global key for cfw calendar framework): C-c M-a
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-c\M-a" 'cfw:open-calendar-buffer)
+#+END_SRC
+
 *** Insert DATE property with current time
 :PROPERTIES:
 :DATE:     <2014-01-02 Thu 13:35>
@@ -662,6 +666,19 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   ;; C-c . -> org-time-stamp
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-.") 'org-set-date))
+#+END_SRC
+
+*** Set DUE property with selected time/date
+
+#+BEGIN_SRC elisp
+  (defun org-set-due-property ()
+    (interactive)
+    (org-set-property
+     "DUE"
+     (format-time-string (cdr org-time-stamp-formats) (org-read-date t t))))
+
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c M-.") 'org-set-due-property))
 #+END_SRC
 *** Log: (simplified alternative to capture)
 :PROPERTIES:
@@ -1015,7 +1032,7 @@ Have not figured out yet how to override those keys specifically.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
-#+END_SRC#+END_SRC
+#+END_SRC
 
 
 **** Providing alternatives for refile and copy using icicles

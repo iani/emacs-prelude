@@ -383,6 +383,7 @@ Used as helm action in helm-source-find-files"
     (insert-string (replace-regexp-in-string "_" " " timer-string))
     ;;      (insert-string "\n")
     (org-set-date nil "START_TIME")
+    (org-set-date t) ;; also set DATE property: for blog entries
     (org-id-get-create)
     (org-set-tags-command)
 ;;    (if narrow-p
@@ -524,6 +525,8 @@ Used as helm action in helm-source-find-files"
 ;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
 ;;; Still problems. Cannot use standard org refiling with icicles activated!
 (setq org-outline-path-complete-in-steps nil)
+
+(add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
 
 (defun org-refile-icy (as-subtree &optional do-copy-p)
   "Alternative to org-refile using icicles.
