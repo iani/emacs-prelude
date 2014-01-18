@@ -169,7 +169,35 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (global-set-key (kbd "H-h b") 'helm-bookmarks)
   (global-set-key (kbd "H-h l") 'helm-buffers-list)
   (global-set-key (kbd "H-M-h") 'helm-M-x)
+  (global-set-key (kbd "H-h w") 'helm-world-time)
+
+  (setq display-time-world-list
+        '(("America/Los_Angeles" "Santa Barbara")
+          ("America/New_York" "New York")
+          ("Europe/London" "London")
+          ("Europe/Lisbon" "Lisboa")
+          ("Europe/Madrid" "Barcelona")
+          ("Europe/Paris" "Paris")
+          ("Europe/Berlin" "Berlin")
+          ("Europe/Rome" "Rome")
+          ;; ("Europe/Albania" "Gjirokastra") ;; what city to name here?
+          ("Europe/Athens" "Athens")
+          ("Asia/Calcutta" "Kolkatta")
+          ("Asia/Jakarta" "Jakarta")
+          ("Asia/Shanghai" "Shanghai")
+          ("Asia/Tokyo" "Tokyo")))
+
+
+
+
 #+END_SRC
+
+#+BEGIN_SRC elisp
+(message "%s" display-time-world-list)
+#+END_SRC
+
+#+RESULTS:
+: ((America/Los_Angeles Seattle) (America/New_York New York) (Europe/London London) (Europe/Paris Paris) (Asia/Calcutta Bangalore) (Asia/Tokyo Tokyo))
 
 *** Switch window
 
@@ -1091,7 +1119,6 @@ org-icicle-occur or icicle-occur, here: C-c C-'
     '(define-key org-mode-map (kbd "C-c x f") 'org-from))
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c x t") 'org-to))
-
 #+END_SRC
 
 ** Add git repositories to Magit (git for emacs)
