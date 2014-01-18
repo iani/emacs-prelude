@@ -664,13 +664,14 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
 *** Calendar framework: Show org agenda in iCal-style layout
 
 #+BEGIN_SRC emacs-lisp
- (require 'calfw)
+ (require 'calfw-org)
 #+END_SRC
 
-*** Global key for cfw calendar framework): C-c M-a
+*** Global key for cfw org calendar framework): C-c M-a
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key "\C-c\M-a" 'cfw:open-calendar-buffer)
+  (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
+  (global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
 #+END_SRC
 
 *** Insert DATE property with current time
@@ -796,15 +797,17 @@ done
 **** Emacs-lisp log function
 
 #+BEGIN_SRC emacs-lisp
-  (defun log (topic)
+  (defun log (expense)
     "Write countdown file for countdown geeklet.
     Ask user number of seconds to plan countdown in future."
-    (interactive "MEnter task topic: ")
-    (if (< (length topic) 1) (setq topic "Untitled task"))
-    (let ((timer-string
+    (interactive "P")
+
+    (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
+          (timer-string
            (concat
             (replace-regexp-in-string " " "_" topic)
             (format-time-string ": %D_%T" (current-time)))))
+      (if (< (length topic) 1) (setq topic "Untitled task"))
       (find-file
        "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
   ;;    (beginning-of-buffer)
@@ -851,6 +854,9 @@ done
       (org-set-date nil "START_TIME")
       (org-set-date t) ;; also set DATE property: for blog entries
       (org-id-get-create)
+      (when expense
+        (org-set-tags-to '("expense"))
+        (org-set-property "EXPENSE" nil))
       (org-set-tags-command)
   ;;    (if narrow-p
       (org-narrow-to-subtree)
@@ -862,6 +868,10 @@ done
       ))
 
   (global-set-key (kbd "C-M-l") 'log)
+
+
+
+
 #+END_SRC
 
 #+RESULTS:

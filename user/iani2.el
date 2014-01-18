@@ -109,6 +109,23 @@ Used as helm action in helm-source-find-files"
 (global-set-key (kbd "H-h b") 'helm-bookmarks)
 (global-set-key (kbd "H-h l") 'helm-buffers-list)
 (global-set-key (kbd "H-M-h") 'helm-M-x)
+(global-set-key (kbd "H-h w") 'helm-world-time)
+
+(setq display-time-world-list
+      '(("America/Los_Angeles" "Santa Barbara")
+        ("America/New_York" "New York")
+        ("Europe/London" "London")
+        ("Europe/Lisbon" "Lisboa")
+        ("Europe/Madrid" "Barcelona")
+        ("Europe/Paris" "Paris")
+        ("Europe/Berlin" "Berlin")
+        ("Europe/Rome" "Rome")
+        ;; ("Europe/Albania" "Gjirokastra") ;; what city to name here?
+        ("Europe/Athens" "Athens")
+        ("Asia/Calcutta" "Kolkatta")
+        ("Asia/Jakarta" "Jakarta")
+        ("Asia/Shanghai" "Shanghai")
+        ("Asia/Tokyo" "Tokyo")))
 
 (require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
@@ -300,8 +317,6 @@ Used as helm action in helm-source-find-files"
 (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 
-(global-set-key "\C-ca" 'org-agenda)
-
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -313,7 +328,11 @@ Used as helm action in helm-source-find-files"
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 
-(require 'calfw)
+(global-set-key "\C-ca" 'org-agenda)
+
+(require 'calfw-org)
+
+(global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
 
 (defun org-set-date (&optional inactive property)
   "Set DATE property with current time.  Active timestamp."
