@@ -602,6 +602,10 @@ See org-refile-icy."
 
 (defvar fname-parts-1-2 nil)
 (defvar fname-part-3 nil)
+(defvar filename-components
+  (concat (file-name-directory (or load-file-name (buffer-file-name)))
+          "filename-components.org"
+          ))
 
 (defun find-file-standardized ()
   (interactive)
@@ -635,10 +639,7 @@ See org-refile-icy."
 
 (defun load-file-components ()
   (interactive)
-  (let ((buffer (find-file
-                 (concat (file-name-directory (or load-file-name (buffer-file-name)))
-                         "filename-components.org"
-                         ))))
+  (let ((buffer (find-file filename-components)))
     (set-buffer buffer)
     (save-excursion
       (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
@@ -670,7 +671,21 @@ See org-refile-icy."
                (setq last (org-get-heading))
                (setcdr (last fname-part-3) (list last))))))
           (setq fname-part-3 (cdr fname-part-3)))))
-    (kill-buffer buffer)))
+    (kill-buffer buffer))
+  (message "file component list updated"))
+
+(defun edit-file-components ()
+  (interactive)
+  (find-file filename-components))
+
+(defun find-file-menu ()
+  (interactive)
+  (let ((action (ido-completing-read
+                 "Choose action: "
+                 '("edit-file-components"
+                  "load-file-components"
+                  "find-file-standardized"))))
+    (funcall (intern action))))
 
 (global-set-key (kbd "C-x M-f") 'find-file-standardized)
 

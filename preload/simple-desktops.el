@@ -90,7 +90,9 @@ sd/desktops under that name. Save sd/desktops to disk."
                        (mapcar (lambda (d) (car d)) sd/desktops) nil t)))
    (unless preserve-current-buffers
 	(dolist (buffer (buffer-list)) 
-          (if (buffer-file-name buffer) (kill-buffer buffer))))
+          (if (or (buffer-file-name buffer)
+                  (equal 'dired-mode (buffer-local-value 'major-mode buffer))) 
+              (kill-buffer buffer))))
     (dolist (path (cdr (assoc selection sd/desktops)))
       (if (file-exists-p path) (find-file path)))))
 

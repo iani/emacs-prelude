@@ -445,10 +445,14 @@ highlight-sexps.el looks nicer, because it highlights both the innermost s-expre
 #+END_SRC
 
 *** NEEDS_REVIEW Dired extensions and customization
-**** Dired+
+**** Dired+, Dirtree
+
+Note about dirtree:  Very handy.  There are several versions out there, and there is also a different package under the same name.  No all versions work.  The one that works for me all the time is: https://github.com/rtircher/dirtree.  I installed it manually.
 
 #+BEGIN_SRC emacs-lisp
-(require 'dired+)
+  (require 'dired+)
+  (require 'dirtree)
+  (global-set-key (kbd "H-d d") 'dirtree)
 #+END_SRC
 
 **** Dired customization from Healy's startup kit
