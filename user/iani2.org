@@ -868,14 +868,8 @@ done
       ))
 
   (global-set-key (kbd "C-M-l") 'log)
-
-
-
-
 #+END_SRC
 
-#+RESULTS:
-: log
 *** Org-Babel
 **** Org-Babel: enable some languages
 
@@ -906,7 +900,6 @@ Enable some cool languages in org-babel mode.
 
 #+RESULTS:
 : org-babel-load-current-file
-
 
 *** Orgmode latex customization
 
@@ -1130,6 +1123,86 @@ org-icicle-occur or icicle-occur, here: C-c C-'
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c x t") 'org-to))
 #+END_SRC
+
+*** Consistent multi-component filenames
+
+#+BEGIN_SRC elisp
+  (defvar fname-parts-1-2)
+  (defvar fname-part-3)
+
+  (defun fname-make ()
+    (interactive)
+    (unless fname-part-3 (load-file-components))
+    (setq *grizzl-read-max-results* 40)
+    (let* ((root  "~/Dropbox/000Workfiles/2014/")
+           (index-1 (grizzl-make-index
+                     (mapcar 'car fname-parts-1-2)))
+           (name-1 (grizzl-completing-read "Part 1: " index-1))
+           (index-2 (grizzl-make-index (cdr (assoc name-1 fname-parts-1-2))))
+           (name-2 (grizzl-completing-read "Part 2: " index-2))
+           (index-3 (grizzl-make-index fname-part-3))
+           (name-3 (grizzl-completing-read "Part 3: " index-3))
+           (name (concat name-1 "_" name-2 "_" name-3 "_"))
+           (candidates (file-expand-wildcards
+                        (concat root name "*")))
+           extension-index extension)
+      (setq candidates (cons name candidates))
+      (setq name (completing-read "Choose or enter last component: " candidates))
+      (unless (string-match "[a-z0-9A-Z]+$" name)
+        (setq extension (ido-completing-read
+                         "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
+        (setq name (concat root name
+                           (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
+                           "." extension)))
+      (find-file name)
+      (set-visited-file-name
+       (replace-regexp-in-string
+        "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
+        (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) name))))
+
+  (defun load-file-components ()
+    (interactive)
+    (let ((buffer (find-file
+                   (concat (file-name-directory (or load-file-name (buffer-file-name)))
+                           "filename-components.org"
+                           ))))
+      (set-buffer buffer)
+      (save-excursion
+        (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
+              (level3-section (car (org-map-entries '(point) "LEVEL3")))
+              level3 level)
+          (setq fname-parts-1-2 '(1))
+          (goto-char levels1_2-section)
+          (save-restriction
+            (org-narrow-to-subtree)
+            (org-map-entries
+             (lambda ()
+               (setq level (plist-get (cadr (org-element-at-point)) :level))
+               (cond
+                ((equal 2 level)
+                 (setq last (list (org-get-heading)))
+                 (setcdr (last fname-parts-1-2) (list last)))
+                ((equal 3 level)
+                 (setcdr (last last) (list (org-get-heading)))))))
+            (setq fname-parts-1-2 (cdr fname-parts-1-2)))
+          (goto-char level3-section)
+          (save-restriction
+            (setq fname-part-3 '(1))
+            (org-narrow-to-subtree)
+            (org-map-entries
+             (lambda ()
+               (setq level (plist-get (cadr (org-element-at-point)) :level))
+               (cond
+                ((equal 2 level)
+                 (setq last (org-get-heading))
+                 (setcdr (last fname-part-3) (list last))))))
+            (setq fname-part-3 (cdr fname-part-3)))))
+      (kill-buffer buffer)))
+
+#+END_SRC
+
+#+RESULTS:
+
 
 ** Add git repositories to Magit (git for emacs)
 
