@@ -1,8 +1,81 @@
+#+STARTUP: content
+
 ISO-like naming convention for files/attachments: 01/18/14 19:08:52 :orgmode:organization:
 
-* Strategy thoughts                                                  :ATTACH:
+* Categories Levels 1 and 2                                       :LEVELS1_2:
+
+** EASTN
+
+*** WSHOP1
+*** WSHOP2
+*** WSHOP3
+
+*** WSHOP4
+*** RESGLOBAL
+*** RESIU
+*** RESCSAD
+*** RESIAAC
+*** RESZKM
+*** RESACROE
+*** ADMIN
+*** FEST1
+
+** ERASMUS
+*** SELECTION
+*** MONITORING
+*** REPORTS
+*** BILATERALS
+** CLASS
+*** THE104
+*** AUD540
+*** THE940
+** CONFORG
+*** ICMC14
+*** REFREE15
+** JPAPER
+*** JAST14
+** CPAPER
+*** ICMC14
+** LECTURE
+** PANEL
+** WORKSHOP
+** INSTALLATION
+** PERFORMANCE
+** WEBSITE
+** MUSIC
+** NOTES
+*** EMACS
+*** UNIX
+*** LITERATURE
+*** PHILOSOPHY
+*** MATH
+*** PRACTICAL
+
+* Categories Level 3                                                 :LEVEL3:
+
+** APP
+** ARTICLE
+** BIBLIOGRAPHY
+** BUDGET
+** CHECKLIST
+** CODE
+** CONTACTS
+** DATA
+** DESIGN
+** EXAMPLE
+** INVOICE
+** MAP
+** MEDIA
+** MINUTES
+** NOTES
+** REPORT
+** REQUEST
+** SCHEDULE
+** SYLLABUS
+** TEMPLATE
+
+* Strategy thoughts
 :PROPERTIES:
-:Attachments: TEST_2014_01_02.org
 :ID:       20D1E950-6245-4F72-840F-9670A3785896
 :END:
 
@@ -121,150 +194,3 @@ For the case of level 3:
 18. SCHEDULE
 19. SYLLABUS
 20. TEMPLATE
-
-
-
-* Code
-
-#+BEGIN_SRC elisp
-  (defvar fname-parts-1-2)
-  (defvar fname-part-3)
-
-  (save-excursion
-    (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
-         (level3-section (car (org-map-entries '(point) "LEVEL3")))
-         level3 level)
-      (setq fname-parts-1-2 '(1))
-     (goto-char levels1_2-section)
-     (save-restriction
-      (org-narrow-to-subtree)
-      (org-map-entries
-       (lambda ()
-         (setq level (plist-get (cadr (org-element-at-point)) :level))
-         (cond
-          ((equal 2 level)
-           (setq last (list (org-get-heading)))
-           (setcdr (last fname-parts-1-2) (list last)))
-          ((equal 3 level)
-           (setcdr (last last) (list (org-get-heading)))))))
-      (setq fname-parts-1-2 (cdr fname-parts-1-2)))
-     (goto-char level3-section)
-     (save-restriction
-       (setq fname-part-3 '(1))
-       (org-narrow-to-subtree)
-       (org-map-entries
-        (lambda ()
-          (setq level (plist-get (cadr (org-element-at-point)) :level))
-          (cond
-           ((equal 2 level)
-            (setq last (org-get-heading))
-            (setcdr (last fname-part-3) (list last))))))
-       (setq fname-part-3 (cdr fname-part-3)))))
-
-  (defun fname-make ()
-    (interactive)
-    (setq *grizzl-read-max-results* 40)
-    (let* ((root  "~/Dropbox/000Workfiles/2014/")
-           (index-1 (grizzl-make-index
-                    (mapcar 'car fname-parts-1-2)))
-           (name-1 (grizzl-completing-read "Part 1: " index-1))
-           (index-2 (grizzl-make-index (cdr (assoc name-1 fname-parts-1-2))))
-           (name-2 (grizzl-completing-read "Part 2: " index-2))
-           (index-3 (grizzl-make-index fname-part-3))
-           (name-3 (grizzl-completing-read "Part 3: " index-3))
-           (name (concat name-1 "_" name-2 "_" name-3 "_"))
-           (candidates (file-expand-wildcards
-                        (concat root name "*")))
-           extension-index extension)
-      (setq candidates (cons name candidates))
-      (setq name (completing-read "Choose or enter last component: " candidates))
-      (unless (string-match "[a-z0-9A-Z]+$" name)
-        (setq extension (ido-completing-read
-                         "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
-        (setq name (concat root name
-                           (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
-                           "." extension)))
-      (find-file name)
-      (set-visited-file-name
-       (replace-regexp-in-string
-        "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
-        (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) name))
-    ))
-
-
-#+END_SRC
-
-#+RESULTS:
-: fname-make
-
-* Categories Levels 1 and 2                                       :LEVELS1_2:
-
-** EASTN
-
-*** WSHOP1
-*** WSHOP2
-*** WSHOP3
-
-*** WSHOP4
-*** RESGLOBAL
-*** RESIU
-*** RESCSAD
-*** RESIAAC
-*** RESZKM
-*** RESACROE
-*** ADMIN
-*** FEST1
-
-** ERASMUS
-*** SELECTION
-*** MONITORING
-*** REPORTS
-*** BILATERALS
-** CLASS
-*** THE104
-*** AUD540
-*** THE940
-** CONFORG
-*** ICMC14
-*** REFREE15
-** JPAPER
-*** JAST14
-** CPAPER
-*** ICMC14
-** LECTURE
-** PANEL
-** WORKSHOP
-** INSTALLATION
-** PERFORMANCE
-** WEBSITE
-** MUSIC
-** NOTES
-*** EMACS
-*** UNIX
-*** LITERATURE
-*** PHILOSOPHY
-*** MATH
-*** PRACTICAL
-
-* Categories Level 3                                                 :LEVEL3:
-
-** APP
-** ARTICLE
-** BIBLIOGRAPHY
-** BUDGET
-** CHECKLIST
-** CODE
-** CONTACTS
-** DATA
-** DESIGN
-** EXAMPLE
-** INVOICE
-** MAP
-** MEDIA
-** MINUTES
-** NOTES
-** REPORT
-** REQUEST
-** SCHEDULE
-** SYLLABUS
-** TEMPLATE

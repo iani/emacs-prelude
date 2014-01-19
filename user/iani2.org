@@ -1124,13 +1124,17 @@ org-icicle-occur or icicle-occur, here: C-c C-'
     '(define-key org-mode-map (kbd "C-c x t") 'org-to))
 #+END_SRC
 
-*** Consistent multi-component filenames
+*** find-file-standardized: Consistent multi-component filenames
 
-#+BEGIN_SRC elisp
-  (defvar fname-parts-1-2)
-  (defvar fname-part-3)
+#+BEGIN_SRC emacs-lisp
+  (defvar fname-parts-1-2 nil)
+  (defvar fname-part-3 nil)
+  (defvar filename-components
+    (concat (file-name-directory (or load-file-name (buffer-file-name)))
+            "filename-components.org"
+            ))
 
-  (defun fname-make ()
+  (defun find-file-standardized ()
     (interactive)
     (unless fname-part-3 (load-file-components))
     (setq *grizzl-read-max-results* 40)
@@ -1162,10 +1166,7 @@ org-icicle-occur or icicle-occur, here: C-c C-'
 
   (defun load-file-components ()
     (interactive)
-    (let ((buffer (find-file
-                   (concat (file-name-directory (or load-file-name (buffer-file-name)))
-                           "filename-components.org"
-                           ))))
+    (let ((buffer (find-file filename-components)))
       (set-buffer buffer)
       (save-excursion
         (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
@@ -1197,11 +1198,28 @@ org-icicle-occur or icicle-occur, here: C-c C-'
                  (setq last (org-get-heading))
                  (setcdr (last fname-part-3) (list last))))))
             (setq fname-part-3 (cdr fname-part-3)))))
-      (kill-buffer buffer)))
+      (kill-buffer buffer))
+    (message "file component list updated"))
+
+  (defun edit-file-components ()
+    (interactive)
+    (find-file filename-components))
+
+  (defun find-file-menu ()
+    (interactive)
+    (let ((action (ido-completing-read
+                   "Choose action: "
+                   '("edit-file-components"
+                    "load-file-components"
+                    "find-file-standardized"))))
+      (funcall (intern action))))
+
+  (global-set-key (kbd "C-x M-f") 'find-file-standardized)
 
 #+END_SRC
 
 #+RESULTS:
+: find-file-standardized
 
 
 ** Add git repositories to Magit (git for emacs)

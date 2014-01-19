@@ -333,6 +333,7 @@ Used as helm action in helm-source-find-files"
 (require 'calfw-org)
 
 (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
+(global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
 
 (defun org-set-date (&optional inactive property)
   "Set DATE property with current time.  Active timestamp."
@@ -349,15 +350,17 @@ Used as helm action in helm-source-find-files"
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-.") 'org-set-date))
 
-(defun log (topic)
+(defun log (expense)
   "Write countdown file for countdown geeklet.
   Ask user number of seconds to plan countdown in future."
-  (interactive "MEnter task topic: ")
-  (if (< (length topic) 1) (setq topic "Untitled task"))
-  (let ((timer-string
+  (interactive "P")
+
+  (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
+        (timer-string
          (concat
           (replace-regexp-in-string " " "_" topic)
           (format-time-string ": %D_%T" (current-time)))))
+    (if (< (length topic) 1) (setq topic "Untitled task"))
     (find-file
      "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
 ;;    (beginning-of-buffer)
@@ -404,6 +407,9 @@ Used as helm action in helm-source-find-files"
     (org-set-date nil "START_TIME")
     (org-set-date t) ;; also set DATE property: for blog entries
     (org-id-get-create)
+    (when expense
+      (org-set-tags-to '("expense"))
+      (org-set-property "EXPENSE" nil))
     (org-set-tags-command)
 ;;    (if narrow-p
     (org-narrow-to-subtree)
@@ -593,6 +599,80 @@ See org-refile-icy."
   '(define-key org-mode-map (kbd "C-c x f") 'org-from))
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c x t") 'org-to))
+
+(defvar fname-parts-1-2 nil)
+(defvar fname-part-3 nil)
+
+(defun find-file-standardized ()
+  (interactive)
+  (unless fname-part-3 (load-file-components))
+  (setq *grizzl-read-max-results* 40)
+  (let* ((root  "~/Dropbox/000Workfiles/2014/")
+         (index-1 (grizzl-make-index
+                   (mapcar 'car fname-parts-1-2)))
+         (name-1 (grizzl-completing-read "Part 1: " index-1))
+         (index-2 (grizzl-make-index (cdr (assoc name-1 fname-parts-1-2))))
+         (name-2 (grizzl-completing-read "Part 2: " index-2))
+         (index-3 (grizzl-make-index fname-part-3))
+         (name-3 (grizzl-completing-read "Part 3: " index-3))
+         (name (concat name-1 "_" name-2 "_" name-3 "_"))
+         (candidates (file-expand-wildcards
+                      (concat root name "*")))
+         extension-index extension)
+    (setq candidates (cons name candidates))
+    (setq name (completing-read "Choose or enter last component: " candidates))
+    (unless (string-match "[a-z0-9A-Z]+$" name)
+      (setq extension (ido-completing-read
+                       "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
+      (setq name (concat root name
+                         (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
+                         "." extension)))
+    (find-file name)
+    (set-visited-file-name
+     (replace-regexp-in-string
+      "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
+      (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) name))))
+
+(defun load-file-components ()
+  (interactive)
+  (let ((buffer (find-file
+                 (concat (file-name-directory (or load-file-name (buffer-file-name)))
+                         "filename-components.org"
+                         ))))
+    (set-buffer buffer)
+    (save-excursion
+      (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
+            (level3-section (car (org-map-entries '(point) "LEVEL3")))
+            level3 level)
+        (setq fname-parts-1-2 '(1))
+        (goto-char levels1_2-section)
+        (save-restriction
+          (org-narrow-to-subtree)
+          (org-map-entries
+           (lambda ()
+             (setq level (plist-get (cadr (org-element-at-point)) :level))
+             (cond
+              ((equal 2 level)
+               (setq last (list (org-get-heading)))
+               (setcdr (last fname-parts-1-2) (list last)))
+              ((equal 3 level)
+               (setcdr (last last) (list (org-get-heading)))))))
+          (setq fname-parts-1-2 (cdr fname-parts-1-2)))
+        (goto-char level3-section)
+        (save-restriction
+          (setq fname-part-3 '(1))
+          (org-narrow-to-subtree)
+          (org-map-entries
+           (lambda ()
+             (setq level (plist-get (cadr (org-element-at-point)) :level))
+             (cond
+              ((equal 2 level)
+               (setq last (org-get-heading))
+               (setcdr (last fname-part-3) (list last))))))
+          (setq fname-part-3 (cdr fname-part-3)))))
+    (kill-buffer buffer)))
+
+(global-set-key (kbd "C-x M-f") 'find-file-standardized)
 
 (setq magit-repo-dirs
       '(
