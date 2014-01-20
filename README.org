@@ -30,7 +30,7 @@ Some of the packages configurations (for example: wanderlust) have not yet been 
 
 - desktop :: Automatically save and restore buffer configurations between sessions.
              Note: Works with bookmark+, but interactive interface and settings are unclear as to what gets overwritten when.  So I use my own alternative "simple-desktop" package:
-- simple-desktops :: Simple scheme for saving and reloading of file lists, independent of desktop or bookmark+.
+- simple-desktops :: Simple scheme for saving and reloading of file lists, independent of desktop or bookmark+. (By IZ).
 
 *** Windows and buffers
 
@@ -49,10 +49,16 @@ Some of the packages configurations (for example: wanderlust) have not yet been 
                 and ack.
 - helm-projectile :: Integrate projectile into helm.  Run with C-c p h.
 - bookmark+ :: Bookmark enhancement.
-- smex :: Enhancement of autocomplete for commands in minibuffer.
+- smex :: Enhancement of autocomplete fγor commands in minibuffer.
 - lacarte :: execute menu commands from the keyboard
 - AceJump :: Jump to any one of displayed characters/words/lines starting with a character typed (triggered by key-chord combinations).
 - dired+ :: Enhancement of dired.
+- speedbar :: A sidebar on a separate frame, showing directory or files (with foldable buffers and navigation) or list of buffers. (Type f for folders, b for buffers).
+              Speedbar is part of prelude.  The home page of speedbar is: http://cedet.sourceforge.net/speedbar.shtml
+- dirtree :: Tree-like display of directories and files.  (Like file-list view in Finder or Windows navigator).  Version used:  https://github.com/rtircher/dirtree.
+             Note: Speedbar does the same job as dirtree.  There are some differences:
+  1. Dirtree appears in the main frame as a split window, while speedbar appears in a separate frame.
+  2. In dirtree, one can browse several different directories in the same sidebar.
 **** for later: ack, ag
 - ack-and-a-half :: Perl based search in files.  Used by projectile.  See:
                     http://www.emacswiki.org/emacs/Ack

@@ -215,6 +215,8 @@ Used as helm action in helm-source-find-files"
 (key-chord-define-global "KJ"      'ido-imenu)
 
 (require 'dired+)
+(require 'dirtree)
+(global-set-key (kbd "H-d d") 'dirtree)
 
 (define-key dired-mode-map (kbd "<SPC>")
   (lambda () (interactive)
