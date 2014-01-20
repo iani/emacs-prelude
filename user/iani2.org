@@ -444,8 +444,8 @@ highlight-sexps.el looks nicer, because it highlights both the innermost s-expre
    '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
 #+END_SRC
 
-*** NEEDS_REVIEW Dired extensions and customization
-**** Dired+, Dirtree
+*** Directory/Buffer navigation: Dired+, Dirtree, Speedbar
+**** Dired+, Dirtree, Speedbar
 
 Note about dirtree:  Very handy.  There are several versions out there, and there is also a different package under the same name.  No all versions work.  The one that works for me all the time is: https://github.com/rtircher/dirtree.  I installed it manually.
 
@@ -453,6 +453,8 @@ Note about dirtree:  Very handy.  There are several versions out there, and ther
   (require 'dired+)
   (require 'dirtree)
   (global-set-key (kbd "H-d d") 'dirtree)
+  (require 'sr-speedbar)
+  (global-set-key (kbd "H-d s") 'sr-speedbar-toggle)
 #+END_SRC
 
 **** Dired customization from Healy's startup kit
