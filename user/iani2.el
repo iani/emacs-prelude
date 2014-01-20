@@ -217,6 +217,8 @@ Used as helm action in helm-source-find-files"
 (require 'dired+)
 (require 'dirtree)
 (global-set-key (kbd "H-d d") 'dirtree)
+(require 'sr-speedbar)
+(global-set-key (kbd "H-d s") 'sr-speedbar-toggle)
 
 (define-key dired-mode-map (kbd "<SPC>")
   (lambda () (interactive)
@@ -604,16 +606,14 @@ See org-refile-icy."
 
 (defvar fname-parts-1-2 nil)
 (defvar fname-part-3 nil)
-(defvar filename-components
-  (concat (file-name-directory (or load-file-name (buffer-file-name)))
-          "filename-components.org"
-          ))
-
-(defun find-file-standardized ()
+(defvar fname-root "~/Dropbox/000Workfiles/2014/")
+(defvar fname-filename-components
+  (concat fname-root  "00000fname-filename-components.org"))
+(defun fname-find-file-standardized ()
   (interactive)
-  (unless fname-part-3 (load-file-components))
+  (unless fname-part-3 (fname-load-file-components))
   (setq *grizzl-read-max-results* 40)
-  (let* ((root  "~/Dropbox/000Workfiles/2014/")
+  (let* ((root fname-root)
          (index-1 (grizzl-make-index
                    (mapcar 'car fname-parts-1-2)))
          (name-1 (grizzl-completing-read "Part 1: " index-1))
@@ -621,27 +621,28 @@ See org-refile-icy."
          (name-2 (grizzl-completing-read "Part 2: " index-2))
          (index-3 (grizzl-make-index fname-part-3))
          (name-3 (grizzl-completing-read "Part 3: " index-3))
-         (name (concat name-1 "_" name-2 "_" name-3 "_"))
-         (candidates (file-expand-wildcards
-                      (concat root name "*")))
-         extension-index extension)
-    (setq candidates (cons name candidates))
-    (setq name (completing-read "Choose or enter last component: " candidates))
-    (unless (string-match "[a-z0-9A-Z]+$" name)
-      (setq extension (ido-completing-read
-                       "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
-      (setq name (concat root name
-                         (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
-                         "." extension)))
-    (find-file name)
+         (path (concat root name-1 "_" name-2 "_" name-3 "_"))
+         (candidates (file-expand-wildcards (concat path "*")))
+         extension-index extension final-choice)
+    (setq final-choice
+          (completing-read "Choose file or enter last component: " candidates))
+    (cond ((string-match (concat "^" path) final-choice)
+           (setq path final-choice))
+      (t
+       (setq extension (ido-completing-read
+                        "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
+       (setq path (concat path final-choice
+                          (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
+                          "." extension))))
+    (find-file path)
     (set-visited-file-name
      (replace-regexp-in-string
       "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
-      (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) name))))
+      (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path))))
 
-(defun load-file-components ()
+(defun fname-load-file-components ()
   (interactive)
-  (let ((buffer (find-file filename-components)))
+  (let ((buffer (find-file fname-filename-components)))
     (set-buffer buffer)
     (save-excursion
       (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
@@ -676,20 +677,23 @@ See org-refile-icy."
     (kill-buffer buffer))
   (message "file component list updated"))
 
-(defun edit-file-components ()
+  (defun fname-edit-file-components ()
   (interactive)
-  (find-file filename-components))
+  (find-file fname-filename-components))
 
-(defun find-file-menu ()
+  (defun fname-menu ()
   (interactive)
   (let ((action (ido-completing-read
                  "Choose action: "
-                 '("edit-file-components"
-                  "load-file-components"
-                  "find-file-standardized"))))
+                 '("fname-edit-file-components"
+                  "fname-load-file-components"
+                  "fname-find-file-standardized"))))
     (funcall (intern action))))
 
-(global-set-key (kbd "C-x M-f") 'find-file-standardized)
+(global-set-key (kbd "H-f f") 'fname-find-file-standardized)
+(global-set-key (kbd "H-f m") 'fname-menu)
+(global-set-key (kbd "H-f e") 'fname-edit-file-components)
+(global-set-key (kbd "H-f l") 'fname-load-file-components)
 
 (setq magit-repo-dirs
       '(
