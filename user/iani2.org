@@ -1173,6 +1173,8 @@ org-icicle-occur or icicle-occur, here: C-c C-'
     (interactive)
     (let ((buffer (find-file fname-filename-components)))
       (set-buffer buffer)
+      (setq fname-parts-1-2 nil)
+      (setq fname-part-3 nil)
       (save-excursion
         (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
               (level3-section (car (org-map-entries '(point) "LEVEL3")))
@@ -1183,13 +1185,16 @@ org-icicle-occur or icicle-occur, here: C-c C-'
             (org-narrow-to-subtree)
             (org-map-entries
              (lambda ()
-               (setq level (plist-get (cadr (org-element-at-point)) :level))
-               (cond
-                ((equal 2 level)
-                 (setq last (list (org-get-heading)))
-                 (setcdr (last fname-parts-1-2) (list last)))
-                ((equal 3 level)
-                 (setcdr (last last) (list (org-get-heading)))))))
+               (let* ((section (cadr (org-element-at-point)))
+                      (level (plist-get section :level))
+                      (heading (plist-get section :raw-value)))
+                (setq level level)
+                (cond
+                 ((equal 2 level)
+                  (setq last (list heading))
+                  (setcdr (last fname-parts-1-2) (list last)))
+                 ((equal 3 level)
+                  (setcdr (last last) (list heading)))))))
             (setq fname-parts-1-2 (cdr fname-parts-1-2)))
           (goto-char level3-section)
           (save-restriction
@@ -1206,9 +1211,52 @@ org-icicle-occur or icicle-occur, here: C-c C-'
       (kill-buffer buffer))
     (message "file component list updated"))
 
-    (defun fname-edit-file-components ()
+  (defun fname-load-file-components-from-buffer (buffer)
+    (set-buffer buffer)
+    (goto-char (point-min))
+    (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
+          (level3-section (car (org-map-entries '(point) "LEVEL3")))
+          level3 level)
+      (setq fname-parts-1-2 '(1))
+      (goto-char levels1_2-section)
+      (save-restriction
+        (org-narrow-to-subtree)
+        (org-map-entries
+         (lambda ()
+           (let* ((section (cadr (org-element-at-point)))
+                  (level (plist-get section :level))
+                  (heading (plist-get section :raw-value)))
+             (setq level level)
+             (cond
+              ((equal 2 level)
+               (setq last (list heading))
+               (setcdr (last fname-parts-1-2) (list last)))
+              ((equal 3 level)
+               (setcdr (last last) (list heading)))))))
+        (setq fname-parts-1-2 (cdr fname-parts-1-2)))
+      (goto-char level3-section)
+      (save-restriction
+        (setq fname-part-3 '(1))
+        (org-narrow-to-subtree)
+        (org-map-entries
+         (lambda ()
+          (let* ((section (cadr (org-element-at-point)))
+                 (level (plist-get section :level))
+                 (heading (plist-get section :raw-value)))
+            (cond
+             ((equal 2 level)
+              (setq last heading)
+              (setcdr (last fname-part-3) (list last)))))))
+        (setq fname-part-3 (cdr fname-part-3)))))
+
+  (defun fname-edit-file-components ()
     (interactive)
-    (find-file fname-filename-components))
+    (find-file fname-filename-components)
+    (add-to-list 'write-contents-functions
+                 (lambda ()
+                   (fname-load-file-components-from-buffer (current-buffer))
+                   (message "Updated file name components from: %s" (current-buffer))
+                   (set-buffer-modified-p nil))))
 
     (defun fname-menu ()
     (interactive)
