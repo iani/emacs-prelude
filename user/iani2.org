@@ -1,8 +1,8 @@
 * Generic Emacs Customization
 
 ** Theme: solarized-dark
-#+BEGIN_SRC emacs-lisp
-  (load-theme 'solarized-dark)
+#+BEGIN_SRC elisp
+(load-theme 'solarized-dark)
 #+END_SRC
 ** Internationalization: Set Mac OS native fonts for japanese/greek
 :PROPERTIES:
@@ -447,14 +447,14 @@ highlight-sexps.el looks nicer, because it highlights both the innermost s-expre
 *** Directory/Buffer navigation: Dired+, Dirtree, Speedbar
 **** Dired+, Dirtree, Speedbar
 
-Note about dirtree:  Very handy.  There are several versions out there, and there is also a different package under the same name.  No all versions work.  The one that works for me all the time is: https://github.com/rtircher/dirtree.  I installed it manually.
+Note about dirtree:  Very handy.  There are several versions out there, and there is also a different package under the same name.  Not all versions work.  This one works for me: https://github.com/rtircher/dirtree.  I installed it manually (not via =el-get=, el-get's registered versions of dirtree resulted in conflicts.  Dirtree is similar to file-browse mode of speedbar, but it servers a different purpose: With dirtree you can select one or more directories to browse, and keep them all in the sidebar.  Speedbar always shows only the directory of the file of the current buffer.
 
 #+BEGIN_SRC emacs-lisp
   (require 'dired+)
   (require 'dirtree)
-  (global-set-key (kbd "H-d d") 'dirtree)
+  (global-set-key (kbd "H-d d") 'dirtree-show)
   (require 'sr-speedbar)
-  (global-set-key (kbd "H-d s") 'sr-speedbar-toggle)
+  (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
 #+END_SRC
 
 **** Dired customization from Healy's startup kit
@@ -1028,7 +1028,8 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
    if the location is hidden."
     (interactive)
     (show-all)
-    (icicle-occur (point-min) (point-max)))
+    (icicle-occur (point-min) (point-max))
+    (recenter '(4)))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
@@ -1040,7 +1041,8 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
    if the location is hidden."
     (interactive)
     (show-all)
-    (icicle-imenu (point-min) (point-max) t))
+    (icicle-imenu (point-min) (point-max) t)
+    (recenter '(4)))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))

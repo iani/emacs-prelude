@@ -1,6 +1,4 @@
 
-(load-theme 'solarized-dark)
-
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -216,9 +214,9 @@ Used as helm action in helm-source-find-files"
 
 (require 'dired+)
 (require 'dirtree)
-(global-set-key (kbd "H-d d") 'dirtree)
+(global-set-key (kbd "H-d d") 'dirtree-show)
 (require 'sr-speedbar)
-(global-set-key (kbd "H-d s") 'sr-speedbar-toggle)
+(global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
 
 (define-key dired-mode-map (kbd "<SPC>")
   (lambda () (interactive)

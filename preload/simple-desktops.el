@@ -74,7 +74,7 @@ sd/desktops under that name. Save sd/desktops to disk."
    (setq sd/desktops (assoc-replace sd/desktops selection buffers))
    (sd/save-desktop-list-to-file)))
 
-(defun sd/load-desktop (preserve-current-buffers)
+(defun sd/load-desktop (&optional preserve-current-buffers)
   "Ask user to select or input a desktop name.
 Add list of all paths of all open buffers that belong to files to 
 sd/desktops under that name. Save sd/desktops to disk."
@@ -96,7 +96,16 @@ sd/desktops under that name. Save sd/desktops to disk."
     (dolist (path (cdr (assoc selection sd/desktops)))
       (if (file-exists-p path) (find-file path)))))
 
+(defun sd/menu ()
+  "Menu for simple desktop."
+  (interactive)
+  (let* ((commands
+         '(sd/load-desktop sd/save-desktop))
+         (index (grizzl-make-index (-map 'symbol-name commands)))
+         (selection (grizzl-completing-read "Select command: " index)))
+    (apply (list (intern selection)))))
+
 (global-set-key (kbd "H-d l") 'sd/load-desktop)
 (global-set-key (kbd "H-d s") 'sd/save-desktop)
-
+(global-set-key (kbd "H-d H-d") 'sd/menu)
 (provide 'simple-desktops)
