@@ -662,10 +662,46 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 #+END_SRC
 
-*** Global key for org-agenda: C-c a
+
+*** Agenda
+**** Global key for org-agenda: C-c a
 #+BEGIN_SRC emacs-lisp
   (global-set-key "\C-ca" 'org-agenda)
 #+END_SRC
+**** Add, remove, save agenda file list
+
+#+BEGIN_SRC emacs-lisp
+  (defvar org-agenda-list-save-path
+    "~/.emacs.d/savefile/org-agenda-list.el"
+  "Path to save the list of files belonging to the agenda.")
+
+  (defun org-agenda-save-file-list ()
+    "Save list of desktops from file in org-agenda-list-save-path"
+    (interactive)
+    (save-excursion
+      (let ((buf (find-file-noselect org-agenda-list-save-path)))
+        (set-buffer buf)
+        (erase-buffer)
+        (print (list 'quote org-agenda-files) buf)
+        (save-buffer)
+        (kill-buffer)
+        (message "org-agenda file list saved to: %s" org-agenda-list-save-path))))
+
+  (defun org-agenda-load-file-list ()
+    "Load list of desktops from file in org-agenda-list-save-path"
+    (interactive)
+    (save-excursion
+      (let ((buf (find-file-noselect org-agenda-list-save-path)))
+        (set-buffer buf)
+        (erase-buffer)
+        (print (list 'quote org-agenda-files) buf)
+        (save-buffer)
+        (kill-buffer)
+        (message "org-agenda file list saved to: %s" org-agenda-list-save-path))))
+
+
+#+END_SRC
+
 
 *** Calendar framework: Show org agenda in iCal-style layout
 
