@@ -1029,7 +1029,7 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
     (interactive)
     (show-all)
     (icicle-occur (point-min) (point-max))
-    (recenter '(4)))
+    (recenter 3))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
@@ -1042,7 +1042,7 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
     (interactive)
     (show-all)
     (icicle-imenu (point-min) (point-max) t)
-    (recenter '(4)))
+    (recenter 4))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -1140,8 +1140,9 @@ org-icicle-occur or icicle-occur, here: C-c C-'
   (defvar fname-root "~/Dropbox/000Workfiles/2014/")
   (defvar fname-filename-components
     (concat fname-root  "00000fname-filename-components.org"))
-  (defun fname-find-file-standardized ()
-    (interactive)
+
+  (defun fname-find-file-standardized (&optional do-not-update-timestamp)
+    (interactive "P")
     (unless fname-part-3 (fname-load-file-components))
     (setq *grizzl-read-max-results* 40)
     (let* ((root fname-root)
@@ -1166,10 +1167,12 @@ org-icicle-occur or icicle-occur, here: C-c C-'
                             (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
                             "." extension))))
       (find-file path)
-      (set-visited-file-name
-       (replace-regexp-in-string
-        "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
-        (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path))))
+      (unless do-not-update-timestamp
+       (set-visited-file-name
+        (replace-regexp-in-string
+         "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
+         (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path)))
+      (kill-new (buffer-file-name (current-buffer)))))
 
   (defun fname-load-file-components ()
     (interactive)
@@ -1258,8 +1261,10 @@ org-icicle-occur or icicle-occur, here: C-c C-'
                  (lambda ()
                    (fname-load-file-components-from-buffer (current-buffer))
                    (message "Updated file name components from: %s" (current-buffer))
-                   (set-buffer-modified-p nil))))
-
+                   (set-buffer-modified-p nil)))
+    ;; Debugging:
+    (message "write-contents-functions of file %s are: %s"
+             (buffer-file-name) write-contents-functions))
     (defun fname-menu ()
     (interactive)
     (let ((action (ido-completing-read
@@ -1277,7 +1282,7 @@ org-icicle-occur or icicle-occur, here: C-c C-'
 #+END_SRC
 
 #+RESULTS:
-: fname-find-file-standardized
+: fname-load-file-components
 
 
 ** Add git repositories to Magit (git for emacs)

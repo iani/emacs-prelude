@@ -520,7 +520,8 @@ Used as helm action in helm-source-find-files"
  if the location is hidden."
   (interactive)
   (show-all)
-  (icicle-occur (point-min) (point-max)))
+  (icicle-occur (point-min) (point-max))
+  (recenter 3))
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
@@ -532,7 +533,8 @@ Used as helm action in helm-source-find-files"
  if the location is hidden."
   (interactive)
   (show-all)
-  (icicle-imenu (point-min) (point-max) t))
+  (icicle-imenu (point-min) (point-max) t)
+  (recenter 4))
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -607,6 +609,7 @@ See org-refile-icy."
 (defvar fname-root "~/Dropbox/000Workfiles/2014/")
 (defvar fname-filename-components
   (concat fname-root  "00000fname-filename-components.org"))
+
 (defun fname-find-file-standardized ()
   (interactive)
   (unless fname-part-3 (fname-load-file-components))
@@ -725,8 +728,10 @@ See org-refile-icy."
                (lambda ()
                  (fname-load-file-components-from-buffer (current-buffer))
                  (message "Updated file name components from: %s" (current-buffer))
-                 (set-buffer-modified-p nil))))
-
+                 (set-buffer-modified-p nil)))
+  ;; Debugging:
+  (message "write-contents-functions of file %s are: %s"
+           (buffer-file-name) write-contents-functions))
   (defun fname-menu ()
   (interactive)
   (let ((action (ido-completing-read
