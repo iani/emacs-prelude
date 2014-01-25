@@ -332,6 +332,75 @@ Used as helm action in helm-source-find-files"
 
 (global-set-key "\C-ca" 'org-agenda)
 
+(defvar org-agenda-list-save-path
+  "~/.emacs.d/savefile/org-agenda-list.el"
+"Path to save the list of files belonging to the agenda.")
+
+(defun org-agenda-save-file-list ()
+  "Save list of desktops from file in org-agenda-list-save-path"
+  (interactive)
+  (save-excursion
+    (let ((buf (find-file-noselect org-agenda-list-save-path)))
+      (set-buffer buf)
+      (erase-buffer)
+      (print (list 'quote org-agenda-files) buf)
+      (save-buffer)
+      (kill-buffer)
+      (message "org-agenda file list saved to: %s" org-agenda-list-save-path))))
+
+(defun org-agenda-load-file-list ()
+  "Load list of desktops from file in org-agenda-list-save-path"
+  (interactive)
+  (save-excursion
+    (let ((buf (find-file-noselect org-agenda-list-save-path)))
+      (set-buffer buf)
+      (setq org-agenda-files (eval (read (buffer-string))))
+      (kill-buffer)
+      (message "org-agenda file list loaded from: %s" org-agenda-list-save-path))))
+
+(defun org-agenda-remove-file (&optional select-from-list)
+  "Remove a file from org-agenda-files list.
+If called without prefix argument, remove the file of the current buffer.
+If called with prefix argument, then select a file from org-agenda-files list."
+  (interactive "P")
+  (let (path)
+   (if (select-from-list)
+       (let  ((menu (grizzl-make-index org-agenda-files)))
+         (setq path (grizzl-completing-read "Choose an agenda file: " menu)))
+     (setq path (buffer-file-name (current-buffer))))
+   (setq org-agenda-files
+         (remove (buffer-file-name (current-buffer)) org-agenda-files)))
+  (org-agenda-save-file-list))
+
+(defun org-agenda-open-file ()
+  "Open a file from the current agenda file list."
+  (interactive)
+  (let* ((menu (grizzl-make-index org-agenda-files))
+        (answer (grizzl-completing-read "Choose an agenda file: " menu)))
+    (find-file answer)))
+
+(defun org-agenda-list-files ()
+  "List the paths that are currently in org-agenda-files"
+  (interactive)
+  (let  ((menu (grizzl-make-index org-agenda-files)))
+    (grizzl-completing-read "These are currently the files in org-agenda-files. " menu)))
+
+(defun org-agenda-list-menu ()
+ "Present menu with commands for loading, saving, adding and removing
+files to org-agenda-files."
+ (interactive)
+ (let* ((menu (grizzl-make-index
+               '("org-agenda-save-file-list"
+                 "org-agenda-load-file-list"
+                 "org-agenda-list-files"
+                 "org-agenda-open-file"
+                 "org-agenda-file-to-front"
+                 "org-agenda-remove-file")))
+        (command (grizzl-completing-read "Choose a command: " menu)))
+   (call-interactively (intern command))))
+
+(global-set-key (kbd "H-a H-a") 'org-agenda-list-menu)
+
 (require 'calfw-org)
 
 (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
@@ -610,8 +679,8 @@ See org-refile-icy."
 (defvar fname-filename-components
   (concat fname-root  "00000fname-filename-components.org"))
 
-(defun fname-find-file-standardized ()
-  (interactive)
+(defun fname-find-file-standardized (&optional do-not-update-timestamp)
+  (interactive "P")
   (unless fname-part-3 (fname-load-file-components))
   (setq *grizzl-read-max-results* 40)
   (let* ((root fname-root)
@@ -636,97 +705,49 @@ See org-refile-icy."
                           (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
                           "." extension))))
     (find-file path)
-    (set-visited-file-name
-     (replace-regexp-in-string
-      "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
-      (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path))))
+    (unless do-not-update-timestamp
+     (set-visited-file-name
+      (replace-regexp-in-string
+       "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
+       (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path)))
+    (kill-new (buffer-file-name (current-buffer)))))
 
-(defun fname-load-file-components ()
-  (interactive)
+(defun fname-load-file-components (&optional keep-buffer)
+  (interactive "P")
   (let ((buffer (find-file fname-filename-components)))
     (set-buffer buffer)
     (setq fname-parts-1-2 nil)
     (setq fname-part-3 nil)
-    (save-excursion
-      (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
-            (level3-section (car (org-map-entries '(point) "LEVEL3")))
-            level3 level)
-        (setq fname-parts-1-2 '(1))
-        (goto-char levels1_2-section)
-        (save-restriction
-          (org-narrow-to-subtree)
-          (org-map-entries
-           (lambda ()
-             (let* ((section (cadr (org-element-at-point)))
-                    (level (plist-get section :level))
-                    (heading (plist-get section :raw-value)))
-              (setq level level)
-              (cond
-               ((equal 2 level)
-                (setq last (list heading))
-                (setcdr (last fname-parts-1-2) (list last)))
-               ((equal 3 level)
-                (setcdr (last last) (list heading)))))))
-          (setq fname-parts-1-2 (cdr fname-parts-1-2)))
-        (goto-char level3-section)
-        (save-restriction
-          (setq fname-part-3 '(1))
-          (org-narrow-to-subtree)
-          (org-map-entries
-           (lambda ()
-             (setq level (plist-get (cadr (org-element-at-point)) :level))
-             (cond
-              ((equal 2 level)
-               (setq last (org-get-heading))
-               (setcdr (last fname-part-3) (list last))))))
-          (setq fname-part-3 (cdr fname-part-3)))))
-    (kill-buffer buffer))
+    (org-map-entries
+     (lambda ()
+       (let ((plist (cadr (org-element-at-point))))
+         (cond
+          ((equal (plist-get plist :level) 2)
+           (setq fname-parts-1-2
+                 (append fname-parts-1-2
+                         (list (list (plist-get plist :raw-value))))))
+          ((equal (plist-get plist :level) 3)
+           (setcdr (car (last fname-parts-1-2))
+                   (append (cdar (last fname-parts-1-2))
+                           (list (plist-get plist :raw-value))))))))
+     "LEVELS1_2")
+    (org-map-entries
+     (lambda ()
+       (let ((plist (cadr (org-element-at-point))))
+         (when
+          (equal 2 (plist-get plist :level))
+          (setq fname-part-3
+                (append fname-part-3 (list (plist-get plist :raw-value)))))))
+     "LEVEL3")
+    (unless keep-buffer (kill-buffer buffer)))
   (message "file component list updated"))
-
-(defun fname-load-file-components-from-buffer (buffer)
-  (set-buffer buffer)
-  (goto-char (point-min))
-  (let ((levels1_2-section (car (org-map-entries '(point) "LEVELS1_2")))
-        (level3-section (car (org-map-entries '(point) "LEVEL3")))
-        level3 level)
-    (setq fname-parts-1-2 '(1))
-    (goto-char levels1_2-section)
-    (save-restriction
-      (org-narrow-to-subtree)
-      (org-map-entries
-       (lambda ()
-         (let* ((section (cadr (org-element-at-point)))
-                (level (plist-get section :level))
-                (heading (plist-get section :raw-value)))
-           (setq level level)
-           (cond
-            ((equal 2 level)
-             (setq last (list heading))
-             (setcdr (last fname-parts-1-2) (list last)))
-            ((equal 3 level)
-             (setcdr (last last) (list heading)))))))
-      (setq fname-parts-1-2 (cdr fname-parts-1-2)))
-    (goto-char level3-section)
-    (save-restriction
-      (setq fname-part-3 '(1))
-      (org-narrow-to-subtree)
-      (org-map-entries
-       (lambda ()
-        (let* ((section (cadr (org-element-at-point)))
-               (level (plist-get section :level))
-               (heading (plist-get section :raw-value)))
-          (cond
-           ((equal 2 level)
-            (setq last heading)
-            (setcdr (last fname-part-3) (list last)))))))
-      (setq fname-part-3 (cdr fname-part-3)))))
 
 (defun fname-edit-file-components ()
   (interactive)
   (find-file fname-filename-components)
   (add-to-list 'write-contents-functions
                (lambda ()
-                 (fname-load-file-components-from-buffer (current-buffer))
+                 (fname-load-file-components t)
                  (message "Updated file name components from: %s" (current-buffer))
                  (set-buffer-modified-p nil)))
   ;; Debugging:
