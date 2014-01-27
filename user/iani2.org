@@ -40,6 +40,13 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 (tool-bar-mode -1)
 #+END_SRC
 
+** Movement: backward-sentence, forward-sentence
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-F") 'forward-sentence)
+  (global-set-key (kbd "M-B") 'backward-sentence)
+#+END_SRC
+
 ** Generic Packages
 
 *** Install el-get for installing of packages from github etc.
@@ -136,12 +143,16 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
 **** helm
 
+NOTE: helm-swoop must be installed from:
+https://raw.github.com/ShingoFukuyama/helm-swoop/master/helm-swoop.el
+or
+https://raw.github.com/ShingoFukuyama/helm-swoop/
 #+BEGIN_SRC emacs-lisp
   ;; must call these to initialize  helm-source-find-files
 
   (require 'helm-files) ;; (not auto-loaded by system!)
   (require 'helm-projectile)
-
+  (require 'helm-swoop) ;; must be put into packages
   ;; Don't bicker if not in a project:
   (setq projectile-require-project-root)
 
@@ -170,6 +181,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (global-set-key (kbd "H-h l") 'helm-buffers-list)
   (global-set-key (kbd "H-M-h") 'helm-M-x)
   (global-set-key (kbd "H-h w") 'helm-world-time)
+  (global-set-key (kbd "H-h s") 'helm-swoop)
 
   (setq display-time-world-list
         '(("America/Los_Angeles" "Santa Barbara")
@@ -634,8 +646,10 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
 #+END_SRC
 ** emacs-lisp
 #+BEGIN_SRC emacs-lisp
-  ;; (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
   (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (global-set-key (kbd "H-l h") 'hs-hide-level)
+  (global-set-key (kbd "H-l s") 'hs-show-all)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
@@ -879,9 +893,16 @@ done
 **** Emacs-lisp log function
 
 #+BEGIN_SRC emacs-lisp
+
   (defun log (expense)
-    "Write countdown file for countdown geeklet.
-    Ask user number of seconds to plan countdown in future."
+    "Simple way to capture notes/activities with some extra features:
+  - Set task start time
+  - Set completion time of previous task.
+  - Calculate duration of previous task
+  - Write task to stopwatch.txt file for use by geeklet to display task timer
+  - If called with prefix argument, prompt for expense value and set expense task.
+
+  TODO: Store timestamp of last task in separate file, so as to be able to retrieve it even if the text of the previous entry is corrupt. "
     (interactive "P")
 
     (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
@@ -938,15 +959,14 @@ done
       (org-id-get-create)
       (when expense
         (org-set-tags-to '("expense"))
+        ;; this causes orgmode to prompt of the value of EXPENSE!
         (org-set-property "EXPENSE" nil))
       (org-set-tags-command)
-  ;;    (if narrow-p
       (org-narrow-to-subtree)
       (goto-char (point-max))
       (org-show-subtree)
       (org-show-entry)
       (save-buffer)
-  ;;    )
       ))
 
   (global-set-key (kbd "C-M-l") 'log)

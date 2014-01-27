@@ -7,7 +7,7 @@
  '(background-mode dark)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/savefile/bookmarks")
  '(cursor-color "#708183")
- '(custom-enabled-themes (quote (misterioso)))
+ '(custom-enabled-themes (quote (solarized-dark)))
  '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "8eef22cd6c122530722104b7c82bc8cdbb690a4ccdd95c5ceec4f3efa5d654f5" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
  '(fci-rule-color "#383838")
@@ -27,6 +27,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(helm-ff-directory ((t (:background "dark cyan" :foreground "peach puff"))))
+ '(helm-selection ((t (:background "burlywood1" :foreground "firebrick4" :underline "red"))))
  '(hl-sexp-face ((t (:background "gray0"))))
  '(org-todo ((t (:background "#c60007" :foreground "gray100" :inverse-video nil :underline nil :slant normal :weight bold))))
  '(whitespace-empty ((t (:background "#031a1f" :foreground "#c60007"))))

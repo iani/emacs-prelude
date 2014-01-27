@@ -79,7 +79,7 @@ asks to select a *subdir* of selected project to dired."
 
 (require 'helm-files) ;; (not auto-loaded by system!)
 (require 'helm-projectile)
-
+(require 'helm-swoop) ;; must be put into packages
 ;; Don't bicker if not in a project:
 (setq projectile-require-project-root)
 
@@ -108,6 +108,7 @@ Used as helm action in helm-source-find-files"
 (global-set-key (kbd "H-h l") 'helm-buffers-list)
 (global-set-key (kbd "H-M-h") 'helm-M-x)
 (global-set-key (kbd "H-h w") 'helm-world-time)
+(global-set-key (kbd "H-h s") 'helm-swoop)
 
 (setq display-time-world-list
       '(("America/Los_Angeles" "Santa Barbara")
@@ -311,8 +312,10 @@ Used as helm action in helm-source-find-files"
 ;; Show workspace
 (global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
 
-;; (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
 (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(global-set-key (kbd "H-l h") 'hs-hide-level)
+(global-set-key (kbd "H-l s") 'hs-show-all)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
@@ -422,8 +425,14 @@ files to org-agenda-files."
   '(define-key org-mode-map (kbd "C-c C-.") 'org-set-date))
 
 (defun log (expense)
-  "Write countdown file for countdown geeklet.
-  Ask user number of seconds to plan countdown in future."
+  "Simple way to capture notes/activities with some extra features:
+- Set task start time
+- Set completion time of previous task.
+- Calculate duration of previous task
+- Write task to stopwatch.txt file for use by geeklet to display task timer
+- If called with prefix argument, prompt for expense value and set expense task.
+
+TODO: Store timestamp of last task in separate file, so as to be able to retrieve it even if the text of the previous entry is corrupt. "
   (interactive "P")
 
   (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
@@ -480,15 +489,14 @@ files to org-agenda-files."
     (org-id-get-create)
     (when expense
       (org-set-tags-to '("expense"))
+      ;; this causes orgmode to prompt of the value of EXPENSE!
       (org-set-property "EXPENSE" nil))
     (org-set-tags-command)
-;;    (if narrow-p
     (org-narrow-to-subtree)
     (goto-char (point-max))
     (org-show-subtree)
     (org-show-entry)
     (save-buffer)
-;;    )
     ))
 
 (global-set-key (kbd "C-M-l") 'log)
@@ -715,39 +723,42 @@ See org-refile-icy."
 (defun fname-load-file-components (&optional keep-buffer)
   (interactive "P")
   (let ((buffer (find-file fname-filename-components)))
-    (set-buffer buffer)
-    (setq fname-parts-1-2 nil)
-    (setq fname-part-3 nil)
-    (org-map-entries
-     (lambda ()
-       (let ((plist (cadr (org-element-at-point))))
-         (cond
-          ((equal (plist-get plist :level) 2)
-           (setq fname-parts-1-2
-                 (append fname-parts-1-2
-                         (list (list (plist-get plist :raw-value))))))
-          ((equal (plist-get plist :level) 3)
-           (setcdr (car (last fname-parts-1-2))
-                   (append (cdar (last fname-parts-1-2))
-                           (list (plist-get plist :raw-value))))))))
-     "LEVELS1_2")
-    (org-map-entries
-     (lambda ()
-       (let ((plist (cadr (org-element-at-point))))
-         (when
-          (equal 2 (plist-get plist :level))
-          (setq fname-part-3
-                (append fname-part-3 (list (plist-get plist :raw-value)))))))
-     "LEVEL3")
+    (fname-load-file-components-from-buffer buffer)
     (unless keep-buffer (kill-buffer buffer)))
   (message "file component list updated"))
+
+(defun fname-load-file-components-from-buffer (buffer)
+  (set-buffer buffer)
+  (setq fname-parts-1-2 nil)
+  (setq fname-part-3 nil)
+  (org-map-entries
+   (lambda ()
+     (let ((plist (cadr (org-element-at-point))))
+       (cond
+        ((equal (plist-get plist :level) 2)
+         (setq fname-parts-1-2
+               (append fname-parts-1-2
+                       (list (list (plist-get plist :raw-value))))))
+        ((equal (plist-get plist :level) 3)
+         (setcdr (car (last fname-parts-1-2))
+                 (append (cdar (last fname-parts-1-2))
+                         (list (plist-get plist :raw-value))))))))
+   "LEVELS1_2")
+  (org-map-entries
+   (lambda ()
+     (let ((plist (cadr (org-element-at-point))))
+       (when
+           (equal 2 (plist-get plist :level))
+         (setq fname-part-3
+               (append fname-part-3 (list (plist-get plist :raw-value)))))))
+   "LEVEL3"))
 
 (defun fname-edit-file-components ()
   (interactive)
   (find-file fname-filename-components)
   (add-to-list 'write-contents-functions
                (lambda ()
-                 (fname-load-file-components t)
+                 (fname-load-file-components-from-buffer (current-buffer))
                  (message "Updated file name components from: %s" (current-buffer))
                  (set-buffer-modified-p nil)))
   ;; Debugging:
