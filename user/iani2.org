@@ -1131,14 +1131,17 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
     '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
-  (defun org-icicle-imenu ()
+  (defun org-icicle-imenu (separate-buffer)
     "In org-mode, show entire buffer contents before running icicle-imenu.
-   Otherwise icicle-occur will not place cursor at found location,
-   if the location is hidden."
-    (interactive)
+  Otherwise icicle-occur will not place cursor at found location,
+  if the location is hidden.
+  If called with prefix argument (C-u) open the found section in a indirect buffer"
+    (interactive "P")
     (show-all)
     (icicle-imenu (point-min) (point-max) t)
-    (recenter 4))
+    (if separate-buffer
+        (org-tree-to-indirect-buffer)
+        (recenter 4)))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
