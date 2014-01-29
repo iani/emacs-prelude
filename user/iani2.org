@@ -96,7 +96,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 #+begin_src emacs-lisp :tangle yes
 (desktop-save-mode 1)
 #+end_src
-*** Completion help: icicles, imenu+, auto-complete, ido
+*** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
 #+BEGIN_SRC emacs-lisp
   (require 'ido)
@@ -104,6 +104,9 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (require 'auto-complete)
   (ido-mode t)
   (icicle-mode)
+  (require 'guide-key)
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-d" "C-c"))
+  (guide-key-mode 1)  ; Enable guide-key-mode
   ;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
 #+END_SRC
 *** File-system navigation: projectile, helm
