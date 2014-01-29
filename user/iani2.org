@@ -42,9 +42,16 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
 ** Movement: backward-sentence, forward-sentence
 
+Bind backward-sentence and forward-sentence in 2 different ways:
+
+1. Control-shift-f and b in analogy to control-b/f and meta-b/f (character and word backward and forward).
+2. Meta-[ and ] in analogy to Meta-shift-[ and ] (org-element backward and forward).
+
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "M-F") 'forward-sentence)
   (global-set-key (kbd "M-B") 'backward-sentence)
+  (global-set-key (kbd "M-F") 'forward-sentence)
+  (global-set-key (kbd "M-[") 'backward-sentence)
+  (global-set-key (kbd "M-]") 'forward-sentence)
 #+END_SRC
 
 ** Generic Packages
@@ -657,6 +664,19 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   #+END_SRC
 
+
+
+** html/css/js
+
+web-beautify.
+HTML, CSS, and JavaScript/JSON formatting
+https://github.com/yasuyk/web-beautify
+
+Shell command, install js-beautify library:web
+: npm -g install js-beautify
+Emacs sexp, install emacs web-beautify package:
+: (package-install 'web-beautify)
+
 ** org-mode
 *** Use visual line, whitespace and windmove in org-mode
 #+BEGIN_SRC emacs-lisp
@@ -1135,13 +1155,18 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
     "In org-mode, show entire buffer contents before running icicle-imenu.
   Otherwise icicle-occur will not place cursor at found location,
   if the location is hidden.
-  If called with prefix argument (C-u) open the found section in a indirect buffer"
+  If called with prefix argument (C-u), then:
+  - open the found section in an indirect buffer.
+  - go back to the position where the point was before the command, in the
+    original buffer."
     (interactive "P")
     (show-all)
-    (icicle-imenu (point-min) (point-max) t)
-    (if separate-buffer
-        (org-tree-to-indirect-buffer)
-        (recenter 4)))
+    (let ((mark (point)))
+      (icicle-imenu (point-min) (point-max) t)
+      (cond (separate-buffer
+             (org-tree-to-indirect-buffer)
+             (goto-char mark))
+            (t (recenter 4)))))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))

@@ -17,6 +17,11 @@
    (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 (tool-bar-mode -1)
 
+(global-set-key (kbd "M-B") 'backward-sentence)
+(global-set-key (kbd "M-F") 'forward-sentence)
+(global-set-key (kbd "M-[") 'backward-sentence)
+(global-set-key (kbd "M-]") 'forward-sentence)
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -604,14 +609,22 @@ TODO: Store timestamp of last task in separate file, so as to be able to retriev
   '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
-(defun org-icicle-imenu ()
+(defun org-icicle-imenu (separate-buffer)
   "In org-mode, show entire buffer contents before running icicle-imenu.
- Otherwise icicle-occur will not place cursor at found location,
- if the location is hidden."
-  (interactive)
+Otherwise icicle-occur will not place cursor at found location,
+if the location is hidden.
+If called with prefix argument (C-u), then:
+- open the found section in an indirect buffer.
+- go back to the position where the point was before the command, in the
+  original buffer."
+  (interactive "P")
   (show-all)
-  (icicle-imenu (point-min) (point-max) t)
-  (recenter 4))
+  (let ((mark (point)))
+    (icicle-imenu (point-min) (point-max) t)
+    (cond (separate-buffer
+           (org-tree-to-indirect-buffer)
+           (goto-char mark))
+          (t (recenter 4)))))
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))

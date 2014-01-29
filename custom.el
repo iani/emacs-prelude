@@ -29,7 +29,7 @@
  ;; If there is more than one, they won't work right.
  '(helm-ff-directory ((t (:background "dark cyan" :foreground "peach puff"))))
  '(helm-selection ((t (:background "burlywood1" :foreground "firebrick4" :underline "red"))))
- '(hl-sexp-face ((t (:background "gray0"))))
+ '(hl-sexp-face ((t (:background "gray0" :foreground "gray90"))))
  '(org-todo ((t (:background "#c60007" :foreground "gray100" :inverse-video nil :underline nil :slant normal :weight bold))))
  '(whitespace-empty ((t (:background "#031a1f" :foreground "#c60007"))))
  '(whitespace-line ((t (:background "#042028" :foreground "#706f6f"))))
