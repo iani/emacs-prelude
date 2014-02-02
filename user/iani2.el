@@ -43,6 +43,9 @@
 (require 'auto-complete)
 (ido-mode t)
 (icicle-mode)
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-d" "C-c"))
+(guide-key-mode 1)  ; Enable guide-key-mode
 ;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
 
 (setq projectile-completion-system 'grizzl)
