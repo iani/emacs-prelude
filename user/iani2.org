@@ -1070,12 +1070,16 @@ Enable some cool languages in org-babel mode.
 (setq org-crypt-key nil)
 #+END_SRC
 
-*** org-reveal: Export slides for Reveal.js from orgmode
+*** org-reveal, ox-impress: Export slides for Reveal.js and impress.js from orgmode
 
 Load org-reveal to make slides with reveal.js
 
+https://github.com/yjwen/org-reveal/
+https://github.com/kinjo/org-impress-js.el
+
 #+BEGIN_SRC emacs-lisp
 (require 'ox-reveal)
+(require 'ox-impress-js)
 #+END_SRC
 *** Macro: toggle drawer visibility for this node
 :PROPERTIES:

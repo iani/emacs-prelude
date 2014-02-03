@@ -430,7 +430,12 @@ files to org-agenda-files."
 ;; Note: This keybinding is in analogy to the standard keybinding:
 ;; C-c . -> org-time-stamp
 (eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-.") 'org-set-date))
+  '(progn
+     (define-key org-mode-map (kbd "C-c C-.") 'org-set-date)
+     ;; Prelude defines C-c d as duplicate line
+     ;; But we disable prelude in org-mode because of other, more serious conflicts,
+     ;; So we keep this alternative key binding:
+     (define-key org-mode-map (kbd "C-c d") 'org-set-date)))
 
 (defun log (expense)
   "Simple way to capture notes/activities with some extra features:
