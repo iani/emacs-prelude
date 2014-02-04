@@ -734,19 +734,35 @@ Emacs sexp, install emacs web-beautify package:
         (kill-buffer)
         (message "org-agenda file list loaded from: %s" org-agenda-list-save-path))))
 
-  (defun org-agenda-remove-file (&optional select-from-list)
+  (defun org-agenda-add-this-file-to-agenda ()
+    "Add the file from the current buffer to org-agenda-files list."
+    (interactive)
+    (let (path)
+      ;; (org-agenda-file-to-front) ;; adds path relative to user home dir
+      ;; (message "Added current buffer to agenda files.")
+      (let ((path (buffer-file-name (current-buffer))))
+        (cond (path
+          (add-to-list 'org-agenda-files path)
+          (org-agenda-save-file-list)
+          (message "Added file '%s' to agenda file list"
+                   (file-name-base path)))
+              (t (message "Cannot add buffer to file list. Save buffer first."))))))
+
+  (defun org-agenda-remove-this-file-from-agenda (&optional select-from-list)
     "Remove a file from org-agenda-files list.
   If called without prefix argument, remove the file of the current buffer.
   If called with prefix argument, then select a file from org-agenda-files list."
     (interactive "P")
     (let (path)
-     (if (select-from-list)
+     (if select-from-list
          (let  ((menu (grizzl-make-index org-agenda-files)))
            (setq path (grizzl-completing-read "Choose an agenda file: " menu)))
        (setq path (buffer-file-name (current-buffer))))
      (setq org-agenda-files
            (remove (buffer-file-name (current-buffer)) org-agenda-files)))
-    (org-agenda-save-file-list))
+    (org-agenda-save-file-list)
+    (message "Removed file '%s' from agenda file list"
+             (file-name-base (buffer-file-name (current-buffer)))))
 
   (defun org-agenda-open-file ()
     "Open a file from the current agenda file list."
@@ -770,8 +786,8 @@ Emacs sexp, install emacs web-beautify package:
                    "org-agenda-load-file-list"
                    "org-agenda-list-files"
                    "org-agenda-open-file"
-                   "org-agenda-file-to-front"
-                   "org-agenda-remove-file")))
+                   "org-agenda-add-this-file-to-agenda"
+                   "org-agenda-remove-this-file-from-agenda")))
           (command (grizzl-completing-read "Choose a command: " menu)))
      (call-interactively (intern command))))
 
