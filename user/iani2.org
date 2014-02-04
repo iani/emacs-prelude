@@ -135,7 +135,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (ido-mode t)
   (icicle-mode)
   (require 'guide-key)
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-d" "C-c"))
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
   (guide-key-mode 1)  ; Enable guide-key-mode
   ;; (yas-global-mode) : interferes with auto-complete in elisp mode.
 #+END_SRC
@@ -177,7 +177,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (global-set-key (kbd "H-p D") 'projectile-dired-project-root)
   (global-set-key (kbd "H-p +") 'projectile-add-project)
   (global-set-key (kbd "H-p -") 'projectile-remove-known-project)
-  (global-set-key (kbd "H-p g") 'projectile-grep) ;; could not work it
+  (global-set-key (kbd "H-p g") 'projectile-grep)
 
 #+END_SRC
 
@@ -1094,7 +1094,16 @@ https://github.com/kinjo/org-impress-js.el
 (require 'ox-reveal)
 (require 'ox-impress-js)
 #+END_SRC
-*** Macro: toggle drawer visibility for this node
+
+*** Folding and unfolding, selecting headings
+
+**** Extra shortcut: Widen
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "H-W") 'widen))
+
+#+END_SRC
+**** Macro: toggle drawer visibility for this node
 :PROPERTIES:
 :DATE:     <2013-12-09 Mon 17:19>
 :END:
@@ -1109,7 +1118,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
     '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 #+END_SRC
 
-*** Toggle folding of current item (Command and keyboard command)
+**** Toggle folding of current item (Command and keyboard command)
 
 #+BEGIN_SRC emacs-lisp
   (defun org-cycle-current-entry ()
@@ -1123,7 +1132,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
     '(define-key org-mode-map (kbd "C-c C-/") 'org-cycle-current-entry))
 #+end_src
 
-*** Keyboard Command Shortcut: Select heading of this node (for editing)
+**** Keyboard Command Shortcut: Select heading of this node (for editing)
 
 Note: outline-previous-heading (C-c p) places the point at the beginning of the heading line.  To edit the heading, one has to go past the * that mark the heading.  org-select heading places the mark at the beginning of the heading text and selects the heading, so one can start editing the heading right away.
 

@@ -600,6 +600,9 @@ TODO: Store timestamp of last task in separate file, so as to be able to retriev
 (require 'ox-reveal)
 (require 'ox-impress-js)
 
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "H-W") 'widen))
+
 (fset 'org-toggle-drawer
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
 
