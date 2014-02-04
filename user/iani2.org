@@ -759,7 +759,7 @@ Emacs sexp, install emacs web-beautify package:
     "List the paths that are currently in org-agenda-files"
     (interactive)
     (let  ((menu (grizzl-make-index org-agenda-files)))
-      (grizzl-completing-read "These are currently the files in org-agenda-files. " menu)))
+      (grizzl-completing-read "These are currently the files in list org-agenda-files. " menu)))
 
   (defun org-agenda-list-menu ()
    "Present menu with commands for loading, saving, adding and removing
@@ -1100,7 +1100,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
 #+begin_src emacs-lisp :tangle yes
   (defun org-cycle-current-entry ()
-    "toggle visibility of current entry from within the etnry."
+    "toggle visibility of current entry from within the entry."
     (interactive)
     (save-excursion)
     (outline-back-to-heading)
