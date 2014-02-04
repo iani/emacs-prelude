@@ -1,4 +1,6 @@
 
+(load-theme 'solarized-dark)
+
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -38,6 +40,23 @@
 
 (desktop-save-mode 1)
 
+(require 'switch-window)
+(global-set-key (kbd "C-x o") 'switch-window)
+
+(global-set-key (kbd "<C-s-up>") 'windmove-up)
+(global-set-key (kbd "<C-s-down>") 'windmove-down)
+(global-set-key (kbd "<C-s-right>") 'windmove-right)
+(global-set-key (kbd "<C-s-left>") 'windmove-left)
+
+(require 'buffer-move)
+(global-set-key (kbd "<S-prior>") 'buf-move-up)
+(global-set-key (kbd "<S-next>") 'buf-move-down)
+(global-set-key (kbd "<S-end>") 'buf-move-right)
+(global-set-key (kbd "<S-home>") 'buf-move-left)
+
+(global-set-key (kbd "<s-home>") 'previous-buffer)
+(global-set-key (kbd "<s-end>") 'next-buffer)
+
 (require 'ido)
 (require 'imenu+)
 (require 'auto-complete)
@@ -46,7 +65,7 @@
 (require 'guide-key)
 (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-d" "C-c"))
 (guide-key-mode 1)  ; Enable guide-key-mode
-;; (yas-global-mode) : interferes with auto-complete in emacs-lisp mode.
+;; (yas-global-mode) : interferes with auto-complete in elisp mode.
 
 (setq projectile-completion-system 'grizzl)
 
@@ -134,25 +153,20 @@ Used as helm action in helm-source-find-files"
         ("Asia/Shanghai" "Shanghai")
         ("Asia/Tokyo" "Tokyo")))
 
-(require 'switch-window)
-(global-set-key (kbd "C-x o") 'switch-window)
+(eval-after-load "icicles-opt.el"
+    (add-hook
+     'icicle-mode-hook
+     (lambda ()
+       (setq my-icicle-top-level-key-bindings
+             (mapcar (lambda (lst)
+                       (unless (string= "icicle-occur" (nth 1 lst)) lst))
+                     icicle-top-level-key-bindings))
+       (setq icicle-top-level-key-bindings my-icicle-top-level-key-bindings) )))
+
+;;  (icy-mode)
 
 (require 'lacarte)
 (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
-
-(global-set-key (kbd "<C-s-up>") 'windmove-up)
-(global-set-key (kbd "<C-s-down>") 'windmove-down)
-(global-set-key (kbd "<C-s-right>") 'windmove-right)
-(global-set-key (kbd "<C-s-left>") 'windmove-left)
-
-(require 'buffer-move)
-(global-set-key (kbd "<S-prior>") 'buf-move-up)
-(global-set-key (kbd "<S-next>") 'buf-move-down)
-(global-set-key (kbd "<S-end>") 'buf-move-right)
-(global-set-key (kbd "<S-home>") 'buf-move-left)
-
-(global-set-key (kbd "<s-home>") 'previous-buffer)
-(global-set-key (kbd "<s-end>") 'next-buffer)
 
 ;; Smex: Autocomplete meta-x command
 (global-set-key [(meta x)]
@@ -221,6 +235,12 @@ Used as helm action in helm-source-find-files"
 ;; Jump to any symbol in buffer using ido-imenu
 (key-chord-define-global "KJ"      'ido-imenu)
 
+(require 'hl-sexp)
+;; (require 'highlight-sexps)
+;; Include color customization for dark color theme here.
+(custom-set-variables
+ '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
+
 (require 'dired+)
 (require 'dirtree)
 (global-set-key (kbd "H-d d") 'dirtree-show)
@@ -234,15 +254,6 @@ Used as helm action in helm-source-find-files"
           (start-process "default-pdf-app" nil "open" lawlist-filename)))))
 
 (load "dired-x")
-
-(eval-after-load "dired"
-'(progn
-   (define-key dired-mode-map "F" 'my-dired-find-file)
-   (defun my-dired-find-file (&optional arg)
-     "Open each of the marked files, or the file under the point, or when prefix arg, the next N files "
-     (interactive "P")
-     (let* ((fn-list (dired-get-marked-files nil arg)))
-       (mapc 'find-file fn-list)))))
 
 (defun open-finder ()
   (interactive)
@@ -303,8 +314,6 @@ Used as helm action in helm-source-find-files"
 
 (ad-activate 'sclang-process-filter)
 
-(require 'sclang)
-
 ;; paredit mode breaks re-starting sclang! Therefore, do not use it.
 ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
 ;; in sclang-mode without loading Paredit.
@@ -320,15 +329,15 @@ Used as helm action in helm-source-find-files"
 ;; Show workspace
 (global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
 
-(add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
-(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+(add-hook 'elisp-mode-hook 'hl-sexp-mode)
+(add-hook 'elisp-mode-hook 'hs-minor-mode)
 (global-set-key (kbd "H-l h") 'hs-hide-level)
 (global-set-key (kbd "H-l s") 'hs-show-all)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
-(add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'elisp-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'elisp-mode-hook 'paredit-mode)
+(add-hook 'elisp-mode-hook 'turn-on-whitespace-mode)
+(add-hook 'elisp-mode-hook 'auto-complete-mode)
+(add-hook 'elisp-mode-hook 'turn-on-eldoc-mode)
 
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
@@ -369,19 +378,35 @@ Used as helm action in helm-source-find-files"
       (kill-buffer)
       (message "org-agenda file list loaded from: %s" org-agenda-list-save-path))))
 
-(defun org-agenda-remove-file (&optional select-from-list)
+(defun org-agenda-add-this-file-to-agenda ()
+  "Add the file from the current buffer to org-agenda-files list."
+  (interactive)
+  (let (path)
+    ;; (org-agenda-file-to-front) ;; adds path relative to user home dir
+    ;; (message "Added current buffer to agenda files.")
+    (let ((path (buffer-file-name (current-buffer))))
+      (cond (path
+        (add-to-list 'org-agenda-files path)
+        (org-agenda-save-file-list)
+        (message "Added file '%s' to agenda file list"
+                 (file-name-base path)))
+            (t (message "Cannot add buffer to file list. Save buffer first."))))))
+
+(defun org-agenda-remove-this-file-from-agenda (&optional select-from-list)
   "Remove a file from org-agenda-files list.
 If called without prefix argument, remove the file of the current buffer.
 If called with prefix argument, then select a file from org-agenda-files list."
   (interactive "P")
   (let (path)
-   (if (select-from-list)
+   (if select-from-list
        (let  ((menu (grizzl-make-index org-agenda-files)))
          (setq path (grizzl-completing-read "Choose an agenda file: " menu)))
      (setq path (buffer-file-name (current-buffer))))
    (setq org-agenda-files
          (remove (buffer-file-name (current-buffer)) org-agenda-files)))
-  (org-agenda-save-file-list))
+  (org-agenda-save-file-list)
+  (message "Removed file '%s' from agenda file list"
+           (file-name-base (buffer-file-name (current-buffer)))))
 
 (defun org-agenda-open-file ()
   "Open a file from the current agenda file list."
@@ -394,7 +419,7 @@ If called with prefix argument, then select a file from org-agenda-files list."
   "List the paths that are currently in org-agenda-files"
   (interactive)
   (let  ((menu (grizzl-make-index org-agenda-files)))
-    (grizzl-completing-read "These are currently the files in org-agenda-files. " menu)))
+    (grizzl-completing-read "These are currently the files in list org-agenda-files. " menu)))
 
 (defun org-agenda-list-menu ()
  "Present menu with commands for loading, saving, adding and removing
@@ -405,8 +430,8 @@ files to org-agenda-files."
                  "org-agenda-load-file-list"
                  "org-agenda-list-files"
                  "org-agenda-open-file"
-                 "org-agenda-file-to-front"
-                 "org-agenda-remove-file")))
+                 "org-agenda-add-this-file-to-agenda"
+                 "org-agenda-remove-this-file-from-agenda")))
         (command (grizzl-completing-read "Choose a command: " menu)))
    (call-interactively (intern command))))
 
@@ -436,6 +461,15 @@ files to org-agenda-files."
      ;; But we disable prelude in org-mode because of other, more serious conflicts,
      ;; So we keep this alternative key binding:
      (define-key org-mode-map (kbd "C-c d") 'org-set-date)))
+
+(defun org-set-due-property ()
+  (interactive)
+  (org-set-property
+   "DUE"
+   (format-time-string (cdr org-time-stamp-formats) (org-read-date t t))))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c M-.") 'org-set-due-property))
 
 (defun log (expense)
   "Simple way to capture notes/activities with some extra features:
@@ -564,6 +598,7 @@ TODO: Store timestamp of last task in separate file, so as to be able to retriev
 (setq org-crypt-key nil)
 
 (require 'ox-reveal)
+(require 'ox-impress-js)
 
 (fset 'org-toggle-drawer
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
@@ -572,7 +607,7 @@ TODO: Store timestamp of last task in separate file, so as to be able to retriev
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 
 (defun org-cycle-current-entry ()
-  "toggle visibility of current entry from within the etnry."
+  "toggle visibility of current entry from within the entry."
   (interactive)
   (save-excursion)
   (outline-back-to-heading)
@@ -799,15 +834,15 @@ See org-refile-icy."
 (global-set-key (kbd "H-f e") 'fname-edit-file-components)
 (global-set-key (kbd "H-f l") 'fname-load-file-components)
 
+(fset 'org-toggle-drawer
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
+
 (setq magit-repo-dirs
       '(
         "~/Dropbox/000WORKFILES/org"
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
-
-(fset 'org-toggle-drawer
-   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
