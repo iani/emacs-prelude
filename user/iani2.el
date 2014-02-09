@@ -846,9 +846,13 @@ See org-refile-icy."
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 
+(org-babel-load-file "/Users/iani2/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
+
 (setq magit-repo-dirs
       '(
         "~/Dropbox/000WORKFILES/org"
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+
+;;; org-pm.el ends here
