@@ -1404,7 +1404,8 @@ org-icicle-occur or icicle-occur, here: C-c C-'
 
 #+RESULTS:
 : fname-load-file-components
-*** Macro: toggle drawer visibility for this node
+*** Macro: toggle drawer visibility for this §t0 [ label = "label" ];
+
 :PROPERTIES:
 :DATE:     <2013-12-09 Mon 17:19>
 :END:
@@ -1418,7 +1419,14 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 #+END_SRC
+***
+***
+***
+*** Internal: Load org-pm
 
+#+BEGIN_SRC emacs-lisp
+  (org-babel-load-file "/Users/iani2/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
+#+END_SRC
 
 ** Magit (git for emacs) Add git repositories)
 
@@ -1432,4 +1440,9 @@ Magit config: Manage git repos from inside emacs
         "~/.emacs.d/personal"
 ))
 #+END_SRC
-<
+
+* Postamble
+
+#+BEGIN_SRC emacs-lisp
+  ;;; org-pm.el ends here
+#+END_SRC

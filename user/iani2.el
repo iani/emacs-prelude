@@ -1,4 +1,7 @@
 
+(add-to-list 'custom-theme-load-path
+             (file-name-as-directory "/Users/iani2/Documents/Dev/Emacs/replace-colorthemes/"))
+
 (load-theme 'solarized-dark)
 
 (set-fontset-font "fontset-default"
