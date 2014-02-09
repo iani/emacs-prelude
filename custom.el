@@ -8,7 +8,7 @@
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/savefile/bookmarks")
  '(cursor-color "#708183")
  '(custom-enabled-themes (quote (solarized-dark)))
- '(custom-safe-themes (quote ("1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "8eef22cd6c122530722104b7c82bc8cdbb690a4ccdd95c5ceec4f3efa5d654f5" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(custom-safe-themes (quote ("47e37fa090129214330d13a68549d5c86ccc2c41f4979cb4be130ff945a9859a" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "8eef22cd6c122530722104b7c82bc8cdbb690a4ccdd95c5ceec4f3efa5d654f5" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
  '(fci-rule-color "#383838")
  '(foreground-color "#708183")

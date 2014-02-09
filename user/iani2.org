@@ -1,5 +1,14 @@
 * Generic Emacs Customization
 
+
+** Use replace-colorthemes for large selection of themes, Emacs 24-style
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'custom-theme-load-path
+               (file-name-as-directory "/Users/iani2/Documents/Dev/Emacs/replace-colorthemes/"))
+#+END_SRC
+
+
 ** Theme: solarized-dark
 #+BEGIN_SRC emacs-lisp
 (load-theme 'solarized-dark)

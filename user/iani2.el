@@ -63,7 +63,7 @@
 (ido-mode t)
 (icicle-mode)
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-d" "C-c"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
 (guide-key-mode 1)  ; Enable guide-key-mode
 ;; (yas-global-mode) : interferes with auto-complete in elisp mode.
 
@@ -100,7 +100,7 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-p D") 'projectile-dired-project-root)
 (global-set-key (kbd "H-p +") 'projectile-add-project)
 (global-set-key (kbd "H-p -") 'projectile-remove-known-project)
-(global-set-key (kbd "H-p g") 'projectile-grep) ;; could not work it
+(global-set-key (kbd "H-p g") 'projectile-grep)
 
 ;; must call these to initialize  helm-source-find-files
 
