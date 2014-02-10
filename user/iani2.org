@@ -671,7 +671,7 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   (add-hook 'elisp-mode-hook 'turn-on-whitespace-mode)
   (add-hook 'elisp-mode-hook 'auto-complete-mode)
   (add-hook 'elisp-mode-hook 'turn-on-eldoc-mode)
-  #+END_SRC
+#+END_SRC
 
 
 
