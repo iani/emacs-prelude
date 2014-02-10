@@ -2,7 +2,8 @@
 (add-to-list 'custom-theme-load-path
              (file-name-as-directory "/Users/iani2/Documents/Dev/Emacs/replace-colorthemes/"))
 
-(load-theme 'solarized-dark)
+;; (load-theme 'solarized-dark)
+(load-theme 'resolve)
 
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
@@ -332,15 +333,15 @@ Used as helm action in helm-source-find-files"
 ;; Show workspace
 (global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
 
-(add-hook 'elisp-mode-hook 'hl-sexp-mode)
-(add-hook 'elisp-mode-hook 'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (global-set-key (kbd "H-l h") 'hs-hide-level)
 (global-set-key (kbd "H-l s") 'hs-show-all)
-(add-hook 'elisp-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'elisp-mode-hook 'paredit-mode)
-(add-hook 'elisp-mode-hook 'turn-on-whitespace-mode)
-(add-hook 'elisp-mode-hook 'auto-complete-mode)
-(add-hook 'elisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
+(add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'turn-off-whitespace-mode)

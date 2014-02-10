@@ -8,10 +8,13 @@
                (file-name-as-directory "/Users/iani2/Documents/Dev/Emacs/replace-colorthemes/"))
 #+END_SRC
 
+Some themes (besides solarized-dark and zenburn):
+- resolve
 
 ** Theme: solarized-dark
 #+BEGIN_SRC emacs-lisp
-(load-theme 'solarized-dark)
+;; (load-theme 'solarized-dark)
+(load-theme 'resolve)
 #+END_SRC
 ** Internationalization: Set Mac OS native fonts for japanese/greek
 :PROPERTIES:
@@ -662,15 +665,15 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
 #+END_SRC
 ** elisp
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'elisp-mode-hook 'hl-sexp-mode)
-  (add-hook 'elisp-mode-hook 'hs-minor-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
   (global-set-key (kbd "H-l h") 'hs-hide-level)
   (global-set-key (kbd "H-l s") 'hs-show-all)
-  (add-hook 'elisp-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'elisp-mode-hook 'paredit-mode)
-  (add-hook 'elisp-mode-hook 'turn-on-whitespace-mode)
-  (add-hook 'elisp-mode-hook 'auto-complete-mode)
-  (add-hook 'elisp-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
+  (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 
 
@@ -944,7 +947,6 @@ done
 **** emacs-lisp log function
 
 #+BEGIN_SRC emacs-lisp
-
   (defun log (expense)
     "Simple way to capture notes/activities with some extra features:
   - Set task start time
@@ -953,7 +955,8 @@ done
   - Write task to stopwatch.txt file for use by geeklet to display task timer
   - If called with prefix argument, prompt for expense value and set expense task.
 
-  TODO: Store timestamp of last task in separate file, so as to be able to retrieve it even if the text of the previous entry is corrupt. "
+  TODO: Store timestamp of last task in separate file, so as to be able to retrieve it
+  even if the text of the previous entry is corrupt. "
     (interactive "P")
 
     (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
