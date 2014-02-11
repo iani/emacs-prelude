@@ -483,7 +483,8 @@ files to org-agenda-files."
 - Write task to stopwatch.txt file for use by geeklet to display task timer
 - If called with prefix argument, prompt for expense value and set expense task.
 
-TODO: Store timestamp of last task in separate file, so as to be able to retrieve it even if the text of the previous entry is corrupt. "
+TODO: Store timestamp of last task in separate file, so as to be able to retrieve it
+even if the text of the previous entry is corrupt. "
   (interactive "P")
 
   (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
