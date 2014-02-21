@@ -1011,17 +1011,21 @@ done
       (org-set-date nil "START_TIME")
       (org-set-date t) ;; also set DATE property: for blog entries
       (org-id-get-create)
-      (when expense
-        (org-set-tags-to '("expense"))
-        ;; this causes orgmode to prompt of the value of EXPENSE!
-        (org-set-property "EXPENSE" nil))
+      (message "testing expense arg: %s %s" expense (equal expense '(4)))
+      (cond ((equal expense '(4))
+             (org-set-tags-to '("expense"))
+             ;; this causes orgmode to prompt of the value of EXPENSE!
+             (org-set-property "EXPENSE" nil)   )
+            ((equal expense '(16))
+             (org-set-tags-to '("email"))
+             )
+            )
       (org-set-tags-command)
       (org-narrow-to-subtree)
       (goto-char (point-max))
       (org-show-subtree)
       (org-show-entry)
-      (save-buffer)
-      ))
+      (save-buffer)))
 
   (global-set-key (kbd "C-M-l") 'log)
 #+END_SRC
