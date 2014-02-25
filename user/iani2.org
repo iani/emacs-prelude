@@ -633,7 +633,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 (ad-activate 'sclang-process-filter)
 #+END_SRC
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (require 'sclang)
 #+END_SRC
 
