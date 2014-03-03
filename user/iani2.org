@@ -1,3 +1,10 @@
+* TODO Try Orgstruct, Outshine, Outorg or Poporg for elisp files instead of Babel
+:PROPERTIES:
+:DATE:     <2014-03-03 Mon 13:50>
+:END:
+
+http://orgmode.org/worg/org-tutorials/org-outside-org.html
+
 * Generic Emacs Customization
 
 
@@ -641,8 +648,6 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 
 Paredit mode breaks re-starting sclang! Therefore, do not use it. Paredit-style bracket movement commands d, u, f, b, n, p work in sclang-mode without loading Paredit.
 
-Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it out for now.
-
 #+BEGIN_SRC emacs-lisp
   ;; paredit mode breaks re-starting sclang! Therefore, do not use it.
   ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
@@ -650,9 +655,9 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   ;; (add-hook 'sclang-mode-hook 'paredit-mode)
   (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'sclang-mode-hook 'hl-sexp-mode)
-  (add-hook 'sclang-mode-hook 'sclang-ac-mode)
-  ;; Following possibly breaks auto-complete in my setup:  Disabled for now.
-  ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
+  ;; sclang-ac-mode is included in sclang-extensions-mode:
+  ;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
+  (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 #+END_SRC
 
 *** Sclang keyboard shortcuts
@@ -675,8 +680,6 @@ Sclang-extensions-mode possibly breaks sclang-ac-mode.  Therefore not trying it 
   (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
-
-
 
 ** html/css/js
 

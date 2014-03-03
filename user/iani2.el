@@ -318,13 +318,15 @@ Used as helm action in helm-source-find-files"
 
 (ad-activate 'sclang-process-filter)
 
+(require 'sclang)
+
 ;; paredit mode breaks re-starting sclang! Therefore, do not use it.
 ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
 ;; in sclang-mode without loading Paredit.
 ;; (add-hook 'sclang-mode-hook 'paredit-mode)
 (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'sclang-mode-hook 'hl-sexp-mode)
-(add-hook 'sclang-mode-hook 'sclang-ac-mode)
+;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
 ;; Following possibly breaks auto-complete in my setup:  Disabled for now.
 ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 
