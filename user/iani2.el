@@ -326,9 +326,9 @@ Used as helm action in helm-source-find-files"
 ;; (add-hook 'sclang-mode-hook 'paredit-mode)
 (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'sclang-mode-hook 'hl-sexp-mode)
+;; sclang-ac-mode is included in sclang-extensions-mode:
 ;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
-;; Following possibly breaks auto-complete in my setup:  Disabled for now.
-;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
+(add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 
 ;; Global keyboard shortcut for starting sclang
 (global-set-key (kbd "C-c M-s") 'sclang-start)

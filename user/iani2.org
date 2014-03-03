@@ -73,6 +73,17 @@ Bind backward-sentence and forward-sentence in 2 different ways:
   (global-set-key (kbd "M-]") 'forward-sentence)
 #+END_SRC
 
+** Insert timestamp (C-c C-x C-t)
+
+#+BEGIN_SRC emacs-lisp
+  (defun insert-timestamp (&optional type)
+    "Insert a timestamp."
+    (interactive "P")
+    (insert (format-time-string "%a, %b %e %Y, %R %Z")))
+
+  (global-set-key (kbd "C-c C-x t") 'insert-timestamp)
+#+END_SRC
+
 ** Generic Packages
 
 *** Install el-get for installing of packages from github etc.
