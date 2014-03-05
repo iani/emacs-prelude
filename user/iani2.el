@@ -28,6 +28,13 @@
 (global-set-key (kbd "M-[") 'backward-sentence)
 (global-set-key (kbd "M-]") 'forward-sentence)
 
+(defun insert-timestamp (&optional type)
+  "Insert a timestamp."
+  (interactive "P")
+  (insert (format-time-string "%a, %b %e %Y, %R %Z")))
+
+(global-set-key (kbd "C-c C-x t") 'insert-timestamp)
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -62,14 +69,15 @@
 (global-set-key (kbd "<s-end>") 'next-buffer)
 
 (require 'ido)
-(require 'imenu+)
-(require 'auto-complete)
-(ido-mode t)
-(icicle-mode)
-(require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
-(guide-key-mode 1)  ; Enable guide-key-mode
-;; (yas-global-mode) : interferes with auto-complete in elisp mode.
+  (require 'imenu+)
+ (require 'auto-complete)
+  (ido-mode t)
+ ;; (icicle-mode) ;; broken on Wed, Mar  5 2014, 14:21 EET after loading one-key and hexrgb
+;; could not fix
+ (require 'guide-key)
+ (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+ (guide-key-mode 1)  ; Enable guide-key-mode
+;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 
 (setq projectile-completion-system 'grizzl)
 
@@ -328,7 +336,9 @@ Used as helm action in helm-source-find-files"
 (add-hook 'sclang-mode-hook 'hl-sexp-mode)
 ;; sclang-ac-mode is included in sclang-extensions-mode:
 ;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
-(add-hook 'sclang-mode-hook 'sclang-extensions-mode)
+;; ac mode constantly tries to run code.
+;; that can lead to loops that hang, for example constantly creating a view.
+;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 
 ;; Global keyboard shortcut for starting sclang
 (global-set-key (kbd "C-c M-s") 'sclang-start)
@@ -855,12 +865,3 @@ See org-refile-icy."
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 
 (org-babel-load-file "/Users/iani2/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
-
-(setq magit-repo-dirs
-      '(
-        "~/Dropbox/000WORKFILES/org"
-        "~/Documents/Dev"
-        "~/.emacs.d/personal"
-))
-
-;;; org-pm.el ends here

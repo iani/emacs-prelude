@@ -15,6 +15,9 @@ http://orgmode.org/worg/org-tutorials/org-outside-org.html
                (file-name-as-directory "/Users/iani2/Documents/Dev/Emacs/replace-colorthemes/"))
 #+END_SRC
 
+#+RESULTS:
+| /Users/iani2/.emacs.d/personal/user/ | /Users/iani2/Documents/Dev/Emacs/replace-colorthemes/ | /Users/iani2/.emacs.d/core/ | /Users/iani2/.emacs.d/elpa/color-theme-solarized-20130307.1350/ | /Users/iani2/.emacs.d/elpa/zenburn-theme-20131208.903/ | custom-theme-directory | t |
+
 Some themes (besides solarized-dark and zenburn):
 - resolve
 
@@ -23,6 +26,10 @@ Some themes (besides solarized-dark and zenburn):
 ;; (load-theme 'solarized-dark)
 (load-theme 'resolve)
 #+END_SRC
+
+#+RESULTS:
+: t
+
 ** Internationalization: Set Mac OS native fonts for japanese/greek
 :PROPERTIES:
 :DATE:     <2013-12-08 Sun 15:12>
@@ -40,6 +47,8 @@ Here is a solution that works fine for displaying Latin, Greek and Japanese text
  ;; It is compatible to Unicode, in its basic range
                   '("Menlo" . "iso10646-1"))
 #+END_SRC
+
+#+RESULTS:
 
 Links for further reading:
 
@@ -59,6 +68,8 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 (tool-bar-mode -1)
 #+END_SRC
 
+#+RESULTS:
+
 ** Movement: backward-sentence, forward-sentence
 
 Bind backward-sentence and forward-sentence in 2 different ways:
@@ -73,6 +84,9 @@ Bind backward-sentence and forward-sentence in 2 different ways:
   (global-set-key (kbd "M-]") 'forward-sentence)
 #+END_SRC
 
+#+RESULTS:
+: forward-sentence
+
 ** Insert timestamp (C-c C-x C-t)
 
 #+BEGIN_SRC emacs-lisp
@@ -83,6 +97,9 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 
   (global-set-key (kbd "C-c C-x t") 'insert-timestamp)
 #+END_SRC
+
+#+RESULTS:
+: insert-timestamp
 
 ** Generic Packages
 
@@ -103,6 +120,9 @@ See: https://github.com/dimitri/el-get/blob/master/README.md
   (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
   (el-get 'sync)
 #+END_SRC
+
+#+RESULTS:
+
 *** Bring elisp up-to-date: dash.el
 
 #+BEGIN_QUOTE
@@ -119,6 +139,9 @@ I load it here to have it available when experimenting with code.
 (require 'dash)
 #+END_SRC
 
+#+RESULTS:
+: dash
+
 *** desktop
 
 Save desktop between sessions.  To clear desktop: M-x desktop-clear
@@ -127,12 +150,18 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 (desktop-save-mode 1)
 #+END_SRC
 
+#+RESULTS:
+: t
+
 *** Switch window
 
 #+BEGIN_SRC emacs-lisp
   (require 'switch-window)
   (global-set-key (kbd "C-x o") 'switch-window)
 #+END_SRC
+
+#+RESULTS:
+: switch-window
 
 *** Buffer-move, windmove, buffer switching
 
@@ -156,19 +185,25 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (global-set-key (kbd "<s-home>") 'previous-buffer)
   (global-set-key (kbd "<s-end>") 'next-buffer)
 #+END_SRC
+
+#+RESULTS:
+: next-buffer
+
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
 #+BEGIN_SRC emacs-lisp
   (require 'ido)
   (require 'imenu+)
-  (require 'auto-complete)
+ (require 'auto-complete)
   (ido-mode t)
-  (icicle-mode)
-  (require 'guide-key)
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
-  (guide-key-mode 1)  ; Enable guide-key-mode
-  ;; (yas-global-mode) : interferes with auto-complete in elisp mode.
+ ;; (icicle-mode) ;; broken on Wed, Mar  5 2014, 14:21 EET after loading one-key and hexrgb
+;; could not fix
+ (require 'guide-key)
+ (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+ (guide-key-mode 1)  ; Enable guide-key-mode
+;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 #+END_SRC
+
 *** File-system navigation: projectile, helm
 
 **** projectile
@@ -668,7 +703,9 @@ Paredit mode breaks re-starting sclang! Therefore, do not use it. Paredit-style 
   (add-hook 'sclang-mode-hook 'hl-sexp-mode)
   ;; sclang-ac-mode is included in sclang-extensions-mode:
   ;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
-  (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
+  ;; ac mode constantly tries to run code.
+  ;; that can lead to loops that hang, for example constantly creating a view.
+  ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 #+END_SRC
 
 *** Sclang keyboard shortcuts
@@ -1440,9 +1477,8 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 #+END_SRC
-***
-***
-***
+
+
 *** Internal: Load org-pm
 
 #+BEGIN_SRC emacs-lisp
@@ -1453,7 +1489,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
 Magit config: Manage git repos from inside emacs
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
 (setq magit-repo-dirs
       '(
         "~/Dropbox/000WORKFILES/org"
@@ -1464,6 +1500,6 @@ Magit config: Manage git repos from inside emacs
 
 * Postamble
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   ;;; org-pm.el ends here
 #+END_SRC
