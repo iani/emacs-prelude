@@ -69,14 +69,15 @@
 (global-set-key (kbd "<s-end>") 'next-buffer)
 
 (require 'ido)
-  (require 'imenu+)
- (require 'auto-complete)
-  (ido-mode t)
- ;; (icicle-mode) ;; broken on Wed, Mar  5 2014, 14:21 EET after loading one-key and hexrgb
+(require 'imenu+)
+(require 'auto-complete)
+(ido-mode t)
+;; (icicle-mode) ;; broken on Wed, Mar  5 2014, after loading one-key, hexrgb
 ;; could not fix
- (require 'guide-key)
- (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
- (guide-key-mode 1)  ; Enable guide-key-mode
+;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
+;; (require 'guide-key)
+;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+;;  (guide-key-mode 1)  ; Enable guide-key-mode
 ;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 
 (setq projectile-completion-system 'grizzl)

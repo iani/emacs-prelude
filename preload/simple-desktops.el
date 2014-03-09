@@ -100,7 +100,7 @@ sd/desktops under that name. Save sd/desktops to disk."
   "Menu for simple desktop."
   (interactive)
   (let* ((commands
-         '(sd/load-desktop sd/save-desktop))
+         '(sd/load-desktop sd/save-desktop dirtree-show sr-speedbar-toggle))
          (index (grizzl-make-index (-map 'symbol-name commands)))
          (selection (grizzl-completing-read "Select command: " index)))
     (apply (list (intern selection)))))

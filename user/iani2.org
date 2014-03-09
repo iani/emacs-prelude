@@ -194,14 +194,15 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 #+BEGIN_SRC emacs-lisp
   (require 'ido)
   (require 'imenu+)
- (require 'auto-complete)
+  (require 'auto-complete)
   (ido-mode t)
- ;; (icicle-mode) ;; broken on Wed, Mar  5 2014, 14:21 EET after loading one-key and hexrgb
-;; could not fix
- (require 'guide-key)
- (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
- (guide-key-mode 1)  ; Enable guide-key-mode
-;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
+  ;; (icicle-mode) ;; broken on Wed, Mar  5 2014, after loading one-key, hexrgb
+  ;; could not fix
+  ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
+  ;; (require 'guide-key)
+  ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+  ;;  (guide-key-mode 1)  ; Enable guide-key-mode
+  ;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 #+END_SRC
 
 *** File-system navigation: projectile, helm
