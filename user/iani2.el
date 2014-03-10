@@ -235,8 +235,8 @@ Used as helm action in helm-source-find-files"
 (key-chord-define-global "{}"     "{   }\C-b\C-b\C-b")
 (key-chord-define-global "()"     'paren-sexp)
 (key-chord-define-global "(_"     "()\C-b")
-(key-chord-define-global "=="     'code-quote-sexp)
-
+(key-chord-define-global "-="     'code-quote-sexp)
+;; to add: quote, single quote around word/sexp
 ;; Exit auto-complete, keeping the current selection,
 ;; while avoiding possible side-effects of TAB or RETURN.
 (key-chord-define-global "KK"      "\C-f\C-b")
@@ -258,6 +258,8 @@ Used as helm action in helm-source-find-files"
 (require 'dirtree)
 (global-set-key (kbd "H-d d") 'dirtree-show)
 (require 'sr-speedbar)
+(speedbar-add-supported-extension ".sc")
+(speedbar-add-supported-extension ".scd")
 (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
 
 (define-key dired-mode-map (kbd "<SPC>")
@@ -500,7 +502,7 @@ TODO: Store timestamp of last task in separate file, so as to be able to retriev
 even if the text of the previous entry is corrupt. "
   (interactive "P")
 
-  (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
+  (let* ((topic (read-from-minibuffer "Enter topic: "))
         (timer-string
          (concat
           (replace-regexp-in-string " " "_" topic)

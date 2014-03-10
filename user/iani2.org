@@ -7,7 +7,6 @@ http://orgmode.org/worg/org-tutorials/org-outside-org.html
 
 * Generic Emacs Customization
 
-
 ** Use replace-colorthemes for large selection of themes, Emacs 24-style
 
 #+BEGIN_SRC emacs-lisp
@@ -21,7 +20,7 @@ http://orgmode.org/worg/org-tutorials/org-outside-org.html
 Some themes (besides solarized-dark and zenburn):
 - resolve
 
-** Theme: solarized-dark
+** Theme: resolve
 #+BEGIN_SRC emacs-lisp
 ;; (load-theme 'solarized-dark)
 (load-theme 'resolve)
@@ -491,8 +490,8 @@ Disabled.
   (key-chord-define-global "{}"     "{   }\C-b\C-b\C-b")
   (key-chord-define-global "()"     'paren-sexp)
   (key-chord-define-global "(_"     "()\C-b")
-  (key-chord-define-global "=="     'code-quote-sexp)
-
+  (key-chord-define-global "-="     'code-quote-sexp)
+  ;; to add: quote, single quote around word/sexp
   ;; Exit auto-complete, keeping the current selection,
   ;; while avoiding possible side-effects of TAB or RETURN.
   (key-chord-define-global "KK"      "\C-f\C-b")
@@ -538,6 +537,8 @@ Note about dirtree:  Very handy.  There are several versions out there, and ther
   (require 'dirtree)
   (global-set-key (kbd "H-d d") 'dirtree-show)
   (require 'sr-speedbar)
+  (speedbar-add-supported-extension ".sc")
+  (speedbar-add-supported-extension ".scd")
   (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
 #+END_SRC
 
