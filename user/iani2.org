@@ -997,6 +997,10 @@ done
 #+END_SRC
 
 **** emacs-lisp log function
+:PROPERTIES:
+:ID:       153FC98A-B1A7-40C7-AC3F-6723AFE5DC4F
+:eval-id:  3
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (defun log (expense)
@@ -1011,7 +1015,7 @@ done
   even if the text of the previous entry is corrupt. "
     (interactive "P")
 
-    (let* ((topic (completing-read "Enter topic: " '("Mtg" "Expense" "Note")))
+    (let* ((topic (read-from-minibuffer "Enter topic: "))
           (timer-string
            (concat
             (replace-regexp-in-string " " "_" topic)
