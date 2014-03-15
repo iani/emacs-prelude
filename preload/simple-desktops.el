@@ -17,7 +17,7 @@
 (defvar sd/desktops nil
   "Associative list of desktops by name.")
 
-(defvar sd/desktop-save-path 
+(defvar sd/desktop-save-path
   (file-truename "~/.emacs.d/personal/desktop/simple-desktop-list.el")
 "Position where the desktops are saved.")
 
@@ -51,13 +51,9 @@
       (save-buffer)
       (kill-buffer))))
 
-(setq sd/desktops '(("alpha" . "test")))
-
-(setq sd/desktops)
-
 (defun sd/save-desktop ()
   "Ask user to select or input a desktop name.
-Add list of all paths of all open buffers that belong to files to 
+Add list of all paths of all open buffers that belong to files to
 sd/desktops under that name. Save sd/desktops to disk."
   (interactive)
   ;; make sure you have the up-to-date list, without auto-loading at boot
@@ -65,18 +61,19 @@ sd/desktops under that name. Save sd/desktops to disk."
   (let ((query-func
         (if (fboundp 'ido-completing-read) 'ido-completing-read 'completing-read))
        selection buffers)
-   (dolist (b (buffer-list)) (if (buffer-file-name b) 
+   (dolist (b (buffer-list)) (if (buffer-file-name b)
                                  (add-to-list 'buffers (buffer-file-name b))))
-   (setq selection 
-         (apply query-func 
+   (setq selection
+         (apply query-func
                 (list "Select or enter a desktop name: "
                       (mapcar (lambda (d) (car d)) sd/desktops))))
    (setq sd/desktops (assoc-replace sd/desktops selection buffers))
-   (sd/save-desktop-list-to-file)))
+   (sd/save-desktop-list-to-file)
+   (message "Saved file list as: %s" selection)))
 
 (defun sd/load-desktop (&optional preserve-current-buffers)
   "Ask user to select or input a desktop name.
-Add list of all paths of all open buffers that belong to files to 
+Add list of all paths of all open buffers that belong to files to
 sd/desktops under that name. Save sd/desktops to disk."
   (interactive "P")
   ;; make sure you have the up-to-date list, without auto-loading at boot
@@ -84,14 +81,14 @@ sd/desktops under that name. Save sd/desktops to disk."
   (let ((query-func
          (if (fboundp 'ido-completing-read) 'ido-completing-read 'completing-read))
         selection)
-    (setq selection 
-          (apply query-func 
+    (setq selection
+          (apply query-func
                  (list "Select a desktop to load: "
                        (mapcar (lambda (d) (car d)) sd/desktops) nil t)))
    (unless preserve-current-buffers
-	(dolist (buffer (buffer-list)) 
+	(dolist (buffer (buffer-list))
           (if (or (buffer-file-name buffer)
-                  (equal 'dired-mode (buffer-local-value 'major-mode buffer))) 
+                  (equal 'dired-mode (buffer-local-value 'major-mode buffer)))
               (kill-buffer buffer))))
     (dolist (path (cdr (assoc selection sd/desktops)))
       (if (file-exists-p path) (find-file path)))))
