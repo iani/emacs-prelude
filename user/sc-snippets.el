@@ -62,13 +62,12 @@
 (defun sc-snippets ()
   "Define sclang mode keys for snippets."
   (local-set-key (kbd "C-c .") 'sclang-execute-current-snippet)
-  (local-set-key (kbd "C-s-x") 'sclang-execute-current-snippet) ;; alternative
-  (local-set-key (kbd "C-s-f") 'sclang-goto-next-snippet)
-  (local-set-key (kbd "C-s-b") 'sclang-goto-previous-snippet)
-  (local-set-key (kbd "C-s-n") 'sclang-execute-next-snippet)
-  (local-set-key (kbd "C-s-p") 'sclang-execute-previous-snippet)
-  ;; alternatives using h (fn-key), until the problem of 
-  ;; encoding s in cmd key on mac is solved
+  (local-set-key (kbd "C-M-x") 'sclang-execute-current-snippet) ;; alternative
+  (local-set-key (kbd "C-M-f") 'sclang-goto-next-snippet)
+  (local-set-key (kbd "C-M-b") 'sclang-goto-previous-snippet)
+  (local-set-key (kbd "C-M-n") 'sclang-execute-next-snippet)
+  (local-set-key (kbd "C-M-p") 'sclang-execute-previous-snippet)
+  ;; alternatives using Control+Function-key:
   (local-set-key (kbd "C-H-f") 'sclang-goto-next-snippet)
   (local-set-key (kbd "C-H-b") 'sclang-goto-previous-snippet)
   (local-set-key (kbd "C-H-n") 'sclang-execute-next-snippet)

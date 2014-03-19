@@ -6,7 +6,6 @@
 http://orgmode.org/worg/org-tutorials/org-outside-org.html
 
 * Generic Emacs Customization
-
 ** Use replace-colorthemes for large selection of themes, Emacs 24-style
 
 #+BEGIN_SRC elisp
@@ -651,7 +650,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 * Customization of Specific Authoring Modes
 ** SuperCollider
 *** Sclang Setup
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
   (expand-file-name "~/Library/Application Support/SuperCollider"))
@@ -680,7 +679,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 (ad-activate 'sclang-process-filter)
 #+END_SRC
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (require 'sclang)
 #+END_SRC
 
@@ -688,7 +687,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 
 Paredit mode breaks re-starting sclang! Therefore, do not use it. Paredit-style bracket movement commands d, u, f, b, n, p work in sclang-mode without loading Paredit.
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   ;; paredit mode breaks re-starting sclang! Therefore, do not use it.
   ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
   ;; in sclang-mode without loading Paredit.
@@ -704,19 +703,20 @@ Paredit mode breaks re-starting sclang! Therefore, do not use it. Paredit-style 
 
 *** Sclang keyboard shortcuts
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;; Global keyboard shortcut for starting sclang
 (global-set-key (kbd "C-c M-s") 'sclang-start)
 ;; Show workspace
 (global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
 #+END_SRC
-** elisp
-#+BEGIN_SRC elisp
+** Emacs Lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
   (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
   (global-set-key (kbd "H-l h") 'hs-hide-level)
   (global-set-key (kbd "H-l s") 'hs-show-all)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  (require 'paredit)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
   (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
@@ -736,7 +736,7 @@ Emacs sexp, install emacs web-beautify package:
 
 ** org-mode
 *** Use visual line, whitespace and windmove in org-mode
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
   (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -747,21 +747,21 @@ Emacs sexp, install emacs web-beautify package:
 
 *** Customize Org-mode display
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (setq org-startup-indented t) ;; auto-indent text in subtrees
   (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
-  (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+;; following broken on Wed, Mar 19 2014, 07:14 GMT:
+;;  (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 #+END_SRC
-
 
 *** Agenda
 **** Global key for org-agenda: C-c a
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key "\C-ca" 'org-agenda)
 #+END_SRC
 **** Add, remove, save agenda file list
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defvar org-agenda-list-save-path
     "~/.emacs.d/savefile/org-agenda-list.el"
   "Path to save the list of files belonging to the agenda.")
@@ -852,13 +852,13 @@ Emacs sexp, install emacs web-beautify package:
 
 *** Calendar framework: Show org agenda in iCal-style layout
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
  (require 'calfw-org)
 #+END_SRC
 
 *** Global key for cfw org calendar framework): C-c M-a
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
   (global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
 #+END_SRC
@@ -868,7 +868,7 @@ Emacs sexp, install emacs web-beautify package:
 :DATE:     <2014-02-02 Sun 12:19>
 :END:
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 
   (defun org-set-date (&optional inactive property)
     "Set DATE property with current time.  Active timestamp."
@@ -894,7 +894,7 @@ Emacs sexp, install emacs web-beautify package:
 
 *** Set DUE property with selected time/date
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun org-set-due-property ()
     (interactive)
     (org-set-property
@@ -995,7 +995,7 @@ done
 :eval-id:  3
 :END:
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun log (expense)
     "Simple way to capture notes/activities with some extra features:
   - Set task start time
@@ -1084,7 +1084,7 @@ done
 
 Enable some cool languages in org-babel mode.
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -1096,7 +1096,7 @@ Enable some cool languages in org-babel mode.
 #+END_SRC
 **** Org-Babel: load current file
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun org-babel-load-current-file ()
     (interactive)
     (org-babel-load-file (buffer-file-name (current-buffer))))
@@ -1139,7 +1139,7 @@ Enable some cool languages in org-babel mode.
 #+END_SRC
 *** Org-crypt: Encrypt selected org-mode entries
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
@@ -1163,7 +1163,7 @@ https://github.com/kinjo/org-impress-js.el
 *** Folding and unfolding, selecting headings
 
 **** Extra shortcut: Widen
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "H-W") 'widen))
 
@@ -1175,7 +1175,7 @@ https://github.com/kinjo/org-impress-js.el
 
 See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specific-emacs-mode
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (fset 'org-toggle-drawer
      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
 
@@ -1185,7 +1185,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
 **** Toggle folding of current item (Command and keyboard command)
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun org-cycle-current-entry ()
     "toggle visibility of current entry from within the entry."
     (interactive)
@@ -1201,7 +1201,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
 Note: outline-previous-heading (C-c p) places the point at the beginning of the heading line.  To edit the heading, one has to go past the * that mark the heading.  org-select heading places the mark at the beginning of the heading text and selects the heading, so one can start editing the heading right away.
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun org-select-heading ()
     "Go to heading of current node, select heading."
     (interactive)
@@ -1216,7 +1216,7 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 #+END_SRC
 *** Encryption
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
@@ -1227,7 +1227,7 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 
 *** Create menu for org-mode entries (lacarte lets you reach it from the keyboard, too)
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook
             (lambda () (imenu-add-to-menubar "Imenu")))
   (setq org-imenu-depth 3)

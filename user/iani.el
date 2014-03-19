@@ -1,10 +1,4 @@
 
-(add-to-list 'custom-theme-load-path
-             (file-name-as-directory "/Users/iani2/Documents/Dev/Emacs/replace-colorthemes/"))
-
-;; (load-theme 'solarized-dark)
-(load-theme 'resolve)
-
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -14,7 +8,7 @@
  ;; It is compatible to Unicode, in its basic range
                   '("Menlo" . "iso10646-1"))
 
-(maximize-frame) ;; maximize frame on startup
+;; (maximize-frame) ;; maximize frame on startup
 (defun toggle-fullscreen ()
   "Toggle full screen"
   (interactive)
@@ -166,6 +160,8 @@ Used as helm action in helm-source-find-files"
         ("Asia/Shanghai" "Shanghai")
         ("Asia/Tokyo" "Tokyo")))
 
+;; (message "%s" display-time-world-list)
+
 (eval-after-load "icicles-opt.el"
     (add-hook
      'icicle-mode-hook
@@ -270,6 +266,15 @@ Used as helm action in helm-source-find-files"
 
 (load "dired-x")
 
+(eval-after-load "dired"
+'(progn
+   (define-key dired-mode-map "F" 'my-dired-find-file)
+   (defun my-dired-find-file (&optional arg)
+     "Open each of the marked files, or the file under the point, or when prefix arg, the next N files "
+     (interactive "P")
+     (let* ((fn-list (dired-get-marked-files nil arg)))
+       (mapc 'find-file fn-list)))))
+
 (defun open-finder ()
   (interactive)
   ;; IZ Dec 25, 2013 (3:25 PM): Making this work in dired:
@@ -353,6 +358,7 @@ Used as helm action in helm-source-find-files"
 (global-set-key (kbd "H-l h") 'hs-hide-level)
 (global-set-key (kbd "H-l s") 'hs-show-all)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+(require 'paredit)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
 (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
@@ -366,8 +372,9 @@ Used as helm action in helm-source-find-files"
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 (setq org-startup-indented t) ;; auto-indent text in subtrees
-(setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
-(setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+  (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
+;; following broken on Wed, Mar 19 2014, 07:14 GMT:
+;;  (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 
 (global-set-key "\C-ca" 'org-agenda)
 
@@ -621,9 +628,6 @@ even if the text of the previous entry is corrupt. "
 ;; Either the Key ID or set to nil to use symmetric encryption.
 (setq org-crypt-key nil)
 
-(require 'ox-reveal)
-(require 'ox-impress-js)
-
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "H-W") 'widen))
 
@@ -665,206 +669,3 @@ even if the text of the previous entry is corrupt. "
 (add-hook 'org-mode-hook
           (lambda () (imenu-add-to-menubar "Imenu")))
 (setq org-imenu-depth 3)
-
-(defun org-icicle-occur ()
-  "In org-mode, show entire buffer contents before running icicle-occur.
- Otherwise icicle-occur will not place cursor at found location,
- if the location is hidden."
-  (interactive)
-  (show-all)
-  (icicle-occur (point-min) (point-max))
-  (recenter 3))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
-(defun org-icicle-imenu (separate-buffer)
-  "In org-mode, show entire buffer contents before running icicle-imenu.
-Otherwise icicle-occur will not place cursor at found location,
-if the location is hidden.
-If called with prefix argument (C-u), then:
-- open the found section in an indirect buffer.
-- go back to the position where the point was before the command, in the
-  original buffer."
-  (interactive "P")
-  (show-all)
-  (let ((mark (point)))
-    (icicle-imenu (point-min) (point-max) t)
-    (cond (separate-buffer
-           (org-tree-to-indirect-buffer)
-           (goto-char mark))
-          (t (recenter 4)))))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i m") 'org-icicle-imenu))
-
-;; install alternative for org-mode C-c = org-table-eval-formula
-;; which is stubbornly overwritten by icy-mode.
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
-
-;; this is a redundant second try for the above, to be removed after testing:
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)))
-
-;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
-;;; Still problems. Cannot use standard org refiling with icicles activated!
-(setq org-outline-path-complete-in-steps nil)
-
-(add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
-
-(defun org-refile-icy (as-subtree &optional do-copy-p)
-  "Alternative to org-refile using icicles.
-Refile or copy current section, to a location in the file selected with icicles.
-Without prefix argument: Place the copied/cut section it *after* the selected section.
-With prefix argument: Make the copied/cut section *a subtree* of the selected section.
-
-Note 1: If quit with C-g, this function will have removed the section that
-is to be refiled.  To get it back, one has to undo, or paste.
-
-Note 2: Reason for this function is that icicles seems to break org-modes headline
-buffer display, so onehas to use icicles for all headline navigation if it is loaded."
-  (interactive "P")
-  (outline-back-to-heading)
-  (if do-copy-p (org-copy-subtree) (org-cut-subtree))
-  (show-all)
-  (icicle-imenu (point-min) (point-max) t)
-  (outline-next-heading)
-  (unless (eq (current-column) 0) (insert "\n"))
-  (org-paste-subtree)
-  (if as-subtree (org-demote-subtree)))
-
-(defun org-copy-icy (as-subtree)
-  "Copy section to another location in file, selecting the location with icicles.
-See org-refile-icy."
-  (interactive "P")
-  (org-refile-icy as-subtree t))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i r") 'org-refile-icy))
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
-
-(defun org-from ()
-  "Set property 'FROM'."
-  (interactive)
-  (org-set-property "FROM" (ido-completing-read "From whom? " '("ab" "iz"))))
-
-(defun org-to ()
-  "Set property 'TO'."
-  (interactive)
-  (org-set-property "TO" (ido-completing-read "To whom? " '("ab" "iz"))))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c x f") 'org-from))
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c x t") 'org-to))
-
-(defvar fname-parts-1-2 nil)
-(defvar fname-part-3 nil)
-(defvar fname-root "~/Dropbox/000Workfiles/2014/")
-(defvar fname-filename-components
-  (concat fname-root  "00000fname-filename-components.org"))
-
-(defun fname-find-file-standardized (&optional do-not-update-timestamp)
-  (interactive "P")
-  (unless fname-part-3 (fname-load-file-components))
-  (setq *grizzl-read-max-results* 40)
-  (let* ((root fname-root)
-         (index-1 (grizzl-make-index
-                   (mapcar 'car fname-parts-1-2)))
-         (name-1 (grizzl-completing-read "Part 1: " index-1))
-         (index-2 (grizzl-make-index (cdr (assoc name-1 fname-parts-1-2))))
-         (name-2 (grizzl-completing-read "Part 2: " index-2))
-         (index-3 (grizzl-make-index fname-part-3))
-         (name-3 (grizzl-completing-read "Part 3: " index-3))
-         (path (concat root name-1 "_" name-2 "_" name-3 "_"))
-         (candidates (file-expand-wildcards (concat path "*")))
-         extension-index extension final-choice)
-    (setq final-choice
-          (completing-read "Choose file or enter last component: " candidates))
-    (cond ((string-match (concat "^" path) final-choice)
-           (setq path final-choice))
-      (t
-       (setq extension (ido-completing-read
-                        "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
-       (setq path (concat path final-choice
-                          (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
-                          "." extension))))
-    (find-file path)
-    (unless do-not-update-timestamp
-     (set-visited-file-name
-      (replace-regexp-in-string
-       "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
-       (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path)))
-    (kill-new (buffer-file-name (current-buffer)))))
-
-(defun fname-load-file-components (&optional keep-buffer)
-  (interactive "P")
-  (let ((buffer (find-file fname-filename-components)))
-    (fname-load-file-components-from-buffer buffer)
-    (unless keep-buffer (kill-buffer buffer)))
-  (message "file component list updated"))
-
-(defun fname-load-file-components-from-buffer (buffer)
-  (set-buffer buffer)
-  (setq fname-parts-1-2 nil)
-  (setq fname-part-3 nil)
-  (org-map-entries
-   (lambda ()
-     (let ((plist (cadr (org-element-at-point))))
-       (cond
-        ((equal (plist-get plist :level) 2)
-         (setq fname-parts-1-2
-               (append fname-parts-1-2
-                       (list (list (plist-get plist :raw-value))))))
-        ((equal (plist-get plist :level) 3)
-         (setcdr (car (last fname-parts-1-2))
-                 (append (cdar (last fname-parts-1-2))
-                         (list (plist-get plist :raw-value))))))))
-   "LEVELS1_2")
-  (org-map-entries
-   (lambda ()
-     (let ((plist (cadr (org-element-at-point))))
-       (when
-           (equal 2 (plist-get plist :level))
-         (setq fname-part-3
-               (append fname-part-3 (list (plist-get plist :raw-value)))))))
-   "LEVEL3"))
-
-(defun fname-edit-file-components ()
-  (interactive)
-  (find-file fname-filename-components)
-  (add-to-list 'write-contents-functions
-               (lambda ()
-                 (fname-load-file-components-from-buffer (current-buffer))
-                 (message "Updated file name components from: %s" (current-buffer))
-                 (set-buffer-modified-p nil)))
-  ;; Debugging:
-  (message "write-contents-functions of file %s are: %s"
-           (buffer-file-name) write-contents-functions))
-  (defun fname-menu ()
-  (interactive)
-  (let ((action (ido-completing-read
-                 "Choose action: "
-                 '("fname-edit-file-components"
-                  "fname-load-file-components"
-                  "fname-find-file-standardized"))))
-    (funcall (intern action))))
-
-(global-set-key (kbd "H-f f") 'fname-find-file-standardized)
-(global-set-key (kbd "H-f m") 'fname-menu)
-(global-set-key (kbd "H-f e") 'fname-edit-file-components)
-(global-set-key (kbd "H-f l") 'fname-load-file-components)
-
-(fset 'org-toggle-drawer
-   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
-
-(org-babel-load-file "/Users/iani2/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
