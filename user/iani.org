@@ -18,6 +18,12 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
           (lambda ()
             (guru-mode -1)) t)
 #+END_SRC
+** Use visible bell instead of beep
+
+#+BEGIN_SRC emacs-lisp
+(setq visible-bell t)
+#+END_SRC
+
 ** Use replace-colorthemes for large selection of themes, Emacs 24-style
 
 #+BEGIN_SRC elisp
@@ -29,7 +35,6 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 
 Some themes (besides solarized-dark and zenburn):
 - resolve
-
 ** Theme: resolve
 #+BEGIN_SRC elisp
 ;; (load-theme 'solarized-dark)
