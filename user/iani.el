@@ -6,6 +6,8 @@
           (lambda ()
             (guru-mode -1)) t)
 
+(setq visible-bell t)
+
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -523,7 +525,7 @@ even if the text of the previous entry is corrupt. "
           (format-time-string ": %D_%T" (current-time)))))
     (if (< (length topic) 1) (setq topic "Untitled task"))
     (find-file
-     "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
+     "/Users/iani/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
 ;;    (beginning-of-buffer)
 ;;    (kill-line)
     (erase-buffer)
@@ -531,7 +533,7 @@ even if the text of the previous entry is corrupt. "
     (save-buffer)
     (message (concat "Now timing: " timer-string))
     (find-file
-     "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/log.org")
+     "/Users/iani/Dropbox/000WORKFILES/org/monitoring/log.org")
     (widen)
     (end-of-buffer)
     (if (> (org-outline-level) 1) (outline-up-heading 100 t))

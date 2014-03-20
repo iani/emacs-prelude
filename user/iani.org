@@ -28,7 +28,7 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 
 #+BEGIN_SRC elisp
 ;;  (add-to-list 'custom-theme-load-path
-;;               (file-name-as-directory "/Users/iani2/Documents/Dev/Emacs/replace-colorthemes/"))
+;;               (file-name-as-directory "/Users/iani/Documents/Dev/Emacs/replace-colorthemes/"))
 #+END_SRC
 
 #+RESULTS:
@@ -992,7 +992,7 @@ function countdown
 	# Optional extra line between timers
 	# echo
 }
-DATES=( $( cat /Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt ) )
+DATES=( $( cat /Users/iani/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt ) )
 # Even numbered indices are names, odd numbered indices are dates
 
 if [ ${#DATES[@]} == 0 ]
@@ -1010,7 +1010,7 @@ done
 **** emacs-lisp log function
 :PROPERTIES:
 :ID:       153FC98A-B1A7-40C7-AC3F-6723AFE5DC4F
-:eval-id:  3
+:eval-id:  4
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -1033,7 +1033,7 @@ done
             (format-time-string ": %D_%T" (current-time)))))
       (if (< (length topic) 1) (setq topic "Untitled task"))
       (find-file
-       "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
+       "/Users/iani/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
   ;;    (beginning-of-buffer)
   ;;    (kill-line)
       (erase-buffer)
@@ -1041,7 +1041,7 @@ done
       (save-buffer)
       (message (concat "Now timing: " timer-string))
       (find-file
-       "/Users/iani2/Dropbox/000WORKFILES/org/monitoring/log.org")
+       "/Users/iani/Dropbox/000WORKFILES/org/monitoring/log.org")
       (widen)
       (end-of-buffer)
       (if (> (org-outline-level) 1) (outline-up-heading 100 t))
