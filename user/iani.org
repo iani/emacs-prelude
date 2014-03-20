@@ -6,6 +6,18 @@
 http://orgmode.org/worg/org-tutorials/org-outside-org.html
 
 * Generic Emacs Customization
+** Turn off guru mode
+
+See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode-in-emacs-prelude
+
+#+BEGIN_SRC emacs-lisp
+(guru-mode -1)
+(guru-global-mode -1)
+(setq prelude-guru nil)
+(add-hook 'prelude-prog-mode-hook
+          (lambda ()
+            (guru-mode -1)) t)
+#+END_SRC
 ** Use replace-colorthemes for large selection of themes, Emacs 24-style
 
 #+BEGIN_SRC elisp
@@ -647,6 +659,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
       (start-process "osascript-getinfo" nil "osascript" "-e" script)))
 
 #+END_SRC
+
 * Customization of Specific Authoring Modes
 ** SuperCollider
 *** Sclang Setup
@@ -1112,7 +1125,7 @@ Enable some cool languages in org-babel mode.
 
 *** Orgmode latex customization
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;;; Load latex package
 (require 'ox-latex)
 
@@ -1237,7 +1250,7 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 
 **** making icicle-imenu and icicle-occur work with org-mode
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun org-icicle-occur ()
     "In org-mode, show entire buffer contents before running icicle-occur.
    Otherwise icicle-occur will not place cursor at found location,
@@ -1293,14 +1306,14 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 Especially in the case of Meta-shift-up and Meta-shift-down for spreadsheets.
 Have not figured out yet how to override those keys specifically.
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
 #+END_SRC
 
 
 **** Providing alternatives for refile and copy using icicles
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun org-refile-icy (as-subtree &optional do-copy-p)
     "Alternative to org-refile using icicles.
   Refile or copy current section, to a location in the file selected with icicles.
@@ -1339,7 +1352,7 @@ Have not figured out yet how to override those keys specifically.
 Note: searchable both with org-mode match: C-c / p and with icicles search,
 org-icicle-occur or icicle-occur, here: C-c C-'
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defun org-from ()
     "Set property 'FROM'."
     (interactive)
@@ -1358,7 +1371,7 @@ org-icicle-occur or icicle-occur, here: C-c C-'
 
 *** fname-find-file-standardized: Consistent multi-component filenames
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (defvar fname-parts-1-2 nil)
   (defvar fname-part-3 nil)
   (defvar fname-root "~/Dropbox/000Workfiles/2014/")
@@ -1468,7 +1481,7 @@ org-icicle-occur or icicle-occur, here: C-c C-'
 
 See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specific-emacs-mode
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (fset 'org-toggle-drawer
      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
 
@@ -1479,15 +1492,15 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
 *** Internal: Load org-pm
 
-#+BEGIN_SRC elisp
-  (org-babel-load-file "/Users/iani2/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
+#+BEGIN_SRC emacs-lisp
+  (org-babel-load-file "/Users/iani/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
 #+END_SRC
 
 ** Magit (git for emacs) Add git repositories)
 
 Magit config: Manage git repos from inside emacs
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (setq magit-repo-dirs
       '(
         "~/Dropbox/000WORKFILES/org"
@@ -1495,6 +1508,7 @@ Magit config: Manage git repos from inside emacs
         "~/.emacs.d/personal"
 ))
 #+END_SRC
+
 
 * Postamble
 
