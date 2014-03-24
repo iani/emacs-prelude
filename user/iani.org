@@ -669,32 +669,38 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 ** SuperCollider
 *** Sclang Setup
 #+BEGIN_SRC emacs-lisp
-;;; Directory of SuperCollider support, for quarks, plugins, help etc.
-(defvar sc_userAppSupportDir
-  (expand-file-name "~/Library/Application Support/SuperCollider"))
+  ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
+  (defvar sc_userAppSupportDir
+    (expand-file-name "~/Library/Application Support/SuperCollider"))
 
-;; Make path of sclang executable available to emacs shell load path
-(add-to-list
- 'exec-path
- "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/")
+  ;; Make path of sclang executable available to emacs shell load path
+  (add-to-list
+   'exec-path
+   "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/")
 
-;; Global keyboard shortcut for starting sclang
-(global-set-key (kbd "C-c M-s") 'sclang-start)
-;; overrides alt-meta switch command
-(global-set-key (kbd "C-c W") 'sclang-switch-to-workspace)
+  ;; Global keyboard shortcut for starting sclang
+  (global-set-key (kbd "C-c M-s") 'sclang-start)
+  ;; overrides alt-meta switch command
+  (global-set-key (kbd "C-c W") 'sclang-switch-to-workspace)
 
-;; Disable switching to default SuperCollider Workspace when recompiling SClang
-(setq sclang-show-workspace-on-startup nil)
+  ;; Disable switching to default SuperCollider Workspace when recompiling SClang
+  (setq sclang-show-workspace-on-startup nil)
 
-;; Save results of sc evaluation in elisp variable for access in emacs
-(defvar sclang-return-string  nil
-  "The string returned by sclang process after evaluating expressions.")
+  ;; Note: following are now also in org-sc package in tiny-sc repository:
 
-(defadvice sclang-process-filter (before provide-sclang-eval-results)
-  "Pass sc eval return string to elisp by setting sclang-return-string variable."
-  (setq sclang-return-string (ad-get-arg 1)))
+  ;; Save results of sc evaluation in elisp variable for access in emacs
+  (defvar sclang-return-string  nil
+    "The string returned by sclang process after evaluating expressions.")
 
-(ad-activate 'sclang-process-filter)
+  (defadvice sclang-process-filter (before provide-sclang-eval-results)
+    "Pass sc eval return string to elisp by setting sclang-return-string variable.
+  Optionally evaluate quoted lisp expression returned by SuperCollider."
+    (setq sclang-return-string (ad-get-arg 1))
+    (if (and (> (length sclang-return-string) 3)
+             (equal (substring sclang-return-string 0 2) "'("))
+        (eval (eval (read sclang-return-string)))))
+
+  (ad-activate 'sclang-process-filter)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
