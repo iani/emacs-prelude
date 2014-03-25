@@ -207,8 +207,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (require 'imenu+)
   (require 'auto-complete)
   (ido-mode t)
-  ;; (icicle-mode) ;; broken on Wed, Mar  5 2014, after loading one-key, hexrgb
-  ;; could not fix
+  (icicle-mode)
   ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
   ;; (require 'guide-key)
   ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
