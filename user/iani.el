@@ -75,8 +75,7 @@
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)
-;; (icicle-mode) ;; broken on Wed, Mar  5 2014, after loading one-key, hexrgb
-;; could not fix
+(icicle-mode)
 ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
 ;; (require 'guide-key)
 ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
@@ -332,16 +331,6 @@ Used as helm action in helm-source-find-files"
 
 ;; Disable switching to default SuperCollider Workspace when recompiling SClang
 (setq sclang-show-workspace-on-startup nil)
-
-;; Save results of sc evaluation in elisp variable for access in emacs
-(defvar sclang-return-string  nil
-  "The string returned by sclang process after evaluating expressions.")
-
-(defadvice sclang-process-filter (before provide-sclang-eval-results)
-  "Pass sc eval return string to elisp by setting sclang-return-string variable."
-  (setq sclang-return-string (ad-get-arg 1)))
-
-(ad-activate 'sclang-process-filter)
 
 (require 'sclang)
 

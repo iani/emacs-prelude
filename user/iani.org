@@ -723,7 +723,8 @@ Paredit mode breaks re-starting sclang! Therefore, do not use it. Paredit-style 
   (global-set-key (kbd "H-l h") 'hs-hide-level)
   (global-set-key (kbd "H-l s") 'hs-show-all)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-  (require 'paredit)
+  (require 'paredit) ;; smart edit parentheses
+  (require 'litable) ;; show lisp eval results in the buffer, interactively
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
   (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
