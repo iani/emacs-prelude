@@ -35,9 +35,12 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 
 Some themes (besides solarized-dark and zenburn):
 - resolve
-** Theme: resolve
-#+BEGIN_SRC elisp
-;; (load-theme 'solarized-dark)
+** Color Theme
+
+Note: Loading solarized-dark in custom.el without zenburn results in unreadable green selection background color for helm-swoop.  Loading solarized-dark here fixes this.
+
+#+BEGIN_SRC emacs-lisp
+(load-theme 'solarized-dark)
 ;; (load-theme 'resolve)
 #+END_SRC
 

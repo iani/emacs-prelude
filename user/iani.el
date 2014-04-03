@@ -8,6 +8,9 @@
 
 (setq visible-bell t)
 
+(load-theme 'solarized-dark)
+;; (load-theme 'resolve)
+
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -75,7 +78,7 @@
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)
-;; (icicle-mode) problems in sclnag?
+;; (icicle-mode) ;; Definitive problems in sclang: Cannot restart interpreter
 ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
 ;; (require 'guide-key)
 ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
@@ -367,6 +370,9 @@ Used as helm action in helm-source-find-files"
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 ;; H-C-i:
 (define-key emacs-lisp-mode-map (kbd "H-TAB") 'icicle-imenu-command)
+
+(setq org-goto-interface 'outline-path-completion
+      org-goto-max-level 10)
 
 (eval-after-load 'org
  '(progn ;; H-C-i = H-TAB:
