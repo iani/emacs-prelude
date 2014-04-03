@@ -75,7 +75,7 @@
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)
-(icicle-mode)
+;; (icicle-mode) problems in sclnag?
 ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
 ;; (require 'guide-key)
 ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
@@ -183,7 +183,7 @@ Used as helm action in helm-source-find-files"
 ;;  (icy-mode)
 
 (require 'lacarte)
-(global-set-key [?\e ?\M-x] 'lacarte-execute-command)
+;; (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
 
 ;; Smex: Autocomplete meta-x command
 (global-set-key [(meta x)]
@@ -334,12 +334,14 @@ Used as helm action in helm-source-find-files"
 
 (require 'sclang)
 
-;; paredit mode breaks re-starting sclang! Therefore, do not use it.
 ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
 ;; in sclang-mode without loading Paredit.
-;; (add-hook 'sclang-mode-hook 'paredit-mode)
+(add-hook 'sclang-mode-hook 'paredit-mode)
 (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'sclang-mode-hook 'hl-sexp-mode)
+(add-hook 'sclang-mode-hook 'electric-pair-mode)
+(add-hook 'sclang-mode-hook 'yas-minor-mode)
+(add-hook 'sclang-mode-hook 'auto-complete-mode)
 ;; sclang-ac-mode is included in sclang-extensions-mode:
 ;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
 ;; ac mode constantly tries to run code.
@@ -355,12 +357,104 @@ Used as helm action in helm-source-find-files"
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (global-set-key (kbd "H-l h") 'hs-hide-level)
 (global-set-key (kbd "H-l s") 'hs-show-all)
+
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-(require 'paredit)
+(require 'paredit) ;; smart edit parentheses
+(require 'litable) ;; show lisp eval results in the buffer, interactively
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
 (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+;; H-C-i:
+(define-key emacs-lisp-mode-map (kbd "H-TAB") 'icicle-imenu-command)
+
+(eval-after-load 'org
+ '(progn ;; H-C-i = H-TAB:
+  (define-key org-mode-map (kbd "H-TAB") 'icicle-imenu)
+  (define-key org-mode-map (kbd "H-C-l") 'lacarte-execute-menu-command)))
+
+(defun org-icicle-occur ()
+  "In org-mode, show entire buffer contents before running icicle-occur.
+ Otherwise icicle-occur will not place cursor at found location,
+ if the location is hidden."
+  (interactive)
+  (show-all)
+  (icicle-occur (point-min) (point-max))
+  (recenter 3))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
+(defun org-icicle-imenu (separate-buffer)
+  "In org-mode, show entire buffer contents before running icicle-imenu.
+Otherwise icicle-occur will not place cursor at found location,
+if the location is hidden.
+If called with prefix argument (C-u), then:
+- open the found section in an indirect buffer.
+- go back to the position where the point was before the command, in the
+  original buffer."
+  (interactive "P")
+  (show-all)
+  (let ((mark (point)))
+    (icicle-imenu (point-min) (point-max) t)
+    (cond (separate-buffer
+           (org-tree-to-indirect-buffer)
+           (goto-char mark))
+          (t (recenter 4)))))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c i m") 'org-icicle-imenu))
+
+;; install alternative for org-mode C-c = org-table-eval-formula
+;; which is stubbornly overwritten by icy-mode.
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
+
+;; this is a redundant second try for the above, to be removed after testing:
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)))
+
+;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
+;;; Still problems. Cannot use standard org refiling with icicles activated!
+(setq org-outline-path-complete-in-steps nil)
+
+(add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
+
+(defun org-refile-icy (as-subtree &optional do-copy-p)
+  "Alternative to org-refile using icicles.
+Refile or copy current section, to a location in the file selected with icicles.
+Without prefix argument: Place the copied/cut section it *after* the selected section.
+With prefix argument: Make the copied/cut section *a subtree* of the selected section.
+
+Note 1: If quit with C-g, this function will have removed the section that
+is to be refiled.  To get it back, one has to undo, or paste.
+
+Note 2: Reason for this function is that icicles seems to break org-modes headline
+buffer display, so onehas to use icicles for all headline navigation if it is loaded."
+  (interactive "P")
+  (outline-back-to-heading)
+  (if do-copy-p (org-copy-subtree) (org-cut-subtree))
+  (show-all)
+  (icicle-imenu (point-min) (point-max) t)
+  (outline-next-heading)
+  (unless (eq (current-column) 0) (insert "\n"))
+  (org-paste-subtree)
+  (if as-subtree (org-demote-subtree)))
+
+(defun org-copy-icy (as-subtree)
+  "Copy section to another location in file, selecting the location with icicles.
+See org-refile-icy."
+  (interactive "P")
+  (org-refile-icy as-subtree t))
+
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c i r") 'org-refile-icy))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
@@ -667,89 +761,6 @@ even if the text of the previous entry is corrupt. "
 (add-hook 'org-mode-hook
           (lambda () (imenu-add-to-menubar "Imenu")))
 (setq org-imenu-depth 3)
-
-(defun org-icicle-occur ()
-  "In org-mode, show entire buffer contents before running icicle-occur.
- Otherwise icicle-occur will not place cursor at found location,
- if the location is hidden."
-  (interactive)
-  (show-all)
-  (icicle-occur (point-min) (point-max))
-  (recenter 3))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
-(defun org-icicle-imenu (separate-buffer)
-  "In org-mode, show entire buffer contents before running icicle-imenu.
-Otherwise icicle-occur will not place cursor at found location,
-if the location is hidden.
-If called with prefix argument (C-u), then:
-- open the found section in an indirect buffer.
-- go back to the position where the point was before the command, in the
-  original buffer."
-  (interactive "P")
-  (show-all)
-  (let ((mark (point)))
-    (icicle-imenu (point-min) (point-max) t)
-    (cond (separate-buffer
-           (org-tree-to-indirect-buffer)
-           (goto-char mark))
-          (t (recenter 4)))))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i m") 'org-icicle-imenu))
-
-;; install alternative for org-mode C-c = org-table-eval-formula
-;; which is stubbornly overwritten by icy-mode.
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
-
-;; this is a redundant second try for the above, to be removed after testing:
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)))
-
-;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
-;;; Still problems. Cannot use standard org refiling with icicles activated!
-(setq org-outline-path-complete-in-steps nil)
-
-(add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
-
-(defun org-refile-icy (as-subtree &optional do-copy-p)
-  "Alternative to org-refile using icicles.
-Refile or copy current section, to a location in the file selected with icicles.
-Without prefix argument: Place the copied/cut section it *after* the selected section.
-With prefix argument: Make the copied/cut section *a subtree* of the selected section.
-
-Note 1: If quit with C-g, this function will have removed the section that
-is to be refiled.  To get it back, one has to undo, or paste.
-
-Note 2: Reason for this function is that icicles seems to break org-modes headline
-buffer display, so onehas to use icicles for all headline navigation if it is loaded."
-  (interactive "P")
-  (outline-back-to-heading)
-  (if do-copy-p (org-copy-subtree) (org-cut-subtree))
-  (show-all)
-  (icicle-imenu (point-min) (point-max) t)
-  (outline-next-heading)
-  (unless (eq (current-column) 0) (insert "\n"))
-  (org-paste-subtree)
-  (if as-subtree (org-demote-subtree)))
-
-(defun org-copy-icy (as-subtree)
-  "Copy section to another location in file, selecting the location with icicles.
-See org-refile-icy."
-  (interactive "P")
-  (org-refile-icy as-subtree t))
-
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i r") 'org-refile-icy))
-(eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 
 (defun org-from ()
   "Set property 'FROM'."
