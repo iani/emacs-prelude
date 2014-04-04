@@ -40,7 +40,7 @@ Some themes (besides solarized-dark and zenburn):
 Note: Loading solarized-dark in custom.el without zenburn results in unreadable green selection background color for helm-swoop.  Loading solarized-dark here fixes this.
 
 Note on hl-sexp custom face color: The color for solarized-dark is:  #052530
-The color for solarized-light is: #FAB9A8 (tentative...)
+The color for solarized-light is: #FAD9B8 (tentative...)
 
 #+BEGIN_SRC emacs-lisp
 (load-theme 'solarized-dark)
