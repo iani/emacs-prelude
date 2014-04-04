@@ -39,6 +39,9 @@ Some themes (besides solarized-dark and zenburn):
 
 Note: Loading solarized-dark in custom.el without zenburn results in unreadable green selection background color for helm-swoop.  Loading solarized-dark here fixes this.
 
+Note on hl-sexp custom face color: The color for solarized-dark is:  #052530
+The color for solarized-light is: #FAB9A8 (tentative...)
+
 #+BEGIN_SRC emacs-lisp
 (load-theme 'solarized-dark)
 ;; (load-theme 'resolve)
@@ -210,7 +213,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (require 'imenu+)
   (require 'auto-complete)
   (ido-mode t)
-  ;; (icicle-mode) ;; Definitive problems in sclang: Cannot restart interpreter
+  (icicle-mode) ;; problems with sclang-start?
   ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
   ;; (require 'guide-key)
   ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
@@ -669,7 +672,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 
 * Customization of Specific Authoring Modes
 ** SuperCollider
-*** Sclang Setup
+*** sclang Setup
 #+BEGIN_SRC emacs-lisp
   ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
   (defvar sc_userAppSupportDir
@@ -699,10 +702,12 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 :eval-id:  2
 :END:
 
+Needs debugging: One of these modes breaks sclang-start:
+
 #+BEGIN_SRC emacs-lisp
   ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
   ;; in sclang-mode without loading Paredit.
-  (add-hook 'sclang-mode-hook 'paredit-mode)
+  ;; (add-hook 'sclang-mode-hook 'paredit-mode)
   (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'sclang-mode-hook 'hl-sexp-mode)
   (add-hook 'sclang-mode-hook 'electric-pair-mode)
@@ -710,12 +715,12 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
   (add-hook 'sclang-mode-hook 'auto-complete-mode)
   ;; sclang-ac-mode is included in sclang-extensions-mode:
   ;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
-  ;; ac mode constantly tries to run code.
+  ;; sclang-ac mode constantly tries to run code.
   ;; that can lead to loops that hang, for example constantly creating a view.
   ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 #+END_SRC
 
-*** Sclang keyboard shortcuts
+*** sclang keyboard shortcuts
 
 #+BEGIN_SRC emacs-lisp
 ;; Global keyboard shortcut for starting sclang

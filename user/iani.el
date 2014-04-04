@@ -78,7 +78,7 @@
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)
-;; (icicle-mode) ;; Definitive problems in sclang: Cannot restart interpreter
+(icicle-mode) ;; problems with sclang-start?
 ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
 ;; (require 'guide-key)
 ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
@@ -339,7 +339,7 @@ Used as helm action in helm-source-find-files"
 
 ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
 ;; in sclang-mode without loading Paredit.
-(add-hook 'sclang-mode-hook 'paredit-mode)
+;; (add-hook 'sclang-mode-hook 'paredit-mode)
 (add-hook 'sclang-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'sclang-mode-hook 'hl-sexp-mode)
 (add-hook 'sclang-mode-hook 'electric-pair-mode)
@@ -347,7 +347,7 @@ Used as helm action in helm-source-find-files"
 (add-hook 'sclang-mode-hook 'auto-complete-mode)
 ;; sclang-ac-mode is included in sclang-extensions-mode:
 ;; (add-hook 'sclang-mode-hook 'sclang-ac-mode)
-;; ac mode constantly tries to run code.
+;; sclang-ac mode constantly tries to run code.
 ;; that can lead to loops that hang, for example constantly creating a view.
 ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
 
