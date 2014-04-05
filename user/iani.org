@@ -23,8 +23,14 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 #+BEGIN_SRC emacs-lisp
 (setq visible-bell t)
 #+END_SRC
+** Blink cursor
 
-** Use replace-colorthemes for large selection of themes, Emacs 24-style
+#+BEGIN_SRC emacs-lisp
+(blink-cursor-mode 1)
+#+END_SRC
+
+** DISABLED [#B] Use replace-colorthemes for large selection of themes, Emacs 24-style
+CLOSED: [2014-04-05 Sat 19:42]
 
 #+BEGIN_SRC elisp
 ;;  (add-to-list 'custom-theme-load-path
@@ -39,7 +45,8 @@ Some themes (besides solarized-dark and zenburn):
 
 Note: Loading solarized-dark in custom.el without zenburn results in unreadable green selection background color for helm-swoop.  Loading solarized-dark here fixes this.
 
-Note on hl-sexp custom face color: The color for solarized-dark is:  #052530
+Note on hl-sexp custom face color: The color for solarized-dark is:
+#002530 / #052530 / #062530
 The color for solarized-light is: #FAD9B8 (tentative...)
 
 #+BEGIN_SRC emacs-lisp
@@ -73,6 +80,36 @@ http://sunsite.univie.ac.at/textbooks/emacs/emacs_22.html#SEC203
 http://www.gnu.org/software/emacs/manual/html_node/emacs/Modifying-Fontsets.html
 For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
+** Set Font Size globally
+
+Hack for changing font size globally, for presentations.  This affects also the font size of the status bar and temporary windows like icicles etc.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar default-font-size 12
+  "Initial default font size at startup.")
+  (defun increase-font-size-globally (points)
+    "Increase the global font size for all frames by 1 point"
+    (interactive "NHow many points?: ")
+    (setq default-font-size (+ points default-font-size))
+    (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+  (defun decrease-font-size-globally (points)
+    "Decrease the global font size for all frames by 1 point"
+    (interactive "NHow many points?: ")
+    (setq default-font-size (- default-font-size points))
+    (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+  (defun set-font-size-globally (points)
+    "Set the global font size for all frames to n points."
+    (interactive "NSet font size to how many points?: ")
+    (setq default-font-size points)
+    (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+  (global-set-key (kbd "C-M--") 'decrease-font-size-globally)
+  (global-set-key (kbd "C-M-+") 'increase-font-size-globally)
+  (global-set-key (kbd "C-M-=") 'set-font-size-globally)
+#+END_SRC
+
 ** Maximize/toggle frame
 #+BEGIN_SRC emacs-lisp
 ;; (maximize-frame) ;; maximize frame on startup
@@ -86,7 +123,6 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 #+END_SRC
 
 #+RESULTS:
-
 ** Movement: backward-sentence, forward-sentence
 
 Bind backward-sentence and forward-sentence in 2 different ways:
@@ -888,8 +924,7 @@ Have not figured out yet how to override those keys specifically.
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-indented t) ;; auto-indent text in subtrees
   (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
-;; following broken on Wed, Mar 19 2014, 07:14 GMT:
-;;  (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+  (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 #+END_SRC
 
 *** Agenda

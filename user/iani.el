@@ -8,6 +8,8 @@
 
 (setq visible-bell t)
 
+(blink-cursor-mode 1)
+
 (load-theme 'solarized-dark)
 ;; (load-theme 'resolve)
 
