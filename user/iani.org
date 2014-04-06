@@ -249,6 +249,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (require 'imenu+)
   (require 'auto-complete)
   (ido-mode t)
+  (ido-vertical-mode t)
   (icicle-mode) ;; problems with sclang-start?
   ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
   ;; (require 'guide-key)

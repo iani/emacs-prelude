@@ -22,6 +22,30 @@
  ;; It is compatible to Unicode, in its basic range
                   '("Menlo" . "iso10646-1"))
 
+(defvar default-font-size 12
+"Initial default font size at startup.")
+(defun increase-font-size-globally (points)
+  "Increase the global font size for all frames by 1 point"
+  (interactive "NHow many points?: ")
+  (setq default-font-size (+ points default-font-size))
+  (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+(defun decrease-font-size-globally (points)
+  "Decrease the global font size for all frames by 1 point"
+  (interactive "NHow many points?: ")
+  (setq default-font-size (- default-font-size points))
+  (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+(defun set-font-size-globally (points)
+  "Set the global font size for all frames to n points."
+  (interactive "NSet font size to how many points?: ")
+  (setq default-font-size points)
+  (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+(global-set-key (kbd "C-M--") 'decrease-font-size-globally)
+(global-set-key (kbd "C-M-+") 'increase-font-size-globally)
+(global-set-key (kbd "C-M-=") 'set-font-size-globally)
+
 ;; (maximize-frame) ;; maximize frame on startup
 (defun toggle-fullscreen ()
   "Toggle full screen"
@@ -472,9 +496,8 @@ See org-refile-icy."
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 (setq org-startup-indented t) ;; auto-indent text in subtrees
-  (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
-;; following broken on Wed, Mar 19 2014, 07:14 GMT:
-;;  (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+(setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
+(setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 
 (global-set-key "\C-ca" 'org-agenda)
 
