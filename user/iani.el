@@ -104,7 +104,8 @@
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)
-(icicle-mode) ;; problems with sclang-start?
+(ido-vertical-mode t)
+(icicle-mode)
 ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
 ;; (require 'guide-key)
 ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
