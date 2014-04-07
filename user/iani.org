@@ -122,6 +122,14 @@ Hack for changing font size globally, for presentations.  This affects also the 
 (tool-bar-mode -1)
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+(toggle-fullscreen)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(require 'maxframe) ;; (maximize-frame) command/function
+#+END_SRC
+
 #+RESULTS:
 ** Movement: backward-sentence, forward-sentence
 
@@ -212,9 +220,6 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (require 'switch-window)
   (global-set-key (kbd "C-x o") 'switch-window)
 #+END_SRC
-
-#+RESULTS:
-: switch-window
 
 *** Buffer-move, windmove, buffer switching
 

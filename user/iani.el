@@ -55,6 +55,10 @@
    (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 (tool-bar-mode -1)
 
+(toggle-fullscreen)
+
+(require 'maxframe) ;; (maximize-frame) command/function
+
 (global-set-key (kbd "M-B") 'backward-sentence)
 (global-set-key (kbd "M-F") 'forward-sentence)
 (global-set-key (kbd "M-[") 'backward-sentence)
