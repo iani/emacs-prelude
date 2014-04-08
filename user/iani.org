@@ -1,10 +1,3 @@
-* TODO Try Orgstruct, Outshine, Outorg or Poporg for elisp files instead of Babel
-:PROPERTIES:
-:DATE:     <2014-03-03 Mon 13:50>
-:END:
-
-http://orgmode.org/worg/org-tutorials/org-outside-org.html
-
 * Generic Emacs Customization
 ** Turn off guru mode
 
@@ -29,15 +22,13 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 (blink-cursor-mode 1)
 #+END_SRC
 
-** DISABLED [#B] Use replace-colorthemes for large selection of themes, Emacs 24-style
+** DISABLED Use replace-colorthemes for large selection of themes, Emacs 24-style
 CLOSED: [2014-04-05 Sat 19:42]
 
 #+BEGIN_SRC elisp
 ;;  (add-to-list 'custom-theme-load-path
 ;;               (file-name-as-directory "/Users/iani/Documents/Dev/Emacs/replace-colorthemes/"))
 #+END_SRC
-
-#+RESULTS:
 
 Some themes (besides solarized-dark and zenburn):
 - resolve
@@ -149,6 +140,9 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 : forward-sentence
 
 ** Insert timestamp (C-c C-x C-t)
+:PROPERTIES:
+:DATE:     <2014-04-07 Mon 17:35>
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (defun insert-timestamp (&optional type)
@@ -216,7 +210,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
 *** Switch window
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (require 'switch-window)
   (global-set-key (kbd "C-x o") 'switch-window)
 #+END_SRC
@@ -1538,7 +1532,7 @@ org-icicle-occur or icicle-occur, here: C-c C-'
 
 #+RESULTS:
 : fname-load-file-components
-*** Macro: toggle drawer visibility for this §t0 [ label = "label" ];
+*** Macro: toggle drawer visibility for this section;
 
 :PROPERTIES:
 :DATE:     <2013-12-09 Mon 17:19>
@@ -1573,6 +1567,14 @@ Magit config: Manage git repos from inside emacs
         "~/.emacs.d/personal"
 ))
 #+END_SRC
+* Notes
+** DONE Try Orgstruct, Outshine, Outorg or Poporg for elisp files instead of Babel
+CLOSED: [2014-04-07 Mon 18:21]
+:PROPERTIES:
+:DATE:     <2014-03-03 Mon 13:50>
+:END:
+
+http://orgmode.org/worg/org-tutorials/org-outside-org.html
 
 
 * Postamble
