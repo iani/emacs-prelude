@@ -245,6 +245,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
 #+BEGIN_SRC emacs-lisp
   (require 'ido)
+  (require 'flx-ido)
   (require 'imenu+)
   (require 'auto-complete)
   (ido-mode t)

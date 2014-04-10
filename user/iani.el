@@ -87,9 +87,6 @@
 
 (desktop-save-mode 1)
 
-(require 'switch-window)
-(global-set-key (kbd "C-x o") 'switch-window)
-
 (global-set-key (kbd "<C-s-up>") 'windmove-up)
 (global-set-key (kbd "<C-s-down>") 'windmove-down)
 (global-set-key (kbd "<C-s-right>") 'windmove-right)
