@@ -102,6 +102,7 @@
 (global-set-key (kbd "<s-end>") 'next-buffer)
 
 (require 'ido)
+(require 'flx-ido)
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)

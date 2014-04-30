@@ -1,5 +1,7 @@
 * Generic Emacs Customization
-** Turn off guru mode
+
+** Prelude stuff
+*** Turn off guru mode
 
 See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode-in-emacs-prelude
 
@@ -11,6 +13,12 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
           (lambda ()
             (guru-mode -1)) t)
 #+END_SRC
+*** Prelude-copy-filename-to-clipboard
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c p C-c") 'prelude-copy-file-name-to-clipboard)
+#+END_SRC
+
 ** Use visible bell instead of beep
 
 #+BEGIN_SRC emacs-lisp
@@ -73,7 +81,7 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
 ** Set Font Size globally
 
-Hack for changing font size globally, for presentations.  This affects also the font size of the status bar and temporary windows like icicles etc.
+Hack for changing font size globally, for presentations.  This affects also the font size of the status bar and temporary windows such as icicles etc.
 
 #+BEGIN_SRC emacs-lisp
   (defvar default-font-size 12
@@ -208,7 +216,12 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 #+RESULTS:
 : t
 
-*** Switch window
+*** DISABLED Switch window
+:PROPERTIES:
+:DATE:     <2014-04-30 Wed 11:44>
+:END:
+
+Note: I do not use switch-window any more.  Buffer-move, windmove, and custom keyboard shortcuts for =next-buffer= and =previous-buffer= are sufficient (see below).
 
 #+BEGIN_SRC elisp
   (require 'switch-window)
@@ -219,10 +232,12 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
 - windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to =control-super-<cursorkey>=.
 - buffer-move (package) :: Use cursor keys to switch buffer position between windows.  Bound to =fn-shift-<cursor key>=.
-- next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.  Bound to =function-super-<cursor key>=
+- next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.
+
+Bound to =function-super-<cursor key>=
 
 #+BEGIN_SRC emacs-lisp
-
+  (require 'windmove)
   (global-set-key (kbd "<C-s-up>") 'windmove-up)
   (global-set-key (kbd "<C-s-down>") 'windmove-down)
   (global-set-key (kbd "<C-s-right>") 'windmove-right)
@@ -238,9 +253,6 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (global-set-key (kbd "<s-end>") 'next-buffer)
 #+END_SRC
 
-#+RESULTS:
-: next-buffer
-
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
 #+BEGIN_SRC emacs-lisp
@@ -251,7 +263,8 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (ido-mode t)
   (ido-vertical-mode t)
   (icicle-mode)
-  ;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
+  ;; guide-key causes erratic delays when posting in ths SC post buffer
+  ;; from sclang.  Therefore disabled.
   ;; (require 'guide-key)
   ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
   ;;  (guide-key-mode 1)  ; Enable guide-key-mode
@@ -296,7 +309,7 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear
   (global-set-key (kbd "H-p D") 'projectile-dired-project-root)
   (global-set-key (kbd "H-p +") 'projectile-add-project)
   (global-set-key (kbd "H-p -") 'projectile-remove-known-project)
-  (global-set-key (kbd "H-p g") 'projectile-grep)
+  (global-set-key (kbd "H-p a") 'projectile-ack) ;; better search than grep
 
 #+END_SRC
 
@@ -341,6 +354,7 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/
   (global-set-key (kbd "H-M-h") 'helm-M-x)
   (global-set-key (kbd "H-h w") 'helm-world-time)
   (global-set-key (kbd "H-h s") 'helm-swoop)
+  (global-set-key (kbd "C-c m") 'helm-mini)
 
   (setq display-time-world-list
         '(("America/Los_Angeles" "Santa Barbara")
@@ -358,13 +372,6 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/
           ("Asia/Shanghai" "Shanghai")
           ("Asia/Tokyo" "Tokyo")))
 #+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-;; (message "%s" display-time-world-list)
-#+END_SRC
-
-#+RESULTS:
-: ((America/Los_Angeles Seattle) (America/New_York New York) (Europe/London London) (Europe/Paris Paris) (Asia/Calcutta Bangalore) (Asia/Tokyo Tokyo))
 
 *** Note on icicle key bindings and org-mode
 
@@ -471,6 +478,11 @@ Disabled.
 : ido-imenu-push-mark
 
 *** smex (auto-complete minibuffer commands called with Meta-x)
+:PROPERTIES:
+:DATE:     <2014-04-30 Wed 11:51>
+:END:
+
+Note: since March 2014 I mostly use helm-M-x (bound to Hyper-meta-x) instead of Meta-x, so smex is not crucial.
 
 #+BEGIN_SRC emacs-lisp
 ;; Smex: Autocomplete meta-x command
@@ -495,7 +507,6 @@ Disabled.
 
 #+BEGIN_SRC emacs-lisp
   (require 'multiple-cursors)
-  (global-set-key (kbd "C-c m") 'helm-mini)
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -1176,7 +1187,7 @@ done
   - Set completion time of previous task.
   - Calculate duration of previous task
   - Write task to stopwatch.txt file for use by geeklet to display task timer
-  - If called with prefix argument, prompt for expense value and set expense task.
+  - If called with prefix argument, prompt for expense value and set expense property.
 
   TODO: Store timestamp of last task in separate file, so as to be able to retrieve it
   even if the text of the previous entry is corrupt. "
@@ -1189,7 +1200,7 @@ done
             (format-time-string ": %D_%T" (current-time)))))
       (if (< (length topic) 1) (setq topic "Untitled task"))
       (find-file
-       "/Users/iani/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
+       "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/stopwatch.txt")
   ;;    (beginning-of-buffer)
   ;;    (kill-line)
       (erase-buffer)
@@ -1197,7 +1208,7 @@ done
       (save-buffer)
       (message (concat "Now timing: " timer-string))
       (find-file
-       "/Users/iani/Dropbox/000WORKFILES/org/monitoring/log.org")
+       "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")
       (widen)
       (end-of-buffer)
       (if (> (org-outline-level) 1) (outline-up-heading 100 t))
