@@ -6,6 +6,8 @@
           (lambda ()
             (guru-mode -1)) t)
 
+(global-set-key (kbd "C-c p C-c") 'prelude-copy-file-name-to-clipboard)
+
 (setq visible-bell t)
 
 (blink-cursor-mode 1)
@@ -87,6 +89,7 @@
 
 (desktop-save-mode 1)
 
+(require 'windmove)
 (global-set-key (kbd "<C-s-up>") 'windmove-up)
 (global-set-key (kbd "<C-s-down>") 'windmove-down)
 (global-set-key (kbd "<C-s-right>") 'windmove-right)
@@ -108,7 +111,8 @@
 (ido-mode t)
 (ido-vertical-mode t)
 (icicle-mode)
-;; guide-key causes errating post tempo at SC post buf. Therefore avoid!
+;; guide-key causes erratic delays when posting in ths SC post buffer
+;; from sclang.  Therefore disabled.
 ;; (require 'guide-key)
 ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
 ;;  (guide-key-mode 1)  ; Enable guide-key-mode
@@ -147,7 +151,7 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-p D") 'projectile-dired-project-root)
 (global-set-key (kbd "H-p +") 'projectile-add-project)
 (global-set-key (kbd "H-p -") 'projectile-remove-known-project)
-(global-set-key (kbd "H-p g") 'projectile-grep)
+(global-set-key (kbd "H-p a") 'projectile-ack) ;; better search than grep
 
 ;; must call these to initialize  helm-source-find-files
 
@@ -183,6 +187,7 @@ Used as helm action in helm-source-find-files"
 (global-set-key (kbd "H-M-h") 'helm-M-x)
 (global-set-key (kbd "H-h w") 'helm-world-time)
 (global-set-key (kbd "H-h s") 'helm-swoop)
+(global-set-key (kbd "C-c m") 'helm-mini)
 
 (setq display-time-world-list
       '(("America/Los_Angeles" "Santa Barbara")
@@ -199,8 +204,6 @@ Used as helm action in helm-source-find-files"
         ("Asia/Jakarta" "Jakarta")
         ("Asia/Shanghai" "Shanghai")
         ("Asia/Tokyo" "Tokyo")))
-
-;; (message "%s" display-time-world-list)
 
 (eval-after-load "icicles-opt.el"
     (add-hook
@@ -235,7 +238,6 @@ Used as helm action in helm-source-find-files"
                   (smex-major-mode-commands)))
 
 (require 'multiple-cursors)
-(global-set-key (kbd "C-c m") 'helm-mini)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -629,7 +631,7 @@ files to org-agenda-files."
 - Set completion time of previous task.
 - Calculate duration of previous task
 - Write task to stopwatch.txt file for use by geeklet to display task timer
-- If called with prefix argument, prompt for expense value and set expense task.
+- If called with prefix argument, prompt for expense value and set expense property.
 
 TODO: Store timestamp of last task in separate file, so as to be able to retrieve it
 even if the text of the previous entry is corrupt. "
@@ -642,7 +644,7 @@ even if the text of the previous entry is corrupt. "
           (format-time-string ": %D_%T" (current-time)))))
     (if (< (length topic) 1) (setq topic "Untitled task"))
     (find-file
-     "/Users/iani/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt")
+     "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/stopwatch.txt")
 ;;    (beginning-of-buffer)
 ;;    (kill-line)
     (erase-buffer)
@@ -650,7 +652,7 @@ even if the text of the previous entry is corrupt. "
     (save-buffer)
     (message (concat "Now timing: " timer-string))
     (find-file
-     "/Users/iani/Dropbox/000WORKFILES/org/monitoring/log.org")
+     "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")
     (widen)
     (end-of-buffer)
     (if (> (org-outline-level) 1) (outline-up-heading 100 t))
