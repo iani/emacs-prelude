@@ -504,6 +504,17 @@ See org-refile-icy."
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 
+(defun org-headline-line ()
+  "convert current line into headline at same level as above."
+  (interactive)
+  (beginning-of-line)
+  (org-meta-return)
+  (delete-char 1))
+
+(eval-after-load 'org
+  '(progn
+     (define-key org-mode-map (kbd "C-M-<return>") 'org-headline-line)))
+
 (global-set-key "\C-ca" 'org-agenda)
 
 (defvar org-agenda-list-save-path

@@ -931,12 +931,15 @@ Have not figured out yet how to override those keys specifically.
   (add-hook 'org-shiftright-final-hook 'windmove-right)
 #+END_SRC
 
-*** Customize Org-mode display
+*** Customize Org-mode display, including todo colors
 
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-indented t) ;; auto-indent text in subtrees
   (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+  (setq org-todo-keyword-faces
+        '(("TODO" . org-warning) ("STARTED" . "yellow")
+          ("CANCELED" . (:foreground "blue" :weight bold))))
 #+END_SRC
 
 *** line->headline
