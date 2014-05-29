@@ -938,7 +938,7 @@ Have not figured out yet how to override those keys specifically.
   (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
   (setq org-todo-keyword-faces
-        '(("TODO" . org-warning) ("STARTED" . "yellow")
+        '(("TODO" . (:foreground "red")) ("STARTED" . "yellow")
           ("CANCELED" . (:foreground "blue" :weight bold))))
 #+END_SRC
 
@@ -1605,6 +1605,30 @@ CLOSED: [2014-04-07 Mon 18:21]
 :END:
 
 http://orgmode.org/worg/org-tutorials/org-outside-org.html
+** Capture for project logs in one folder
+
+*** About folder "project-logs"
+
+This folder, project-logs, is for monitoring the progress of individual projects.  Each project has a separate file.
+
+*** Methodology
+
+Keep using the global file log.org for fast logging of all entries, regarding any project.  To update the status of a project in the individual project files of the present folder, go to the global log.org file and copy sections to the related individual project files.  For example, if file log.org contains a section related to project "proj1", then copy that section to file "proj1.org".  Therefore keep both the original entries in log and the copied entries in the individual project files in the present folder ("project-logs").  In file log.org it may be useful to mark those entries that have been copied with a property such as "COPIED" set to true.
+
+*** Keyboard shortcuts, custom functions
+
+- C-c M-w :: Copy subtree to other subtree.
+
+New functions to program:
+
+- org-capture-to-folder :: Like org-capture, but modified in the following points:
+  1. Use a grizzle-style vertical menu for selecting the target of refile (instead of a single-key shortcut)
+  2. Create the menu of refile targets by scanning the project-logs folder (instead of statically from a list hard-coded in emacs-lisp).
+  3. Possibly allow several variants of capture:
+     1. date-tree-prompt style (file+datetree+prompt)
+     2. "entry" type, target (file "path/to/file")
+     3. "entry" type, target id or file+headline
+- org-copy-to-project :: like org-capture-to-folder, but instead of capture, it just copies to the project file.
 
 
 * Postamble
