@@ -503,6 +503,9 @@ See org-refile-icy."
 (setq org-startup-indented t) ;; auto-indent text in subtrees
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "red")) ("STARTED" . "yellow")
+        ("CANCELED" . (:foreground "blue" :weight bold))))
 
 (defun org-headline-line ()
   "convert current line into headline at same level as above."

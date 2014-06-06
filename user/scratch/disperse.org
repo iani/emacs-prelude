@@ -1,0 +1,54 @@
+Disperse: The opposite of capture.  Given a list of entries captured in a single file (log.org), refile or copy any entry in that list to another org file, selected from a list, and using parts of the capture mechanism for refiling.
+
+Here various tests to build "disperse" in bottom-up fashion.
+
+* build list of targets from a list of folders
+:PROPERTIES:
+:DATE:     <2014-06-06 Fri 10:56>
+:END:
+
+** Store list of folders to scan
+
+#+BEGIN_SRC emacs-lisp
+  (defvar org-disperse-folders nil
+  "List of folders containing org-mode files that should be included
+  in the list of targets for org-disperse.")
+
+  (add-to-list 'org-disperse-folders
+               (concat (file-name-directory (buffer-file-name)) "*.org"))
+#+END_SRC
+
+#+RESULTS:
+| /Users/iani/.emacs.d/personal/user/scratch/*.org |
+
+** Scan list of folders and collect list of files
+
+#+BEGIN_SRC emacs-lisp
+  (let ((file-list
+         (file-expand-wildcards (car org-disperse-folders))))
+    (message "%s" file-list))
+
+  (require 'dash)
+
+  (let ((file-list
+         (-mapcat (lambda (expr) (file-expand-wildcards expr))
+                  org-disperse-folders)))
+    (message "%s" file-list))
+
+#+END_SRC
+
+** Present list of files in menu to select from
+#+BEGIN_SRC emacs-lisp
+  (require 'dash)
+  (require 'grizzl)
+
+  (let* ((file-list
+           (-mapcat (lambda (expr) (file-expand-wildcards expr))
+                    org-disperse-folders))
+         (index (grizzl-make-index file-list)))
+      (grizzl-completing-read "Select refile target: " index))
+#+END_SRC
+
+** Refile current entry to target according to chosen method
+
+... TODO

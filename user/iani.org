@@ -1630,6 +1630,12 @@ New functions to program:
      3. "entry" type, target id or file+headline
 - org-copy-to-project :: like org-capture-to-folder, but instead of capture, it just copies to the project file.
 
+*** Implementation
+:PROPERTIES:
+:DATE:     <2014-06-06 Fri 11:27>
+:END:
+
+Implementation is underway in file scratch/disperse.org
 
 * Postamble
 
