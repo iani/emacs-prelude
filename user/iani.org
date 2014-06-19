@@ -938,7 +938,9 @@ Have not figured out yet how to override those keys specifically.
   (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
   (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "red")) ("STARTED" . "yellow")
+        '(("TODO" . (:foreground "red"))
+          ("STARTED" . "yellow")
+          ("DONE" . (:foreground "white" :background "darkgreen"))
           ("CANCELED" . (:foreground "blue" :weight bold))))
 #+END_SRC
 
@@ -1313,7 +1315,8 @@ Enable some cool languages in org-babel mode.
 #+RESULTS:
 : org-babel-load-current-file
 
-*** Orgmode latex customization
+*** DONE Orgmode latex customization
+CLOSED: [2014-06-19 Thu 10:50]
 
 #+BEGIN_SRC emacs-lisp
 ;;; Load latex package

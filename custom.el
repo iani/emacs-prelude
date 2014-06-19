@@ -12,6 +12,7 @@
  '(foreground-color "#708183")
  '(guru-global-mode nil)
  '(hl-sexp-background-colors (quote ("gray0" "#0f003f")))
+ '(org-agenda-files (quote ("~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")))
  '(org-modules (quote (org-bbdb org-bibtex org-crypt org-docview org-gnus org-id org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mac-iCal)))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map (quote ((20 . "#BC8383") (40 . "#CC9393") (60 . "#DFAF8F") (80 . "#D0BF8F") (100 . "#E0CF9F") (120 . "#F0DFAF") (140 . "#5F7F5F") (160 . "#7F9F7F") (180 . "#8FB28F") (200 . "#9FC59F") (220 . "#AFD8AF") (240 . "#BFEBBF") (260 . "#93E0E3") (280 . "#6CA0A3") (300 . "#7CB8BB") (320 . "#8CD0D3") (340 . "#94BFF3") (360 . "#DC8CC3"))))
