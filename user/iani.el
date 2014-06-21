@@ -504,7 +504,9 @@ See org-refile-icy."
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "red")) ("STARTED" . "yellow")
+      '(("TODO" . (:foreground "red"))
+        ("STARTED" . "yellow")
+        ("DONE" . (:foreground "white" :background "darkgreen"))
         ("CANCELED" . (:foreground "blue" :weight bold))))
 
 (defun org-headline-line ()

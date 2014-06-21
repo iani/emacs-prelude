@@ -940,8 +940,10 @@ Have not figured out yet how to override those keys specifically.
   (setq org-todo-keyword-faces
         '(("TODO" . (:foreground "red"))
           ("STARTED" . "yellow")
-          ("DONE" . (:foreground "white" :background "darkgreen"))
-          ("CANCELED" . (:foreground "blue" :weight bold))))
+          ("OBSOLETE" . (:foreground "yellow" :background "darkgreen"))
+          ("REJECTED" . (:foreground "yellow" :background "darkgreen"))
+          ("CANCELLED" . (:foreground "blue" :weight bold))
+          ("DONE" . (:foreground "white" :background "darkgreen"))))
 #+END_SRC
 
 *** line->headline
