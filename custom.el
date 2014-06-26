@@ -12,6 +12,7 @@
  '(foreground-color "#708183")
  '(guru-global-mode nil)
  '(hl-sexp-background-colors (quote ("gray0" "#0f003f")))
+ '(icicle-buffer-configs (quote (("icybufferconfig1" "Event*" "\\.ck" nil nil nil) ("All" nil nil nil nil icicle-case-string-less-p) ("Files" nil nil (lambda (bufname) (buffer-file-name (get-buffer bufname))) nil icicle-case-string-less-p) ("Files and Scratch" nil nil (lambda (bufname) (buffer-file-name (get-buffer bufname))) ("*scratch*") icicle-case-string-less-p) ("All, *...* Buffers Last" nil nil nil nil icicle-buffer-sort-*\.\.\.*-last))))
  '(org-agenda-files (quote ("~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")))
  '(org-modules (quote (org-bbdb org-bibtex org-crypt org-docview org-gnus org-id org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mac-iCal)))
  '(vc-annotate-background "#2B2B2B")
@@ -23,4 +24,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cursor ((t (:background "grey" :foreground "dark red"))))
+ '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
  '(hl-sexp-face ((t (:background "#002530")))))

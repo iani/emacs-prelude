@@ -53,6 +53,39 @@ The color for solarized-light is: #FAD9B8 (tentative...)
 ;; (load-theme 'resolve)
 #+END_SRC
 
+*** Switching solarized-dark<->whiteboard theme: adapt highlight faces
+:PROPERTIES:
+:DATE:     <2014-06-24 Tue 16:57>
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dark-theme ()
+    "set theme to solarized dark, adapt hl faces."
+    (interactive)
+    (load-theme 'solarized-dark)
+   (custom-set-faces
+    ;; custom-set-faces was added by Custom.
+    ;; If you edit it by hand, you could mess it up, so be careful.
+    ;; Your init file should contain only one such instance.
+    ;; If there is more than one, they won't work right.
+    '(cursor ((t (:background "grey" :foreground "dark red"))))
+    '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
+    '(hl-sexp-face ((t (:background "#002530"))))))
+
+  (defun light-theme ()
+    "set theme to solarized dark, adapt hl faces."
+    (interactive)
+    (load-theme 'whiteboard)
+    (custom-set-faces
+     ;; custom-set-faces was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     '(cursor ((t (:background "grey" :foreground "dark red"))))
+     '(hl-line ((t (:inherit highlight :background "#FADAF0" :underline nil))))
+     '(hl-sexp-face ((t (:background "#FDFDAA"))))))
+#+END_SRC
+
 ** Internationalization: Set Mac OS native fonts for japanese/greek
 :PROPERTIES:
 :DATE:     <2013-12-08 Sun 15:12>

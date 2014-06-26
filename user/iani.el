@@ -15,6 +15,32 @@
 (load-theme 'solarized-dark)
 ;; (load-theme 'resolve)
 
+(defun dark-theme ()
+  "set theme to solarized dark, adapt hl faces."
+  (interactive)
+  (load-theme 'solarized-dark)
+ (custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(cursor ((t (:background "grey" :foreground "dark red"))))
+  '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
+  '(hl-sexp-face ((t (:background "#002530"))))))
+
+(defun light-theme ()
+  "set theme to solarized dark, adapt hl faces."
+  (interactive)
+  (load-theme 'whiteboard)
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(cursor ((t (:background "grey" :foreground "dark red"))))
+   '(hl-line ((t (:inherit highlight :background "#FADAF0" :underline nil))))
+   '(hl-sexp-face ((t (:background "#FDFDAA"))))))
+
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -506,8 +532,10 @@ See org-refile-icy."
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "red"))
         ("STARTED" . "yellow")
-        ("DONE" . (:foreground "white" :background "darkgreen"))
-        ("CANCELED" . (:foreground "blue" :weight bold))))
+        ("OBSOLETE" . (:foreground "yellow" :background "darkgreen"))
+        ("REJECTED" . (:foreground "yellow" :background "darkgreen"))
+        ("CANCELLED" . (:foreground "blue" :weight bold))
+        ("DONE" . (:foreground "white" :background "darkgreen"))))
 
 (defun org-headline-line ()
   "convert current line into headline at same level as above."
