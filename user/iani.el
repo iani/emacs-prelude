@@ -31,7 +31,7 @@
 (defun light-theme ()
   "set theme to solarized dark, adapt hl faces."
   (interactive)
-  (load-theme 'whiteboard)
+  (load-theme 'tsdh-light)
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
