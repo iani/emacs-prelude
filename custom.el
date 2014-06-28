@@ -25,5 +25,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cursor ((t (:background "grey" :foreground "dark red"))))
+ '(helm-selection ((t (:background "gray100" :underline t))))
  '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
  '(hl-sexp-face ((t (:background "#002530")))))

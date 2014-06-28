@@ -68,6 +68,7 @@ The color for solarized-light is: #FAD9B8 (tentative...)
     ;; If you edit it by hand, you could mess it up, so be careful.
     ;; Your init file should contain only one such instance.
     ;; If there is more than one, they won't work right.
+    '(helm-selection ((t (:background "gray100" :underline t))))
     '(cursor ((t (:background "grey" :foreground "dark red"))))
     '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
     '(hl-sexp-face ((t (:background "#002530"))))))
@@ -81,9 +82,10 @@ The color for solarized-light is: #FAD9B8 (tentative...)
      ;; If you edit it by hand, you could mess it up, so be careful.
      ;; Your init file should contain only one such instance.
      ;; If there is more than one, they won't work right.
+     '(helm-selection ((t (:background "green1" :underline t))))
      '(cursor ((t (:background "grey" :foreground "dark red"))))
-     '(hl-line ((t (:inherit highlight :background "#FADAF0" :underline nil))))
-     '(hl-sexp-face ((t (:background "#FDFDAA"))))))
+     '(hl-line ((t (:inherit highlight :background "grey96" :underline nil))))
+     '(hl-sexp-face ((t (:background "LemonChiffon1"))))))
 #+END_SRC
 
 ** Internationalization: Set Mac OS native fonts for japanese/greek
@@ -1449,12 +1451,14 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
     (outline-previous-heading)
     (search-forward (plist-get (cadr (org-element-at-point)) :raw-value))
     (set-mark (point))
+
     (beginning-of-line)
     (search-forward " "))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-h") 'org-select-heading))
 #+END_SRC
+
 *** Encryption
 
 #+BEGIN_SRC emacs-lisp
