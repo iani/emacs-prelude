@@ -24,6 +24,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+  '(mode-line-buffer-id ((t (:foreground "gray97" :weight bold))))
   '(helm-selection ((t (:background "gray100" :underline t))))
   '(cursor ((t (:background "grey" :foreground "dark red"))))
   '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
@@ -38,6 +39,8 @@
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+   '(mode-line-buffer-id ((t (:foreground "gray90" :weight bold))))
+   '(helm-selection ((t (:background "green1" :underline t))))
    '(cursor ((t (:background "grey" :foreground "dark red"))))
    '(hl-line ((t (:inherit highlight :background "grey96" :underline nil))))
    '(hl-sexp-face ((t (:background "LemonChiffon1"))))))

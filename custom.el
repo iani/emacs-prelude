@@ -27,4 +27,5 @@
  '(cursor ((t (:background "grey" :foreground "dark red"))))
  '(helm-selection ((t (:background "gray100" :underline t))))
  '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
- '(hl-sexp-face ((t (:background "#002530")))))
+ '(hl-sexp-face ((t (:background "#002530"))))
+ '(mode-line-buffer-id ((t (:foreground "gray97" :weight bold)))))
