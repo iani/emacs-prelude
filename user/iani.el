@@ -755,6 +755,53 @@ even if the text of the previous entry is corrupt. "
 
 (global-set-key (kbd "C-M-l") 'log)
 
+(defvar log-dir
+  (expand-file-name
+   "~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/")
+  "This directory contains all notes on current projects and classes")
+
+(defadvice org-agenda (before update-agenda-file-list ())
+  "Re-createlist of agenda files from contents of relevant directories."
+  (iz-update-agenda-file-list))
+
+(ad-activate 'org-agenda)
+
+(defun iz-update-agenda-file-list ()
+  "Set value of org-agenda-files from contents of relevant directories."
+ (setq org-agenda-files
+       (append
+        (file-expand-wildcards (concat log-dir "projects" "/[a-zA-Z0-9]*.org"))
+        (file-expand-wildcards (concat log-dir "classes" "/[a-zA-Z0-9]*.org"))
+        (list (concat log-dir "log.org"))))
+ (message "org-agenda-files was updated"))
+
+;; (setq org-refile-targets '((org-agenda-files . (:maxlevel . 5))))
+(defun iz-directory-file-menu (subdir)
+  (let*
+      ((files
+        (file-expand-wildcards (concat log-dir subdir "/[a-zA-Z0-9]*.org")))
+       (projects (mapcar 'file-name-nondirectory files))
+       (dirs
+        (mapcar (lambda (dir) (cons (file-name-nondirectory dir) dir))
+                files))
+       (project-menu (grizzl-make-index projects))
+       (selection (cdr (assoc (grizzl-completing-read "Open: " project-menu)
+                              dirs))))
+    (find-file selection)))
+
+(defun iz-open-project ()
+  "Open an org file from projects folder."
+  (interactive)
+  (iz-directory-file-menu "projects"))
+
+(defun iz-open-class ()
+  "Open an org file from projects folder."
+  (interactive)
+  (iz-directory-file-menu "classes"))
+
+(global-set-key (kbd "H-h H-p") 'iz-open-project)
+(global-set-key (kbd "H-h H-c") 'iz-open-class)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)

@@ -28,4 +28,7 @@
  '(helm-selection ((t (:background "gray100" :underline t))))
  '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
  '(hl-sexp-face ((t (:background "#002530"))))
- '(mode-line-buffer-id ((t (:foreground "gray97" :weight bold)))))
+ '(mode-line-buffer-id ((t (:foreground "gray97" :weight bold))))
+ '(whitespace-hspace ((t (:background "midnight blue" :foreground "#bd3612"))))
+ '(whitespace-space ((t (:background "midnight blue" :foreground "#0a2832"))))
+ '(whitespace-tab ((t (:background "#0a1a2a" :foreground "#0a2832")))))
