@@ -755,7 +755,17 @@ even if the text of the previous entry is corrupt. "
 
 (global-set-key (kbd "C-M-l") 'log)
 
-(defvar log-dir
+(setq org-tag-alist
+      '(
+        ("home" . ?h)
+        ("finance" . ?f)
+        ("eastn" . ?e)
+        ("avarts" . ?a)
+        ("erasmus" . ?E)
+        ("researchfunding" . ?r)
+))
+
+(defvar iz-log-dir
   (expand-file-name
    "~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/")
   "This directory contains all notes on current projects and classes")
@@ -770,16 +780,24 @@ even if the text of the previous entry is corrupt. "
   "Set value of org-agenda-files from contents of relevant directories."
  (setq org-agenda-files
        (append
-        (file-expand-wildcards (concat log-dir "projects" "/[a-zA-Z0-9]*.org"))
-        (file-expand-wildcards (concat log-dir "classes" "/[a-zA-Z0-9]*.org"))
-        (list (concat log-dir "log.org"))))
+        (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
+        (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))
+        (list (concat iz-log-dir "log.org"))))
  (message "org-agenda-files was updated"))
 
-;; (setq org-refile-targets '((org-agenda-files . (:maxlevel . 5))))
+(defun iz-get-refile-target-list ()
+  "Gest list of files containing possible refile targets."
+  (append
+   (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
+   (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))))
+
+(setq org-refile-targets
+      '((iz-get-refile-target-list . (:level . 1))))
+
 (defun iz-directory-file-menu (subdir)
   (let*
       ((files
-        (file-expand-wildcards (concat log-dir subdir "/[a-zA-Z0-9]*.org")))
+        (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
        (projects (mapcar 'file-name-nondirectory files))
        (dirs
         (mapcar (lambda (dir) (cons (file-name-nondirectory dir) dir))
@@ -799,8 +817,40 @@ even if the text of the previous entry is corrupt. "
   (interactive)
   (iz-directory-file-menu "classes"))
 
+;;; This should be replaced by dynamic capture template for all projects
+;;; scanning current project file names.  See below
+(setq org-capture-templates
+      '(
+        ("a" "AVARTS" entry (file+datetree (concat iz-log-dir "projects/AVARTS.org"))
+         "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
+        ("x" "Templated Log for all projects" entry (file+datetree (concat iz-log-dir "projects/DATELOG.org"))
+         (file "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/DATELOGTEMPLATE.txt"))
+        ("v" "CV" entry (file+datetree (concat iz-log-dir "projects/CV.org"))
+         "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
+        ("e" "EMAIL-OUTBOX" entry
+         (file+olp
+          (concat iz-log-dir "projects/EMAIL-OUTBOX.org")
+          "EMAIL OUTBOX")
+         "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
+        ))
+
+(defadvice org-capture (before make-templates)
+  "create templates from contents of project folder."
+  ;;  (message "org-capture dynamic templates test")
+  (message "testing")
+  (iz-update-agenda-file-list)
+  (setq org-capture-templates
+        '(
+          ("a" "TEST!" (file-datetree (car org-agenda-files))
+           "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")))
+  )
+
+(ad-activate 'org-capture)
+
+
 (global-set-key (kbd "H-h H-p") 'iz-open-project)
 (global-set-key (kbd "H-h H-c") 'iz-open-class)
+(global-set-key (kbd "H-h c") 'org-capture)
 
 (org-babel-do-load-languages
  'org-babel-load-languages

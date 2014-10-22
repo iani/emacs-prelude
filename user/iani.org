@@ -1321,9 +1321,22 @@ done
 
   (global-set-key (kbd "C-M-l") 'log)
 #+END_SRC
-*** Class and Project notes
+*** Class and Project notes, tags
+:PROPERTIES:
+:DATE:     <2014-10-14 Tue 18:47>
+:END:
 
 #+BEGIN_SRC emacs-lisp
+  (setq org-tag-alist
+        '(
+          ("home" . ?h)
+          ("finance" . ?f)
+          ("eastn" . ?e)
+          ("avarts" . ?a)
+          ("erasmus" . ?E)
+          ("researchfunding" . ?r)
+  ))
+
   (defvar iz-log-dir
     (expand-file-name
      "~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/")
@@ -1376,10 +1389,14 @@ done
     (interactive)
     (iz-directory-file-menu "classes"))
 
+  ;;; This should be replaced by dynamic capture template for all projects
+  ;;; scanning current project file names.  See below
   (setq org-capture-templates
         '(
           ("a" "AVARTS" entry (file+datetree (concat iz-log-dir "projects/AVARTS.org"))
            "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
+          ("x" "Templated Log for all projects" entry (file+datetree (concat iz-log-dir "projects/DATELOG.org"))
+           (file "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/DATELOGTEMPLATE.txt"))
           ("v" "CV" entry (file+datetree (concat iz-log-dir "projects/CV.org"))
            "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
           ("e" "EMAIL-OUTBOX" entry
@@ -1388,6 +1405,21 @@ done
             "EMAIL OUTBOX")
            "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
           ))
+
+  ;; Not yet completed
+  (defadvice org-capture (before make-templates)
+    "create templates from contents of project and class folder."
+    ;;  (message "org-capture dynamic templates test")
+    (message "testing")
+    (iz-update-agenda-file-list)
+    (setq org-capture-templates
+          '(
+            ("a" "TEST!" (file-datetree (car org-agenda-files))
+             "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")))
+    )
+
+  ;; (ad-activate 'org-capture)
+
 
   (global-set-key (kbd "H-h H-p") 'iz-open-project)
   (global-set-key (kbd "H-h H-c") 'iz-open-class)

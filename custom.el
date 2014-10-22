@@ -16,6 +16,7 @@
  '(icicle-buffer-configs (quote (("icybufferconfig1" "Event*" "\\.ck" nil nil nil) ("All" nil nil nil nil icicle-case-string-less-p) ("Files" nil nil (lambda (bufname) (buffer-file-name (get-buffer bufname))) nil icicle-case-string-less-p) ("Files and Scratch" nil nil (lambda (bufname) (buffer-file-name (get-buffer bufname))) ("*scratch*") icicle-case-string-less-p) ("All, *...* Buffers Last" nil nil nil nil icicle-buffer-sort-*\.\.\.*-last))))
  '(org-agenda-files (quote ("~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")))
  '(org-modules (quote (org-bbdb org-bibtex org-crypt org-docview org-gnus org-id org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mac-iCal)))
+ '(org-tags-column -90)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map (quote ((20 . "#BC8383") (40 . "#CC9393") (60 . "#DFAF8F") (80 . "#D0BF8F") (100 . "#E0CF9F") (120 . "#F0DFAF") (140 . "#5F7F5F") (160 . "#7F9F7F") (180 . "#8FB28F") (200 . "#9FC59F") (220 . "#AFD8AF") (240 . "#BFEBBF") (260 . "#93E0E3") (280 . "#6CA0A3") (300 . "#7CB8BB") (320 . "#8CD0D3") (340 . "#94BFF3") (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
