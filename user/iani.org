@@ -314,7 +314,7 @@ Bound to =function-super-<cursor key>=
 
 #+BEGIN_SRC emacs-lisp
   (setq projectile-completion-system 'grizzl)
-
+  (setq *grizzl-read-max-results* 40)
   (defun projectile-dired-project-root ()
     "Dired root of current project.  Can be set as value of
   projectile-switch-project-action to dired root of project when switching.
@@ -634,10 +634,11 @@ Note about dirtree:  Very handy.  There are several versions out there, and ther
   (require 'dired+)
   (require 'dirtree)
   (global-set-key (kbd "H-d d") 'dirtree-show)
-  (require 'sr-speedbar)
-  (speedbar-add-supported-extension ".sc")
-  (speedbar-add-supported-extension ".scd")
-  (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
+  ;; sr-speedbar is broken in emacs 24.4.1
+  ;; (require 'sr-speedbar)
+  ;; (speedbar-add-supported-extension ".sc")
+  ;; (speedbar-add-supported-extension ".scd")
+  ;; (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
 #+END_SRC
 
 **** Dired customization from Healy's startup kit
@@ -1360,7 +1361,7 @@ done
   (defun iz-get-refile-target-list ()
     "Gest list of files containing possible refile targets."
     (append
-     (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
+     (file-expand-wildcards (coarncat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
      (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))))
 
   (setq org-refile-targets
@@ -1389,8 +1390,8 @@ done
     (interactive)
     (iz-directory-file-menu "classes"))
 
-  ;;; This should be replaced by dynamic capture template for all projects
-  ;;; scanning current project file names.  See below
+  ;; Hardly using this.  Loggins through go-to-target
+  ;; With LOG as beginning of target branch
   (setq org-capture-templates
         '(
           ("a" "AVARTS" entry (file+datetree (concat iz-log-dir "projects/AVARTS.org"))
@@ -1405,21 +1406,6 @@ done
             "EMAIL OUTBOX")
            "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
           ))
-
-  ;; Not yet completed
-  (defadvice org-capture (before make-templates)
-    "create templates from contents of project and class folder."
-    ;;  (message "org-capture dynamic templates test")
-    (message "testing")
-    (iz-update-agenda-file-list)
-    (setq org-capture-templates
-          '(
-            ("a" "TEST!" (file-datetree (car org-agenda-files))
-             "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")))
-    )
-
-  ;; (ad-activate 'org-capture)
-
 
   (global-set-key (kbd "H-h H-p") 'iz-open-project)
   (global-set-key (kbd "H-h H-c") 'iz-open-class)

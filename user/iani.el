@@ -325,10 +325,11 @@ Used as helm action in helm-source-find-files"
 (require 'dired+)
 (require 'dirtree)
 (global-set-key (kbd "H-d d") 'dirtree-show)
-(require 'sr-speedbar)
-(speedbar-add-supported-extension ".sc")
-(speedbar-add-supported-extension ".scd")
-(global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
+;; sr-speedbar is broken in emacs 24.4.1
+;; (require 'sr-speedbar)
+;; (speedbar-add-supported-extension ".sc")
+;; (speedbar-add-supported-extension ".scd")
+;; (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
 
 (define-key dired-mode-map (kbd "<SPC>")
   (lambda () (interactive)
@@ -788,7 +789,7 @@ even if the text of the previous entry is corrupt. "
 (defun iz-get-refile-target-list ()
   "Gest list of files containing possible refile targets."
   (append
-   (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
+   (file-expand-wildcards (coarncat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
    (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))))
 
 (setq org-refile-targets
@@ -817,8 +818,8 @@ even if the text of the previous entry is corrupt. "
   (interactive)
   (iz-directory-file-menu "classes"))
 
-;;; This should be replaced by dynamic capture template for all projects
-;;; scanning current project file names.  See below
+;; Hardly using this.  Loggins through go-to-target
+;; With LOG as beginning of target branch
 (setq org-capture-templates
       '(
         ("a" "AVARTS" entry (file+datetree (concat iz-log-dir "projects/AVARTS.org"))
@@ -833,20 +834,6 @@ even if the text of the previous entry is corrupt. "
           "EMAIL OUTBOX")
          "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
         ))
-
-(defadvice org-capture (before make-templates)
-  "create templates from contents of project folder."
-  ;;  (message "org-capture dynamic templates test")
-  (message "testing")
-  (iz-update-agenda-file-list)
-  (setq org-capture-templates
-        '(
-          ("a" "TEST!" (file-datetree (car org-agenda-files))
-           "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")))
-  )
-
-(ad-activate 'org-capture)
-
 
 (global-set-key (kbd "H-h H-p") 'iz-open-project)
 (global-set-key (kbd "H-h H-c") 'iz-open-class)
