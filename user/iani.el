@@ -149,7 +149,7 @@
 ;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 
 (setq projectile-completion-system 'grizzl)
-
+(setq *grizzl-read-max-results* 40)
 (defun projectile-dired-project-root ()
   "Dired root of current project.  Can be set as value of
 projectile-switch-project-action to dired root of project when switching.
