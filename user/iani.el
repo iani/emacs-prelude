@@ -789,7 +789,7 @@ even if the text of the previous entry is corrupt. "
 (defun iz-get-refile-target-list ()
   "Gest list of files containing possible refile targets."
   (append
-   (file-expand-wildcards (coarncat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
+   (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
    (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))))
 
 (setq org-refile-targets
