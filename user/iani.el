@@ -117,7 +117,19 @@
 
 (require 'dash)
 
-(desktop-save-mode 1)
+(require 'ido)
+(require 'flx-ido)
+(require 'imenu+)
+(require 'auto-complete)
+(ido-mode t)
+(ido-vertical-mode t)
+;; (icicle-mode) ;; breaks dired? Tue, Nov  4 2014, 19:17 EET
+;; guide-key causes erratic delays when posting in ths SC post buffer
+;; from sclang.  Therefore disabled.
+;; (require 'guide-key)
+;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+;;  (guide-key-mode 1)  ; Enable guide-key-mode
+;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 
 (require 'windmove)
 (global-set-key (kbd "<C-s-up>") 'windmove-up)
@@ -133,20 +145,6 @@
 
 (global-set-key (kbd "<s-home>") 'previous-buffer)
 (global-set-key (kbd "<s-end>") 'next-buffer)
-
-(require 'ido)
-(require 'flx-ido)
-(require 'imenu+)
-(require 'auto-complete)
-(ido-mode t)
-(ido-vertical-mode t)
-(icicle-mode)
-;; guide-key causes erratic delays when posting in ths SC post buffer
-;; from sclang.  Therefore disabled.
-;; (require 'guide-key)
-;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
-;;  (guide-key-mode 1)  ; Enable guide-key-mode
-;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 
 (setq projectile-completion-system 'grizzl)
 (setq *grizzl-read-max-results* 40)
@@ -321,64 +319,6 @@ Used as helm action in helm-source-find-files"
 ;; Include color customization for dark color theme here.
 (custom-set-variables
  '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
-
-(require 'dired+)
-(require 'dirtree)
-(global-set-key (kbd "H-d d") 'dirtree-show)
-;; sr-speedbar is broken in emacs 24.4.1
-;; (require 'sr-speedbar)
-;; (speedbar-add-supported-extension ".sc")
-;; (speedbar-add-supported-extension ".scd")
-;; (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
-
-(define-key dired-mode-map (kbd "<SPC>")
-  (lambda () (interactive)
-    (let ((lawlist-filename (dired-get-file-for-visit)))
-      (if (equal (file-name-extension lawlist-filename) "pdf")
-          (start-process "default-pdf-app" nil "open" lawlist-filename)))))
-
-(load "dired-x")
-
-(eval-after-load "dired"
-'(progn
-   (define-key dired-mode-map "F" 'my-dired-find-file)
-   (defun my-dired-find-file (&optional arg)
-     "Open each of the marked files, or the file under the point, or when prefix arg, the next N files "
-     (interactive "P")
-     (let* ((fn-list (dired-get-marked-files nil arg)))
-       (mapc 'find-file fn-list)))))
-
-(defun open-finder ()
-  (interactive)
-  ;; IZ Dec 25, 2013 (3:25 PM): Making this work in dired:
-  (if (equal major-mode 'dired-mode)
-      (open-finder-dired)
-      (let ((path
-             (if (equal major-mode 'dired-mode)
-                 (file-truename (dired-file-name-at-point))
-               (buffer-file-name)))
-            dir file)
-        (when path
-          (setq dir (file-name-directory path))
-          (setq file (file-name-nondirectory path))
-          (open-finder-1 dir file)))))
-
-(defun open-finder-1 (dir file)
-  (message "open-finder-1 dir: %s\nfile: %s" dir file)
-  (let ((script
-         (if file
-             (concat
-              "tell application \"Finder\"\n"
-              " set frontmost to true\n"
-              " make new Finder window to (POSIX file \"" dir "\")\n"
-              " select file \"" file "\"\n"
-              "end tell\n")
-           (concat
-            "tell application \"Finder\"\n"
-            " set frontmost to true\n"
-            " make new Finder window to {path to desktop folder}\n"
-            "end tell\n"))))
-    (start-process "osascript-getinfo" nil "osascript" "-e" script)))
 
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
@@ -674,88 +614,6 @@ files to org-agenda-files."
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-.") 'org-set-due-property))
 
-(defun log (expense)
-  "Simple way to capture notes/activities with some extra features:
-- Set task start time
-- Set completion time of previous task.
-- Calculate duration of previous task
-- Write task to stopwatch.txt file for use by geeklet to display task timer
-- If called with prefix argument, prompt for expense value and set expense property.
-
-TODO: Store timestamp of last task in separate file, so as to be able to retrieve it
-even if the text of the previous entry is corrupt. "
-  (interactive "P")
-
-  (let* ((topic (read-from-minibuffer "Enter topic: "))
-        (timer-string
-         (concat
-          (replace-regexp-in-string " " "_" topic)
-          (format-time-string ": %D_%T" (current-time)))))
-    (if (< (length topic) 1) (setq topic "Untitled task"))
-    (find-file
-     "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/stopwatch.txt")
-;;    (beginning-of-buffer)
-;;    (kill-line)
-    (erase-buffer)
-    (insert timer-string)
-    (save-buffer)
-    (message (concat "Now timing: " timer-string))
-    (find-file
-     "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")
-    (widen)
-    (end-of-buffer)
-    (if (> (org-outline-level) 1) (outline-up-heading 100 t))
-    (org-set-date t "END_TIME")
-    (org-set-property
-     "TIMER_SPAN"
-     (concat
-      (replace-regexp-in-string
-       ">" "]"
-       (replace-regexp-in-string "<" "[" (org-entry-get (point) "START_TIME")))
-      "--"
-      (org-entry-get (point) "END_TIME")))
-    (let* ((seconds
-            (-
-             (org-float-time
-              (apply
-               'encode-time
-               (org-parse-time-string (org-entry-get (point) "END_TIME"))))
-             (org-float-time
-              (apply
-               'encode-time
-               (org-parse-time-string (org-entry-get (point) "START_TIME"))))
-             ))
-           (hours (floor (/ seconds 3600)))
-           (seconds (- seconds (* 3600 hours)))
-           (minutes (floor (/ seconds 60))))
-      (org-set-property
-       "DURATION"
-       (replace-regexp-in-string " " "0" (format "%2d:%2d" hours minutes))))
-    (end-of-buffer)
-    (insert-string "\n* ")
-    (insert-string (replace-regexp-in-string "_" " " timer-string))
-    ;;      (insert-string "\n")
-    (org-set-date nil "START_TIME")
-    (org-set-date t) ;; also set DATE property: for blog entries
-    (org-id-get-create)
-    (message "testing expense arg: %s %s" expense (equal expense '(4)))
-    (cond ((equal expense '(4))
-           (org-set-tags-to '("expense"))
-           ;; this causes orgmode to prompt of the value of EXPENSE!
-           (org-set-property "EXPENSE" nil)   )
-          ((equal expense '(16))
-           (org-set-tags-to '("email"))
-           )
-          )
-    (org-set-tags-command)
-    (org-narrow-to-subtree)
-    (goto-char (point-max))
-    (org-show-subtree)
-    (org-show-entry)
-    (save-buffer)))
-
-(global-set-key (kbd "C-M-l") 'log)
-
 (setq org-tag-alist
       '(
         ("home" . ?h)
@@ -856,30 +714,6 @@ even if the text of the previous entry is corrupt. "
 ;; C-c C-v f -> tangle, C-c C-v C-f -> load
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
-
-;;; Load latex package
-(require 'ox-latex)
-
-;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
-(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
-
-;;; Add beamer to available latex classes, for slide-presentaton format
-(add-to-list 'org-latex-classes
-             '("beamer"
-               "\\documentclass\[presentation\]\{beamer\}"
-               ("\\section\{%s\}" . "\\section*\{%s\}")
-               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
-
-;;; Add memoir class (experimental)
-(add-to-list 'org-latex-classes
-             '("memoir"
-               "\\documentclass[12pt,a4paper,article]{memoir}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)

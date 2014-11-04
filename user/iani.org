@@ -223,6 +223,8 @@ See: https://github.com/dimitri/el-get/blob/master/README.md
 
 #+RESULTS:
 
+
+
 *** Bring elisp up-to-date: dash.el
 
 #+BEGIN_QUOTE
@@ -242,28 +244,35 @@ I load it here to have it available when experimenting with code.
 #+RESULTS:
 : dash
 
+
 *** desktop
 
 Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
-#+BEGIN_SRC emacs-lisp
+Breaks Dired? Tue, Nov  4 2014, 19:18 EET
+
+DISABLED!
+#+BEGIN_SRC elisp
 (desktop-save-mode 1)
 #+END_SRC
+*** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
-#+RESULTS:
-: t
-
-*** DISABLED Switch window
-:PROPERTIES:
-:DATE:     <2014-04-30 Wed 11:44>
-:END:
-
-Note: I do not use switch-window any more.  Buffer-move, windmove, and custom keyboard shortcuts for =next-buffer= and =previous-buffer= are sufficient (see below).
-
-#+BEGIN_SRC elisp
-  (require 'switch-window)
-  (global-set-key (kbd "C-x o") 'switch-window)
+#+BEGIN_SRC emacs-lisp
+  (require 'ido)
+  (require 'flx-ido)
+  (require 'imenu+)
+  (require 'auto-complete)
+  (ido-mode t)
+  (ido-vertical-mode t)
+  ;; (icicle-mode) ;; breaks dired? Tue, Nov  4 2014, 19:17 EET
+  ;; guide-key causes erratic delays when posting in ths SC post buffer
+  ;; from sclang.  Therefore disabled.
+  ;; (require 'guide-key)
+  ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+  ;;  (guide-key-mode 1)  ; Enable guide-key-mode
+  ;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 #+END_SRC
+
 
 *** Buffer-move, windmove, buffer switching
 
@@ -289,10 +298,9 @@ Bound to =function-super-<cursor key>=
   (global-set-key (kbd "<s-home>") 'previous-buffer)
   (global-set-key (kbd "<s-end>") 'next-buffer)
 #+END_SRC
-
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (require 'ido)
   (require 'flx-ido)
   (require 'imenu+)
@@ -437,6 +445,7 @@ But what is the best way to remove an internal value in the option `icicle-top-l
 ;;  (icy-mode)
 #+END_SRC
 
+*
 *** lacarte: select menu items from the keyboard (good for org-mode with imenu)
 
 #+BEGIN_SRC emacs-lisp
@@ -625,84 +634,6 @@ highlight-sexps.el looks nicer, because it highlights both the innermost s-expre
    '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
 #+END_SRC
 
-*** Directory/Buffer navigation: Dired+, Dirtree, Speedbar
-**** Dired+, Dirtree, Speedbar
-
-Note about dirtree:  Very handy.  There are several versions out there, and there is also a different package under the same name.  Not all versions work.  This one works for me: https://github.com/rtircher/dirtree.  I installed it manually (not via =el-get=, el-get's registered versions of dirtree resulted in conflicts.  Dirtree is similar to file-browse mode of speedbar, but it servers a different purpose: With dirtree you can select one or more directories to browse, and keep them all in the sidebar.  Speedbar always shows only the directory of the file of the current buffer.
-
-#+BEGIN_SRC emacs-lisp
-  (require 'dired+)
-  (require 'dirtree)
-  (global-set-key (kbd "H-d d") 'dirtree-show)
-  ;; sr-speedbar is broken in emacs 24.4.1
-  ;; (require 'sr-speedbar)
-  ;; (speedbar-add-supported-extension ".sc")
-  ;; (speedbar-add-supported-extension ".scd")
-  ;; (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
-#+END_SRC
-
-**** Dired customization from Healy's startup kit
-(From Healy's startup kit)
-
-Note: Perhaps these are not used.  Need to test.
-
-**** Open pdf files with default macos app in dired
-:PROPERTIES:
-:DATE:     <2013-12-01 Sun 15:01>
-:END:
-
-From: http://stackoverflow.com/questions/20019732/define-keybinding-for-dired-to-run-a-command-open-on-the-file-under-the-cur
-
-#+BEGIN_SRC emacs-lisp
-  (define-key dired-mode-map (kbd "<SPC>")
-    (lambda () (interactive)
-      (let ((lawlist-filename (dired-get-file-for-visit)))
-        (if (equal (file-name-extension lawlist-filename) "pdf")
-            (start-process "default-pdf-app" nil "open" lawlist-filename)))))
-#+END_SRC
-
-**** Dired
-***** TODO Copy folder / file path from DIRED
-
-***** TODO Open home folder in finder
-
-***** TODO Open selected folder or file in finder
-
-***** Dired-x
-Dired extensions
-#+SOURCE: Dired-x
-#+BEGIN_SRC emacs-lisp
-  (load "dired-x")
-#+END_SRC
-
-#+RESULTS:
-: t
-
-***** Dired open multiple files DISABLED
-In dired mode, visit all marked files using. Bound to the "F" key.
-#+SOURCE: dired-F
-#+BEGIN_SRC emacs-lisp
-  (eval-after-load "dired"
-  '(progn
-     (define-key dired-mode-map "F" 'my-dired-find-file)
-     (defun my-dired-find-file (&optional arg)
-       "Open each of the marked files, or the file under the point, or when prefix arg, the next N files "
-       (interactive "P")
-       (let* ((fn-list (dired-get-marked-files nil arg)))
-         (mapc 'find-file fn-list)))))
-#+END_SRC
-
-#+RESULTS:
-: my-dired-find-file
-
-***** Stripe Dired buffers DISABLED
-#+name: stripe-dired
-#+begin_src [elisp (This part is disabled)]
-(require 'stripe-buffer)
-(add-hook 'org-mode-hook 'org-table-stripes-enable)
-(add-hook 'dired-mode-hook 'stripe-listify-buffer)
-#+end_src
-
 *** TODO Fixme minor mode?
 
 http://www.emacswiki.org/emacs/FixmeMode
@@ -721,7 +652,7 @@ If you like this you might also like [[https://github.com/tarsius/orglink][orgli
 
 From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (defun open-finder ()
     (interactive)
     ;; IZ Dec 25, 2013 (3:25 PM): Making this work in dired:
@@ -755,6 +686,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
       (start-process "osascript-getinfo" nil "osascript" "-e" script)))
 
 #+END_SRC
+
 * Customization of Specific Authoring Modes
 ** SuperCollider
 *** sclang Setup
@@ -1239,7 +1171,7 @@ done
 :eval-id:  4
 :END:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (defun log (expense)
     "Simple way to capture notes/activities with some extra features:
   - Set task start time
@@ -1447,7 +1379,7 @@ Enable some cool languages in org-babel mode.
 *** DONE Orgmode latex customization
 CLOSED: [2014-06-19 Thu 10:50]
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-qlisp
 ;;; Load latex package
 (require 'ox-latex)
 
@@ -1731,6 +1663,8 @@ Magit config: Manage git repos from inside emacs
         "~/.emacs.d/personal"
 ))
 #+END_SRC
+
+
 * Notes
 ** DONE Try Orgstruct, Outshine, Outorg or Poporg for elisp files instead of Babel
 CLOSED: [2014-04-07 Mon 18:21]
