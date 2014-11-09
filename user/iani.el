@@ -320,6 +320,21 @@ Used as helm action in helm-source-find-files"
 (custom-set-variables
  '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
 
+;;  (require 'dired+)
+  (require 'dirtree)
+  (global-set-key (kbd "H-d d") 'dirtree-show)
+  ;; sr-speedbar is broken in emacs 24.4.1
+  ;; (require 'sr-speedbar)
+  ;; (speedbar-add-supported-extension ".sc")
+  ;; (speedbar-add-supported-extension ".scd")
+  ;; (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
+
+(define-key dired-mode-map (kbd "<SPC>")
+  (lambda () (interactive)
+    (let ((lawlist-filename (dired-get-file-for-visit)))
+      (if (equal (file-name-extension lawlist-filename) "pdf")
+          (start-process "default-pdf-app" nil "open" lawlist-filename)))))
+
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
   (expand-file-name "~/Library/Application Support/SuperCollider"))
@@ -676,26 +691,101 @@ files to org-agenda-files."
   (interactive)
   (iz-directory-file-menu "classes"))
 
-;; Hardly using this.  Loggins through go-to-target
-;; With LOG as beginning of target branch
-(setq org-capture-templates
-      '(
-        ("a" "AVARTS" entry (file+datetree (concat iz-log-dir "projects/AVARTS.org"))
-         "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
-        ("x" "Templated Log for all projects" entry (file+datetree (concat iz-log-dir "projects/DATELOG.org"))
-         (file "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/DATELOGTEMPLATE.txt"))
-        ("v" "CV" entry (file+datetree (concat iz-log-dir "projects/CV.org"))
-         "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
-        ("e" "EMAIL-OUTBOX" entry
-         (file+olp
-          (concat iz-log-dir "projects/EMAIL-OUTBOX.org")
-          "EMAIL OUTBOX")
-         "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n(%a)\n%i\n")
-        ))
+(defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
+
+(defun iz-make-capture-templates (subdir)
+  "Make capture templates for project files"
+ (setq org-capture-templates
+       (setq org-capture-templates
+             (let* (
+                    (files
+                     (file-expand-wildcards
+                      (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+                    (projects (mapcar 'file-name-nondirectory files))
+                    (dirs
+                     (mapcar (lambda (dir) (cons (file-name-sans-extension
+                                                  (file-name-nondirectory dir))
+                                                 dir))
+                             files))
+                    )
+               (-map-indexed (lambda (index item)
+                               (list
+                                (substring iz-capture-keycodes index (+ 1 index))
+                                (car item)
+                                'entry
+                                (list 'file+datetree (cdr item))
+                                "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"
+                                ))
+                             dirs)))))
+
+;; TODO: instead of file+datetree, file the entryin a separate tree for TODOS
+(defun iz-make-todo-capture-templates (subdir)
+  "Make capture templates for project files"
+ (setq org-capture-templates
+       (setq org-capture-templates
+             (let* (
+                    (files
+                     (file-expand-wildcards
+                      (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+                    (projects (mapcar 'file-name-nondirectory files))
+                    (dirs
+                     (mapcar (lambda (dir) (cons (file-name-sans-extension
+                                                  (file-name-nondirectory dir))
+                                                 dir))
+                             files))
+                    )
+               (-map-indexed (lambda (index item)
+                               (list
+                                (substring iz-capture-keycodes index (+ 1 index))
+                                (car item)
+                                'entry
+                                (list 'file+headline (cdr item) "TODOs")
+                                "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"
+                                ))
+                             dirs)))))
+
+;; Experimental:
+(defun iz-make-finance-capture-template ()
+  (setq org-capture-templates
+        (list
+         (list
+          "f" "FINANCE"
+          'entry
+          (list 'file+datetree (concat iz-log-dir "projects/FINANCE.org"))
+          "* %^{title}\n :PROPERTIES:\n :DATE:\t%T\n :END:\n%^{TransactionType}p%^{category}p%^{amount}p\n%?\n"
+          ))))
+
+(defun iz-log-project ()
+  "Capture log entry in date-tree of project file."
+  (interactive)
+  (iz-make-capture-templates "projects")
+  (org-capture))
+
+(defun iz-log-class ()
+  "Capture log entry in date-tree of class file."
+  (interactive)
+  (iz-make-capture-templates "classes")
+  (org-capture))
+
+(defun iz-todo-project ()
+  "Capture log entry in date-tree of project file."
+  (interactive)
+  (iz-make-todo-capture-templates "projects")
+  (org-capture))
+
+(defun iz-todo-class ()
+  "Capture log entry in date-tree of class file."
+  (interactive)
+  (iz-make-todo-capture-templates "classes")
+  (org-capture))
 
 (global-set-key (kbd "H-h H-p") 'iz-open-project)
+(global-set-key (kbd "H-h H-P") 'iz-log-project)
+(global-set-key (kbd "H-h H-C-P") 'iz-todo-project)
+
 (global-set-key (kbd "H-h H-c") 'iz-open-class)
-(global-set-key (kbd "H-h c") 'org-capture)
+(global-set-key (kbd "H-h H-C") 'iz-log-class)
+(global-set-key (kbd "H-h H-C-C") 'iz-todo-class)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -714,6 +804,30 @@ files to org-agenda-files."
 ;; C-c C-v f -> tangle, C-c C-v C-f -> load
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
+
+;;; Load latex package
+(require 'ox-latex)
+
+;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
+(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
+
+;;; Add beamer to available latex classes, for slide-presentaton format
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;;; Add memoir class (experimental)
+(add-to-list 'org-latex-classes
+             '("memoir"
+               "\\documentclass[12pt,a4paper,article]{memoir}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
