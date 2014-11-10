@@ -755,29 +755,29 @@ files to org-agenda-files."
           "* %^{title}\n :PROPERTIES:\n :DATE:\t%T\n :END:\n%^{TransactionType}p%^{category}p%^{amount}p\n%?\n"
           ))))
 
-(defun iz-log-project ()
+(defun iz-log-project (&optional goto)
   "Capture log entry in date-tree of project file."
-  (interactive)
+  (interactive "P")
   (iz-make-capture-templates "projects")
-  (org-capture))
+  (org-capture goto))
 
-(defun iz-log-class ()
+(defun iz-log-class (&optional goto)
   "Capture log entry in date-tree of class file."
-  (interactive)
+  (interactive "P")
   (iz-make-capture-templates "classes")
-  (org-capture))
+  (org-capture goto))
 
-(defun iz-todo-project ()
+(defun iz-todo-project (&optional goto)
   "Capture log entry in date-tree of project file."
-  (interactive)
+  (interactive "P")
   (iz-make-todo-capture-templates "projects")
-  (org-capture))
+  (org-capture goto))
 
-(defun iz-todo-class ()
+(defun iz-todo-class (&optional goto)
   "Capture log entry in date-tree of class file."
-  (interactive)
+  (interactive "P")
   (iz-make-todo-capture-templates "classes")
-  (org-capture))
+  (org-capture goto))
 
 (global-set-key (kbd "H-h H-p") 'iz-open-project)
 (global-set-key (kbd "H-h H-P") 'iz-log-project)
