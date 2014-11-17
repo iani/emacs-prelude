@@ -843,6 +843,8 @@ files to org-agenda-files."
 (global-set-key (kbd "H-h H-C-C") 'iz-todo-class)
 (global-set-key (kbd "H-h H-x H-c") 'iz-goto-class-target)
 
+(global-set-key (kbd "H-h a") 'org-agenda)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
