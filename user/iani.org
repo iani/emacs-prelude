@@ -1325,7 +1325,7 @@ done
     (let*
         ((files
           (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
-         (projects (mapcar 'file-name-nondirectory files))
+         (projects (mapcar 'file-name-sans-extension (mapcar 'file-name-nondirectory files)))
          (dirs
           (mapcar (lambda (dir) (cons (file-name-nondirectory dir) dir))
                   files))
@@ -1368,7 +1368,7 @@ done
     (let*
         ((files
           (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
-         (projects (mapcar 'file-name-nondirectory files))
+         (projects (mapcar 'file-name-sans-extension (mapcar 'file-name-nondirectory files)))
          (dirs
           (mapcar (lambda (dir) (cons (file-name-nondirectory dir) dir))
                   files))
