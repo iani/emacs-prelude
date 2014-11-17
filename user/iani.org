@@ -1321,14 +1321,48 @@ done
           (list (concat iz-log-dir "log.org"))))
    (message "org-agenda-files was updated"))
 
-  (defun iz-get-refile-target-list ()
-    "Gest list of files containing possible refile targets."
-    (append
-     (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
-     (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))))
+  (defun iz-org-file-menu (subdir)
+    (let*
+        ((files
+          (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+         (projects (mapcar 'file-name-nondirectory files))
+         (dirs
+          (mapcar (lambda (dir) (cons (file-name-nondirectory dir) dir))
+                  files))
+         (project-menu (grizzl-make-index projects))
+         (selection (cdr (assoc (grizzl-completing-read "Open: " project-menu)
+                                dirs))))
+      selection))
 
-  (setq org-refile-targets
-        '((iz-get-refile-target-list . (:level . 1))))
+  (defun iz-project-file-menu () (iz-org-file-menu "projects"))
+
+  (defun iz-class-file-menu () (iz-org-file-menu "classes"))
+
+  (defun iz-get-project-targets ()
+    (interactive)
+    (setq org-refile-targets '((iz-project-file-menu . (:level . 2)))))
+
+  (iz-get-project-targets)
+
+  (defun iz-get-class-targets ()
+    (interactive)
+    (setq org-refile-targets '((iz-class-file-menu . (:level . 2)))))
+
+  (defun iz-goto-project-target ()
+    "go to project target"
+    (interactive)
+    (icicle-mode 1)
+    (iz-get-project-targets)
+    (org-refile '(4))
+    (icicle-mode -1))
+
+  (defun iz-goto-class-target ()
+    "go to project target"
+    (interactive)
+    (icicle-mode 1)
+    (iz-get-class-targets)
+    (org-refile '(4))
+    (icicle-mode -1))
 
   (defun iz-directory-file-menu (subdir)
     (let*
@@ -1430,24 +1464,39 @@ done
     (org-capture goto))
 
   (defun iz-todo-project (&optional goto)
-    "Capture log entry in date-tree of project file."
+    "Capture TODO entry in date-tree of project file."
     (interactive "P")
     (iz-make-todo-capture-templates "projects")
     (org-capture goto))
 
   (defun iz-todo-class (&optional goto)
-    "Capture log entry in date-tree of class file."
+    "Capture TOD entry in date-tree of class file."
     (interactive "P")
     (iz-make-todo-capture-templates "classes")
     (org-capture goto))
 
+  (defun iz-refile-projects (&optional goto)
+    "Capture log entry in date-tree of project file."
+    (interactive "P")
+    (iz-make-refile-targets "projects")
+    (org-refile goto))
+
+  (defun iz-refile-classes (&optional goto)
+    "Capture log entry in date-tree of project file."
+    (interactive "P")
+    (iz-make-refile-targets "classes")
+    (org-refile goto))
+
   (global-set-key (kbd "H-h H-p") 'iz-open-project)
   (global-set-key (kbd "H-h H-P") 'iz-log-project)
   (global-set-key (kbd "H-h H-C-P") 'iz-todo-project)
+  (global-set-key (kbd "H-h H-x H-p") 'iz-goto-project-target)
 
   (global-set-key (kbd "H-h H-c") 'iz-open-class)
   (global-set-key (kbd "H-h H-C") 'iz-log-class)
   (global-set-key (kbd "H-h H-C-C") 'iz-todo-class)
+  (global-set-key (kbd "H-h H-x H-c") 'iz-goto-class-target)
+
 
 #+END_SRC
 
