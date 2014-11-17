@@ -678,7 +678,7 @@ files to org-agenda-files."
        (project-menu (grizzl-make-index projects))
        (selection (cdr (assoc (grizzl-completing-read "Open: " project-menu)
                               dirs))))
-    selection))`
+    selection))
 
 (defun iz-project-file-menu () (iz-org-file-menu "projects"))
 
@@ -716,7 +716,8 @@ files to org-agenda-files."
         (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
        (projects (mapcar 'file-name-sans-extension (mapcar 'file-name-nondirectory files)))
        (dirs
-        (mapcar (lambda (dir) (cons (file-name-nondirectory dir) dir))
+        (mapcar (lambda (dir)
+                  (cons (file-name-sans-extension (file-name-nondirectory dir)) dir))
                 files))
        (project-menu (grizzl-make-index projects))
        (selection (cdr (assoc (grizzl-completing-read "Open: " project-menu)
