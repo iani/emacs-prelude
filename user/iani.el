@@ -834,17 +834,34 @@ files to org-agenda-files."
   (iz-make-refile-targets "classes")
   (org-refile goto))
 
-(global-set-key (kbd "H-h H-p") 'iz-open-project)
-(global-set-key (kbd "H-h H-P") 'iz-log-project)
-(global-set-key (kbd "H-h H-C-P") 'iz-todo-project)
-(global-set-key (kbd "H-h H-x H-p") 'iz-goto-project-target)
+(defun iz-org-file-command-menu ()
+  "Menu of commands operating on iz org files."
+(interactive)
+  (let* ((menu (grizzl-make-index
+                '("iz-open-project"
+                  "iz-log-project"
+                  "iz-todo-project"
+                  "iz-goto-project-target"
+                  "iz-open-class"
+                  "iz-log-class"
+                  "iz-todo-class"
+                  "iz-goto-class-target"
+                  "org-agenda")))
+         (selection (grizzl-completing-read "Select command: " menu)))
+    (eval (list (intern selection)))))
 
-(global-set-key (kbd "H-h H-c") 'iz-open-class)
-(global-set-key (kbd "H-h H-C") 'iz-log-class)
-(global-set-key (kbd "H-h H-C-C") 'iz-todo-class)
-(global-set-key (kbd "H-h H-x H-c") 'iz-goto-class-target)
+(global-set-key (kbd "H-h H-p H-o") 'iz-open-project)
+(global-set-key (kbd "H-h H-p H-l") 'iz-log-project)
+(global-set-key (kbd "H-h H-p H-t") 'iz-todo-project)
+(global-set-key (kbd "H-h H-p H-g") 'iz-goto-project-target)
+
+(global-set-key (kbd "H-h H-c H-o") 'iz-open-class)
+(global-set-key (kbd "H-h H-c H-l") 'iz-log-class)
+(global-set-key (kbd "H-h H-c H-t") 'iz-todo-class)
+(global-set-key (kbd "H-h H-c H-g") 'iz-goto-class-target)
 
 (global-set-key (kbd "H-h a") 'org-agenda)
+(global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
