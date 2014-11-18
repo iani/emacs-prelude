@@ -1317,6 +1317,16 @@ done
 
   (ad-activate 'org-agenda)
 
+  (defadvice org-refile (before turn-icicles-on-for-refile ())
+    "Re-createlist of agenda files from contents of relevant directories."
+    (icicle-mode 1))
+
+  (defadvice org-refile (after turn-icicles-off-for-refile ())
+    "Turn off icicle mode since it interferes with some other keyboard shortcuts."
+    (icicle-mode -1))
+
+  (ad-activate 'org-refile)
+
   (defun iz-update-agenda-file-list ()
     "Set value of org-agenda-files from contents of relevant directories."
    (setq org-agenda-files
@@ -1523,6 +1533,7 @@ done
   (global-set-key (kbd "H-h H-c H-g") 'iz-goto-class-target)
 
   (global-set-key (kbd "H-h a") 'org-agenda)
+  (global-set-key (kbd "H-h H-c H-w") 'org-refile)
   (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
 
 
