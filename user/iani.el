@@ -655,14 +655,38 @@ files to org-agenda-files."
 
 (ad-activate 'org-agenda)
 
+(defadvice org-refile (before turn-icicles-on-for-refile ())
+  "Re-createlist of agenda files from contents of relevant directories."
+  (icicle-mode 1))
+
+(defadvice org-refile (after turn-icicles-off-for-refile ())
+  "Turn off icicle mode since it interferes with some other keyboard shortcuts."
+  (icicle-mode -1))
+
+(ad-activate 'org-refile)
+
 (defun iz-update-agenda-file-list ()
   "Set value of org-agenda-files from contents of relevant directories."
- (setq org-agenda-files
-       (append
-        (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
-        (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))
-        (list (concat iz-log-dir "log.org"))))
- (message "org-agenda-files was updated"))
+  (setq org-agenda-files
+        (let ((folders (file-expand-wildcards (concat iz-log-dir "*")))
+              (files (file-expand-wildcards (concat iz-log-dir "*.org"))))
+          (dolist (folder folders)
+            (setq files
+                  (append
+                   files
+                   (file-expand-wildcards (concat folder "/*.org")))))
+          files))
+ (message "the value of org-agenda-files was updated"))
+
+(defun iz-select-file-from-folders ()
+  (let*
+      ((folders (-select 'file-directory-p
+                         (file-expand-wildcards
+                          (concat iz-log-dir "*"))))
+       (folder-menu (grizzl-make-index
+                     (mapcar 'file-name-nondirectory folders)))
+       (folder (grizzl-completing-read "Select folder:" folder-menu)))
+    (iz-org-file-menu folder)))
 
 (defun iz-org-file-menu (subdir)
   (let*
@@ -676,68 +700,39 @@ files to org-agenda-files."
                                 (file-name-nondirectory dir)) dir))
                 files))
        (project-menu (grizzl-make-index projects))
-       (selection (cdr (assoc (grizzl-completing-read "Open: " project-menu)
+       (selection (cdr (assoc (grizzl-completing-read "Select file: " project-menu)
                               dirs))))
     selection))
 
-(defun iz-project-file-menu () (iz-org-file-menu "projects"))
-
-(defun iz-class-file-menu () (iz-org-file-menu "classes"))
-
-(defun iz-get-project-targets ()
+(defun iz-get-refile-targets ()
   (interactive)
-  (setq org-refile-targets '((iz-project-file-menu . (:level . 2)))))
+  (setq org-refile-targets '((iz-select-file-from-folders . (:level . 2)))))
 
-(iz-get-project-targets)
-
-(defun iz-get-class-targets ()
+(defun iz-find-file (subdir)
+  "open a file by selecting from subfolders."
   (interactive)
-  (setq org-refile-targets '((iz-class-file-menu . (:level . 2)))))
-
-(defun iz-goto-project-target ()
-  "go to project target"
-  (interactive)
-  (icicle-mode 1)
-  (iz-get-project-targets)
-  (org-refile '(4))
-  (icicle-mode -1))
-
-(defun iz-goto-class-target ()
-  "go to project target"
-  (interactive)
-  (icicle-mode 1)
-  (iz-get-class-targets)
-  (org-refile '(4))
-  (icicle-mode -1))
-
-(defun iz-directory-file-menu (subdir)
-  (let*
-      ((files
-        (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
-       (projects (mapcar 'file-name-sans-extension (mapcar 'file-name-nondirectory files)))
-       (dirs
-        (mapcar (lambda (dir)
-                  (cons (file-name-sans-extension (file-name-nondirectory dir)) dir))
-                files))
-       (project-menu (grizzl-make-index projects))
-       (selection (cdr (assoc (grizzl-completing-read "Open: " project-menu)
-                              dirs))))
-    (find-file selection)))
-
-(defun iz-open-project ()
-  "Open an org file from projects folder."
-  (interactive)
-  (iz-directory-file-menu "projects"))
-
-(defun iz-open-class ()
-  "Open an org file from projects folder."
-  (interactive)
-  (iz-directory-file-menu "classes"))
+  (find-file (iz-select-file-from-folders)))
 
 (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
-(defun iz-make-capture-templates (subdir)
-  "Make capture templates for project files"
+(defun iz-log (&optional goto)
+  "Capture log entry in date-tree of selected file."
+  (interactive "P")
+  (iz-make-log-capture-templates (iz-select-folder))
+  (org-capture goto))
+
+(defun iz-select-folder ()
+  (let*
+      ((folders (-select 'file-directory-p
+                         (file-expand-wildcards
+                          (concat iz-log-dir "*"))))
+       (folder-menu (grizzl-make-index
+                     (mapcar 'file-name-nondirectory folders)))
+       (folder (grizzl-completing-read "Select folder:" folder-menu)))
+    (file-name-nondirectory folder)))
+
+(defun iz-make-log-capture-templates (subdir)
+  "Make capture templates for selected subdirectory under datetree."
  (setq org-capture-templates
        (setq org-capture-templates
              (let* (
@@ -749,19 +744,22 @@ files to org-agenda-files."
                      (mapcar (lambda (dir) (cons (file-name-sans-extension
                                                   (file-name-nondirectory dir))
                                                  dir))
-                             files))
-                    )
+                             files)))
                (-map-indexed (lambda (index item)
                                (list
                                 (substring iz-capture-keycodes index (+ 1 index))
                                 (car item)
                                 'entry
                                 (list 'file+datetree (cdr item))
-                                "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"
-                                ))
+                                "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
                              dirs)))))
 
-;; TODO: instead of file+datetree, file the entryin a separate tree for TODOS
+(defun iz-todo (&optional goto)
+  "Capture TODO entry in date-tree of selected file."
+  (interactive "P")
+  (iz-make-todo-capture-templates (iz-select-folder))
+  (org-capture goto))
+
 (defun iz-make-todo-capture-templates (subdir)
   "Make capture templates for project files"
  (setq org-capture-templates
@@ -775,17 +773,45 @@ files to org-agenda-files."
                      (mapcar (lambda (dir) (cons (file-name-sans-extension
                                                   (file-name-nondirectory dir))
                                                  dir))
-                             files))
-                    )
+                             files)))
                (-map-indexed (lambda (index item)
                                (list
                                 (substring iz-capture-keycodes index (+ 1 index))
                                 (car item)
                                 'entry
                                 (list 'file+headline (cdr item) "TODOs")
-                                "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"
-                                ))
+                                "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
                              dirs)))))
+
+(defun iz-refile (&optional goto)
+  "Refile to selected file."
+  (interactive "P")
+  (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:level . 2))))
+  (org-refile goto))
+
+(defun iz-goto ()
+  (interactive)
+  (iz-refile '(4)))
+
+(defun iz-org-file-command-menu ()
+  "Menu of commands operating on iz org files."
+(interactive)
+  (let* ((menu (grizzl-make-index
+                '("iz-log"
+                  "iz-todo"
+                  "iz-find-file"
+                  "org-agenda")))
+         (selection (grizzl-completing-read "Select command: " menu)))
+    (eval (list (intern selection)))))
+
+(global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
+(global-set-key (kbd "H-h H-f") 'iz-find-file)
+(global-set-key (kbd "H-h H-l") 'iz-log)
+(global-set-key (kbd "H-h H-t") 'iz-todo)
+(global-set-key (kbd "H-h H-r") 'iz-refile)
+(global-set-key (kbd "H-h H-g") 'iz-goto)
+(global-set-key (kbd "H-h H-c H-w") 'iz-refile)
+(global-set-key (kbd "H-h H-c H-a") 'org-agenda)
 
 ;; Experimental:
 (defun iz-make-finance-capture-template ()
@@ -797,71 +823,6 @@ files to org-agenda-files."
           (list 'file+datetree (concat iz-log-dir "projects/FINANCE.org"))
           "* %^{title}\n :PROPERTIES:\n :DATE:\t%T\n :END:\n%^{TransactionType}p%^{category}p%^{amount}p\n%?\n"
           ))))
-
-(defun iz-log-project (&optional goto)
-  "Capture log entry in date-tree of project file."
-  (interactive "P")
-  (iz-make-capture-templates "projects")
-  (org-capture goto))
-
-(defun iz-log-class (&optional goto)
-  "Capture log entry in date-tree of class file."
-  (interactive "P")
-  (iz-make-capture-templates "classes")
-  (org-capture goto))
-
-(defun iz-todo-project (&optional goto)
-  "Capture TODO entry in date-tree of project file."
-  (interactive "P")
-  (iz-make-todo-capture-templates "projects")
-  (org-capture goto))
-
-(defun iz-todo-class (&optional goto)
-  "Capture TOD entry in date-tree of class file."
-  (interactive "P")
-  (iz-make-todo-capture-templates "classes")
-  (org-capture goto))
-
-(defun iz-refile-projects (&optional goto)
-  "Capture log entry in date-tree of project file."
-  (interactive "P")
-  (iz-make-refile-targets "projects")
-  (org-refile goto))
-
-(defun iz-refile-classes (&optional goto)
-  "Capture log entry in date-tree of project file."
-  (interactive "P")
-  (iz-make-refile-targets "classes")
-  (org-refile goto))
-
-(defun iz-org-file-command-menu ()
-  "Menu of commands operating on iz org files."
-(interactive)
-  (let* ((menu (grizzl-make-index
-                '("iz-open-project"
-                  "iz-log-project"
-                  "iz-todo-project"
-                  "iz-goto-project-target"
-                  "iz-open-class"
-                  "iz-log-class"
-                  "iz-todo-class"
-                  "iz-goto-class-target"
-                  "org-agenda")))
-         (selection (grizzl-completing-read "Select command: " menu)))
-    (eval (list (intern selection)))))
-
-(global-set-key (kbd "H-h H-p H-o") 'iz-open-project)
-(global-set-key (kbd "H-h H-p H-l") 'iz-log-project)
-(global-set-key (kbd "H-h H-p H-t") 'iz-todo-project)
-(global-set-key (kbd "H-h H-p H-g") 'iz-goto-project-target)
-
-(global-set-key (kbd "H-h H-c H-o") 'iz-open-class)
-(global-set-key (kbd "H-h H-c H-l") 'iz-log-class)
-(global-set-key (kbd "H-h H-c H-t") 'iz-todo-class)
-(global-set-key (kbd "H-h H-c H-g") 'iz-goto-class-target)
-
-(global-set-key (kbd "H-h a") 'org-agenda)
-(global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -880,30 +841,6 @@ files to org-agenda-files."
 ;; C-c C-v f -> tangle, C-c C-v C-f -> load
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
-
-;;; Load latex package
-(require 'ox-latex)
-
-;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
-(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
-
-;;; Add beamer to available latex classes, for slide-presentaton format
-(add-to-list 'org-latex-classes
-             '("beamer"
-               "\\documentclass\[presentation\]\{beamer\}"
-               ("\\section\{%s\}" . "\\section*\{%s\}")
-               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
-
-;;; Add memoir class (experimental)
-(add-to-list 'org-latex-classes
-             '("memoir"
-               "\\documentclass[12pt,a4paper,article]{memoir}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
