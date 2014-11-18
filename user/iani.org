@@ -1337,10 +1337,16 @@ done
                     (append
                      files
                      (file-expand-wildcards (concat folder "/*.org")))))
-            files))
-   (message "the value of org-agenda-files was updated"))
+            (-reject
+             (lambda (f)
+               (string-match-p "/\\." f))
+             files)))
+    (message "the value of org-agenda-files was updated"))
 
   (defun iz-select-file-from-folders ()
+    (iz-org-file-menu (iz-select-folder)))
+
+  (defun iz-select-folder ()
     (let*
         ((folders (-select 'file-directory-p
                            (file-expand-wildcards
@@ -1348,7 +1354,7 @@ done
          (folder-menu (grizzl-make-index
                        (mapcar 'file-name-nondirectory folders)))
          (folder (grizzl-completing-read "Select folder:" folder-menu)))
-      (iz-org-file-menu folder)))
+      folder))
 
   (defun iz-org-file-menu (subdir)
     (let*
@@ -1370,10 +1376,12 @@ done
     (interactive)
     (setq org-refile-targets '((iz-select-file-from-folders . (:level . 2)))))
 
-  (defun iz-find-file ()
+  (defun iz-find-file (&optional dired)
     "open a file by selecting from subfolders."
-    (interactive)
-    (find-file (iz-select-file-from-folders)))
+    (interactive "P")
+    (if (equal dired '(4))
+        (dired (concat iz-log-dir (iz-select-folder)))
+     (find-file (iz-select-file-from-folders))))
 
   (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 

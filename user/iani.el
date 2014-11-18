@@ -675,8 +675,11 @@ files to org-agenda-files."
                   (append
                    files
                    (file-expand-wildcards (concat folder "/*.org")))))
-          files))
- (message "the value of org-agenda-files was updated"))
+          (-reject
+           (lambda (f)
+             (string-match-p "/\\." f))
+           files)))
+  (message "the value of org-agenda-files was updated"))
 
 (defun iz-select-file-from-folders ()
   (let*
@@ -708,7 +711,7 @@ files to org-agenda-files."
   (interactive)
   (setq org-refile-targets '((iz-select-file-from-folders . (:level . 2)))))
 
-(defun iz-find-file (subdir)
+(defun iz-find-file ()
   "open a file by selecting from subfolders."
   (interactive)
   (find-file (iz-select-file-from-folders)))
