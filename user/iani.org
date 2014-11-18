@@ -1532,7 +1532,7 @@ done
   (global-set-key (kbd "H-h H-c H-t") 'iz-todo-class)
   (global-set-key (kbd "H-h H-c H-g") 'iz-goto-class-target)
 
-  (global-set-key (kbd "H-h a") 'org-agenda)
+  (global-set-key (kbd "H-h H-c H-a") 'org-agenda)
   (global-set-key (kbd "H-h H-c H-w") 'org-refile)
   (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
 
@@ -1573,7 +1573,7 @@ Enable some cool languages in org-babel mode.
 *** DONE Orgmode latex customization
 CLOSED: [2014-06-19 Thu 10:50]
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-glisp
 ;;; Load latex package
 (require 'ox-latex)
 
