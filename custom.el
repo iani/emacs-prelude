@@ -37,6 +37,7 @@
  '(org-agenda-files
    (quote
     ("~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")))
+ '(org-attach-directory "./attachments")
  '(org-export-backends (quote (ascii html icalendar latex md)))
  '(org-modules
    (quote

@@ -85,7 +85,10 @@
   (set-frame-parameter
    nil 'fullscreen
    (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+
 (tool-bar-mode -1)
+
+(global-set-key (kbd "H-F") 'toggle-fullscreen)
 
 (toggle-fullscreen)
 
@@ -641,7 +644,7 @@ files to org-agenda-files."
 
 (defvar iz-log-dir
   (expand-file-name
-   "~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/")
+   "~/Dropbox/000WORKFILES/")
   "This directory contains all notes on current projects and classes")
 
 (defadvice org-agenda (before update-agenda-file-list ())
@@ -682,6 +685,9 @@ files to org-agenda-files."
   (message "the value of org-agenda-files was updated"))
 
 (defun iz-select-file-from-folders ()
+  (iz-org-file-menu (iz-select-folder)))
+
+(defun iz-select-folder ()
   (let*
       ((folders (-select 'file-directory-p
                          (file-expand-wildcards
@@ -689,7 +695,7 @@ files to org-agenda-files."
        (folder-menu (grizzl-make-index
                      (mapcar 'file-name-nondirectory folders)))
        (folder (grizzl-completing-read "Select folder:" folder-menu)))
-    (iz-org-file-menu folder)))
+    folder))
 
 (defun iz-org-file-menu (subdir)
   (let*
@@ -709,12 +715,19 @@ files to org-agenda-files."
 
 (defun iz-get-refile-targets ()
   (interactive)
-  (setq org-refile-targets '((iz-select-file-from-folders . (:level . 2)))))
+  (setq org-refile-targets '((iz-select-file-from-folders . (:maxlevel . 2)))))
 
-(defun iz-find-file ()
+(defun iz-find-file (&optional dired)
   "open a file by selecting from subfolders."
-  (interactive)
-  (find-file (iz-select-file-from-folders)))
+  (interactive "P")
+  (cond ((equal dired '(4))
+         (dired (concat iz-log-dir (iz-select-folder))))
+        ((equal dired '(16)) (dired iz-log-dir))
+        ((equal dired '(64))
+         (dirtree (concat iz-log-dir (iz-select-folder)) nil))
+        ((equal dired '(256))
+         (dirtree iz-log-dir nil))
+        (t (message (format "the u was %s" dired)) (find-file (iz-select-file-from-folders)))))
 
 (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
@@ -789,7 +802,7 @@ files to org-agenda-files."
 (defun iz-refile (&optional goto)
   "Refile to selected file."
   (interactive "P")
-  (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:level . 2))))
+  (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 2))))
   (org-refile goto))
 
 (defun iz-goto ()
