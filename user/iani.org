@@ -1379,9 +1379,10 @@ done
   (defun iz-find-file (&optional dired)
     "open a file by selecting from subfolders."
     (interactive "P")
-    (if (equal dired '(4))
-        (dired (concat iz-log-dir (iz-select-folder)))
-     (find-file (iz-select-file-from-folders))))
+    (cond ((equal dired '(16)) (dired iz-log-dir))
+          ((equal dired '(4))
+              (dired (concat iz-log-dir (iz-select-folder)))
+           (t (find-file (iz-select-file-from-folders))))))
 
   (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
