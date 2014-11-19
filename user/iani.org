@@ -148,14 +148,18 @@ Hack for changing font size globally, for presentations.  This affects also the 
 
 ** Maximize/toggle frame
 #+BEGIN_SRC emacs-lisp
-;; (maximize-frame) ;; maximize frame on startup
-(defun toggle-fullscreen ()
-  "Toggle full screen"
-  (interactive)
-  (set-frame-parameter
-   nil 'fullscreen
-   (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
-(tool-bar-mode -1)
+  ;; (maximize-frame) ;; maximize frame on startup
+  (defun toggle-fullscreen ()
+    "Toggle full screen"
+    (interactive)
+    (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+
+  (tool-bar-mode -1)
+
+  (global-set-key (kbd "H-F") 'toggle-fullscreen)
+
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
