@@ -1385,8 +1385,8 @@ done
     (interactive "P")
     (cond ((equal dired '(16)) (dired iz-log-dir))
           ((equal dired '(4))
-              (dired (concat iz-log-dir (iz-select-folder)))
-           (t (find-file (iz-select-file-from-folders))))))
+              (dired (concat iz-log-dir (iz-select-folder))))
+          (t (find-file (iz-select-file-from-folders)))))
 
   (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
