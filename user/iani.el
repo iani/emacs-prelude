@@ -338,6 +338,52 @@ Used as helm action in helm-source-find-files"
       (if (equal (file-name-extension lawlist-filename) "pdf")
           (start-process "default-pdf-app" nil "open" lawlist-filename)))))
 
+(defun open-finder ()
+  (interactive)
+  ;; IZ Dec 25, 2013 (3:25 PM): Making this work in dired:
+  (if (equal major-mode 'dired-mode)
+      (open-finder-dired)
+      (let ((path
+             (if (equal major-mode 'dired-mode)
+                 (file-truename (dired-file-name-at-point))
+               (buffer-file-name)))
+            dir file)
+        (when path
+          (setq dir (file-name-directory path))
+          (setq file (file-name-nondirectory path))
+          (open-finder-1 dir file)))))
+
+(defun open-finder-1 (dir file)
+  (message "open-finder-1 dir: %s\nfile: %s" dir file)
+  (let ((script
+         (if file
+             (concat
+              "tell application \"Finder\"\n"
+              " set frontmost to true\n"
+              " make new Finder window to (POSIX file \"" dir "\")\n"
+              " select file \"" file "\"\n"
+              "end tell\n")
+           (concat
+            "tell application \"Finder\"\n"
+            " set frontmost to true\n"
+            " make new Finder window to {path to desktop folder}\n"
+            "end tell\n"))))
+    (start-process "osascript-getinfo" nil "osascript" "-e" script)))
+
+;; own mod
+(defun open-folder-in-finder (&optional dir)
+  (interactive "DSelect folder:")
+  (setq dir (expand-file-name dir))
+  (let ((script
+         (concat
+          "tell application \"Finder\"\n"
+          " set frontmost to true\n"
+          " make new Finder window to (POSIX file \"" dir "\")\n"
+          "end tell\n")))
+    (start-process "osascript-getinfo" nil "osascript" "-e" script)))
+
+(global-set-key (kbd "H-o") 'open-folder-in-finder)
+
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
   (expand-file-name "~/Library/Application Support/SuperCollider"))
