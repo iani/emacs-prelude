@@ -1168,16 +1168,28 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 :END:
 
 #+BEGIN_SRC emacs-lisp
-
-  (defun org-set-date (&optional inactive property)
+  (defun org-set-date (&optional active property)
     "Set DATE property with current time.  Active timestamp."
     (interactive "P")
     (org-set-property
      (if property property "DATE")
-     (let ((stamp (format-time-string (cdr org-time-stamp-formats) (current-time))))
-       (if inactive
-           (concat "[" (substring stamp 1 -1) "]")
-         stamp))))
+     (cond ((equal active nil)
+            (format-time-string (cdr org-time-stamp-formats) (current-time)))
+           ((equal active '(4))
+            (concat "["
+                    (substring
+                     (format-time-string (cdr org-time-stamp-formats) (current-time))
+                     1 -1)
+                    "]"))
+           ((equal active '(16))
+            (concat
+             "["
+             (substring
+              (format-time-string (cdr org-time-stamp-formats) (org-read-date t t))
+              1 -1)
+             "]"))
+           ((equal active '(64))
+            (format-time-string (cdr org-time-stamp-formats) (org-read-date t t))))))
 
   ;; Note: This keybinding is in analogy to the standard keybinding:
   ;; C-c . -> org-time-stamp

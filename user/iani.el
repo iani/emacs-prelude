@@ -94,6 +94,8 @@
 
 (require 'maxframe) ;; (maximize-frame) command/function
 
+(global-set-key (kbd "H-h v") 'visual-line-mode)
+
 (global-set-key (kbd "M-B") 'backward-sentence)
 (global-set-key (kbd "M-F") 'forward-sentence)
 (global-set-key (kbd "M-[") 'backward-sentence)
