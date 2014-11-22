@@ -1490,7 +1490,11 @@ done
            (dirtree (concat iz-log-dir (iz-select-folder)) nil))
           ((equal dired '(256))
            (dirtree iz-log-dir nil))
-          (t (message (format "the u was %s" dired)) (find-file (iz-select-file-from-folders)))))
+          (t
+           (find-file (iz-select-file-from-folders))
+           (goto-char 0)
+           (if (search-forward "*# -*- mode:org" 100 t)
+               (org-decrypt-entries)))))
 
   (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
