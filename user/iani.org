@@ -1530,7 +1530,7 @@ done
                                   (car item)
                                   'entry
                                   (list 'file+datetree (cdr item))
-                                  "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
+                                  "* %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
                                dirs)))))
 
   (defun iz-todo (&optional goto)
@@ -1559,7 +1559,7 @@ done
                                   (car item)
                                   'entry
                                   (list 'file+headline (cdr item) "TODOs")
-                                  "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
+                                  "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
                                dirs)))))
 
   (defun iz-refile (&optional goto)

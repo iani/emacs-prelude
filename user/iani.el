@@ -684,15 +684,28 @@ files to org-agenda-files."
 (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
 (global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
 
-(defun org-set-date (&optional inactive property)
+(defun org-set-date (&optional active property)
   "Set DATE property with current time.  Active timestamp."
   (interactive "P")
   (org-set-property
    (if property property "DATE")
-   (let ((stamp (format-time-string (cdr org-time-stamp-formats) (current-time))))
-     (if inactive
-         (concat "[" (substring stamp 1 -1) "]")
-       stamp))))
+   (cond ((equal active nil)
+          (format-time-string (cdr org-time-stamp-formats) (current-time)))
+         ((equal active '(4))
+          (concat "["
+                  (substring
+                   (format-time-string (cdr org-time-stamp-formats) (current-time))
+                   1 -1)
+                  "]"))
+         ((equal active '(16))
+          (concat
+           "["
+           (substring
+            (format-time-string (cdr org-time-stamp-formats) (org-read-date t t))
+            1 -1)
+           "]"))
+         ((equal active '(64))
+          (format-time-string (cdr org-time-stamp-formats) (org-read-date t t))))))
 
 ;; Note: This keybinding is in analogy to the standard keybinding:
 ;; C-c . -> org-time-stamp
@@ -848,7 +861,7 @@ files to org-agenda-files."
                                 (car item)
                                 'entry
                                 (list 'file+datetree (cdr item))
-                                "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
+                                "* %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
                              dirs)))))
 
 (defun iz-todo (&optional goto)
@@ -877,7 +890,7 @@ files to org-agenda-files."
                                 (car item)
                                 'entry
                                 (list 'file+headline (cdr item) "TODOs")
-                                "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
+                                "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
                              dirs)))))
 
 (defun iz-refile (&optional goto)
