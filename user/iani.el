@@ -542,9 +542,6 @@ See org-refile-icy."
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 (setq org-todo-keywords
       '((sequence
-         "!!!(1)"  ; next action
-         "!!(2)"  ; next action
-         "!(3)"  ; next action
          "TODO(t)"  ; next action
          "STARTED(s)"
          "WAITING(w@/!)"
@@ -559,12 +556,9 @@ See org-refile-icy."
          "DELEGATE_DONE(l!)")))
 
 (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "tomato" :weight bold))
-        ("!" . (:foreground "DeepPink" :weight bold))
-        ("!!" . (:foreground "MediumVioletRed" :weight bold))
-        ("!!!" . (:foreground "red" :weight bold))
-        ("TOBLOG" . (:foreground "PaleVioletRed" :weight bold))
-        ("STARTED" . (:foreground "maroon" :weight bold))
+      '(("TODO" . (:foreground "red" :weight bold))
+        ("TOBLOG" . (:foreground "MediumVioletRed" :weight bold))
+        ("STARTED" . (:foreground "DeepPink" :weight bold))
         ("WAITING" . (:foreground "gold" :weight bold))
         ("DONE" . (:foreground "SeaGreen" :weight bold))
         ("CANCELLED" . (:foreground "wheat" :weight bold))
@@ -741,6 +735,8 @@ files to org-agenda-files."
    "~/Dropbox/000WORKFILES/")
   "This directory contains all notes on current projects and classes")
 
+(setq diary-file (concat iz-log-dir "PRIVATE/DIARY.org"))
+
 (defadvice org-agenda (before update-agenda-file-list ())
   "Re-createlist of agenda files from contents of relevant directories."
   (iz-update-agenda-file-list)
@@ -821,7 +817,11 @@ files to org-agenda-files."
          (dirtree (concat iz-log-dir (iz-select-folder)) nil))
         ((equal dired '(256))
          (dirtree iz-log-dir nil))
-        (t (message (format "the u was %s" dired)) (find-file (iz-select-file-from-folders)))))
+        (t
+         (find-file (iz-select-file-from-folders))
+         (goto-char 0)
+         (if (search-forward "*# -*- mode:org" 100 t)
+             (org-decrypt-entries)))))
 
 (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 

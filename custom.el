@@ -7,6 +7,8 @@
    ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
  '(background-color "#042028")
  '(background-mode dark)
+ '(calendar-latitude 39.619)
+ '(calendar-longitude 19.919)
  '(cursor-color "#708183")
  '(custom-enabled-themes (quote (whiteboard)))
  '(custom-safe-themes

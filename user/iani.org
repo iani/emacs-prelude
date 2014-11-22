@@ -972,9 +972,6 @@ Adapted from:
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
   (setq org-todo-keywords
         '((sequence
-           "!!!(1)"  ; next action
-           "!!(2)"  ; next action
-           "!(3)"  ; next action
            "TODO(t)"  ; next action
            "STARTED(s)"
            "WAITING(w@/!)"
@@ -989,12 +986,9 @@ Adapted from:
            "DELEGATE_DONE(l!)")))
 
   (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "tomato" :weight bold))
-          ("!" . (:foreground "DeepPink" :weight bold))
-          ("!!" . (:foreground "MediumVioletRed" :weight bold))
-          ("!!!" . (:foreground "red" :weight bold))
-          ("TOBLOG" . (:foreground "PaleVioletRed" :weight bold))
-          ("STARTED" . (:foreground "maroon" :weight bold))
+        '(("TODO" . (:foreground "red" :weight bold))
+          ("TOBLOG" . (:foreground "MediumVioletRed" :weight bold))
+          ("STARTED" . (:foreground "DeepPink" :weight bold))
           ("WAITING" . (:foreground "gold" :weight bold))
           ("DONE" . (:foreground "SeaGreen" :weight bold))
           ("CANCELLED" . (:foreground "wheat" :weight bold))
@@ -1005,8 +999,6 @@ Adapted from:
           ("WAITING" . (:foreground "goldenrod" :weight bold))
           ("SOMEDAY" . (:foreground "gray" :weight bold))))
 #+END_SRC
-
-
 
 *** Mobile Org
 
@@ -1409,6 +1401,8 @@ done
     (expand-file-name
      "~/Dropbox/000WORKFILES/")
     "This directory contains all notes on current projects and classes")
+
+  (setq diary-file (concat iz-log-dir "PRIVATE/DIARY.org"))
 
   (defadvice org-agenda (before update-agenda-file-list ())
     "Re-createlist of agenda files from contents of relevant directories."
