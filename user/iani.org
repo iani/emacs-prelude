@@ -171,6 +171,16 @@ Hack for changing font size globally, for presentations.  This affects also the 
 #+END_SRC
 
 #+RESULTS:
+** Toggle visual line mode
+:PROPERTIES:
+:DATE:     <2014-11-22 Sat 10:12>
+:END:
+
+Useful for org-mode todo agenda.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "H-h v") 'visual-line-mode)
+#+END_SRC
 ** Movement: backward-sentence, forward-sentence
 
 Bind backward-sentence and forward-sentence in 2 different ways:
@@ -187,7 +197,6 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 
 #+RESULTS:
 : forward-sentence
-
 ** Insert timestamp (C-c C-x C-t)
 :PROPERTIES:
 :DATE:     <2014-04-07 Mon 17:35>
@@ -949,20 +958,86 @@ Have not figured out yet how to override those keys specifically.
 #+END_SRC
 
 *** Customize Org-mode display, including todo colors
+:PROPERTIES:
+:ID:       4EDF3266-E3AB-42DD-BCAC-F6166C3681DB
+:eval-id:  8
+:END:
+
+Adapted from:
+
 
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-indented t) ;; auto-indent text in subtrees
   (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+  (setq org-todo-keywords
+        '((sequence
+           "!!!(1)"  ; next action
+           "!!(2)"  ; next action
+           "!(3)"  ; next action
+           "TODO(t)"  ; next action
+           "STARTED(s)"
+           "WAITING(w@/!)"
+           "TOBLOG(b)"  ; next action
+           "SOMEDAY(.)" "|"
+           "DONE(x@/@)"
+           "CANCELLED(c@)"
+           "OBSOLETE(o@)")
+          (sequence
+           "TODELEGATE(-)"
+           "DELEGATED(d)"
+           "DELEGATE_DONE(l!)")))
+
   (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "red"))
-          ("STARTED" . "yellow")
-          ("OBSOLETE" . (:foreground "yellow" :background "darkgreen"))
-          ("REJECTED" . (:foreground "yellow" :background "darkgreen"))
-          ("CANCELLED" . (:foreground "blue" :weight bold))
-          ("DONE" . (:foreground "white" :background "darkgreen"))))
+        '(("TODO" . (:foreground "tomato" :weight bold))
+          ("!" . (:foreground "DeepPink" :weight bold))
+          ("!!" . (:foreground "MediumVioletRed" :weight bold))
+          ("!!!" . (:foreground "red" :weight bold))
+          ("TOBLOG" . (:foreground "PaleVioletRed" :weight bold))
+          ("STARTED" . (:foreground "maroon" :weight bold))
+          ("WAITING" . (:foreground "gold" :weight bold))
+          ("DONE" . (:foreground "SeaGreen" :weight bold))
+          ("CANCELLED" . (:foreground "wheat" :weight bold))
+          ("OBSOLETE" . (:foreground "CadetBlue" :weight bold))
+          ("TODELEGATE" . (:foreground "DeepSkyBlue" :weight bold))
+          ("DELEGATED" . (:foreground "turquoise" :weight bold))
+          ("DELEGATE_DONE" . (:foreground "LawnGreen" :weight bold))
+          ("WAITING" . (:foreground "goldenrod" :weight bold))
+          ("SOMEDAY" . (:foreground "gray" :weight bold))))
 #+END_SRC
 
+
+
+*** Mobile Org
+
+#+BEGIN_SRC emacs-lisp
+  ;; the rest of the setup was done by customizing the variables
+  ;; org-mobile-directory and org-mobile-inbox-for-pull, and is in custom.el
+
+  (global-set-key (kbd "H-h m p") 'org-mobile-push)
+  (global-set-key (kbd "H-h m l") 'org-mobile-pull)
+
+#+END_SRC
+
+Following was tested, works OK, but is disabled for the moment:
+
+http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
+
+#+BEGIN_SRC elisp
+
+(defun install-monitor (file secs)
+  (run-with-timer
+   0 secs
+   (lambda (f p)
+     (unless (< p (second (time-since (elt (file-attributes f) 5))))
+       (org-mobile-pull)))
+   file secs))
+
+(defvar monitor-timer
+  (install-monitor (concat org-mobile-directory "/mobileorg.org") 30)
+  "Check if file changed every 30 s.")
+
+#+END_SRC
 *** line->headline
 
 #+BEGIN_SRC emacs-lisp
@@ -1696,9 +1771,9 @@ org-icicle-occur or icicle-occur, here: C-c C-'
     '(define-key org-mode-map (kbd "C-c x t") 'org-to))
 #+END_SRC
 
-*** fname-find-file-standardized: Consistent multi-component filenames
+*** OBSOLETE fname-find-file-standardized: Consistent multi-component filenames
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (defvar fname-parts-1-2 nil)
   (defvar fname-part-3 nil)
   (defvar fname-root "~/Dropbox/000Workfiles/2014/")

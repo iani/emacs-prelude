@@ -88,7 +88,7 @@
 
 (tool-bar-mode -1)
 
-(global-set-key (kbd "H-F") 'toggle-fullscreen)
+(global-set-key (kbd "H-f") 'toggle-fullscreen)
 
 (toggle-fullscreen)
 
@@ -538,13 +538,46 @@ See org-refile-icy."
 (setq org-startup-indented t) ;; auto-indent text in subtrees
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
+(setq org-todo-keywords
+      '((sequence
+         "!!!(1)"  ; next action
+         "!!(2)"  ; next action
+         "!(3)"  ; next action
+         "TODO(t)"  ; next action
+         "STARTED(s)"
+         "WAITING(w@/!)"
+         "TOBLOG(b)"  ; next action
+         "SOMEDAY(.)" "|"
+         "DONE(x@/@)"
+         "CANCELLED(c@)"
+         "OBSOLETE(o@)")
+        (sequence
+         "TODELEGATE(-)"
+         "DELEGATED(d)"
+         "DELEGATE_DONE(l!)")))
+
 (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "red"))
-        ("STARTED" . "yellow")
-        ("OBSOLETE" . (:foreground "yellow" :background "darkgreen"))
-        ("REJECTED" . (:foreground "yellow" :background "darkgreen"))
-        ("CANCELLED" . (:foreground "blue" :weight bold))
-        ("DONE" . (:foreground "white" :background "darkgreen"))))
+      '(("TODO" . (:foreground "tomato" :weight bold))
+        ("!" . (:foreground "DeepPink" :weight bold))
+        ("!!" . (:foreground "MediumVioletRed" :weight bold))
+        ("!!!" . (:foreground "red" :weight bold))
+        ("TOBLOG" . (:foreground "PaleVioletRed" :weight bold))
+        ("STARTED" . (:foreground "maroon" :weight bold))
+        ("WAITING" . (:foreground "gold" :weight bold))
+        ("DONE" . (:foreground "SeaGreen" :weight bold))
+        ("CANCELLED" . (:foreground "wheat" :weight bold))
+        ("OBSOLETE" . (:foreground "CadetBlue" :weight bold))
+        ("TODELEGATE" . (:foreground "DeepSkyBlue" :weight bold))
+        ("DELEGATED" . (:foreground "turquoise" :weight bold))
+        ("DELEGATE_DONE" . (:foreground "LawnGreen" :weight bold))
+        ("WAITING" . (:foreground "goldenrod" :weight bold))
+        ("SOMEDAY" . (:foreground "gray" :weight bold))))
+
+;; the rest of the setup was done by customizing the variables
+;; org-mobile-directory and org-mobile-inbox-for-pull, and is in custom.el
+
+(global-set-key (kbd "H-h m p") 'org-mobile-push)
+(global-set-key (kbd "H-h m l") 'org-mobile-pull)
 
 (defun org-headline-line ()
   "convert current line into headline at same level as above."
@@ -968,103 +1001,6 @@ files to org-agenda-files."
   '(define-key org-mode-map (kbd "C-c x f") 'org-from))
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c x t") 'org-to))
-
-(defvar fname-parts-1-2 nil)
-(defvar fname-part-3 nil)
-(defvar fname-root "~/Dropbox/000Workfiles/2014/")
-(defvar fname-filename-components
-  (concat fname-root  "00000fname-filename-components.org"))
-
-(defun fname-find-file-standardized (&optional do-not-update-timestamp)
-  (interactive "P")
-  (unless fname-part-3 (fname-load-file-components))
-  (setq *grizzl-read-max-results* 40)
-  (let* ((root fname-root)
-         (index-1 (grizzl-make-index
-                   (mapcar 'car fname-parts-1-2)))
-         (name-1 (grizzl-completing-read "Part 1: " index-1))
-         (index-2 (grizzl-make-index (cdr (assoc name-1 fname-parts-1-2))))
-         (name-2 (grizzl-completing-read "Part 2: " index-2))
-         (index-3 (grizzl-make-index fname-part-3))
-         (name-3 (grizzl-completing-read "Part 3: " index-3))
-         (path (concat root name-1 "_" name-2 "_" name-3 "_"))
-         (candidates (file-expand-wildcards (concat path "*")))
-         extension-index extension final-choice)
-    (setq final-choice
-          (completing-read "Choose file or enter last component: " candidates))
-    (cond ((string-match (concat "^" path) final-choice)
-           (setq path final-choice))
-      (t
-       (setq extension (ido-completing-read
-                        "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
-       (setq path (concat path final-choice
-                          (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
-                          "." extension))))
-    (find-file path)
-    (unless do-not-update-timestamp
-     (set-visited-file-name
-      (replace-regexp-in-string
-       "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
-       (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path)))
-    (kill-new (buffer-file-name (current-buffer)))))
-
-(defun fname-load-file-components (&optional keep-buffer)
-  (interactive "P")
-  (let ((buffer (find-file fname-filename-components)))
-    (fname-load-file-components-from-buffer buffer)
-    (unless keep-buffer (kill-buffer buffer)))
-  (message "file component list updated"))
-
-(defun fname-load-file-components-from-buffer (buffer)
-  (set-buffer buffer)
-  (setq fname-parts-1-2 nil)
-  (setq fname-part-3 nil)
-  (org-map-entries
-   (lambda ()
-     (let ((plist (cadr (org-element-at-point))))
-       (cond
-        ((equal (plist-get plist :level) 2)
-         (setq fname-parts-1-2
-               (append fname-parts-1-2
-                       (list (list (plist-get plist :raw-value))))))
-        ((equal (plist-get plist :level) 3)
-         (setcdr (car (last fname-parts-1-2))
-                 (append (cdar (last fname-parts-1-2))
-                         (list (plist-get plist :raw-value))))))))
-   "LEVELS1_2")
-  (org-map-entries
-   (lambda ()
-     (let ((plist (cadr (org-element-at-point))))
-       (when
-           (equal 2 (plist-get plist :level))
-         (setq fname-part-3
-               (append fname-part-3 (list (plist-get plist :raw-value)))))))
-   "LEVEL3"))
-
-(defun fname-edit-file-components ()
-  (interactive)
-  (find-file fname-filename-components)
-  (add-to-list 'write-contents-functions
-               (lambda ()
-                 (fname-load-file-components-from-buffer (current-buffer))
-                 (message "Updated file name components from: %s" (current-buffer))
-                 (set-buffer-modified-p nil)))
-  ;; Debugging:
-  (message "write-contents-functions of file %s are: %s"
-           (buffer-file-name) write-contents-functions))
-  (defun fname-menu ()
-  (interactive)
-  (let ((action (ido-completing-read
-                 "Choose action: "
-                 '("fname-edit-file-components"
-                  "fname-load-file-components"
-                  "fname-find-file-standardized"))))
-    (funcall (intern action))))
-
-(global-set-key (kbd "H-f f") 'fname-find-file-standardized)
-(global-set-key (kbd "H-f m") 'fname-menu)
-(global-set-key (kbd "H-f e") 'fname-edit-file-components)
-(global-set-key (kbd "H-f l") 'fname-load-file-components)
 
 (fset 'org-toggle-drawer
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))

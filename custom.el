@@ -34,11 +34,10 @@
       ("*scratch*")
       icicle-case-string-less-p)
      ("All, *...* Buffers Last" nil nil nil nil icicle-buffer-sort-*\.\.\.*-last))))
- '(org-agenda-files
-   (quote
-    ("~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")))
+ '(org-agenda-files nil)
  '(org-attach-directory "./attachments")
  '(org-export-backends (quote (ascii html icalendar latex md)))
+ '(org-mobile-directory "~/Dropbox/Apps/MobileOrg")
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-crypt org-docview org-gnus org-id org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mac-iCal)))
