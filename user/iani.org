@@ -745,6 +745,95 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 #+END_SRC
 
 * Customization of Specific Authoring Modes
+
+** Scratchbooks for coding
+
+*** logging tryout code
+
+#+BEGIN_SRC emacs-lisp
+  (defvar scratchpad-main-directory "NOTES")
+
+  (defvar scratchpad-languages
+    '(("emacslisp" .
+                 (:extension "el" :template-func make-el-template))
+      ("supercollider" .
+                     (:extension "scd" :template-func make-sc-template))
+      ("markdown" .
+                (:extension "md" :template-func make-md-template))))
+
+  (defun scratchpad-menu (&optional folderp)
+    (interactive "P")
+    (let* ((menu (grizzl-make-index (mapcar 'car scratchpad-languages)))
+           (language (grizzl-completing-read "Select language: " menu))
+           (language-plist (cdr (assoc language scratchpad-languages))))
+      (if folderp
+          (dirtree (scratchpad-make-folder-name language) t)
+        (apply
+         (plist-get language-plist :template-func)
+         (list
+          language
+          (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "note")
+          (plist-get language-plist :extension))))))
+
+  (file-name-sans-extension "/test/abcd.efgh")
+
+  (defun make-el-template (folder title extension)
+    (let* (
+           (full-path (scratchpad-make-full-path folder title extension))
+           (file-name (file-name-nondirectory full-path))
+           (package-name (file-name-sans-extension file-name)))
+      (find-file full-path)
+      (insert
+       (concat
+        ";;; package --- Summary\n\n"
+        ";;; Commentary:\n\n"
+        ";;; Code:\n\n()\n\n"
+        ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n"
+        "(provide '" package-name
+        ")\n;;; " file-name " ends here"
+        ))
+      (goto-char 0)
+      (search-forward "\(\)")
+      (backward-char 1)))
+
+  (defun scratchpad-make-full-path (folder title extension)
+    (concat (scratchpad-make-folder-name folder)
+            (scratchpad-make-file-name title extension)))
+
+  (defun scratchpad-make-file-name (file-name extension)
+    (concat title
+            (format-time-string "_%y%m%d_%H-%M" (current-time))
+            "."
+            extension))
+
+  (defun scratchpad-find-file (folder file-name)
+    (find-file (concat (scratchpad-make-folder-name folder) file-name)))
+
+  (defun scratchpad-make-folder-name (folder)
+   (concat iz-log-dir "NOTES/" folder "-scratchpad/"))
+
+  (defun make-sc-template (folder title &optional extension)
+    (unless extension (setq extension "scd"))
+    (find-file
+     (scratchpad-make-full-path folder title extension))
+    (insert
+     (concat "/* " (format-time-string "%c %Z") " */\n\n"
+             "(\nServer.default.boot;\n)\n//:\n(\n"
+             "~mySound = { | amp = 0.1 | WhiteNoise.ar(amp) }.play;\n)"
+             ))
+    (unless (sclang-get-process) (sclang-start)))
+
+  (defun make-md-template (folder title &optional extension)
+    (unless extension (setq extension "md"))
+    (find-file
+     (scratchpad-make-full-path folder title extension))
+    (insert
+     (concat "# " title (format-time-string "\n(%c %Z)\n\n"))))
+
+  (global-set-key (kbd "H-h H-n") 'scratchpad-menu)
+
+#+END_SRC
+
 ** SuperCollider
 *** sclang Setup
 #+BEGIN_SRC emacs-lisp
@@ -819,7 +908,6 @@ Needs debugging: One of these modes breaks sclang-start:
   ;; H-C-i:
   (define-key emacs-lisp-mode-map (kbd "H-TAB") 'icicle-imenu-command)
 #+END_SRC
-
 ** html/css/js
 
 web-beautify.
@@ -1141,20 +1229,20 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 #+END_SRC
 
 
-*** Calendar framework: Show org agenda in iCal-style layout
+**** Calendar framework: Show org agenda in iCal-style layout
 
 #+BEGIN_SRC emacs-lisp
  (require 'calfw-org)
 #+END_SRC
 
-*** Global key for cfw org calendar framework): C-c M-a
+**** Global key for cfw org calendar framework): C-c M-a
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
   (global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
 #+END_SRC
 
-*** Insert DATE property with current time
+**** Insert DATE property
 :PROPERTIES:
 :DATE:     <2014-02-02 Sun 12:19>
 :END:
@@ -1195,7 +1283,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
 #+END_SRC
 
-*** Set DUE property with selected time/date
+**** Set DUE property with selected time/date
 
 #+BEGIN_SRC emacs-lisp
   (defun org-set-due-property ()
@@ -1207,181 +1295,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c M-.") 'org-set-due-property))
 #+END_SRC
-*** Log: (simplified alternative to capture)
-:PROPERTIES:
-:DATE:     <2013-12-07 Sat 21:59>
-:ID:       1E0A70E5-7417-48E7-B17A-9C727D995AE4
-:END:
 
-Time tasks and keep log file, in a very short way
-
-- Very simple and fast input mechanism
-- New task simply also sets the timestamp for the end of the previous one.
-- Following properties are set:
-  START_TIME (= active timestamp set at time of start)
-  END_TIME (= active timestamp set at time of start of next log entry)
-  TIME_SPAN (= START_TIME--END_TIME as timestamps)
-  DURATION (= START_TIME-END_TIME as hours:minutes)
-- Keeps current task in file "stopwatch.txt"
-  This is read by geeklet CountUp, to display duration of current task.
-  (sh code of geeklet is included below).
-
-**** CountUp geeklet code
-
-#+BEGIN_SRC sh
-#!/bin/bash
-# Homework countdown
-# BETA - I will update this when I get more time
-function countdown
-{
-	CURRENT=$(date -j -f %D_%T $1 +%s)
-	TARGET=$(date +%s)
-	LEFT=$((TARGET-CURRENT))
-	WEEKS=$((LEFT/604800))
-	DAYS=$(( (LEFT%604800)/86400))
-	HOURS=$(( (LEFT%86400)/3600))
-	MINS=$(( (LEFT%3600)/60))
-	SECS=$((LEFT%60))
-
-	lblWEEKS="Weeks"
-	lblDAYS="Days"
-
-	if [ $DAYS == 1 ]
-	then
-	lblDAYS="Day"
-	fi
-
-	if [ $WEEKS == 1 ]
-	then
-	lblWEEKS="Weeky"
-	fi
-
-	if [ $HOURS -lt 10 ]
-	then
-		HOURS=0$HOURS
-	fi
-
-	if [ $MINS -lt 10 ]
-	then
-		MINS=0$MINS
-	fi
-
-
-	if [ $SECS -lt 10 ]
-	then
-		SECS=0$SECS
-	fi
-
-
-	echo $2 $HOURS:$MINS:$SECS
-	# Optional extra line between timers
-	# echo
-}
-DATES=( $( cat /Users/iani/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt ) )
-# Even numbered indices are names, odd numbered indices are dates
-
-if [ ${#DATES[@]} == 0 ]
-then
-echo "No Deadlines!"
-return
-fi
-
-for (( i = 0 ; i < ${#DATES[@]} ; i+=2 ))
-do
-countdown ${DATES[i+1]} ${DATES[i]}
-done
-#+END_SRC
-
-**** emacs-lisp log function
-:PROPERTIES:
-:ID:       153FC98A-B1A7-40C7-AC3F-6723AFE5DC4F
-:eval-id:  4
-:END:
-
-#+BEGIN_SRC elisp
-  (defun log (expense)
-    "Simple way to capture notes/activities with some extra features:
-  - Set task start time
-  - Set completion time of previous task.
-  - Calculate duration of previous task
-  - Write task to stopwatch.txt file for use by geeklet to display task timer
-  - If called with prefix argument, prompt for expense value and set expense property.
-
-  TODO: Store timestamp of last task in separate file, so as to be able to retrieve it
-  even if the text of the previous entry is corrupt. "
-    (interactive "P")
-
-    (let* ((topic (read-from-minibuffer "Enter topic: "))
-          (timer-string
-           (concat
-            (replace-regexp-in-string " " "_" topic)
-            (format-time-string ": %D_%T" (current-time)))))
-      (if (< (length topic) 1) (setq topic "Untitled task"))
-      (find-file
-       "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/stopwatch.txt")
-  ;;    (beginning-of-buffer)
-  ;;    (kill-line)
-      (erase-buffer)
-      (insert timer-string)
-      (save-buffer)
-      (message (concat "Now timing: " timer-string))
-      (find-file
-       "/Users/iani/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/log.org")
-      (widen)
-      (end-of-buffer)
-      (if (> (org-outline-level) 1) (outline-up-heading 100 t))
-      (org-set-date t "END_TIME")
-      (org-set-property
-       "TIMER_SPAN"
-       (concat
-        (replace-regexp-in-string
-         ">" "]"
-         (replace-regexp-in-string "<" "[" (org-entry-get (point) "START_TIME")))
-        "--"
-        (org-entry-get (point) "END_TIME")))
-      (let* ((seconds
-              (-
-               (org-float-time
-                (apply
-                 'encode-time
-                 (org-parse-time-string (org-entry-get (point) "END_TIME"))))
-               (org-float-time
-                (apply
-                 'encode-time
-                 (org-parse-time-string (org-entry-get (point) "START_TIME"))))
-               ))
-             (hours (floor (/ seconds 3600)))
-             (seconds (- seconds (* 3600 hours)))
-             (minutes (floor (/ seconds 60))))
-        (org-set-property
-         "DURATION"
-         (replace-regexp-in-string " " "0" (format "%2d:%2d" hours minutes))))
-      (end-of-buffer)
-      (insert-string "\n* ")
-      (insert-string (replace-regexp-in-string "_" " " timer-string))
-      ;;      (insert-string "\n")
-      (org-set-date nil "START_TIME")
-      (org-set-date t) ;; also set DATE property: for blog entries
-      (org-id-get-create)
-      (message "testing expense arg: %s %s" expense (equal expense '(4)))
-      (cond ((equal expense '(4))
-             (org-set-tags-to '("expense"))
-             ;; this causes orgmode to prompt of the value of EXPENSE!
-             (org-set-property "EXPENSE" nil)   )
-            ((equal expense '(16))
-             (org-set-tags-to '("email"))
-             )
-            )
-      (org-set-tags-command)
-      (org-narrow-to-subtree)
-      (goto-char (point-max))
-      (org-show-subtree)
-      (org-show-entry)
-      (save-buffer)))
-
-  (global-set-key (kbd "C-M-l") 'log)
-#+END_SRC
-*** Class and Project notes, tags
+*** Class and Project notes, tags, diary
 :PROPERTIES:
 :DATE:     <2014-10-14 Tue 18:47>
 :END:
@@ -1402,7 +1317,7 @@ done
      "~/Dropbox/000WORKFILES/")
     "This directory contains all notes on current projects and classes")
 
-  (setq diary-file (concat iz-log-dir "PRIVATE/DIARY.org"))
+  (setq diary-file (concat iz-log-dir "PRIVATE/diary"))
 
   (defadvice org-agenda (before update-agenda-file-list ())
     "Re-createlist of agenda files from contents of relevant directories."

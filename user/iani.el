@@ -386,6 +386,87 @@ Used as helm action in helm-source-find-files"
 
 (global-set-key (kbd "H-o") 'open-folder-in-finder)
 
+(defvar scratchpad-main-directory "NOTES")
+
+(defvar scratchpad-languages
+  '(("emacslisp" .
+               (:extension "el" :template-func make-el-template))
+    ("supercollider" .
+                   (:extension "scd" :template-func make-sc-template))
+    ("markdown" .
+              (:extension "md" :template-func make-md-template))))
+
+(defun scratchpad-menu (&optional folderp)
+  (interactive "P")
+  (let* ((menu (grizzl-make-index (mapcar 'car scratchpad-languages)))
+         (language (grizzl-completing-read "Select language: " menu))
+         (language-plist (cdr (assoc language scratchpad-languages))))
+    (if folderp
+        (dirtree (scratchpad-make-folder-name language) t)
+      (apply
+       (plist-get language-plist :template-func)
+       (list
+        language
+        (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "note")
+        (plist-get language-plist :extension))))))
+
+(file-name-sans-extension "/test/abcd.efgh")
+
+(defun make-el-template (folder title extension)
+  (let* (
+         (full-path (scratchpad-make-full-path folder title extension))
+         (file-name (file-name-nondirectory full-path))
+         (package-name (file-name-sans-extension file-name)))
+    (find-file full-path)
+    (insert
+     (concat
+      ";;; package --- Summary\n\n"
+      ";;; Commentary:\n\n"
+      ";;; Code:\n\n()\n\n"
+      ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n"
+      "(provide '" package-name
+      ")\n;;; " file-name " ends here"
+      ))
+    (goto-char 0)
+    (search-forward "\(\)")
+    (backward-char 1)))
+
+(defun scratchpad-make-full-path (folder title extension)
+  (concat (scratchpad-make-folder-name folder)
+          (scratchpad-make-file-name title extension)))
+
+(defun scratchpad-make-file-name (file-name extension)
+  (concat title
+          (format-time-string "_%y%m%d_%H-%M" (current-time))
+          "."
+          extension))
+
+(defun scratchpad-find-file (folder file-name)
+  (find-file (concat (scratchpad-make-folder-name folder) file-name)))
+
+(defun scratchpad-make-folder-name (folder)
+ (concat iz-log-dir "NOTES/" folder "-scratchpad/"))
+
+(defun make-sc-template (folder title &optional extension)
+  (unless extension (setq extension "scd"))
+  (find-file
+   (scratchpad-make-full-path folder title extension))
+  (insert
+   (concat "/* " (format-time-string "%c %Z") "*/\n\n"
+           "(\nServer.default.boot;\n)\n//:\n(\n"
+           "~mySound = { | amp = 0.1 | WhiteNoise.ar(amp) }.play;\n)"
+           ))
+  (unless (sclang-get-process) (sclang-start)))
+
+(defun make-md-template (folder title &optional extension)
+  (unless extension (setq extension "md"))
+  (find-file
+   (scratchpad-make-full-path folder title extension))
+  (insert
+   (concat "# " title (format-time-string "\n(%c %Z)\n\n"))))
+
+(global-set-key (kbd "H-h H-n") 'scratchpad-menu)
+
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
   (expand-file-name "~/Library/Application Support/SuperCollider"))
@@ -735,7 +816,7 @@ files to org-agenda-files."
    "~/Dropbox/000WORKFILES/")
   "This directory contains all notes on current projects and classes")
 
-(setq diary-file (concat iz-log-dir "PRIVATE/DIARY.org"))
+(setq diary-file (concat iz-log-dir "PRIVATE/diary"))
 
 (defadvice org-agenda (before update-agenda-file-list ())
   "Re-createlist of agenda files from contents of relevant directories."

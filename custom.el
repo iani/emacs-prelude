@@ -39,6 +39,7 @@
  '(org-agenda-files nil)
  '(org-attach-directory "./attachments")
  '(org-export-backends (quote (ascii html icalendar latex md)))
+ '(org-export-with-sub-superscripts (quote {}))
  '(org-mobile-directory "~/Dropbox/Apps/MobileOrg")
  '(org-modules
    (quote
