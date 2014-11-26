@@ -386,7 +386,7 @@ Used as helm action in helm-source-find-files"
 
 (global-set-key (kbd "H-o") 'open-folder-in-finder)
 
-(defvar scratchpad-main-directory "NOTES")
+(defvar scratchpad-main-directory "SCRIPTS")
 
 (defvar scratchpad-languages
   '(("emacslisp" .
@@ -394,7 +394,9 @@ Used as helm action in helm-source-find-files"
     ("supercollider" .
                    (:extension "scd" :template-func make-sc-template))
     ("markdown" .
-              (:extension "md" :template-func make-md-template))))
+     (:extension "md" :template-func make-md-template))
+    ("shell" .
+     (:extension "sh" :template-func make-sh-template))))
 
 (defun scratchpad-menu (&optional folderp)
   (interactive "P")
@@ -407,7 +409,7 @@ Used as helm action in helm-source-find-files"
        (plist-get language-plist :template-func)
        (list
         language
-        (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "note")
+        (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "")
         (plist-get language-plist :extension))))))
 
 (file-name-sans-extension "/test/abcd.efgh")
@@ -445,14 +447,14 @@ Used as helm action in helm-source-find-files"
   (find-file (concat (scratchpad-make-folder-name folder) file-name)))
 
 (defun scratchpad-make-folder-name (folder)
- (concat iz-log-dir "NOTES/" folder "-scratchpad/"))
+  (concat iz-log-dir scratchpad-main-directory "/" folder "-scratchpad/"))
 
 (defun make-sc-template (folder title &optional extension)
   (unless extension (setq extension "scd"))
   (find-file
    (scratchpad-make-full-path folder title extension))
   (insert
-   (concat "/* " (format-time-string "%c %Z") "*/\n\n"
+   (concat "/* " (format-time-string "%c %Z") " */\n\n"
            "(\nServer.default.boot;\n)\n//:\n(\n"
            "~mySound = { | amp = 0.1 | WhiteNoise.ar(amp) }.play;\n)"
            ))
@@ -465,7 +467,27 @@ Used as helm action in helm-source-find-files"
   (insert
    (concat "# " title (format-time-string "\n(%c %Z)\n\n"))))
 
+(defun make-sh-template (folder title &optional extension)
+  (unless extension (setq extension "sh"))
+  (find-file
+   (scratchpad-make-full-path folder title extension))
+  (insert
+   (concat "#!/bin/sh\n# " title (format-time-string "(%c %Z)\n\n"))))
+
 (global-set-key (kbd "H-h H-n") 'scratchpad-menu)
+
+(add-hook 'after-save-hook
+          #'(lambda ()
+              (and (save-excursion
+                     (save-restriction
+                       (widen)
+                       (goto-char (point-min))
+                       (save-match-data
+                         (looking-at "^#!"))))
+                   (not (file-executable-p buffer-file-name))
+                   (shell-command (concat "chmod u+x " buffer-file-name))
+                   (message
+                    (concat "Saved as script: " buffer-file-name)))))
 
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
@@ -1103,8 +1125,6 @@ files to org-agenda-files."
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
-
-(org-babel-load-file "/Users/iani/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
 
 (setq magit-repo-dirs
       '(

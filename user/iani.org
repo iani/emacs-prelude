@@ -749,9 +749,13 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 ** Scratchbooks for coding
 
 *** logging tryout code
+:PROPERTIES:
+:ID:       6D2D4561-1856-4EA9-962E-0B556A95F7F5
+:eval-id:  3
+:END:
 
 #+BEGIN_SRC emacs-lisp
-  (defvar scratchpad-main-directory "NOTES")
+  (defvar scratchpad-main-directory "SCRIPTS")
 
   (defvar scratchpad-languages
     '(("emacslisp" .
@@ -759,7 +763,11 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
       ("supercollider" .
                      (:extension "scd" :template-func make-sc-template))
       ("markdown" .
-                (:extension "md" :template-func make-md-template))))
+       (:extension "md" :template-func make-md-template))
+      ("shell" .
+       (:extension "sh" :template-func make-sh-template))
+      ("git" .
+       (:extension "sh" :template-func make-sh-template))))
 
   (defun scratchpad-menu (&optional folderp)
     (interactive "P")
@@ -772,7 +780,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
          (plist-get language-plist :template-func)
          (list
           language
-          (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "note")
+          (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "")
           (plist-get language-plist :extension))))))
 
   (file-name-sans-extension "/test/abcd.efgh")
@@ -810,7 +818,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
     (find-file (concat (scratchpad-make-folder-name folder) file-name)))
 
   (defun scratchpad-make-folder-name (folder)
-   (concat iz-log-dir "NOTES/" folder "-scratchpad/"))
+    (concat iz-log-dir scratchpad-main-directory "/" folder "-scratchpad/"))
 
   (defun make-sc-template (folder title &optional extension)
     (unless extension (setq extension "scd"))
@@ -830,7 +838,28 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
     (insert
      (concat "# " title (format-time-string "\n(%c %Z)\n\n"))))
 
+  (defun make-sh-template (folder title &optional extension)
+    (unless extension (setq extension "sh"))
+    (find-file
+     (scratchpad-make-full-path folder title extension))
+    (insert
+     (concat "#!/bin/sh\n# " title (format-time-string "(%c %Z)\n\n"))))
+
   (global-set-key (kbd "H-h H-n") 'scratchpad-menu)
+
+  (add-hook 'after-save-hook
+            #'(lambda ()
+                (and (save-excursion
+                       (save-restriction
+                         (widen)
+                         (goto-char (point-min))
+                         (save-match-data
+                           (looking-at "^#!"))))
+                     (not (file-executable-p buffer-file-name))
+                     (shell-command (concat "chmod u+x " buffer-file-name))
+                     (message
+                      (concat "Saved as script: " buffer-file-name)))))
+
 
 #+END_SRC
 
@@ -1819,7 +1848,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
 *** Internal: Load org-pm
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
   (org-babel-load-file "/Users/iani/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
 #+END_SRC
 
