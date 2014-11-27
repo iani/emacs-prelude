@@ -378,57 +378,76 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/master/helm-swoop.el
 or
 https://raw.github.com/ShingoFukuyama/helm-swoop/
 #+BEGIN_SRC emacs-lisp
-  ;; must call these to initialize  helm-source-find-files
+    ;; must call these to initialize  helm-source-find-files
 
-  (require 'helm-files) ;; (not auto-loaded by system!)
-  (require 'helm-projectile)
-  (require 'helm-swoop) ;; must be put into packages
-  ;; Don't bicker if not in a project:
-  (setq projectile-require-project-root)
+    (require 'helm-files) ;; (not auto-loaded by system!)
+    (require 'helm-projectile)
+    (require 'helm-swoop) ;; must be put into packages
+    ;; Don't bicker if not in a project:
+    (setq projectile-require-project-root)
 
-  ;; Add add-to-projectile action after helm-find-files.
-  (let ((find-files-action (assoc 'action helm-source-find-files)))
-    (setcdr find-files-action
-            (cons
-             (cadr find-files-action)
-             (cons '("Add to projectile" . helm-add-to-projectile)
-                   (cddr find-files-action)))))
+    ;; Added by IZ following this:
+    ;; https://github.com/emacs-helm/helm/issues/604
+    ;; :
 
-  ;; Use helm-find-files actions in helm-projectile
-  (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
-      (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
+    (add-hook 'helm-find-files-before-init-hook
+              (lambda ()
+                (progn
+                  ;; List Hg files in project.
+                  (helm-add-action-to-source-if
+                   "Hg list files"
+                   'helm-ff-hg-find-files
+                   helm-source-find-files
+                   'helm-hg-root-p)
+                  ;; Byte compile files async
+                  (helm-add-action-to-source-if
+                   "Byte compile file(s) async"
+                   'async-byte-compile-file
+                   helm-source-find-files
+                   'helm-ff-candidates-lisp-p)
+                  ;; Add add-to-projectile action after helm-find-files.
+                  (let ((find-files-action (assoc 'action helm-source-find-files)))
+                    (setcdr find-files-action
+                            (cons
+                             (cadr find-files-action)
+                             (cons '("Add to projectile" . helm-add-to-projectile)
+                                   (cddr find-files-action))))))))
 
-  (defun helm-add-to-projectile (path)
-    "Add directory of file to projectile projects.
-  Used as helm action in helm-source-find-files"
-    (projectile-add-known-project (file-name-directory path)))
+    ;; Use helm-find-files actions in helm-projectile
+    (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
+        (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
 
-  (global-set-key (kbd "H-h p") 'helm-projectile)
-  (global-set-key (kbd "H-h g") 'helm-do-grep)
-  (global-set-key (kbd "H-h f") 'helm-find-files)
-  (global-set-key (kbd "H-h r") 'helm-resume)
-  (global-set-key (kbd "H-h b") 'helm-bookmarks)
-  (global-set-key (kbd "H-h l") 'helm-buffers-list)
-  (global-set-key (kbd "H-M-h") 'helm-M-x)
-  (global-set-key (kbd "H-h w") 'helm-world-time)
-  (global-set-key (kbd "H-h s") 'helm-swoop)
-  (global-set-key (kbd "C-c m") 'helm-mini)
+    (defun helm-add-to-projectile (path)
+      "Add directory of file to projectile projects.
+    Used as helm action in helm-source-find-files"
+      (projectile-add-known-project (file-name-directory path)))
 
-  (setq display-time-world-list
-        '(("America/Los_Angeles" "Santa Barbara")
-          ("America/New_York" "New York")
-          ("Europe/London" "London")
-          ("Europe/Lisbon" "Lisboa")
-          ("Europe/Madrid" "Barcelona")
-          ("Europe/Paris" "Paris")
-          ("Europe/Berlin" "Berlin")
-          ("Europe/Rome" "Rome")
-          ;; ("Europe/Albania" "Gjirokastra") ;; what city to name here?
-          ("Europe/Athens" "Athens")
-          ("Asia/Calcutta" "Kolkatta")
-          ("Asia/Jakarta" "Jakarta")
-          ("Asia/Shanghai" "Shanghai")
-          ("Asia/Tokyo" "Tokyo")))
+    (global-set-key (kbd "H-h p") 'helm-projectile)
+    (global-set-key (kbd "H-h g") 'helm-do-grep)
+    (global-set-key (kbd "H-h f") 'helm-find-files)
+    (global-set-key (kbd "H-h r") 'helm-resume)
+    (global-set-key (kbd "H-h b") 'helm-bookmarks)
+    (global-set-key (kbd "H-h l") 'helm-buffers-list)
+    (global-set-key (kbd "H-M-h") 'helm-M-x)
+    (global-set-key (kbd "H-h w") 'helm-world-time)
+    (global-set-key (kbd "H-h s") 'helm-swoop)
+    (global-set-key (kbd "C-c m") 'helm-mini)
+
+    (setq display-time-world-list
+          '(("America/Los_Angeles" "Santa Barbara")
+            ("America/New_York" "New York")
+            ("Europe/London" "London")
+            ("Europe/Lisbon" "Lisboa")
+            ("Europe/Madrid" "Barcelona")
+            ("Europe/Paris" "Paris")
+            ("Europe/Berlin" "Berlin")
+            ("Europe/Rome" "Rome")
+            ;; ("Europe/Albania" "Gjirokastra") ;; what city to name here?
+            ("Europe/Athens" "Athens")
+            ("Asia/Calcutta" "Kolkatta")
+            ("Asia/Jakarta" "Jakarta")
+            ("Asia/Shanghai" "Shanghai")
+            ("Asia/Tokyo" "Tokyo")))
 #+END_SRC
 
 *** Note on icicle key bindings and org-mode
@@ -780,7 +799,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
          (plist-get language-plist :template-func)
          (list
           language
-          (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "")
+          (read-no-blanks-input "Title? (only alpha-numeric, - and _ chars): " "")
           (plist-get language-plist :extension))))))
 
   (file-name-sans-extension "/test/abcd.efgh")
@@ -929,6 +948,7 @@ Needs debugging: One of these modes breaks sclang-start:
 
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   (require 'paredit) ;; smart edit parentheses
+  (require 'cl)
   (require 'litable) ;; show lisp eval results in the buffer, interactively
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
@@ -1844,8 +1864,33 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 #+END_SRC
+*** org-export for docpad
+:PROPERTIES:
+:ID:       4534C8F5-207C-498B-B866-3F9DF319471F
+:eval-id:  2
+:END:
+#+BEGIN_SRC emacs-lisp
+  (defun org-html-export-as-html-body-only ()
+    "Export only the body. Useful for using the built-in exporter of Org mode
+  with the docpad website framework."
+      (interactive)
+      (let ((path
+             (concat
+              (file-name-sans-extension (buffer-file-name))
+              ".html")))
+        (message path)
+        (org-html-export-as-html
+            nil ;; async
+            nil ;; subtreep
+            nil ;; visible-only
+            t   ;; body only
+            ;; ext-plist (not given here)
+            )
+        (write-file path)
+        (message (format "written to path: %s" path))))
 
-
+  (global-set-key (kbd "H-h H-d") 'org-html-export-as-html-body-only)
+#+END_SRC
 *** Internal: Load org-pm
 
 #+BEGIN_SRC elisp

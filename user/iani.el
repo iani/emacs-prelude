@@ -194,13 +194,32 @@ asks to select a *subdir* of selected project to dired."
 ;; Don't bicker if not in a project:
 (setq projectile-require-project-root)
 
-;; Add add-to-projectile action after helm-find-files.
-(let ((find-files-action (assoc 'action helm-source-find-files)))
-  (setcdr find-files-action
-          (cons
-           (cadr find-files-action)
-           (cons '("Add to projectile" . helm-add-to-projectile)
-                 (cddr find-files-action)))))
+;; Added by IZ following this:
+;; https://github.com/emacs-helm/helm/issues/604
+;; :
+
+(add-hook 'helm-find-files-before-init-hook
+          (lambda ()
+            (progn
+              ;; List Hg files in project.
+              (helm-add-action-to-source-if
+               "Hg list files"
+               'helm-ff-hg-find-files
+               helm-source-find-files
+               'helm-hg-root-p)
+              ;; Byte compile files async
+              (helm-add-action-to-source-if
+               "Byte compile file(s) async"
+               'async-byte-compile-file
+               helm-source-find-files
+               'helm-ff-candidates-lisp-p)
+              ;; Add add-to-projectile action after helm-find-files.
+              (let ((find-files-action (assoc 'action helm-source-find-files)))
+                (setcdr find-files-action
+                        (cons
+                         (cadr find-files-action)
+                         (cons '("Add to projectile" . helm-add-to-projectile)
+                               (cddr find-files-action))))))))
 
 ;; Use helm-find-files actions in helm-projectile
 (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
@@ -396,6 +415,8 @@ Used as helm action in helm-source-find-files"
     ("markdown" .
      (:extension "md" :template-func make-md-template))
     ("shell" .
+     (:extension "sh" :template-func make-sh-template))
+    ("git" .
      (:extension "sh" :template-func make-sh-template))))
 
 (defun scratchpad-menu (&optional folderp)
@@ -409,7 +430,7 @@ Used as helm action in helm-source-find-files"
        (plist-get language-plist :template-func)
        (list
         language
-        (read-no-blanks-input "Title? (only alpha-numeric, - and _ pls: " "")
+        (read-no-blanks-input "Title? (only alpha-numeric, - and _ chars): " "")
         (plist-get language-plist :extension))))))
 
 (file-name-sans-extension "/test/abcd.efgh")
@@ -534,6 +555,7 @@ Used as helm action in helm-source-find-files"
 
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (require 'paredit) ;; smart edit parentheses
+(require 'cl)
 (require 'litable) ;; show lisp eval results in the buffer, interactively
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-whitespace-mode)
@@ -1125,6 +1147,27 @@ files to org-agenda-files."
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
+
+(defun org-html-export-as-html-body-only ()
+  "Export only the body. Useful for using the built-in exporter of Org mode
+with the docpad website framework."
+    (interactive)
+    (let ((path
+           (concat
+            (file-name-sans-extension (buffer-file-name))
+            ".html")))
+      (message path)
+      (org-html-export-as-html
+          nil ;; async
+          nil ;; subtreep
+          nil ;; visible-only
+          t   ;; body only
+          ;; ext-plist (not given here)
+          )
+      (write-file path)
+      (message (format "written to path: %s" path))))
+
+(global-set-key (kbd "H-h H-d") 'org-html-export-as-html-body-only)
 
 (setq magit-repo-dirs
       '(
