@@ -872,7 +872,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
     (find-file
      (scratchpad-make-full-path folder title extension))
     (insert
-     (concat "#+TITLE: " title (format-time-string "\n#+DATE: (%c %Z)\n\n"))))
+     (concat "#+TITLE: " title (format-time-string "\n#+DATE: %c %Z\n\n"))))
 
   (global-set-key (kbd "H-h H-n") 'scratchpad-menu)
 

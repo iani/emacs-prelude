@@ -418,7 +418,9 @@ asks to select a *subdir* of selected project to dired."
     ("shell" .
      (:extension "sh" :template-func make-sh-template))
     ("git" .
-     (:extension "sh" :template-func make-sh-template))))
+     (:extension "sh" :template-func make-sh-template))
+    ("org-mode" .
+     (:extension "org" :template-func make-org-template))))
 
 (defun scratchpad-menu (&optional folderp)
   (interactive "P")
@@ -495,6 +497,13 @@ asks to select a *subdir* of selected project to dired."
    (scratchpad-make-full-path folder title extension))
   (insert
    (concat "#!/bin/sh\n# " title (format-time-string "(%c %Z)\n\n"))))
+
+(defun make-org-template (folder title &optional extension)
+  (unless extension (setq extension "org"))
+  (find-file
+   (scratchpad-make-full-path folder title extension))
+  (insert
+   (concat "#+TITLE: " title (format-time-string "\n#+DATE: %c %Z\n\n"))))
 
 (global-set-key (kbd "H-h H-n") 'scratchpad-menu)
 
