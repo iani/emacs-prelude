@@ -13,7 +13,7 @@
 (blink-cursor-mode 1)
 
 ;; (load-theme 'solarized-dark)
-(load-theme 'zenburn)
+;; (load-theme 'zenburn)
 ;; (load-theme 'resolve)
 
 (defun dark-theme ()
@@ -123,13 +123,15 @@
 
 (require 'dash)
 
+(desktop-save-mode 1)
+
 (require 'ido)
 (require 'flx-ido)
 (require 'imenu+)
 (require 'auto-complete)
 (ido-mode t)
 (ido-vertical-mode t)
-;; (icicle-mode) ;; breaks dired? Tue, Nov  4 2014, 19:17 EET
+(icicle-mode) ;; breaks dired? Tue, Nov  4 2014, 19:17 EET
 ;; guide-key causes erratic delays when posting in ths SC post buffer
 ;; from sclang.  Therefore disabled.
 ;; (require 'guide-key)
@@ -257,18 +259,6 @@ asks to select a *subdir* of selected project to dired."
             ("Asia/Jakarta" "Jakarta")
             ("Asia/Shanghai" "Shanghai")
             ("Asia/Tokyo" "Tokyo")))
-
-(eval-after-load "icicles-opt.el"
-    (add-hook
-     'icicle-mode-hook
-     (lambda ()
-       (setq my-icicle-top-level-key-bindings
-             (mapcar (lambda (lst)
-                       (unless (string= "icicle-occur" (nth 1 lst)) lst))
-                     icicle-top-level-key-bindings))
-       (setq icicle-top-level-key-bindings my-icicle-top-level-key-bindings) )))
-
-;;  (icy-mode)
 
 (require 'lacarte)
 ;; (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
@@ -577,10 +567,9 @@ asks to select a *subdir* of selected project to dired."
 (setq org-goto-interface 'outline-path-completion
       org-goto-max-level 10)
 
-(eval-after-load 'org
- '(progn ;; H-C-i = H-TAB:
-  (define-key org-mode-map (kbd "H-TAB") 'icicle-imenu)
-  (define-key org-mode-map (kbd "H-C-l") 'lacarte-execute-menu-command)))
+;; Previously bound only to org-mode map.
+(global-set-key (kbd "H-TAB") 'icicle-imenu)
+(global-set-key (kbd "H-C-l") 'lacarte-execute-menu-command)
 
 (defun org-icicle-occur ()
   "In org-mode, show entire buffer contents before running icicle-occur.
@@ -592,7 +581,7 @@ asks to select a *subdir* of selected project to dired."
   (recenter 3))
 
 (eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
+  '(define-key org-mode-map (kbd "C-c '") 'org-edit-special))
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
 (defun org-icicle-imenu (separate-buffer)

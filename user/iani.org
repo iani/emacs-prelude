@@ -50,7 +50,7 @@ The color for solarized-light is: #FAD9B8 (tentative...)
 
 #+BEGIN_SRC emacs-lisp
 ;; (load-theme 'solarized-dark)
-(load-theme 'zenburn)
+;; (load-theme 'zenburn)
 ;; (load-theme 'resolve)
 #+END_SRC
 
@@ -263,10 +263,7 @@ I load it here to have it available when experimenting with code.
 
 Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
-Breaks Dired? Tue, Nov  4 2014, 19:18 EET
-
-DISABLED!
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (desktop-save-mode 1)
 #+END_SRC
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
@@ -278,7 +275,7 @@ DISABLED!
   (require 'auto-complete)
   (ido-mode t)
   (ido-vertical-mode t)
-  ;; (icicle-mode) ;; breaks dired? Tue, Nov  4 2014, 19:17 EET
+  (icicle-mode) ;; breaks dired? Tue, Nov  4 2014, 19:17 EET
   ;; guide-key causes erratic delays when posting in ths SC post buffer
   ;; from sclang.  Therefore disabled.
   ;; (require 'guide-key)
@@ -458,27 +455,7 @@ C-c ' in org mode runs the command org-edit-special, for editing babel commands 
 2. Scroll down to Icicle Top Level Key Bindings, open the list, find icicle-occur, enter C-c C-M-' to the =Key:= field, go to top of buffer, use the =State= button to save this.
 
 See also discussion here: http://www.emacswiki.org/emacs/Icicles_-_Key_Binding_Discussion
-The relevant part is cited below:
 
-#+BEGIN_QUOTE
-But what is the best way to remove an internal value in the option `icicle-top-level-key-bindings’? It is a quite big list in its value. If I choose to remove that specific line through customize that variable, it would make my init file un-readable. So I need to write some function to make it in the runtime. Here is my function:
-#+END_QUOTE
-
-#+BEGIN_SRC emacs-lisp
-  (eval-after-load "icicles-opt.el"
-    (add-hook
-     'icicle-mode-hook
-     (lambda ()
-       (setq my-icicle-top-level-key-bindings
-             (mapcar (lambda (lst)
-                       (unless (string= "icicle-occur" (nth 1 lst)) lst))
-                     icicle-top-level-key-bindings))
-       (setq icicle-top-level-key-bindings my-icicle-top-level-key-bindings) )))
-
-;;  (icy-mode)
-#+END_SRC
-
-*
 *** lacarte: select menu items from the keyboard (good for org-mode with imenu)
 
 #+BEGIN_SRC emacs-lisp
@@ -994,6 +971,10 @@ Emacs sexp, install emacs web-beautify package:
   (global-set-key (kbd "H-C-l") 'lacarte-execute-menu-command)
 #+END_SRC
 **** making icicle-imenu and icicle-occur work with org-mode
+:PROPERTIES:
+:ID:       0C9AB822-9FE5-4F1B-9925-046170CA4828
+:eval-id:  2
+:END:
 Following needs review! Fri, Nov 28 2014, 10:44 EET
 #+BEGIN_SRC emacs-lisp
   (defun org-icicle-occur ()
@@ -1006,7 +987,7 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
     (recenter 3))
 
   (eval-after-load 'org
-    '(define-key org-mode-map (kbd "C-c C-'") 'org-icicle-occur))
+    '(define-key org-mode-map (kbd "C-c '") 'org-edit-special))
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
   (defun org-icicle-imenu (separate-buffer)
