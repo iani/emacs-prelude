@@ -787,7 +787,9 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
       ("shell" .
        (:extension "sh" :template-func make-sh-template))
       ("git" .
-       (:extension "sh" :template-func make-sh-template))))
+       (:extension "sh" :template-func make-sh-template))
+      ("org-mode" .
+       (:extension "org" :template-func make-org-template))))
 
   (defun scratchpad-menu (&optional folderp)
     (interactive "P")
