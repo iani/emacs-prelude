@@ -986,17 +986,15 @@ Emacs sexp, install emacs web-beautify package:
         org-goto-max-level 10)
 #+END_SRC
 
-*** Working with icicles/ido-menu/lacarte in org-mode
+*** Working with icicles/ido-menu/lacarte in org-mode and elsewhere
 **** lacarte/icicle-menu shortcut: H-C-i,
 #+BEGIN_SRC emacs-lisp
-
-  (eval-after-load 'org
-   '(progn ;; H-C-i = H-TAB:
-    (define-key org-mode-map (kbd "H-TAB") 'icicle-imenu)
-    (define-key org-mode-map (kbd "H-C-l") 'lacarte-execute-menu-command)))
+  ;; Previously bound only to org-mode map.
+  (global-set-key (kbd "H-TAB") 'icicle-imenu)
+  (global-set-key (kbd "H-C-l") 'lacarte-execute-menu-command)
 #+END_SRC
 **** making icicle-imenu and icicle-occur work with org-mode
-
+Following needs review! Fri, Nov 28 2014, 10:44 EET
 #+BEGIN_SRC emacs-lisp
   (defun org-icicle-occur ()
     "In org-mode, show entire buffer contents before running icicle-occur.
