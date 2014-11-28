@@ -49,7 +49,8 @@ Note on hl-sexp custom face color: The color for solarized-dark is:
 The color for solarized-light is: #FAD9B8 (tentative...)
 
 #+BEGIN_SRC emacs-lisp
-(load-theme 'solarized-dark)
+;; (load-theme 'solarized-dark)
+(load-theme 'zenburn)
 ;; (load-theme 'resolve)
 #+END_SRC
 
@@ -381,7 +382,7 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/
     ;; must call these to initialize  helm-source-find-files
 
     (require 'helm-files) ;; (not auto-loaded by system!)
-    (require 'helm-projectile)
+;;    (require 'helm-projectile)
     (require 'helm-swoop) ;; must be put into packages
     ;; Don't bicker if not in a project:
     (setq projectile-require-project-root)
@@ -414,8 +415,8 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/
                                    (cddr find-files-action))))))))
 
     ;; Use helm-find-files actions in helm-projectile
-    (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
-        (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
+ ;;   (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
+ ;;       (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
 
     (defun helm-add-to-projectile (path)
       "Add directory of file to projectile projects.
@@ -864,6 +865,13 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
     (insert
      (concat "#!/bin/sh\n# " title (format-time-string "(%c %Z)\n\n"))))
 
+  (defun make-org-template (folder title &optional extension)
+    (unless extension (setq extension "org"))
+    (find-file
+     (scratchpad-make-full-path folder title extension))
+    (insert
+     (concat "#+TITLE: " title (format-time-string "\n#+DATE: (%c %Z)\n\n"))))
+
   (global-set-key (kbd "H-h H-n") 'scratchpad-menu)
 
   (add-hook 'after-save-hook
@@ -878,7 +886,6 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
                      (shell-command (concat "chmod u+x " buffer-file-name))
                      (message
                       (concat "Saved as script: " buffer-file-name)))))
-
 
 #+END_SRC
 
