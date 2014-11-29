@@ -973,10 +973,12 @@ Emacs sexp, install emacs web-beautify package:
 **** making icicle-imenu and icicle-occur work with org-mode
 :PROPERTIES:
 :ID:       0C9AB822-9FE5-4F1B-9925-046170CA4828
-:eval-id:  2
+:eval-id:  3
 :END:
 Following needs review! Fri, Nov 28 2014, 10:44 EET
 #+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-c '"))
+
   (defun org-icicle-occur ()
     "In org-mode, show entire buffer contents before running icicle-occur.
    Otherwise icicle-occur will not place cursor at found location,
@@ -989,7 +991,7 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c '") 'org-edit-special))
   (eval-after-load 'org
-    '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
+    '(define-key org-mode-map (kbd "H-i") 'org-icicle-occur))
   (defun org-icicle-imenu (separate-buffer)
     "In org-mode, show entire buffer contents before running icicle-imenu.
   Otherwise icicle-occur will not place cursor at found location,
@@ -999,13 +1001,15 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
   - go back to the position where the point was before the command, in the
     original buffer."
     (interactive "P")
+    (icicle-mode 1)
     (show-all)
     (let ((mark (point)))
       (icicle-imenu (point-min) (point-max) t)
       (cond (separate-buffer
              (org-tree-to-indirect-buffer)
              (goto-char mark))
-            (t (recenter 4)))))
+            (t (recenter 4))))
+    (icicle-mode -1))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -1020,7 +1024,9 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
   ;; this is a redundant second try for the above, to be removed after testing:
   (add-hook 'org-mode-hook
             (lambda ()
-              (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)))
+              (icicle-mode -1)
+              (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
+              (local-set-key (kbd "C-c '") 'org-edit-special)))
 
   ;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
   ;;; Still problems. Cannot use standard org refiling with icicles activated!

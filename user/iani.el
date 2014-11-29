@@ -571,6 +571,8 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-TAB") 'icicle-imenu)
 (global-set-key (kbd "H-C-l") 'lacarte-execute-menu-command)
 
+(global-unset-key (kbd "C-c '"))
+
 (defun org-icicle-occur ()
   "In org-mode, show entire buffer contents before running icicle-occur.
  Otherwise icicle-occur will not place cursor at found location,
@@ -583,7 +585,7 @@ asks to select a *subdir* of selected project to dired."
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c '") 'org-edit-special))
 (eval-after-load 'org
-  '(define-key org-mode-map (kbd "C-c i o") 'org-icicle-occur))
+  '(define-key org-mode-map (kbd "H-i") 'org-icicle-occur))
 (defun org-icicle-imenu (separate-buffer)
   "In org-mode, show entire buffer contents before running icicle-imenu.
 Otherwise icicle-occur will not place cursor at found location,
@@ -593,13 +595,15 @@ If called with prefix argument (C-u), then:
 - go back to the position where the point was before the command, in the
   original buffer."
   (interactive "P")
+  (icicle-mode 1)
   (show-all)
   (let ((mark (point)))
     (icicle-imenu (point-min) (point-max) t)
     (cond (separate-buffer
            (org-tree-to-indirect-buffer)
            (goto-char mark))
-          (t (recenter 4)))))
+          (t (recenter 4))))
+  (icicle-mode -1))
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -614,7 +618,9 @@ If called with prefix argument (C-u), then:
 ;; this is a redundant second try for the above, to be removed after testing:
 (add-hook 'org-mode-hook
           (lambda ()
-            (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)))
+            (icicle-mode -1)
+            (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
+            (local-set-key (kbd "C-c '") org-edit-special)))
 
 ;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
 ;;; Still problems. Cannot use standard org refiling with icicles activated!
