@@ -125,6 +125,38 @@
 
 (desktop-save-mode 1)
 
+(require 'breadcrumb)
+
+;; (global-set-key [(shift space)]         'bc-set)              ;; Shift-SPACE for set bookmark
+(global-set-key (kbd "S-SPC")            'bc-set) ;; Shift-SPACE for set bookmark
+(global-set-key [(meta j)]              'bc-previous)       ;; M-j for jump to previous
+(global-set-key [(shift meta j)]        'bc-next)           ;; Shift-M-j for jump to next
+(global-set-key [(meta up)]             'bc-local-previous) ;; M-up-arrow for local previous
+(global-set-key [(meta down)]           'bc-local-next)     ;; M-down-arrow for local next
+(global-set-key [(control c)(j)]        'bc-goto-current)   ;; C-c j for jump to current bookmark
+(global-set-key [(control x)(meta j)]   'bc-list)           ;; C-x M-j for the bookmark menu list
+
+(require 'bookmark+)
+
+(defun bmkp-desktop-save-named (&optional name)
+  "mod of bmkp-desktop-save to save desktop bookmark under name
+in under one default directory in users prelude folder."
+  (interactive "MDesktop bookmark filename: ")
+  (let ((path
+         (file-truename
+          (concat
+           "~/.emacs.d/personal/desktop-bookmarks/"
+           (replace-regexp-in-string "/" "_" name)
+           ".desktop"))))
+    (bmkp-desktop-save path)
+    (let ((bookmark-make-record-function
+           (lexical-let ((df path))
+             (lambda () (bmkp-make-desktop-record df))))
+          (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
+      (call-interactively #'bookmark-set))))
+
+(global-set-key (kbd "C-x r C-k") 'bmkp-desktop-save-named)
+
 (require 'ido)
 (require 'flx-ido)
 (require 'imenu+)
@@ -140,10 +172,10 @@
 ;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 
 (require 'windmove)
-(global-set-key (kbd "<C-s-up>") 'windmove-up)
-(global-set-key (kbd "<C-s-down>") 'windmove-down)
-(global-set-key (kbd "<C-s-right>") 'windmove-right)
-(global-set-key (kbd "<C-s-left>") 'windmove-left)
+(global-set-key (kbd "H-{") 'windmove-up)
+(global-set-key (kbd "H-}") 'windmove-down)
+(global-set-key (kbd "H-[") 'windmove-right)
+(global-set-key (kbd "H-]") 'windmove-left)
 
 (require 'buffer-move)
 (global-set-key (kbd "<S-prior>") 'buf-move-up)
@@ -571,8 +603,6 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-TAB") 'icicle-imenu)
 (global-set-key (kbd "H-C-l") 'lacarte-execute-menu-command)
 
-(global-unset-key (kbd "C-c '"))
-
 (defun org-icicle-occur ()
   "In org-mode, show entire buffer contents before running icicle-occur.
  Otherwise icicle-occur will not place cursor at found location,
@@ -603,7 +633,8 @@ If called with prefix argument (C-u), then:
            (org-tree-to-indirect-buffer)
            (goto-char mark))
           (t (recenter 4))))
-  (icicle-mode -1))
+  (icicle-mode -1)
+  )
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -619,8 +650,9 @@ If called with prefix argument (C-u), then:
 (add-hook 'org-mode-hook
           (lambda ()
             (icicle-mode -1)
+            (prelude-mode -1)
             (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
-            (local-set-key (kbd "C-c '") org-edit-special)))
+            (local-set-key (kbd "C-c '") 'org-edit-special)))
 
 ;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
 ;;; Still problems. Cannot use standard org refiling with icicles activated!
