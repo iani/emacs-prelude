@@ -9,7 +9,8 @@
    ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
  '(ansi-term-color-vector
    [unspecified "#1F1611" "#660000" "#144212" "#EFC232" "#5798AE" "#BE73FD" "#93C1BC" "#E6E1DC"] t)
- '(bmkp-last-as-first-bookmark-file "/Users/iani/.emacs.d/personal/bookmark-sets/141130.bmk")
+ '(bmkp-last-as-first-bookmark-file
+   "/Users/iani/.emacs.d/personal/bookmarks/default-bookmarks.bmk")
  '(calendar-latitude 39.619)
  '(calendar-longitude 19.919)
  '(compilation-message-face (quote default))
@@ -77,7 +78,7 @@
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-crypt org-docview org-gnus org-id org-info org-jsinfo org-habit org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-mac-iCal)))
- '(org-tags-column -90)
+ '(org-tags-column -50)
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(tab-width 4)
  '(term-default-bg-color "#002b36")

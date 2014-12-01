@@ -12,40 +12,6 @@
 
 (blink-cursor-mode 1)
 
-;; (load-theme 'solarized-dark)
-;; (load-theme 'zenburn)
-;; (load-theme 'resolve)
-
-(defun dark-theme ()
-  "set theme to solarized dark, adapt hl faces."
-  (interactive)
-  (load-theme 'solarized-dark)
- (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  '(mode-line-buffer-id ((t (:foreground "gray97" :weight bold))))
-  '(helm-selection ((t (:background "gray100" :underline t))))
-  '(cursor ((t (:background "grey" :foreground "dark red"))))
-  '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
-  '(hl-sexp-face ((t (:background "#002530"))))))
-
-(defun light-theme ()
-  "set theme to solarized dark, adapt hl faces."
-  (interactive)
-  (load-theme 'tsdh-light)
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(mode-line-buffer-id ((t (:foreground "gray90" :weight bold))))
-   '(helm-selection ((t (:background "green1" :underline t))))
-   '(cursor ((t (:background "grey" :foreground "dark red"))))
-   '(hl-line ((t (:inherit highlight :background "grey96" :underline nil))))
-   '(hl-sexp-face ((t (:background "LemonChiffon1"))))))
-
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -54,30 +20,6 @@
  ;; Note: iso10646-1 = Universal Character set (UCS)
  ;; It is compatible to Unicode, in its basic range
                   '("Menlo" . "iso10646-1"))
-
-(defvar default-font-size 12
-"Initial default font size at startup.")
-(defun increase-font-size-globally (points)
-  "Increase the global font size for all frames by 1 point"
-  (interactive "NHow many points?: ")
-  (setq default-font-size (+ points default-font-size))
-  (set-frame-font (format "Monaco-%s" default-font-size) t t))
-
-(defun decrease-font-size-globally (points)
-  "Decrease the global font size for all frames by 1 point"
-  (interactive "NHow many points?: ")
-  (setq default-font-size (- default-font-size points))
-  (set-frame-font (format "Monaco-%s" default-font-size) t t))
-
-(defun set-font-size-globally (points)
-  "Set the global font size for all frames to n points."
-  (interactive "NSet font size to how many points?: ")
-  (setq default-font-size points)
-  (set-frame-font (format "Monaco-%s" default-font-size) t t))
-
-(global-set-key (kbd "C-M--") 'decrease-font-size-globally)
-(global-set-key (kbd "C-M-+") 'increase-font-size-globally)
-(global-set-key (kbd "C-M-=") 'set-font-size-globally)
 
 ;; (maximize-frame) ;; maximize frame on startup
 (defun toggle-fullscreen ()
@@ -123,8 +65,6 @@
 
 (require 'dash)
 
-(desktop-save-mode 1)
-
 (require 'breadcrumb)
 
 ;; (global-set-key [(shift space)]         'bc-set)              ;; Shift-SPACE for set bookmark
@@ -136,19 +76,35 @@
 (global-set-key [(control c)(j)]        'bc-goto-current)   ;; C-c j for jump to current bookmark
 (global-set-key [(control x)(meta j)]   'bc-list)           ;; C-x M-j for the bookmark menu list
 
+(require 'desktop)
 (require 'bookmark+)
 
 (setq bookmark-default-file
-      "~/.emacs.d/personal/bookmark-sets/default-bookmarks.bmk")
+      "~/.emacs.d/personal/bookmarks/default-bookmarks.bmk")
+
+(defun bookmark-save-named (&optional name)
+  "mod of bookmark-save to save bookmark under name
+in under one default directory in users prelude folder."
+  (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmarks/: ")
+  (let ((path
+         (file-truename
+          (concat
+           "~/.emacs.d/personal/bookmarks/"
+           (replace-regexp-in-string "/" "_" name)
+           ".bmk"))))
+    (setq bmkp-current-bookmark-file path)
+    (bookmark-save)))
+
+(global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
 
 (defun bmkp-desktop-save-named (&optional name)
   "mod of bmkp-desktop-save to save desktop bookmark under name
 in under one default directory in users prelude folder."
-  (interactive "MSave desktop ~/.emacs/personal/desktop-bookmarks/?: ")
+  (interactive "MSave desktop ~/.emacs/personal/bookmarks/desktops/?: ")
   (let ((path
          (file-truename
           (concat
-           "~/.emacs.d/personal/desktop-bookmarks/"
+           "~/.emacs.d/personal/bookmarks/desktops/"
            (replace-regexp-in-string "/" "_" name)
            ".desktop"))))
     (bmkp-desktop-save path)
@@ -158,21 +114,9 @@ in under one default directory in users prelude folder."
           (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
       (call-interactively #'bookmark-set))))
 
-(defun bookmark-save-named (&optional name)
-  "mod of bookmark-save to save bookmark under name
-in under one default directory in users prelude folder."
-  (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmark-sets/: ")
-  (let ((path
-         (file-truename
-          (concat
-           "~/.emacs.d/personal/bookmark-sets/"
-           (replace-regexp-in-string "/" "_" name)
-           ".bmk"))))
-    (setq bmkp-current-bookmark-file path)
-    (bookmark-save)))
-
 (global-set-key (kbd "C-x r C-k") 'bmkp-desktop-save-named)
-(global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
+(global-set-key (kbd "C-x p r") 'bookmark-rename)
+(define-key bookmark-bmenu-mode-map "r" 'bookmark-rename)
 
 (require 'ido)
 (require 'flx-ido)
@@ -668,7 +612,7 @@ If called with prefix argument (C-u), then:
           (lambda ()
             (icicle-mode -1)
             (prelude-mode -1)
-            (message "icicles and prelude disabledn ORG mode buffer")
+            ;; (message "icicles and prelude disabledn ORG mode buffer")
             (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
             (local-set-key (kbd "C-c '") 'org-edit-special)))
 

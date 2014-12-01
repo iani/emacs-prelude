@@ -1,8 +1,6 @@
 * Generic Emacs Customization
-
 ** Prelude stuff
 *** Turn off guru mode
-
 See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode-in-emacs-prelude
 
 #+BEGIN_SRC emacs-lisp
@@ -13,6 +11,7 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
           (lambda ()
             (guru-mode -1)) t)
 #+END_SRC
+
 *** Prelude-copy-filename-to-clipboard
 
 #+BEGIN_SRC emacs-lisp
@@ -24,71 +23,12 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 #+BEGIN_SRC emacs-lisp
 (setq visible-bell t)
 #+END_SRC
+
+
 ** Blink cursor
 
 #+BEGIN_SRC emacs-lisp
 (blink-cursor-mode 1)
-#+END_SRC
-
-** DISABLED Use replace-colorthemes for large selection of themes, Emacs 24-style
-CLOSED: [2014-04-05 Sat 19:42]
-
-#+BEGIN_SRC elisp
-;;  (add-to-list 'custom-theme-load-path
-;;               (file-name-as-directory "/Users/iani/Documents/Dev/Emacs/replace-colorthemes/"))
-#+END_SRC
-
-Some themes (besides solarized-dark and zenburn):
-- resolve
-** Color Theme
-
-Note: Loading solarized-dark in custom.el without zenburn results in unreadable green selection background color for helm-swoop.  Loading solarized-dark here fixes this.
-
-Note on hl-sexp custom face color: The color for solarized-dark is:
-#002530 / #052530 / #062530
-The color for solarized-light is: #FAD9B8 (tentative...)
-
-#+BEGIN_SRC emacs-lisp
-;; (load-theme 'solarized-dark)
-;; (load-theme 'zenburn)
-;; (load-theme 'resolve)
-#+END_SRC
-
-*** Switching solarized-dark<->whiteboard theme: adapt highlight faces
-:PROPERTIES:
-:DATE:     <2014-06-24 Tue 16:57>
-:END:
-
-#+BEGIN_SRC emacs-lisp
-  (defun dark-theme ()
-    "set theme to solarized dark, adapt hl faces."
-    (interactive)
-    (load-theme 'solarized-dark)
-   (custom-set-faces
-    ;; custom-set-faces was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-    ;; Your init file should contain only one such instance.
-    ;; If there is more than one, they won't work right.
-    '(mode-line-buffer-id ((t (:foreground "gray97" :weight bold))))
-    '(helm-selection ((t (:background "gray100" :underline t))))
-    '(cursor ((t (:background "grey" :foreground "dark red"))))
-    '(hl-line ((t (:inherit highlight :background "#002030" :underline nil))))
-    '(hl-sexp-face ((t (:background "#002530"))))))
-
-  (defun light-theme ()
-    "set theme to solarized dark, adapt hl faces."
-    (interactive)
-    (load-theme 'tsdh-light)
-    (custom-set-faces
-     ;; custom-set-faces was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-     '(mode-line-buffer-id ((t (:foreground "gray90" :weight bold))))
-     '(helm-selection ((t (:background "green1" :underline t))))
-     '(cursor ((t (:background "grey" :foreground "dark red"))))
-     '(hl-line ((t (:inherit highlight :background "grey96" :underline nil))))
-     '(hl-sexp-face ((t (:background "LemonChiffon1"))))))
 #+END_SRC
 
 ** Internationalization: Set Mac OS native fonts for japanese/greek
@@ -97,6 +37,8 @@ The color for solarized-light is: #FAD9B8 (tentative...)
 :END:
 
 Here is a solution that works fine for displaying Latin, Greek and Japanese texts in the same buffer.  The Menlo font displays Greek clearly and smoothly, and since it is a mono-space font, it also works well in tables.  The two lisp expressions have to be evaluated in the following order for this to work.
+
+_Note: This is necessary if the latin font is set to some font that does not have a full greek character set._
 
 #+BEGIN_SRC emacs-lisp
 (set-fontset-font "fontset-default"
@@ -116,36 +58,6 @@ Links for further reading:
 http://sunsite.univie.ac.at/textbooks/emacs/emacs_22.html#SEC203
 http://www.gnu.org/software/emacs/manual/html_node/emacs/Modifying-Fontsets.html
 For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
-
-** Set Font Size globally
-
-Hack for changing font size globally, for presentations.  This affects also the font size of the status bar and temporary windows such as icicles etc.
-
-#+BEGIN_SRC emacs-lisp
-  (defvar default-font-size 12
-  "Initial default font size at startup.")
-  (defun increase-font-size-globally (points)
-    "Increase the global font size for all frames by 1 point"
-    (interactive "NHow many points?: ")
-    (setq default-font-size (+ points default-font-size))
-    (set-frame-font (format "Monaco-%s" default-font-size) t t))
-
-  (defun decrease-font-size-globally (points)
-    "Decrease the global font size for all frames by 1 point"
-    (interactive "NHow many points?: ")
-    (setq default-font-size (- default-font-size points))
-    (set-frame-font (format "Monaco-%s" default-font-size) t t))
-
-  (defun set-font-size-globally (points)
-    "Set the global font size for all frames to n points."
-    (interactive "NSet font size to how many points?: ")
-    (setq default-font-size points)
-    (set-frame-font (format "Monaco-%s" default-font-size) t t))
-
-  (global-set-key (kbd "C-M--") 'decrease-font-size-globally)
-  (global-set-key (kbd "C-M-+") 'increase-font-size-globally)
-  (global-set-key (kbd "C-M-=") 'set-font-size-globally)
-#+END_SRC
 
 ** Maximize/toggle frame
 #+BEGIN_SRC emacs-lisp
@@ -214,9 +126,7 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 
 #+RESULTS:
 : insert-timestamp
-
 ** Generic Packages
-
 *** Install el-get for installing of packages from github etc.
 
 See: https://github.com/dimitri/el-get/blob/master/README.md
@@ -236,9 +146,6 @@ See: https://github.com/dimitri/el-get/blob/master/README.md
 #+END_SRC
 
 #+RESULTS:
-
-
-
 *** Bring elisp up-to-date: dash.el
 
 #+BEGIN_QUOTE
@@ -257,13 +164,17 @@ I load it here to have it available when experimenting with code.
 
 #+RESULTS:
 : dash
-
-
 *** desktop
+    :PROPERTIES:
+    :ID:       8B25CBFB-8990-4B53-B364-967461073337
+    :eval-id:  2
+    :END:
 
-Save desktop between sessions.  To clear desktop: M-x desktop-clear
+Save desktop between sessions.  To clear desktop: M-x desktop-clear.
 
-#+BEGIN_SRC emacs-lisp
+Note: As of Mon, Dec  1 2014, 11:19 EET this creates error with sentinel process on startup.  Disabled.
+
+#+BEGIN_SRC elisp
 (desktop-save-mode 1)
 #+END_SRC
 
@@ -285,19 +196,37 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+  (require 'desktop)
   (require 'bookmark+)
 
   (setq bookmark-default-file
-        "~/.emacs.d/personal/bookmark-sets/default-bookmarks.bmk")
+        "~/.emacs.d/personal/bookmarks/default-bookmarks.bmk")
 
-  (defun bmkp-desktop-save-named (&optional name)
-    "mod of bmkp-desktop-save to save desktop bookmark under name
+  (defun bookmark-save-named (&optional name)
+    "mod of bookmark-save to save bookmark under name
   in under one default directory in users prelude folder."
-    (interactive "MSave desktop ~/.emacs/personal/desktop-bookmarks/?: ")
+    (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmarks/: ")
     (let ((path
            (file-truename
             (concat
-             "~/.emacs.d/personal/desktop-bookmarks/"
+             "~/.emacs.d/personal/bookmarks/"
+             (replace-regexp-in-string "/" "_" name)
+             ".bmk"))))
+      (setq bmkp-current-bookmark-file path)
+      (bookmark-save)))
+
+  (global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun bmkp-desktop-save-named (&optional name)
+    "mod of bmkp-desktop-save to save desktop bookmark under name
+  in under one default directory in users prelude folder."
+    (interactive "MSave desktop ~/.emacs/personal/bookmarks/desktops/?: ")
+    (let ((path
+           (file-truename
+            (concat
+             "~/.emacs.d/personal/bookmarks/desktops/"
              (replace-regexp-in-string "/" "_" name)
              ".desktop"))))
       (bmkp-desktop-save path)
@@ -307,22 +236,12 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
             (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
         (call-interactively #'bookmark-set))))
 
-  (defun bookmark-save-named (&optional name)
-    "mod of bookmark-save to save bookmark under name
-  in under one default directory in users prelude folder."
-    (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmark-sets/: ")
-    (let ((path
-           (file-truename
-            (concat
-             "~/.emacs.d/personal/bookmark-sets/"
-             (replace-regexp-in-string "/" "_" name)
-             ".bmk"))))
-      (setq bmkp-current-bookmark-file path)
-      (bookmark-save)))
-
   (global-set-key (kbd "C-x r C-k") 'bmkp-desktop-save-named)
-  (global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
+  (global-set-key (kbd "C-x p r") 'bookmark-rename)
+  (define-key bookmark-bmenu-mode-map "r" 'bookmark-rename)
+
 #+END_SRC
+
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
 #+BEGIN_SRC emacs-lisp
