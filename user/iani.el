@@ -607,9 +607,15 @@ If called with prefix argument (C-u), then:
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
 
+(eval-after-load 'org
+  '(progn
+     (prelude-mode -1)
+     ;;(message "prelude mode was switched off")
+     ))
 ;; this is a redundant second try for the above, to be removed after testing:
 (add-hook 'org-mode-hook
           (lambda ()
+          ;;  (message "TEST: turning off icicles and prelude in org mode.")
             (icicle-mode -1)
             (prelude-mode -1)
             ;; (message "icicles and prelude disabledn ORG mode buffer")

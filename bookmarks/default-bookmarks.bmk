@@ -2,26 +2,68 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("iani org (desktop)" 0 18
+(#1=(#("websites-org (desktop)" 0 1
+      (bmkp-full-record #1#)
+      1 22
+      (bmkp-full-record #1#))
+    (buffer-name . "org.org")
+    (visits . 0)
+    (time . #2=(21628 27113 436839 0))
+    (created . #2#)
+    (position . 1)
+    (filename . "   - no file -")
+    (desktop-file . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/bookmarks/desktops/websites-org (desktop).desktop")
+    (handler . bmkp-jump-desktop))
+#1=(#("websites-org" 0 1
+      (bmkp-full-record #1#)
+      1 12
+      (bmkp-full-record #1#))
+    (filename . "~/Dropbox/000WORKFILES/WEBSITES-ORG/org.org")
+    (buffer-name . "org.org")
+    (front-context-string . "* 2014\n** 2014-1")
+    (rear-context-string)
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21628 27070 147483 0))
+    (created . #2#)
+    (position . 1))
+#1=(#("empty" 0 1
+      (bmkp-full-record #1#)
+      1 5
+      (bmkp-full-record #1#))
+    (buffer-name . "*Ibuffer*")
+    (visits . 3)
+    (time 21628 26952 975884 0)
+    (created 21628 26718 997472 0)
+    (position . 1)
+    (filename . "   - no file -")
+    (desktop-file . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/bookmarks/desktops/empty.desktop")
+    (handler . bmkp-jump-desktop))
+#1=(#("iani org (desktop)" 0 1
+      (bmkp-full-record #1#)
+      1 18
       (bmkp-full-record #1#))
     (buffer-name . "iani.org")
-    (visits . 1)
-    (time 21628 25443 632737 0)
+    (visits . 5)
+    (time 21628 27979 947117 0)
     (created 21628 25219 451429 0)
     (position . 7197)
     (filename . "   - no file -")
     (desktop-file . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/bookmarks/desktops/test-again.desktop")
     (handler . bmkp-jump-desktop))
-#1=(#("emacs-prelude-setup" 0 19
+#1=(#("emacs-prelude-setup" 0 1
+      (bmkp-full-record #1#)
+      1 19
       (bmkp-full-record #1#))
     (buffer-name . "personal")
     (front-context-string . "bookmarks\n  -rw-")
     (rear-context-string . "04 Dec  1 14:34 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 0)
-    (time . #2=(21628 24727 224760 0))
-    (created . #2#)
+    (visits . 1)
+    (time 21628 25746 646883 0)
+    (created 21628 24727 224760 0)
     (position . 653)
     (filename . "/Users/iani/.emacs.d/personal/")
     (dired-directory . "~/.emacs.d/personal/")
@@ -70,19 +112,16 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("iani (org)" 0 1
-      (bmkp-full-record #1#)
-      1 10
+#1=(#("iani (org)" 0 10
       (bmkp-full-record #1#))
-    (end-position . 7202)
     (filename . "~/.emacs.d/personal/user/iani.org")
     (buffer-name . "iani.org")
     (front-context-string . "desktop-save-nam")
     (rear-context-string . "x r C-k\") 'bmkp-")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 7)
-    (time 21628 24250 10502 0)
-    (created 21628 14107 612124 0)
-    (position . 7202))
+    (visits . 0)
+    (time . #2=(21628 27985 311489 0))
+    (created . #2#)
+    (position . 7197))
 )

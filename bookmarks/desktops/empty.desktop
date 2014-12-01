@@ -1,0 +1,17 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Mon Dec  1 15:08:46 2014
+;; Desktop file format version 206
+;; Emacs version 24.4.1
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (21628 26718 984337 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#eeeeec") (background-color . "#2e3434") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#fce94f") (environment) (frameset--id . "7466-AEF9-0C38-ACB3") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (display . "turangalila2.local") (explicit-name) (tool-bar-position . top) (visibility . t) (height . 64) (width . 201) (left . 0) (top . 0)) ((min-height . 4) (min-width . 10) (min-height-ignore . 3) (min-width-ignore . 7) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 70) (min-pixel-height-ignore . 42) (min-pixel-width-ignore . 49) (min-pixel-height-safe . 14) (min-pixel-width-safe . 14)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 205) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "*Ibuffer*" (selected . t) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq register-alist nil)
+(setq file-name-history '("/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/.emacs.d/" "/Applications/Emacs.app/Contents/Resources/lisp/README" "~/.emacs.d/emacs.desktop-debug" "~/.emacs.d/" "/Users/iani/.emacs.d/personal/user/sc-snippets.el" "~/.emacs.d/" "~/.emacs.d/personal/desktop-bookmarks" "~/.emacs.d/personal/desktop" "~/.emacs.d/personal/bookmark-sets" "~/.emacs.d/personal/.emacs.desktop" "~/.emacs.d/personal/user/iani-disabled/iani.org_archive" "~/.emacs.d/personal/user/iani-disabled/iani.org" "~/.emacs.d/personal/user/iani-disabled/iani.el" "~/.emacs.d/personal/user/iani-disabled" "~/.emacs.d/personal/user/iani.org" "~/test-bkmark.el" "~/.emacs.d/" ".emacs.desktop" "~/.emacs.d/personal/user/iani.org" "~/.zshrc" "~/" "~/.emacs.d/" "~/.emacs.d/elpa/icicles-20141126.348/" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/.emacs.d/personal/user/" "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-export/.git/COMMIT_EDITMSG" "/Users/iani/.emacs.d/personal/user/iani.el" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/Desktop/VariousNotes/entypopolitistikoiforeis_2014.doc"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
