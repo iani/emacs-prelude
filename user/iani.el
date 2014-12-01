@@ -138,10 +138,13 @@
 
 (require 'bookmark+)
 
+(setq bookmark-default-file
+      "~/.emacs.d/personal/bookmark-sets/default-bookmarks.bmk")
+
 (defun bmkp-desktop-save-named (&optional name)
   "mod of bmkp-desktop-save to save desktop bookmark under name
 in under one default directory in users prelude folder."
-  (interactive "MDesktop bookmark filename: ")
+  (interactive "MSave desktop ~/.emacs/personal/desktop-bookmarks/?: ")
   (let ((path
          (file-truename
           (concat
@@ -155,7 +158,21 @@ in under one default directory in users prelude folder."
           (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
       (call-interactively #'bookmark-set))))
 
+(defun bookmark-save-named (&optional name)
+  "mod of bookmark-save to save bookmark under name
+in under one default directory in users prelude folder."
+  (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmark-sets/: ")
+  (let ((path
+         (file-truename
+          (concat
+           "~/.emacs.d/personal/bookmark-sets/"
+           (replace-regexp-in-string "/" "_" name)
+           ".bmk"))))
+    (setq bmkp-current-bookmark-file path)
+    (bookmark-save)))
+
 (global-set-key (kbd "C-x r C-k") 'bmkp-desktop-save-named)
+(global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
 
 (require 'ido)
 (require 'flx-ido)
@@ -174,8 +191,8 @@ in under one default directory in users prelude folder."
 (require 'windmove)
 (global-set-key (kbd "H-{") 'windmove-up)
 (global-set-key (kbd "H-}") 'windmove-down)
-(global-set-key (kbd "H-[") 'windmove-right)
-(global-set-key (kbd "H-]") 'windmove-left)
+(global-set-key (kbd "H-]") 'windmove-right)
+(global-set-key (kbd "H-[") 'windmove-left)
 
 (require 'buffer-move)
 (global-set-key (kbd "<S-prior>") 'buf-move-up)
@@ -651,6 +668,7 @@ If called with prefix argument (C-u), then:
           (lambda ()
             (icicle-mode -1)
             (prelude-mode -1)
+            (message "icicles and prelude disabledn ORG mode buffer")
             (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
             (local-set-key (kbd "C-c '") 'org-edit-special)))
 
