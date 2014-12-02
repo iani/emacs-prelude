@@ -1,4 +1,7 @@
 
+(require 'moe-theme)
+;; (moe-light)
+
 (guru-mode -1)
 (guru-global-mode -1)
 (setq prelude-guru nil)
@@ -594,8 +597,7 @@ If called with prefix argument (C-u), then:
            (org-tree-to-indirect-buffer)
            (goto-char mark))
           (t (recenter 4))))
-  (icicle-mode -1)
-  )
+  (icicle-mode -1))
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -607,18 +609,27 @@ If called with prefix argument (C-u), then:
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
 
-(eval-after-load 'org
-  '(progn
-     (prelude-mode -1)
-     ;;(message "prelude mode was switched off")
-     ))
-;; this is a redundant second try for the above, to be removed after testing:
+;; Both eval-after-load and org-mode hook do not work for switching off
+;; prelude mode, whitespace.  So using shortcuts as workaround:
+
+(defun turn-off-whitespace-mode ()
+  (interactive)
+  (whitespace-mode -1))
+
+(defun turn-off-icicle-mode ()
+  (interactive)
+  (icicle-mode -1))
+
+(defun turn-off-prelude-mode ()
+  (interactive)
+  (prelude-mode -1))
+
+(global-set-key (kbd "H-x w") 'turn-off-whitespace-mode)
+(global-set-key (kbd "H-x p") 'turn-off-prelude-mode)
+(global-set-key (kbd "H-x i") 'turn-off-icicle-mode)
+
 (add-hook 'org-mode-hook
           (lambda ()
-          ;;  (message "TEST: turning off icicles and prelude in org mode.")
-            (icicle-mode -1)
-            (prelude-mode -1)
-            ;; (message "icicles and prelude disabledn ORG mode buffer")
             (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
             (local-set-key (kbd "C-c '") 'org-edit-special)))
 

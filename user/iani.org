@@ -1,4 +1,14 @@
 * Generic Emacs Customization
+** Theme (experimental)
+:PROPERTIES:
+:DATE:     [2014-12-02 Tue 11:21]
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'moe-theme)
+  ;; (moe-light)
+#+END_SRC
+
 ** Prelude stuff
 *** Turn off guru mode
 See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode-in-emacs-prelude
@@ -983,8 +993,7 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
              (org-tree-to-indirect-buffer)
              (goto-char mark))
             (t (recenter 4))))
-    (icicle-mode -1)
-    )
+    (icicle-mode -1))
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -1003,26 +1012,20 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
     (interactive)
     (whitespace-mode -1))
 
+  (defun turn-off-icicle-mode ()
+    (interactive)
+    (icicle-mode -1))
+
   (defun turn-off-prelude-mode ()
     (interactive)
     (prelude-mode -1))
 
   (global-set-key (kbd "H-x w") 'turn-off-whitespace-mode)
   (global-set-key (kbd "H-x p") 'turn-off-prelude-mode)
+  (global-set-key (kbd "H-x i") 'turn-off-icicle-mode)
 
-
-  (eval-after-load 'org
-    '(progn
-       (prelude-mode -1)
-       ;;(message "prelude mode was switched off")
-       ))
-  ;; this is a redundant second try for the above, to be removed after testing:
   (add-hook 'org-mode-hook
             (lambda ()
-            ;;  (message "TEST: turning off icicles and prelude in org mode.")
-              (icicle-mode -1)
-              (prelude-mode -1)
-              ;; (message "icicles and prelude disabledn ORG mode buffer")
               (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
               (local-set-key (kbd "C-c '") 'org-edit-special)))
 
@@ -1076,7 +1079,9 @@ Have not figured out yet how to override those keys specifically.
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 #+END_SRC
+
 *** Use visual line, whitespace and windmove in org-mode
+***
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
