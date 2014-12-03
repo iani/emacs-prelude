@@ -1,0 +1,39 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Tue Dec  2 18:56:12 2014
+;; Desktop file format version 206
+;; Emacs version 24.4.1
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (21629 61228 642227 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 8) (right-fringe . 8) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.local") (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (visibility . t) (frameset--id . "137E-A8AA-A2B4-B3E3") (frameset--mini t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (powerline-cache) (height . 76) (width . 235) (left . 1440) (top + -180)) ((min-height . 4) (min-width . 10) (min-height-ignore . 3) (min-width-ignore . 6) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 42) (min-pixel-width-ignore . 48) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 1916) (pixel-height . 1064) (total-width . 273) (total-height . 88) (normal-height . 1.0) (normal-width . 1.0) (buffer "org.org" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 839) (start . 1))) (((font-backend mac-ct ns) (fontsize . 12) (font . "-*-Anonymous Pro-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "927F-380F-032A-5DD6") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (display . "turangalila2.local") (explicit-name) (tool-bar-position . top) (visibility . t) (height . 64) (width . 201) (left . 0) (top . 0)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 7) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 24) (min-pixel-width-ignore . 49) (min-pixel-height-safe . 12) (min-pixel-width-safe . 14)) leaf (pixel-width . 1436) (pixel-height . 756) (total-width . 205) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "org.org" (selected) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 1864) (start . 1081))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq register-alist nil)
+(setq file-name-history '("/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/" "~/.oh-my-zsh/custom/testoh.sh" "~/Dropbox/000WORKFILES/NOTES/wishlist-electronics.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Dropbox/000WORKFILES/PRIVATE/VergiGymSchedule.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-mode-scratchpad/deduce-percentage-from-whole_141127_19-43.org" "~/.emacs.d/" "/Applications/Emacs.app/Contents/Resources/lisp/README" "~/.emacs.d/emacs.desktop-debug" "~/.emacs.d/" "/Users/iani/.emacs.d/personal/user/sc-snippets.el" "~/.emacs.d/" "~/.emacs.d/personal/desktop-bookmarks" "~/.emacs.d/personal/desktop" "~/.emacs.d/personal/bookmark-sets" "~/.emacs.d/personal/.emacs.desktop" "~/.emacs.d/personal/user/iani-disabled/iani.org_archive" "~/.emacs.d/personal/user/iani-disabled/iani.org" "~/.emacs.d/personal/user/iani-disabled/iani.el" "~/.emacs.d/personal/user/iani-disabled" "~/.emacs.d/personal/user/iani.org" "~/test-bkmark.el" "~/.emacs.d/" ".emacs.desktop" "~/.emacs.d/personal/user/iani.org" "~/.zshrc" "~/" "~/.emacs.d/"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/WEBSITES-ORG/org.org"
+  "org.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  839
+  '(796 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/emacslisp-scratchpad/org-export-provide-defaults_141202_16-25.el"
+  "org-export-provide-defaults_141202_16-25.el"
+  'emacs-lisp-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode icicle-mode)
+  536
+  '(305 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . prefer-utf-8-unix)))
+

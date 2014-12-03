@@ -12,7 +12,8 @@
    [unspecified "#1F1611" "#660000" "#144212" "#EFC232" "#5798AE" "#BE73FD" "#93C1BC" "#E6E1DC"] t)
  '(background-color "#202020")
  '(background-mode dark)
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/personal/bookmarks/default-bookmarks.bmk")
+ '(bmkp-last-as-first-bookmark-file
+   "/Users/iani/.emacs.d/personal/bookmarks/default-bookmarks.bmk")
  '(calendar-latitude 39.619)
  '(calendar-longitude 19.919)
  '(cursor-color "#cccccc")

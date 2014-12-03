@@ -6,7 +6,7 @@
 
 #+BEGIN_SRC emacs-lisp
   (require 'moe-theme)
-  ;; (moe-light)
+  (moe-dark)
 #+END_SRC
 
 ** Prelude stuff
@@ -85,7 +85,7 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
 (toggle-fullscreen)
 #+END_SRC
 
@@ -189,6 +189,10 @@ Note: As of Mon, Dec  1 2014, 11:19 EET this creates error with sentinel process
 #+END_SRC
 
 *** breadcrumb, bookmark+
+:PROPERTIES:
+:ID:       FFED8BC2-0CE8-4BA0-ABC2-1AE9B4EFFFF3
+:eval-id:  2
+:END:
 
 See: http://breadcrumbemacs.sourceforge.net/news.html
 
@@ -214,7 +218,7 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
 
   (defun bookmark-save-named (&optional name)
     "mod of bookmark-save to save bookmark under name
-  in under one default directory in users prelude folder."
+  in one default directory in users prelude folder."
     (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmarks/: ")
     (let ((path
            (file-truename
@@ -226,9 +230,7 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
       (bookmark-save)))
 
   (global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
-#+END_SRC
 
-#+BEGIN_SRC emacs-lisp
   (defun bmkp-desktop-save-named (&optional name)
     "mod of bmkp-desktop-save to save desktop bookmark under name
   in under one default directory in users prelude folder."
@@ -244,12 +246,22 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
              (lexical-let ((df path))
                (lambda () (bmkp-make-desktop-record df))))
             (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
-        (call-interactively #'bookmark-set))))
+        (bookmark-set name))))
+
+  (defun bmkp-load-auto-saved-desktop ()
+    (interactive)
+  ;;  (bookmark-bmenu-list) ;; needed to update list if never loaded
+    (bmkp-desktop-jump "auto-save-desktop"))
+
+  (add-hook 'kill-emacs-hook
+            (lambda () (bmkp-desktop-save-named "auto-save-desktop")))
 
   (global-set-key (kbd "C-x r C-k") 'bmkp-desktop-save-named)
   (global-set-key (kbd "C-x p r") 'bookmark-rename)
   (define-key bookmark-bmenu-mode-map "r" 'bookmark-rename)
+  (global-set-key (kbd "C-x j M-k") 'bmkp-load-auto-saved-desktop)
 
+  (bookmark-bmenu-list) ;; make sure bookmark list is loaded
 #+END_SRC
 
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
@@ -1106,6 +1118,9 @@ Adapted from:
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
   (setq org-todo-keywords
         '((sequence
+           "!!!(1)"  ; next action
+           "!!(2)"  ; next action
+           "!(3)"  ; next action
            "TODO(t)"  ; next action
            "STARTED(s)"
            "WAITING(w@/!)"
@@ -1120,7 +1135,10 @@ Adapted from:
            "DELEGATE_DONE(l!)")))
 
   (setq org-todo-keyword-faces
-        '(("TODO" . (:foreground "red" :weight bold))
+        '(("!!!" . (:foreground "red" :weight bold))
+          ("!!" . (:foreground "tomato" :weight bold))
+          ("!" . (:foreground "coral" :weight bold))
+          ("TODO" . (:foreground "LightSalmon" :weight bold))
           ("TOBLOG" . (:foreground "MediumVioletRed" :weight bold))
           ("STARTED" . (:foreground "DeepPink" :weight bold))
           ("WAITING" . (:foreground "gold" :weight bold))
@@ -1907,6 +1925,17 @@ Magit config: Manage git repos from inside emacs
 ))
 #+END_SRC
 
+
+* Load Default Desktop
+:PROPERTIES:
+:DATE:     [2014-12-03 Wed 02:10]
+:END:
+
+Note: This must be after the TODO config, otherwise any Org mode buffers loaded here will not inherit the TODOD config.
+
+#+BEGIN_SRC emacs-lisp
+(bmkp-desktop-jump "startup")
+#+END_SRC
 
 * Notes
 ** DONE Try Orgstruct, Outshine, Outorg or Poporg for elisp files instead of Babel

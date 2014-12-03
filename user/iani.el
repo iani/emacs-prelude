@@ -1,6 +1,6 @@
 
 (require 'moe-theme)
-;; (moe-light)
+(moe-dark)
 
 (guru-mode -1)
 (guru-global-mode -1)
@@ -35,8 +35,6 @@
 (tool-bar-mode -1)
 
 (global-set-key (kbd "H-f") 'toggle-fullscreen)
-
-(toggle-fullscreen)
 
 (require 'maxframe) ;; (maximize-frame) command/function
 
@@ -87,7 +85,7 @@
 
 (defun bookmark-save-named (&optional name)
   "mod of bookmark-save to save bookmark under name
-in under one default directory in users prelude folder."
+in one default directory in users prelude folder."
   (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmarks/: ")
   (let ((path
          (file-truename
@@ -115,11 +113,22 @@ in under one default directory in users prelude folder."
            (lexical-let ((df path))
              (lambda () (bmkp-make-desktop-record df))))
           (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
-      (call-interactively #'bookmark-set))))
+      (bookmark-set name))))
+
+(defun bmkp-load-auto-saved-desktop ()
+  (interactive)
+;;  (bookmark-bmenu-list) ;; needed to update list if never loaded
+  (bmkp-desktop-jump "auto-save-desktop"))
+
+(add-hook 'kill-emacs-hook
+          (lambda () (bmkp-desktop-save-named "auto-save-desktop")))
 
 (global-set-key (kbd "C-x r C-k") 'bmkp-desktop-save-named)
 (global-set-key (kbd "C-x p r") 'bookmark-rename)
 (define-key bookmark-bmenu-mode-map "r" 'bookmark-rename)
+(global-set-key (kbd "C-x j M-k") 'bmkp-load-auto-saved-desktop)
+
+(bookmark-bmenu-list) ;; make sure bookmark list is loaded
 
 (require 'ido)
 (require 'flx-ido)
@@ -683,6 +692,9 @@ See org-refile-icy."
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
 (setq org-todo-keywords
       '((sequence
+         "!!!(1)"  ; next action
+         "!!(2)"  ; next action
+         "!(3)"  ; next action
          "TODO(t)"  ; next action
          "STARTED(s)"
          "WAITING(w@/!)"
@@ -697,7 +709,10 @@ See org-refile-icy."
          "DELEGATE_DONE(l!)")))
 
 (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "red" :weight bold))
+      '(("!!!" . (:foreground "red" :weight bold))
+        ("!!" . (:foreground "tomato" :weight bold))
+        ("!" . (:foreground "coral" :weight bold))
+        ("TODO" . (:foreground "LightSalmon" :weight bold))
         ("TOBLOG" . (:foreground "MediumVioletRed" :weight bold))
         ("STARTED" . (:foreground "DeepPink" :weight bold))
         ("WAITING" . (:foreground "gold" :weight bold))
@@ -1191,3 +1206,5 @@ with the docpad website framework."
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+
+(bmkp-desktop-jump "startup")
