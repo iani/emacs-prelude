@@ -979,6 +979,19 @@ files to org-agenda-files."
          (if (search-forward "*# -*- mode:org" 100 t)
              (org-decrypt-entries)))))
 
+;; Following needed to avoid error message ls does not use dired.
+(setq ls-lisp-use-insert-directory-program nil)
+(require 'ls-lisp)
+
+(defun iz-open-project-folder (&optional open-in-finder)
+  "Open a folder associated with a project .org file.
+Select the file using iz-select-file-from-folders, and then open folder instead.
+If the folder does not exist, create it."
+  (interactive "P")
+  (let ((path (file-name-sans-extension (iz-select-file-from-folders))))
+    (unless  (file-exists-p path) (make-directory path))
+    (if open-in-finder (open-folder-in-finder path) (dired path))))
+
 (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
 (defun iz-log (&optional goto)
@@ -1040,14 +1053,15 @@ files to org-agenda-files."
                                                   (file-name-nondirectory dir))
                                                  dir))
                              files)))
-               (-map-indexed (lambda (index item)
-                               (list
-                                (substring iz-capture-keycodes index (+ 1 index))
-                                (car item)
-                                'entry
-                                (list 'file+headline (cdr item) "TODOs")
-                                "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
-                             dirs)))))
+               (-map-indexed
+                (lambda (index item)
+                  (list
+                   (substring iz-capture-keycodes index (+ 1 index))
+                   (car item)
+                   'entry
+                   (list 'file+headline (cdr item) "TODOs")
+                   "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
+                dirs)))))
 
 (defun iz-refile (&optional goto)
   "Refile to selected file."
@@ -1072,6 +1086,7 @@ files to org-agenda-files."
 
 (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
 (global-set-key (kbd "H-h H-f") 'iz-find-file)
+(global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
 (global-set-key (kbd "H-h H-l") 'iz-log)
 (global-set-key (kbd "H-h H-t") 'iz-todo)
 (global-set-key (kbd "H-h H-r") 'iz-refile)
@@ -1198,7 +1213,7 @@ with the docpad website framework."
       (write-file path)
       (message (format "written to path: %s" path))))
 
-(global-set-key (kbd "H-h H-d") 'org-html-export-as-html-body-only)
+(global-set-key (kbd "H-e H-b") 'org-html-export-as-html-body-only)
 
 (setq magit-repo-dirs
       '(
