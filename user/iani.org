@@ -742,7 +742,6 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 * Customization of Specific Authoring Modes
 
 ** Scratchbooks for coding
-
 *** logging tryout code
 :PROPERTIES:
 :ID:       6D2D4561-1856-4EA9-962E-0B556A95F7F5
@@ -1567,14 +1566,20 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
     "Menu of commands operating on iz org files."
   (interactive)
     (let* ((menu (grizzl-make-index
-                  '("iz-log"
-                    "iz-todo"
+                  '(
                     "iz-find-file"
-                    "org-agenda")))
+                    "iz-goto"
+                    "iz-log"
+                    "iz-open-project-folder"
+                    "iz-refile"
+                    "iz-todo"
+                    "org-agenda"
+                    )))
            (selection (grizzl-completing-read "Select command: " menu)))
       (eval (list (intern selection)))))
 
   (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
+  (global-set-key (kbd "H-h H-h") 'iz-org-file-command-menu)
   (global-set-key (kbd "H-h H-f") 'iz-find-file)
   (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
   (global-set-key (kbd "H-h H-l") 'iz-log)

@@ -1077,14 +1077,20 @@ If the folder does not exist, create it."
   "Menu of commands operating on iz org files."
 (interactive)
   (let* ((menu (grizzl-make-index
-                '("iz-log"
-                  "iz-todo"
+                '(
                   "iz-find-file"
-                  "org-agenda")))
+                  "iz-goto"
+                  "iz-log"
+                  "iz-open-project-folder"
+                  "iz-refile"
+                  "iz-todo"
+                  "org-agenda"
+                  )))
          (selection (grizzl-completing-read "Select command: " menu)))
     (eval (list (intern selection)))))
 
 (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
+(global-set-key (kbd "H-h H-h") 'iz-org-file-command-menu)
 (global-set-key (kbd "H-h H-f") 'iz-find-file)
 (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
 (global-set-key (kbd "H-h H-l") 'iz-log)
