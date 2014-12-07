@@ -1419,6 +1419,29 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
              files)))
     (message "the value of org-agenda-files was updated"))
 
+  (defvar iz-last-selected-file
+    nil
+    "Path of file last selected with iz-org-file menu.
+  Used to refile to date-tree of last selected file.")
+
+  (defun iz-refile-to-last-selected ()
+    "Refile to last selected file, using DATE timestamp
+  to move to file-datetree."
+    (interactive)
+    (let ((date (calendar-gregorian-from-absolute
+                 (org-time-string-to-absolute
+                  (org-entry-get (point) "DATE")))))
+      (org-cut-subtree)
+      (if iz-last-selected-file
+          (find-file iz-last-selected-file)
+        (iz-find-file))
+      (org-datetree-find-date-create date)
+      (move-end-of-line nil)
+      (open-line 1)
+      (next-line)
+      (org-paste-subtree 4)
+      ))
+
   (defun iz-select-file-from-folders ()
     (iz-org-file-menu (iz-select-folder)))
 
@@ -1446,6 +1469,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
          (project-menu (grizzl-make-index projects))
          (selection (cdr (assoc (grizzl-completing-read "Select file: " project-menu)
                                 dirs))))
+      (setq iz-last-selected-file selection)
       selection))
 
   (defun iz-get-refile-targets ()

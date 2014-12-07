@@ -930,6 +930,28 @@ files to org-agenda-files."
            files)))
   (message "the value of org-agenda-files was updated"))
 
+(defvar iz-last-selected-file
+  nil
+  "Path of file last selected with iz-org-file menu.
+Used to refile to date-tree of last selected file.")
+
+(defun iz-refile-to-last-selected ()
+  "Refile to last selected file, using DATE timestamp
+to move to file-datetree."
+  (interactive)
+  (let ((date (calendar-gregorian-from-absolute
+               (org-time-string-to-absolute
+                (org-entry-get (point) "DATE")))))
+    (org-cut-subtree)
+    (if iz-last-selected-file
+        (find-file iz-last-selected-file)
+      (iz-find-file))
+    (org-datetree-find-date-create date)
+    ;; (move-end-of-line)
+    ;; (open-line)
+    ;; (next-line)
+    (org-paste-subtree)))
+
 (defun iz-select-file-from-folders ()
   (iz-org-file-menu (iz-select-folder)))
 
