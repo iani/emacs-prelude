@@ -2,12 +2,12 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Sun Dec  7 21:04:38 2014
+;; Created Sun Dec  7 23:47:28 2014
 ;; Desktop file format version 206
 ;; Emacs version 24.4.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21636 42182 522655 0) (desktop . "206") "iani@turangalila2.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (height . 60) (width . 95) (left . 0) (top . 27)) ((min-height . 4) (min-width . 10) (min-height-ignore . 3) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 42) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 783) (pixel-height . 826) (total-width . 97) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (buffer "*Org Src iani.org[ emacs-lisp ]*" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 2928) (start . 1059))))])
+(setq desktop-saved-frameset [frameset 1 (21636 51952 317998 0) (desktop . "206") "iani@turangalila2.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (powerline-cache) (frameset--id . "EE06-9E56-864E-9A42") (frameset--mini t) (height . 64) (width . 201) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 0) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 7) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 70) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 49) (min-pixel-height-safe . 14) (min-pixel-width-safe . 14)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 205) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "iani.org" (selected . t) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 50104) (start . 47938))) (((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (height . 76) (width . 236) (left . 1440) (top + -180)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 10) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 56) (min-pixel-width . 140) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 80) (min-pixel-height-safe . 14) (min-pixel-width-safe . 32)) hc (pixel-width . 1916) (pixel-height . 1062) (total-width . 240) (total-height . 76) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 956) (pixel-height . 1062) (total-width . 120) (total-height . 76) (normal-height . 1.0) (normal-width . 0.5) (buffer "TESTS" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 554) (start . 1))) (leaf (last . t) (pixel-width . 960) (pixel-height . 1062) (total-width . 120) (total-height . 76) (normal-height . 1.0) (normal-width . 0.5) (buffer "AVARTS_STUDENTS_DIPLOMA" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 153) (start . 1)))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
@@ -20,20 +20,42 @@
   "iani.org"
   'org-mode
   '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  50939
-  '(nil nil)
+  50104
+  '(7549 nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/-INBOX/inbox.org"
-  "inbox.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  71
-  '(71 nil)
   nil
+  "AVARTS_STUDENTS_DIPLOMA"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  153
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_DIPLOMA/")
+  nil)
+
+(desktop-create-buffer 206
   nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+  "TESTS"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  554
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/TESTS/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "SCRIPTS"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  1699
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/SCRIPTS/")
+  nil)
 

@@ -935,7 +935,7 @@ files to org-agenda-files."
   "Path of file last selected with iz-org-file menu.
 Used to refile to date-tree of last selected file.")
 
-(defun iz-refile-to-last-selected (&optional select-file)
+(defun iz-refile-to-date-tree (&optional use-last-selected)
   "Refile to last selected file, using DATE timestamp
 to move to file-datetree."
   (interactive "P")
@@ -945,7 +945,7 @@ to move to file-datetree."
                (org-time-string-to-absolute
                 (org-entry-get (point) "DATE")))))
     (org-cut-subtree)
-    (if (and (equal select-file nil) iz-last-selected-file)
+    (if (and use-last-selected iz-last-selected-file)
         (find-file iz-last-selected-file)
       (iz-find-file))
     (org-datetree-find-date-create date)
@@ -954,9 +954,7 @@ to move to file-datetree."
     (next-line)
     (org-paste-subtree 4)
     (save-buffer)
-    (find-file origin-filename)
-    ;; (kill-buffer (current-buffer))
-    ))
+    (find-file origin-filename)))
 
 (defun org-process-entry-from-mobile-org ()
   (interactive)
@@ -1102,7 +1100,7 @@ If the folder does not exist, create it."
                                 (car item)
                                 'entry
                                 (list 'file+datetree (cdr item))
-                                "* %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
+                                "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
                              dirs)))))
 
 (defun iz-todo (&optional goto)
@@ -1155,11 +1153,10 @@ If the folder does not exist, create it."
                   "iz-log"
                   "iz-open-project-folder"
                   "iz-refile"
-                  "iz-refile-to-last-selected"
+                  "iz-refile-to-date-tree"
                   "iz-todo"
                   "org-agenda"
                   "iz-get-and-refile-mobile-entries"
-                  "org-process-entry-from-mobile-org"
                   )))
          (selection (grizzl-completing-read "Select command: " menu)))
     (eval (list (intern selection)))))
@@ -1171,7 +1168,7 @@ If the folder does not exist, create it."
 (global-set-key (kbd "H-h H-l") 'iz-log)
 (global-set-key (kbd "H-h H-t") 'iz-todo)
 (global-set-key (kbd "H-h H-r") 'iz-refile)
-(global-set-key (kbd "H-h r") 'iz-refile-to-last-selected)
+(global-set-key (kbd "H-h r") 'iz-refile-to-date-tree)
 (global-set-key (kbd "H-h H-g") 'iz-goto)
 (global-set-key (kbd "H-h H-c H-w") 'iz-refile)
 (global-set-key (kbd "H-h H-c H-a") 'org-agenda)

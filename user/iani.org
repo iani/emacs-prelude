@@ -1426,7 +1426,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
     "Path of file last selected with iz-org-file menu.
   Used to refile to date-tree of last selected file.")
 
-  (defun iz-refile-to-last-selected (&optional select-file)
+  (defun iz-refile-to-date-tree (&optional use-last-selected)
     "Refile to last selected file, using DATE timestamp
   to move to file-datetree."
     (interactive "P")
@@ -1436,7 +1436,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                  (org-time-string-to-absolute
                   (org-entry-get (point) "DATE")))))
       (org-cut-subtree)
-      (if (and (equal select-file nil) iz-last-selected-file)
+      (if (and iz-last-selected-file use-last-selected)
           (find-file iz-last-selected-file)
         (iz-find-file))
       (org-datetree-find-date-create date)
@@ -1445,9 +1445,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
       (next-line)
       (org-paste-subtree 4)
       (save-buffer)
-      (find-file origin-filename)
-      ;; (kill-buffer (current-buffer))
-      ))
+      (find-file origin-filename)))
 
   (defun org-process-entry-from-mobile-org ()
     (interactive)
@@ -1593,7 +1591,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                                   (car item)
                                   'entry
                                   (list 'file+datetree (cdr item))
-                                  "* %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
+                                  "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
                                dirs)))))
 
   (defun iz-todo (&optional goto)
@@ -1646,7 +1644,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                     "iz-log"
                     "iz-open-project-folder"
                     "iz-refile"
-                    "iz-refile-to-last-selected"
+                    "iz-refile-to-date-tree"
                     "iz-todo"
                     "org-agenda"
                     "iz-get-and-refile-mobile-entries"
@@ -1661,7 +1659,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   (global-set-key (kbd "H-h H-l") 'iz-log)
   (global-set-key (kbd "H-h H-t") 'iz-todo)
   (global-set-key (kbd "H-h H-r") 'iz-refile)
-  (global-set-key (kbd "H-h r") 'iz-refile-to-last-selected)
+  (global-set-key (kbd "H-h r") 'iz-refile-to-date-tree)
   (global-set-key (kbd "H-h H-g") 'iz-goto)
   (global-set-key (kbd "H-h H-c H-w") 'iz-refile)
   (global-set-key (kbd "H-h H-c H-a") 'org-agenda)
