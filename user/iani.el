@@ -935,6 +935,12 @@ files to org-agenda-files."
   "Path of file last selected with iz-org-file menu.
 Used to refile to date-tree of last selected file.")
 
+(defun iz-goto-last-selected-file ()
+  (interactive)
+  (if iz-last-selected-file
+      (find-file iz-last-selected-file)
+    (iz-find-file)))
+
 (defun iz-refile-to-date-tree (&optional use-last-selected)
   "Refile to last selected file, using DATE timestamp
 to move to file-datetree."
@@ -943,7 +949,8 @@ to move to file-datetree."
         (origin-filename (buffer-file-name (current-buffer)))
         (date (calendar-gregorian-from-absolute
                (org-time-string-to-absolute
-                (org-entry-get (point) "DATE")))))
+                (or (org-entry-get (point) "CLOSED")
+                 (org-entry-get (point) "DATE"))))))
     (org-cut-subtree)
     (if (and iz-last-selected-file use-last-selected)
         (find-file iz-last-selected-file)
@@ -974,20 +981,21 @@ to move to file-datetree."
        mobile-buffer
      (org-map-entries
       (lambda ()
-        (let ((date
+        (let* ((timestamp
+                (cdr (assoc "TIMESTAMP_IA" (org-entry-properties))))
+               (date
                (calendar-gregorian-from-absolute
-                (org-time-string-to-absolute
-                 (cdr (assoc "TIMESTAMP_IA" (org-entry-properties)))))))
+                (org-time-string-to-absolute timestamp))))
           (org-copy-subtree)
-          (message "gregorian date: %s: " date)
           (with-current-buffer
               log-buffer
             (org-datetree-find-date-create date)
             (move-end-of-line nil)
             (open-line 1)
             (next-line)
-            (org-paste-subtree 4))
-          ))))
+            (org-paste-subtree 4)
+            (org-set-property "DATE" (concat "<" timestamp ">"))
+            (org-set-tags-to ":mobileorg:"))))))
    (copy-file
     mobile-file
     (concat
@@ -996,6 +1004,39 @@ to move to file-datetree."
      ".org"))
    (with-current-buffer
        mobile-buffer
+     (erase-buffer)
+     (save-buffer))))
+
+(defun iz-refile-notes-to-log ()
+  (interactive)
+ (let* ((notes-file (concat iz-log-dir "NOTES/notes.org"))
+        (notes-buffer (find-file notes-file))
+        (log-buffer (find-file (concat iz-log-dir "PRIVATE/LOG.org"))))
+   (with-current-buffer
+       notes-buffer
+     (org-map-entries
+      (lambda ()
+        (let* ((timestamp (org-entry-get (point) "DATE"))
+               (date
+               (calendar-gregorian-from-absolute
+                (org-time-string-to-absolute timestamp))))
+          (org-copy-subtree)
+          (with-current-buffer
+              log-buffer
+            (org-datetree-find-date-create date)
+            (move-end-of-line nil)
+            (open-line 1)
+            (next-line)
+            (org-paste-subtree 4)
+            (org-set-property "DATE" (concat "<" timestamp ">")))))))
+   (copy-file
+    notes-file
+    (concat
+     (file-name-sans-extension notes-file)
+     (format-time-string "%Y-%m-%d-%H-%M-%S")
+     ".org"))
+   (with-current-buffer
+       notes-buffer
      (erase-buffer)
      (save-buffer))))
 
@@ -1133,30 +1174,35 @@ If the folder does not exist, create it."
                    "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
                 dirs)))))
 
+(defun iz-goto (&optional level)
+  (interactive "P")
+  (if level
+      (setq org-refile-targets (list (cons (iz-select-file-from-folders) (cons :level level))))
+    (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3)))))
+  (org-refile '(4)))
+
 (defun iz-refile (&optional goto)
   "Refile to selected file."
   (interactive "P")
   (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3))))
   (org-refile goto))
 
-(defun iz-goto ()
-  (interactive)
-  (iz-refile '(4)))
-
 (defun iz-org-file-command-menu ()
   "Menu of commands operating on iz org files."
 (interactive)
   (let* ((menu (grizzl-make-index
                 '(
+                  "iz-log"
+                  "iz-todo"
+                  "iz-refile-to-date-tree"
+                  "iz-refile"
+                  "iz-open-project-folder"
                   "iz-find-file"
                   "iz-goto"
-                  "iz-log"
-                  "iz-open-project-folder"
-                  "iz-refile"
-                  "iz-refile-to-date-tree"
-                  "iz-todo"
+                  "iz-goto-last-selected-file"
                   "org-agenda"
                   "iz-get-and-refile-mobile-entries"
+                  "iz-refile-notes-to-log"
                   )))
          (selection (grizzl-completing-read "Select command: " menu)))
     (eval (list (intern selection)))))
@@ -1166,6 +1212,7 @@ If the folder does not exist, create it."
 (global-set-key (kbd "H-h H-f") 'iz-find-file)
 (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
 (global-set-key (kbd "H-h H-l") 'iz-log)
+(global-set-key (kbd "H-h l") 'iz-goto-last-selected-file)
 (global-set-key (kbd "H-h H-t") 'iz-todo)
 (global-set-key (kbd "H-h H-r") 'iz-refile)
 (global-set-key (kbd "H-h r") 'iz-refile-to-date-tree)
