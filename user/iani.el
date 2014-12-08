@@ -945,7 +945,7 @@ to move to file-datetree."
                (org-time-string-to-absolute
                 (org-entry-get (point) "DATE")))))
     (org-cut-subtree)
-    (if (and use-last-selected iz-last-selected-file)
+    (if (and iz-last-selected-file use-last-selected)
         (find-file iz-last-selected-file)
       (iz-find-file))
     (org-datetree-find-date-create date)
@@ -1136,7 +1136,7 @@ If the folder does not exist, create it."
 (defun iz-refile (&optional goto)
   "Refile to selected file."
   (interactive "P")
-  (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 2))))
+  (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3))))
   (org-refile goto))
 
 (defun iz-goto ()

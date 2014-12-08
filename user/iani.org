@@ -1465,20 +1465,19 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
          mobile-buffer
        (org-map-entries
         (lambda ()
-          (let ((date
+          (let* ((timestamp (cdr (assoc "TIMESTAMP_IA" (org-entry-properties))))
+                 (date
                  (calendar-gregorian-from-absolute
-                  (org-time-string-to-absolute
-                   (cdr (assoc "TIMESTAMP_IA" (org-entry-properties)))))))
+                  (org-time-string-to-absolute timestamp))))
             (org-copy-subtree)
-            (message "gregorian date: %s: " date)
             (with-current-buffer
                 log-buffer
               (org-datetree-find-date-create date)
               (move-end-of-line nil)
               (open-line 1)
               (next-line)
-              (org-paste-subtree 4))
-            ))))
+              (org-paste-subtree 4)
+              (org-set-property "DATE" (concat "<" timestamp ">")))))))
      (copy-file
       mobile-file
       (concat
@@ -1624,28 +1623,31 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                      "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
                   dirs)))))
 
+  (defun iz-goto (&optional level)
+    (interactive "P")
+    (if level
+        (setq org-refile-targets (list (cons (iz-select-file-from-folders) (cons :level level))))
+      (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3)))))
+    (org-refile '(4)))
+
   (defun iz-refile (&optional goto)
     "Refile to selected file."
     (interactive "P")
-    (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 2))))
+    (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3))))
     (org-refile goto))
-
-  (defun iz-goto ()
-    (interactive)
-    (iz-refile '(4)))
 
   (defun iz-org-file-command-menu ()
     "Menu of commands operating on iz org files."
   (interactive)
     (let* ((menu (grizzl-make-index
                   '(
+                    "iz-log"
+                    "iz-todo"
+                    "iz-refile-to-date-tree"
+                    "iz-refile"
+                    "iz-open-project-folder"
                     "iz-find-file"
                     "iz-goto"
-                    "iz-log"
-                    "iz-open-project-folder"
-                    "iz-refile"
-                    "iz-refile-to-date-tree"
-                    "iz-todo"
                     "org-agenda"
                     "iz-get-and-refile-mobile-entries"
                     )))
