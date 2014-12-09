@@ -569,6 +569,9 @@ asks to select a *subdir* of selected project to dired."
 ;; H-C-i:
 (define-key emacs-lisp-mode-map (kbd "H-TAB") 'icicle-imenu-command)
 
+(eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-x s") 'org-show-subtree))
+
 (setq org-goto-interface 'outline-path-completion
       org-goto-max-level 10)
 

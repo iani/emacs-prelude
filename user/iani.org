@@ -953,6 +953,13 @@ Emacs sexp, install emacs web-beautify package:
 
 ** org-mode
 
+*** binding for org show subtree
+
+#+BEGIN_SRC emacs-lisp
+(eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-x s") 'org-show-subtree))
+#+END_SRC
+
 *** Using ido for org-goto
 
 #+BEGIN_SRC emacs-lisp
