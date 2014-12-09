@@ -1043,6 +1043,10 @@ to move to file-datetree."
      (erase-buffer)
      (save-buffer))))
 
+(defun iz-insert-file-as-snippet ()
+  (interactive)
+  (insert-file-contents (iz-select-file-from-folders)))
+
 (defun iz-select-file-from-folders ()
   (iz-org-file-menu (iz-select-folder)))
 
@@ -1206,6 +1210,7 @@ If the folder does not exist, create it."
                   "org-agenda"
                   "iz-get-and-refile-mobile-entries"
                   "iz-refile-notes-to-log"
+                  "iz-insert-file-as-snippet"
                   )))
          (selection (grizzl-completing-read "Select command: " menu)))
     (eval (list (intern selection)))))
@@ -1216,6 +1221,7 @@ If the folder does not exist, create it."
 (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
 (global-set-key (kbd "H-h H-l") 'iz-log)
 (global-set-key (kbd "H-h l") 'iz-goto-last-selected-file)
+(global-set-key (kbd "H-h H-i") 'iz-insert-file-as-snippet)
 (global-set-key (kbd "H-h H-t") 'iz-todo)
 (global-set-key (kbd "H-h H-r") 'iz-refile)
 (global-set-key (kbd "H-h r") 'iz-refile-to-date-tree)
