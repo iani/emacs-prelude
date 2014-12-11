@@ -2,6 +2,27 @@
 (require 'moe-theme)
 (moe-dark)
 
+(add-to-list 'default-frame-alist
+             '(font . "Anonymous Pro-14"))
+
+(defun larger-frame-font ()
+  (interactive)
+  (set-face-attribute
+   'default nil
+   :height
+   (+ (face-attribute 'default :height) 10)) )
+
+(defun smaller-frame-font ()
+  (interactive)
+  (set-face-attribute
+   'default nil
+   :height
+   (- (face-attribute 'default :height) 10)) )
+
+(global-set-key (kbd "C-c C--") 'smaller-frame-font)
+
+(global-set-key (kbd "C-c C-+") 'larger-frame-font)
+
 (guru-mode -1)
 (guru-global-mode -1)
 (setq prelude-guru nil)
@@ -45,10 +66,17 @@
 (global-set-key (kbd "M-[") 'backward-sentence)
 (global-set-key (kbd "M-]") 'forward-sentence)
 
-(defun insert-timestamp (&optional type)
+(defun insert-timestamp (&optional short-type)
   "Insert a timestamp."
   (interactive "P")
-  (insert (format-time-string "%a, %b %e %Y, %R %Z")))
+  (if short-type
+      (insert
+       (let ((date (calendar-current-date)))
+         (format "%s. %s. %s"
+                 (nth 1 date)
+                 (nth 0 date)
+                 (nth 2 date))))
+   (insert (format-time-string "%a, %b %e %Y, %R %Z"))))
 
 (global-set-key (kbd "C-c C-x t") 'insert-timestamp)
 
@@ -886,8 +914,7 @@ files to org-agenda-files."
         ("eastn" . ?e)
         ("avarts" . ?a)
         ("erasmus" . ?E)
-        ("researchfunding" . ?r)
-))
+        ("researchfunding" . ?r)))
 
 (defvar iz-log-dir
   (expand-file-name
@@ -1220,7 +1247,7 @@ If the folder does not exist, create it."
 (global-set-key (kbd "H-h H-f") 'iz-find-file)
 (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
 (global-set-key (kbd "H-h H-l") 'iz-log)
-(global-set-key (kbd "H-h l") 'iz-goto-last-selected-file)
+(global-set-key (kbd "H-h L") 'iz-goto-last-selected-file)
 (global-set-key (kbd "H-h H-i") 'iz-insert-file-as-snippet)
 (global-set-key (kbd "H-h H-t") 'iz-todo)
 (global-set-key (kbd "H-h H-r") 'iz-refile)
@@ -1257,6 +1284,30 @@ If the folder does not exist, create it."
 ;; C-c C-v f -> tangle, C-c C-v C-f -> load
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
+
+;;; Load latex package
+(require 'ox-latex)
+
+;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
+(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
+
+;;; Add beamer to available latex classes, for slide-presentaton format
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+
+;;; Add memoir class (experimental)
+(add-to-list 'org-latex-classes
+             '("memoir"
+               "\\documentclass[12pt,a4paper,article]{memoir}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
