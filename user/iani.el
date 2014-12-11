@@ -677,7 +677,10 @@ If called with prefix argument (C-u), then:
 ;;; Still problems. Cannot use standard org refiling with icicles activated!
 (setq org-outline-path-complete-in-steps nil)
 
-(add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (prelude-mode -1)))
+(add-hook 'org-mode-hook 'prelude-off)
 
 (defun org-refile-icy (as-subtree &optional do-copy-p)
   "Alternative to org-refile using icicles.
@@ -1309,6 +1312,27 @@ If the folder does not exist, create it."
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+;; Reconfigure memoir to make a book (or report) from a org subtree
+(add-to-list 'org-latex-classes
+             '("section-to-book"
+               "\\documentclass{memoir}"
+               ("\\chapter{%s}" . "\\chapter*{%s}") ;; actually: BOOK TITLE!
+               ("\\section{%s}" . "\\section*{%s}") ;; actually: Chapter!
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+
+;; Letter
+(add-to-list 'org-latex-classes
+             '("letter"
+               "\\documentclass{letter}"
+               ;; Should not use subsections at all!:
+               ("\\chapter{%s}" . "\\chapter*{%s}")
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
@@ -1379,6 +1403,8 @@ If the folder does not exist, create it."
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
+(eval-after-load 'org
+  '(define-key org-mode-map (kbd "C-c C-'") 'org-edit-special))
 
 (defun org-html-export-as-html-body-only ()
   "Export only the body. Useful for using the built-in exporter of Org mode

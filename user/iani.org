@@ -985,7 +985,6 @@ Emacs sexp, install emacs web-beautify package:
 : (package-install 'web-beautify)
 
 ** org-mode
-
 *** binding for org show subtree
 
 #+BEGIN_SRC emacs-lisp
@@ -1091,7 +1090,10 @@ Especially in the case of Meta-shift-up and Meta-shift-down for spreadsheets.
 Have not figured out yet how to override those keys specifically.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (prelude-mode -1)))
+  (add-hook 'org-mode-hook 'prelude-off)
 #+END_SRC
 
 
@@ -2088,6 +2090,8 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-'") 'org-edit-special))
 #+END_SRC
 *** org-export for docpad
 :PROPERTIES:
