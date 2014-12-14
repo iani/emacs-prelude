@@ -1292,7 +1292,17 @@ If the folder does not exist, create it."
 (require 'ox-latex)
 
 ;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
-(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
+;; (setq org-latex-pdf-process
+;;       (list "xelatex -interaction nonstopmode -output-directory %o %f"
+;;             "xelatex -interaction nonstopmode -output-directory %o %f"
+;;             "xelatex -interaction nonstopmode -output-directory %o %f"))
+
+;; This will be needed to work with babel for french, german etc.
+;; It is the original setting for working with pdflatex:
+;; (setq org-latex-pdf-process
+;;  ("pdflatex -interaction nonstopmode -output-directory %o %f"
+;;   "pdflatex -interaction nonstopmode -output-directory %o %f"
+;;   "pdflatex -interaction nonstopmode -output-directory %o %f"))
 
 ;;; Add beamer to available latex classes, for slide-presentaton format
 (add-to-list 'org-latex-classes
@@ -1326,6 +1336,16 @@ If the folder does not exist, create it."
 (add-to-list 'org-latex-classes
              '("letter"
                "\\documentclass{letter}"
+               ;; Should not use subsections at all!:
+               ("\\chapter{%s}" . "\\chapter*{%s}")
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+
+(add-to-list 'org-latex-classes
+             '("newlfm-letter"
+               "\\documentclass[11pt,letter,dateno,sigleft]{newlfm}"
                ;; Should not use subsections at all!:
                ("\\chapter{%s}" . "\\chapter*{%s}")
                ("\\section{%s}" . "\\section*{%s}")

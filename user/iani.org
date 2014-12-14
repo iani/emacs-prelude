@@ -1770,6 +1770,46 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
             ))))
 #+END_SRC
 
+*** export subtree as latex with header selected from file template
+
+#+BEGIN_SRC emacs-lisp
+  (defvar latex-templates-path
+    (file-truename "~/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES"))
+
+  (defvar latex-section-templates
+    '(("article"
+       ("\\section\{%s\}" . "\\section*\{%s\}")
+       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+       ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}"))))
+
+  (defun org-export-as-latex-with-header-from-file ()
+    (interactive)
+   (let* ((paths (file-expand-wildcards (concat latex-templates-path "/*.tex")))
+          (names-and-paths
+           (mapcar
+            (lambda (x)
+              (cons (file-name-sans-extension (file-name-nondirectory x)) x))
+            paths))
+          (menu (grizzl-make-index (mapcar 'car names-and-paths)))
+          (chosen-filename (grizzl-completing-read "Choose latex template: " menu))
+          (chosen-path (cdr (assoc chosen-filename names-and-paths)))
+          (this-buffers-latex-class
+           (plist-get (org-export-get-environment 'latex t nil) :latex-class))
+          latex-header
+          (latex-sections
+           (or (assoc this-buffers-latex-class latex-section-templates)
+               (assoc "article" latex-section-templates))))
+     (when chosen-path
+       (setq latex-header
+             (with-temp-buffer
+               (insert-file-contents chosen-path)
+               (buffer-string)))
+       (setq org-latex-classes
+             (list
+              (append (list this-buffers-latex-class latex-header)
+                      (cdr latex-sections)))))))
+#+END_SRC
+
 *** Org-Babel
 **** Org-Babel: enable some languages
 
@@ -1809,7 +1849,17 @@ Enable some cool languages in org-babel mode.
   (require 'ox-latex)
 
   ;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
-  (setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
+  ;; (setq org-latex-pdf-process
+  ;;       (list "xelatex -interaction nonstopmode -output-directory %o %f"
+  ;;             "xelatex -interaction nonstopmode -output-directory %o %f"
+  ;;             "xelatex -interaction nonstopmode -output-directory %o %f"))
+
+  ;; This will be needed to work with babel for french, german etc.
+  ;; It is the original setting for working with pdflatex:
+  ;; (setq org-latex-pdf-process
+  ;;  ("pdflatex -interaction nonstopmode -output-directory %o %f"
+  ;;   "pdflatex -interaction nonstopmode -output-directory %o %f"
+  ;;   "pdflatex -interaction nonstopmode -output-directory %o %f"))
 
   ;;; Add beamer to available latex classes, for slide-presentaton format
   (add-to-list 'org-latex-classes
@@ -1850,6 +1900,15 @@ Enable some cool languages in org-babel mode.
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
+  (add-to-list 'org-latex-classes
+               '("newlfm-letter"
+                 "\\documentclass[11pt,letter,dateno,sigleft]{newlfm}"
+                 ;; Should not use subsections at all!:
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
 #+END_SRC
 *** Org-crypt: Encrypt selected org-mode entries
