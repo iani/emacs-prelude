@@ -1774,14 +1774,23 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
 Todo:
 
-Remodel key commands:
-
+**** TODO Remodel key commands:
+:PROPERTIES:
+:DATE:     <2014-12-15 Mon 15:21>
+:END:
 - H-h H-e: Export latex as pdf and open
   - No argument :: ask for template
   - 1-u = '(4) :: repeat previous file/subtree/template selection
 - H-h H-E: Export latex into buffer and open window
   - No argument :: ask for template
   - 1-u = '(4) :: repeat previous file/subtree/template selection
+
+**** TODO Define command for switching between xelatex/pdflatex
+
+
+:PROPERTIES:
+:DATE:     <2014-12-15 Mon 15:21>
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (defvar latex-templates-path
@@ -1815,7 +1824,11 @@ Remodel key commands:
         (setq latex-header
               (with-temp-buffer
                 (insert-file-contents chosen-path)
-                (buffer-string)))
+                (concat
+                 ;; "[NO-DEFAULT-PACKAGES]\n"
+                 ;; "[NO-EXTRA]\n"
+                 "\n"
+                 (buffer-string))))
         (setq org-latex-classes
               (list
                (append
