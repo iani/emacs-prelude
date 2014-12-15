@@ -1270,6 +1270,50 @@ If the folder does not exist, create it."
           "* %^{title}\n :PROPERTIES:\n :DATE:\t%T\n :END:\n%^{TransactionType}p%^{category}p%^{amount}p\n%?\n"
           ))))
 
+(defvar latex-templates-path
+  (file-truename "~/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES"))
+
+(defvar latex-section-templates
+  '(("article"
+     ("\\section\{%s\}" . "\\section*\{%s\}")
+     ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+     ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}"))))
+
+(defun org-export-as-latex-with-header-from-file (as-latex-buffer-p)
+  (interactive "P")
+  (let* ((org-latex-classes-backup org-latex-classes)
+         (paths (file-expand-wildcards (concat latex-templates-path "/*.tex")))
+         (names-and-paths
+          (mapcar
+           (lambda (x)
+             (cons (file-name-sans-extension (file-name-nondirectory x)) x))
+           paths))
+         (menu (grizzl-make-index (mapcar 'car names-and-paths)))
+         (chosen-filename (grizzl-completing-read "Choose latex template: " menu))
+         (chosen-path (cdr (assoc chosen-filename names-and-paths)))
+         (this-buffers-latex-class
+          (plist-get (org-export-get-environment 'latex t nil) :latex-class))
+         latex-header
+         (latex-sections
+          (or (cddr (assoc this-buffers-latex-class org-latex-classes))
+              latex-section-templates)))
+    (when chosen-path
+      (setq latex-header
+            (with-temp-buffer
+              (insert-file-contents chosen-path)
+              (buffer-string)))
+      (setq org-latex-classes
+            (list
+             (append
+              (list this-buffers-latex-class latex-header)
+              latex-sections)))
+      (if as-latex-buffer-p
+          (org-latex-export-as-latex nil t nil nil)
+       (org-open-file (org-latex-export-to-pdf nil t nil nil)))
+      (setq org-latex-classes org-latex-classes-backup))))
+
+(global-set-key (kbd "H-h H-e") 'org-export-as-latex-with-header-from-file)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
