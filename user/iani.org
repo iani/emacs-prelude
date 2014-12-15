@@ -1772,6 +1772,17 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
 *** export subtree as latex with header selected from file template
 
+Todo:
+
+Remodel key commands:
+
+- H-h H-e: Export latex as pdf and open
+  - No argument :: ask for template
+  - 1-u = '(4) :: repeat previous file/subtree/template selection
+- H-h H-E: Export latex into buffer and open window
+  - No argument :: ask for template
+  - 1-u = '(4) :: repeat previous file/subtree/template selection
+
 #+BEGIN_SRC emacs-lisp
   (defvar latex-templates-path
     (file-truename "~/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES"))

@@ -1310,7 +1310,10 @@ If the folder does not exist, create it."
       (if as-latex-buffer-p
           (org-latex-export-as-latex nil t nil nil)
        (org-open-file (org-latex-export-to-pdf nil t nil nil)))
-      (setq org-latex-classes org-latex-classes-backup))))
+      (setq org-latex-classes org-latex-classes-backup)
+      (unless (get-buffer (file-name-nondirectory chosen-path))
+        (split-window-vertically)
+        (find-file chosen-path)))))
 
 (global-set-key (kbd "H-h H-e") 'org-export-as-latex-with-header-from-file)
 
