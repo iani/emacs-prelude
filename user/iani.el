@@ -1270,57 +1270,6 @@ If the folder does not exist, create it."
           "* %^{title}\n :PROPERTIES:\n :DATE:\t%T\n :END:\n%^{TransactionType}p%^{category}p%^{amount}p\n%?\n"
           ))))
 
-(defvar latex-templates-path
-  (file-truename "~/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES"))
-
-(defvar latex-section-templates
-  '(("article"
-     ("\\section\{%s\}" . "\\section*\{%s\}")
-     ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-     ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}"))))
-
-(defun org-export-as-latex-with-header-from-file (as-latex-buffer-p)
-  (interactive "P")
-  (let* ((org-latex-classes-backup org-latex-classes)
-         (paths (file-expand-wildcards (concat latex-templates-path "/*.tex")))
-         (names-and-paths
-          (mapcar
-           (lambda (x)
-             (cons (file-name-sans-extension (file-name-nondirectory x)) x))
-           paths))
-         (menu (grizzl-make-index (mapcar 'car names-and-paths)))
-         (chosen-filename (grizzl-completing-read "Choose latex template: " menu))
-         (chosen-path (cdr (assoc chosen-filename names-and-paths)))
-         (this-buffers-latex-class
-          (plist-get (org-export-get-environment 'latex t nil) :latex-class))
-         latex-header
-         (latex-sections
-          (or (cddr (assoc this-buffers-latex-class org-latex-classes))
-              latex-section-templates)))
-    (when chosen-path
-      (setq latex-header
-            (with-temp-buffer
-              (insert-file-contents chosen-path)
-              (concat
-               "[NO-DEFAULT-PACKAGES]\n"
-               "[NO-EXTRA]\n"
-               "\n"
-               (buffer-string))))
-      (setq org-latex-classes
-            (list
-             (append
-              (list this-buffers-latex-class latex-header)
-              latex-sections)))
-      (if as-latex-buffer-p
-          (org-latex-export-as-latex nil t nil nil)
-       (org-open-file (org-latex-export-to-pdf nil t nil nil)))
-      (setq org-latex-classes org-latex-classes-backup)
-      (unless (get-buffer (file-name-nondirectory chosen-path))
-        (split-window-vertically)
-        (find-file chosen-path)))))
-
-(global-set-key (kbd "H-h H-e") 'org-export-as-latex-with-header-from-file)
-
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -1343,12 +1292,13 @@ If the folder does not exist, create it."
 (require 'ox-latex)
 
 ;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
-;; (setq org-latex-pdf-process
-;;       (list "xelatex -interaction nonstopmode -output-directory %o %f"
-;;             "xelatex -interaction nonstopmode -output-directory %o %f"
-;;             "xelatex -interaction nonstopmode -output-directory %o %f"))
+;; Note: Use package polyglossia to customize dates and other details.
+(setq org-latex-pdf-process
+      (list "xelatex -interaction nonstopmode -output-directory %o %f"
+            "xelatex -interaction nonstopmode -output-directory %o %f"
+            "xelatex -interaction nonstopmode -output-directory %o %f"))
 
-;; This will be needed to work with babel for french, german etc.
+;; This is kept as reference. XeLaTeX covers all european/greek/asian needs.
 ;; It is the original setting for working with pdflatex:
 ;; (setq org-latex-pdf-process
 ;;  ("pdflatex -interaction nonstopmode -output-directory %o %f"
@@ -1403,6 +1353,70 @@ If the folder does not exist, create it."
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+
+(defvar latex-templates-path
+  (file-truename "~/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES"))
+
+(defvar latex-section-template
+  '(("\\section\{%s\}" . "\\section*\{%s\}")
+    ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+    ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}")))
+
+(defvar org-latex-last-chosen-file-name)
+
+(defun org-export-as-latex-with-header-from-file (&optional use-previous-setting-p)
+  (interactive "P")
+  (org-latex-export-with-file-template t use-previous-setting-p))
+
+(defun org-export-as-pdf-with-header-from-file (&optional use-previous-setting-p)
+  (interactive "P")
+  (org-latex-export-with-file-template nil use-previous-setting-p))
+
+(defun org-latex-export-with-file-template (&optional as-latex-buffer-p use-previous-setting-p)
+  (let* ((org-latex-classes-backup org-latex-classes)
+         (paths (file-expand-wildcards (concat latex-templates-path "/*.tex")))
+         (names-and-paths
+          (mapcar
+           (lambda (x)
+             (cons (file-name-sans-extension (file-name-nondirectory x)) x))
+           paths))
+         (menu (grizzl-make-index (mapcar 'car names-and-paths)))
+         (chosen-filename
+          (if (and use-previous-setting-p org-latex-last-chosen-file-name)
+              org-latex-last-chosen-file-name
+            (grizzl-completing-read "Choose latex template: " menu)))
+         (chosen-path (cdr (assoc chosen-filename names-and-paths)))
+         (this-buffers-latex-class
+          (plist-get (org-export-get-environment 'latex t nil) :latex-class))
+         latex-header
+         (latex-sections
+          (or (cddr (assoc this-buffers-latex-class org-latex-classes))
+              latex-section-templates)))
+    (when chosen-path
+      (setq org-latex-last-chosen-file-name chosen-filename)
+      (setq latex-header
+            (with-temp-buffer
+              (insert-file-contents chosen-path)
+              (concat
+               "[NO-DEFAULT-PACKAGES]\n"
+               "[NO-EXTRA]\n"
+               "\n"
+               (buffer-string))))
+      (setq org-latex-classes
+            (list
+             (append
+              (list this-buffers-latex-class latex-header)
+              latex-sections)))
+      (if as-latex-buffer-p
+          (org-latex-export-as-latex nil t nil nil)
+        (org-open-file (org-latex-export-to-pdf nil t nil nil)))
+      (setq org-latex-classes org-latex-classes-backup)
+      (unless (get-buffer (file-name-nondirectory chosen-path))
+        (split-window-vertically)
+        (find-file chosen-path)))))
+
+(global-set-key (kbd "H-h H-e") 'org-export-as-pdf-with-header-from-file)
+(global-set-key (kbd "H-h H-E") 'org-export-as-latex-with-header-from-file)
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
