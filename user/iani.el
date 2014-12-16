@@ -1301,7 +1301,11 @@ If the folder does not exist, create it."
       (setq latex-header
             (with-temp-buffer
               (insert-file-contents chosen-path)
-              (buffer-string)))
+              (concat
+               "[NO-DEFAULT-PACKAGES]\n"
+               "[NO-EXTRA]\n"
+               "\n"
+               (buffer-string))))
       (setq org-latex-classes
             (list
              (append
