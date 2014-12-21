@@ -2,7 +2,85 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("bruckner-symphonies" 0 19
+(#1=(#("Camera Uploads" 0 14
+      (bmkp-full-record #1#))
+    (buffer-name . "Camera Uploads")
+    (front-context-string . ".DS_Store\n  -rw-")
+    (rear-context-string . "68 Dec 18 19:55 ")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21652 819 763991 0))
+    (created . #2#)
+    (position . 247)
+    (filename . "/Users/iani/Dropbox/Camera Uploads/")
+    (dired-directory . "~/Dropbox/Camera Uploads/")
+    (dired-marked)
+    (dired-switches . "-al")
+    (dired-subdirs)
+    (dired-hidden-dirs)
+    (handler . bmkp-jump-dired))
+#1=(#("Dropbox" 0 1
+      (bmkp-full-record #1#)
+      1 7
+      (bmkp-full-record #1#))
+    (buffer-name . "Dropbox")
+    (front-context-string . "000WORKFILES\n  d")
+    (rear-context-string . "60 Dec 17 18:14 ")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21652 805 59585 0))
+    (created . #2#)
+    (position . 447)
+    (filename . "/Users/iani/Dropbox/")
+    (dired-directory . "~/Dropbox/")
+    (dired-marked)
+    (dired-switches . "-al")
+    (dired-subdirs)
+    (dired-hidden-dirs)
+    (handler . bmkp-jump-dired))
+#1=(#("larigot-web" 0 1
+      (bmkp-full-record #1#)
+      1 11
+      (bmkp-full-record #1#))
+    (buffer-name . "Documents")
+    (front-context-string . "EASTN_Tsepelovo_")
+    (rear-context-string . "70 Nov  1 23:04 ")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21650 30597 463583 0))
+    (created . #2#)
+    (position . 254)
+    (filename .
+              #("/ssh:iani@larigot.avarts.ionio.gr:/Library/WebServer/Documents/" 1 4
+                (tramp-default t)))
+    (dired-directory .
+                     #("/ssh:iani@larigot.avarts.ionio.gr:/Library/WebServer/Documents/" 1 4
+                       (tramp-default t)))
+    (dired-marked)
+    (dired-switches . "-al")
+    (dired-subdirs)
+    (dired-hidden-dirs)
+    (handler . bmkp-jump-dired))
+#1=(#("org-export-make-script.org" 0 1
+      (bmkp-full-record #1#)
+      1 26
+      (bmkp-full-record #1#))
+    (filename . "~/Documents/Dev/Emacs/org-export/org-export-make-script.org")
+    (buffer-name . "org-export-make-script.org")
+    (front-context-string . "  The shell scri")
+    (rear-context-string . "man/org-export).")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 3)
+    (time 21650 35260 740083 0)
+    (created 21648 7262 394200 0)
+    (position . 199))
+#1=(#("bruckner-symphonies" 0 1
+      (bmkp-full-record #1#)
+      1 19
       (bmkp-full-record #1#))
     (buffer-name . "Symphonies")
     (front-context-string)
@@ -20,7 +98,9 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("scores" 0 6
+#1=(#("scores" 0 1
+      (bmkp-full-record #1#)
+      1 6
       (bmkp-full-record #1#))
     (buffer-name . "scores")
     (front-context-string . ".DS_Store\n  drwx")
@@ -38,7 +118,9 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("ox-latex.el.gz" 0 14
+#1=(#("ox-latex.el.gz" 0 1
+      (bmkp-full-record #1#)
+      1 14
       (bmkp-full-record #1#))
     (filename . "/Applications/Emacs.app/Contents/Resources/lisp/org/ox-latex.el.gz")
     (buffer-name . "ox-latex.el.gz")
@@ -50,7 +132,9 @@
     (time . #2=(21642 46691 793321 0))
     (created . #2#)
     (position . 1))
-#1=(#("org" 0 3
+#1=(#("org" 0 1
+      (bmkp-full-record #1#)
+      1 3
       (bmkp-full-record #1#))
     (buffer-name . "org")
     (front-context-string . "ox-latex.el.gz\n ")
@@ -68,7 +152,9 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("LATEX_TEMPLATES_IMPORTED_NON_ORG" 0 32
+#1=(#("LATEX_TEMPLATES_IMPORTED_NON_ORG" 0 1
+      (bmkp-full-record #1#)
+      1 32
       (bmkp-full-record #1#))
     (buffer-name . "LATEX_TEMPLATES_IMPORTED_NON_ORG")
     (front-context-string . "faq.tex\n  -rw-r-")
@@ -86,7 +172,9 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("latex-packages-all" 0 18
+#1=(#("latex-packages-all" 0 1
+      (bmkp-full-record #1#)
+      1 18
       (bmkp-full-record #1#))
     (buffer-name . "latex")
     (front-context-string . "base\n  drwxr-xr-")
@@ -241,8 +329,8 @@
     (rear-context-string . "41 Dec  5 09:23 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 1)
-    (time 21634 4732 225629 0)
+    (visits . 2)
+    (time 21648 7246 580007 0)
     (created 21633 35778 849519 0)
     (position . 643)
     (filename . "/Users/iani/Documents/Dev/Emacs/org-export/")
@@ -322,16 +410,16 @@
     (handler . bmkp-jump-dired))
 #1=(#("org-capture-last-stored" 0 23
       (bmkp-full-record #1#))
-    (filename . "~/Dropbox/000WORKFILES/INSTALLATIONS/2WORLDS.org")
-    (buffer-name . "2WORLDS.org")
-    (front-context-string . "**** concept iz ")
-    (rear-context-string . "14-12-15 Monday\n")
+    (filename . "~/Dropbox/000WORKFILES/PRIVATE/LOG.org")
+    (buffer-name . "LOG.org")
+    (front-context-string . "**** whistling\n ")
+    (rear-context-string . "haggy_dog_story\n")
     (front-context-region-string)
     (rear-context-region-string)
     (visits . 0)
-    (time . #2=(21647 9984 31411 0))
+    (time . #2=(21654 38404 683487 0))
     (created . #2#)
-    (position . 2960))
+    (position . 12132))
 #1=(#("supercollider-scratchpad" 0 1
       (bmkp-full-record #1#)
       1 24
@@ -441,8 +529,8 @@
     (rear-context-string . "59 Dec  2 11:52 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 2)
-    (time 21636 39162 725777 0)
+    (visits . 3)
+    (time 21652 20009 300610 0)
     (created 21630 27062 257919 0)
     (position . 1552)
     (filename . "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/emacslisp-scratchpad/")
@@ -457,8 +545,8 @@
       1 7
       (bmkp-full-record #1#))
     (buffer-name . "iani.org")
-    (visits . 10)
-    (time 21646 58699 214077 0)
+    (visits . 21)
+    (time 21652 757 441253 0)
     (created 21642 6431 131796 0)
     (position . 34240)
     (filename . "   - no file -")
@@ -466,11 +554,11 @@
     (handler . bmkp-jump-desktop))
 #1=(#("auto-save-desktop" 0 17
       (bmkp-full-record #1#))
-    (buffer-name . "MathAndArt.org")
+    (buffer-name . "iani.org")
     (visits . 0)
-    (time . #2=(21648 2120 508535 0))
+    (time . #2=(21654 40236 498323 0))
     (created . #2#)
-    (position . 2)
+    (position . 70040)
     (filename . "   - no file -")
     (desktop-file . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/bookmarks/desktops/auto-save-desktop.desktop")
     (handler . bmkp-jump-desktop))
@@ -503,8 +591,8 @@
     (rear-context-string . "10 Dec  2 11:38 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 5)
-    (time 21647 64117 505289 0)
+    (visits . 8)
+    (time 21651 58578 453540 0)
     (created 21629 34961 75199 0)
     (position . 707)
     (filename . "/Users/iani/Documents/Dev/Emacs/")
@@ -632,8 +720,8 @@
     (rear-context-string . "x r C-k\") 'bmkp-")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 90)
-    (time 21647 62434 978828 0)
+    (visits . 93)
+    (time 21654 37349 360209 0)
     (created 21628 27985 311489 0)
     (position . 8421))
 )
