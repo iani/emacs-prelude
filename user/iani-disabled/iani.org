@@ -1,42 +1,8 @@
 * Generic Emacs Customization
-** Theme (experimental)
-:PROPERTIES:
-:DATE:     [2014-12-02 Tue 11:21]
-:END:
-
-#+BEGIN_SRC emacs-lisp
-  (require 'moe-theme)
-  (moe-dark)
-#+END_SRC
-** Font (experimental)
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'default-frame-alist
-               '(font . "Anonymous Pro-14"))
-
-  (defun larger-frame-font ()
-    (interactive)
-    (set-face-attribute
-     'default nil
-     :height
-     (+ (face-attribute 'default :height) 10)) )
-
-  (defun smaller-frame-font ()
-    (interactive)
-    (set-face-attribute
-     'default nil
-     :height
-     (- (face-attribute 'default :height) 10)) )
-
-  (global-set-key (kbd "C-c C--") 'smaller-frame-font)
-
-  (global-set-key (kbd "C-c C-+") 'larger-frame-font)
-#+END_SRC
-
-#+RESULTS:
 
 ** Prelude stuff
 *** Turn off guru mode
+
 See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode-in-emacs-prelude
 
 #+BEGIN_SRC emacs-lisp
@@ -47,7 +13,6 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
           (lambda ()
             (guru-mode -1)) t)
 #+END_SRC
-
 *** Prelude-copy-filename-to-clipboard
 
 #+BEGIN_SRC emacs-lisp
@@ -59,8 +24,6 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 #+BEGIN_SRC emacs-lisp
 (setq visible-bell t)
 #+END_SRC
-
-
 ** Blink cursor
 
 #+BEGIN_SRC emacs-lisp
@@ -73,8 +36,6 @@ See: http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode
 :END:
 
 Here is a solution that works fine for displaying Latin, Greek and Japanese texts in the same buffer.  The Menlo font displays Greek clearly and smoothly, and since it is a mono-space font, it also works well in tables.  The two lisp expressions have to be evaluated in the following order for this to work.
-
-_Note: This is necessary if the latin font is set to some font that does not have a full greek character set._
 
 #+BEGIN_SRC emacs-lisp
 (set-fontset-font "fontset-default"
@@ -95,6 +56,36 @@ http://sunsite.univie.ac.at/textbooks/emacs/emacs_22.html#SEC203
 http://www.gnu.org/software/emacs/manual/html_node/emacs/Modifying-Fontsets.html
 For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
+** Set Font Size globally               :obsolete:
+
+Hack for changing font size globally, for presentations.  This affects also the font size of the status bar and temporary windows such as icicles etc.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar default-font-size 12
+  "Initial default font size at startup.")
+  (defun increase-font-size-globally (points)
+    "Increase the global font size for all frames by 1 point"
+    (interactive "NHow many points?: ")
+    (setq default-font-size (+ points default-font-size))
+    (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+  (defun decrease-font-size-globally (points)
+    "Decrease the global font size for all frames by 1 point"
+    (interactive "NHow many points?: ")
+    (setq default-font-size (- default-font-size points))
+    (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+  (defun set-font-size-globally (points)
+    "Set the global font size for all frames to n points."
+    (interactive "NSet font size to how many points?: ")
+    (setq default-font-size points)
+    (set-frame-font (format "Monaco-%s" default-font-size) t t))
+
+  (global-set-key (kbd "C-M--") 'decrease-font-size-globally)
+  (global-set-key (kbd "C-M-+") 'increase-font-size-globally)
+  (global-set-key (kbd "C-M-=") 'set-font-size-globally)
+#+END_SRC
+
 ** Maximize/toggle frame
 #+BEGIN_SRC emacs-lisp
   ;; (maximize-frame) ;; maximize frame on startup
@@ -111,7 +102,7 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
 #+END_SRC
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (toggle-fullscreen)
 #+END_SRC
 
@@ -146,30 +137,25 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 
 #+RESULTS:
 : forward-sentence
-** Insert timestamp (C-c C-x t)
+** Insert timestamp (C-c C-x C-t)
 :PROPERTIES:
 :DATE:     <2014-04-07 Mon 17:35>
 :END:
 
 #+BEGIN_SRC emacs-lisp
-  (defun insert-timestamp (&optional short-type)
+  (defun insert-timestamp (&optional type)
     "Insert a timestamp."
     (interactive "P")
-    (if short-type
-        (insert
-         (let ((date (calendar-current-date)))
-           (format "%s. %s. %s"
-                   (nth 1 date)
-                   (nth 0 date)
-                   (nth 2 date))))
-     (insert (format-time-string "%a, %b %e %Y, %R %Z"))))
+    (insert (format-time-string "%a, %b %e %Y, %R %Z")))
 
   (global-set-key (kbd "C-c C-x t") 'insert-timestamp)
 #+END_SRC
 
 #+RESULTS:
 : insert-timestamp
+
 ** Generic Packages
+
 *** Install el-get for installing of packages from github etc.
 
 See: https://github.com/dimitri/el-get/blob/master/README.md
@@ -189,6 +175,9 @@ See: https://github.com/dimitri/el-get/blob/master/README.md
 #+END_SRC
 
 #+RESULTS:
+
+
+
 *** Bring elisp up-to-date: dash.el
 
 #+BEGIN_QUOTE
@@ -207,25 +196,17 @@ I load it here to have it available when experimenting with code.
 
 #+RESULTS:
 : dash
+
+
 *** desktop
-    :PROPERTIES:
-    :ID:       8B25CBFB-8990-4B53-B364-967461073337
-    :eval-id:  2
-    :END:
 
-Save desktop between sessions.  To clear desktop: M-x desktop-clear.
+Save desktop between sessions.  To clear desktop: M-x desktop-clear
 
-Note: As of Mon, Dec  1 2014, 11:19 EET this creates error with sentinel process on startup.  Disabled.
-
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 (desktop-save-mode 1)
 #+END_SRC
 
-*** breadcrumb, bookmark+
-:PROPERTIES:
-:ID:       FFED8BC2-0CE8-4BA0-ABC2-1AE9B4EFFFF3
-:eval-id:  2
-:END:
+*** QUOTE breadcrumb, bookmark+
 
 See: http://breadcrumbemacs.sourceforge.net/news.html
 
@@ -243,35 +224,19 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (require 'desktop)
   (require 'bookmark+)
 
   (setq bookmark-default-file
-        "~/.emacs.d/personal/bookmarks/default-bookmarks.bmk")
-
-  (defun bookmark-save-named (&optional name)
-    "mod of bookmark-save to save bookmark under name
-  in one default directory in users prelude folder."
-    (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmarks/: ")
-    (let ((path
-           (file-truename
-            (concat
-             "~/.emacs.d/personal/bookmarks/"
-             (replace-regexp-in-string "/" "_" name)
-             ".bmk"))))
-      (setq bmkp-current-bookmark-file path)
-      (bookmark-save)))
-
-  (global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
+        "~/.emacs.d/personal/bookmark-sets/default-bookmarks.bmk")
 
   (defun bmkp-desktop-save-named (&optional name)
     "mod of bmkp-desktop-save to save desktop bookmark under name
   in under one default directory in users prelude folder."
-    (interactive "MSave desktop ~/.emacs/personal/bookmarks/desktops/?: ")
+    (interactive "MSave desktop ~/.emacs/personal/desktop-bookmarks/?: ")
     (let ((path
            (file-truename
             (concat
-             "~/.emacs.d/personal/bookmarks/desktops/"
+             "~/.emacs.d/personal/desktop-bookmarks/"
              (replace-regexp-in-string "/" "_" name)
              ".desktop"))))
       (bmkp-desktop-save path)
@@ -279,24 +244,24 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
              (lexical-let ((df path))
                (lambda () (bmkp-make-desktop-record df))))
             (current-prefix-arg 99)) ; Use all bookmarks for completion, for `bookmark-set'.
-        (bookmark-set name))))
+        (call-interactively #'bookmark-set))))
 
-  (defun bmkp-load-auto-saved-desktop ()
-    (interactive)
-  ;;  (bookmark-bmenu-list) ;; needed to update list if never loaded
-    (bmkp-desktop-jump "auto-save-desktop"))
-
-  (add-hook 'kill-emacs-hook
-            (lambda () (bmkp-desktop-save-named "auto-save-desktop")))
+  (defun bookmark-save-named (&optional name)
+    "mod of bookmark-save to save bookmark under name
+  in under one default directory in users prelude folder."
+    (interactive "Mbookmark filename: ~/.emacs.d/personal/bookmark-sets/: ")
+    (let ((path
+           (file-truename
+            (concat
+             "~/.emacs.d/personal/bookmark-sets/"
+             (replace-regexp-in-string "/" "_" name)
+             ".bmk"))))
+      (setq bmkp-current-bookmark-file path)
+      (bookmark-save)))
 
   (global-set-key (kbd "C-x r C-k") 'bmkp-desktop-save-named)
-  (global-set-key (kbd "C-x p r") 'bookmark-rename)
-  (define-key bookmark-bmenu-mode-map "r" 'bookmark-rename)
-  (global-set-key (kbd "C-x j M-k") 'bmkp-load-auto-saved-desktop)
-
-  (bookmark-bmenu-list) ;; make sure bookmark list is loaded
+  (global-set-key (kbd "C-x r C-s") 'bookmark-save-named)
 #+END_SRC
-
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
 #+BEGIN_SRC emacs-lisp
@@ -775,6 +740,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 * Customization of Specific Authoring Modes
 
 ** Scratchbooks for coding
+
 *** logging tryout code
 :PROPERTIES:
 :ID:       6D2D4561-1856-4EA9-962E-0B556A95F7F5
@@ -985,12 +951,6 @@ Emacs sexp, install emacs web-beautify package:
 : (package-install 'web-beautify)
 
 ** org-mode
-*** binding for org show subtree
-
-#+BEGIN_SRC emacs-lisp
-(eval-after-load 'org
-    '(define-key org-mode-map (kbd "C-c C-x s") 'org-show-subtree))
-#+END_SRC
 
 *** Using ido for org-goto
 
@@ -1043,7 +1003,8 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
              (org-tree-to-indirect-buffer)
              (goto-char mark))
             (t (recenter 4))))
-    (icicle-mode -1))
+    (icicle-mode -1)
+    )
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-=") 'org-icicle-imenu))
@@ -1055,27 +1016,12 @@ Following needs review! Fri, Nov 28 2014, 10:44 EET
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-x =") 'org-table-eval-formula))
 
-  ;; Both eval-after-load and org-mode hook do not work for switching off
-  ;; prelude mode, whitespace.  So using shortcuts as workaround:
-
-  (defun turn-off-whitespace-mode ()
-    (interactive)
-    (whitespace-mode -1))
-
-  (defun turn-off-icicle-mode ()
-    (interactive)
-    (icicle-mode -1))
-
-  (defun turn-off-prelude-mode ()
-    (interactive)
-    (prelude-mode -1))
-
-  (global-set-key (kbd "H-x w") 'turn-off-whitespace-mode)
-  (global-set-key (kbd "H-x p") 'turn-off-prelude-mode)
-  (global-set-key (kbd "H-x i") 'turn-off-icicle-mode)
-
+  ;; this is a redundant second try for the above, to be removed after testing:
   (add-hook 'org-mode-hook
             (lambda ()
+              (icicle-mode -1)
+              (prelude-mode -1)
+              ;; (message "icicles and prelude disabledn ORG mode buffer")
               (local-set-key (kbd "C-c M-=") 'org-table-eval-formula)
               (local-set-key (kbd "C-c '") 'org-edit-special)))
 
@@ -1090,10 +1036,7 @@ Especially in the case of Meta-shift-up and Meta-shift-down for spreadsheets.
 Have not figured out yet how to override those keys specifically.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (prelude-mode -1)))
-  (add-hook 'org-mode-hook 'prelude-off)
+  (add-hook 'org-mode-hook (lambda () (prelude-mode -1)))
 #+END_SRC
 
 
@@ -1132,9 +1075,7 @@ Have not figured out yet how to override those keys specifically.
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
 #+END_SRC
-
 *** Use visual line, whitespace and windmove in org-mode
-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'visual-line-mode)
   (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
@@ -1159,9 +1100,6 @@ Adapted from:
   (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
   (setq org-todo-keywords
         '((sequence
-           "!!!(1)"  ; next action
-           "!!(2)"  ; next action
-           "!(3)"  ; next action
            "TODO(t)"  ; next action
            "STARTED(s)"
            "WAITING(w@/!)"
@@ -1176,10 +1114,7 @@ Adapted from:
            "DELEGATE_DONE(l!)")))
 
   (setq org-todo-keyword-faces
-        '(("!!!" . (:foreground "red" :weight bold))
-          ("!!" . (:foreground "tomato" :weight bold))
-          ("!" . (:foreground "coral" :weight bold))
-          ("TODO" . (:foreground "LightSalmon" :weight bold))
+        '(("TODO" . (:foreground "red" :weight bold))
           ("TOBLOG" . (:foreground "MediumVioletRed" :weight bold))
           ("STARTED" . (:foreground "DeepPink" :weight bold))
           ("WAITING" . (:foreground "gold" :weight bold))
@@ -1404,8 +1339,6 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 *** Class and Project notes, tags, diary
 :PROPERTIES:
 :DATE:     <2014-10-14 Tue 18:47>
-:ID:       D2E016DB-670B-4FD9-90C2-3A43C84C7123
-:eval-id:  3
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -1416,7 +1349,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
           ("eastn" . ?e)
           ("avarts" . ?a)
           ("erasmus" . ?E)
-          ("researchfunding" . ?r)))
+          ("researchfunding" . ?r)
+  ))
 
   (defvar iz-log-dir
     (expand-file-name
@@ -1462,120 +1396,6 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
              files)))
     (message "the value of org-agenda-files was updated"))
 
-  (defvar iz-last-selected-file
-    nil
-    "Path of file last selected with iz-org-file menu.
-  Used to refile to date-tree of last selected file.")
-
-  (defun iz-goto-last-selected-file ()
-    (interactive)
-    (if iz-last-selected-file
-        (find-file iz-last-selected-file)
-      (iz-find-file)))
-
-  (defun iz-refile-to-date-tree (&optional use-last-selected)
-    "Refile to last selected file, using DATE timestamp
-  to move to file-datetree."
-    (interactive "P")
-    (let ((origin-buffer (current-buffer))
-          (origin-filename (buffer-file-name (current-buffer)))
-          (date (calendar-gregorian-from-absolute
-                 (org-time-string-to-absolute
-                  (or (org-entry-get (point) "CLOSED")
-                   (org-entry-get (point) "DATE"))))))
-      (org-cut-subtree)
-      (if (and iz-last-selected-file use-last-selected)
-          (find-file iz-last-selected-file)
-        (iz-find-file))
-      (org-datetree-find-date-create date)
-      (move-end-of-line nil)
-      (open-line 1)
-      (next-line)
-      (org-paste-subtree 4)
-      (save-buffer)
-      (find-file origin-filename)))
-
-  (defun org-process-entry-from-mobile-org ()
-    (interactive)
-    (org-back-to-heading 1)
-    (next-line 1)
-    (let ((time (cadr (org-element-timestamp-parser))))
-      (org-entry-put nil "DATE" (plist-get time :raw-value)))
-    (outline-next-heading))
-
-  (defun iz-get-and-refile-mobile-entries ()
-    (interactive)
-   (org-mobile-pull)
-   (let* ((mobile-file (file-truename "~/org/from-mobile.org"))
-          (mobile-buffer (find-file mobile-file))
-          (log-buffer (find-file (concat iz-log-dir "PRIVATE/LOG.org"))))
-     (with-current-buffer
-         mobile-buffer
-       (org-map-entries
-        (lambda ()
-          (let* ((timestamp
-                  (cdr (assoc "TIMESTAMP_IA" (org-entry-properties))))
-                 (date
-                 (calendar-gregorian-from-absolute
-                  (org-time-string-to-absolute timestamp))))
-            (org-copy-subtree)
-            (with-current-buffer
-                log-buffer
-              (org-datetree-find-date-create date)
-              (move-end-of-line nil)
-              (open-line 1)
-              (next-line)
-              (org-paste-subtree 4)
-              (org-set-property "DATE" (concat "<" timestamp ">"))
-              (org-set-tags-to ":mobileorg:"))))))
-     (copy-file
-      mobile-file
-      (concat
-       (file-name-sans-extension mobile-file)
-       (format-time-string "%Y-%m-%d-%H-%M-%S")
-       ".org"))
-     (with-current-buffer
-         mobile-buffer
-       (erase-buffer)
-       (save-buffer))))
-
-  (defun iz-refile-notes-to-log ()
-    (interactive)
-   (let* ((notes-file (concat iz-log-dir "NOTES/notes.org"))
-          (notes-buffer (find-file notes-file))
-          (log-buffer (find-file (concat iz-log-dir "PRIVATE/LOG.org"))))
-     (with-current-buffer
-         notes-buffer
-       (org-map-entries
-        (lambda ()
-          (let* ((timestamp (org-entry-get (point) "DATE"))
-                 (date
-                 (calendar-gregorian-from-absolute
-                  (org-time-string-to-absolute timestamp))))
-            (org-copy-subtree)
-            (with-current-buffer
-                log-buffer
-              (org-datetree-find-date-create date)
-              (move-end-of-line nil)
-              (open-line 1)
-              (next-line)
-              (org-paste-subtree 4)
-              (org-set-property "DATE" (concat "<" timestamp ">")))))))
-     (copy-file
-      notes-file
-      (concat
-       (file-name-sans-extension notes-file)
-       (format-time-string "%Y-%m-%d-%H-%M-%S")
-       ".org"))
-     (with-current-buffer
-         notes-buffer
-       (erase-buffer)
-       (save-buffer))))
-
-  (defun iz-insert-file-as-snippet ()
-    (interactive)
-    (insert-file-contents (iz-select-file-from-folders)))
-
   (defun iz-select-file-from-folders ()
     (iz-org-file-menu (iz-select-folder)))
 
@@ -1603,7 +1423,6 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
          (project-menu (grizzl-make-index projects))
          (selection (cdr (assoc (grizzl-completing-read "Select file: " project-menu)
                                 dirs))))
-      (setq iz-last-selected-file selection)
       selection))
 
   (defun iz-get-refile-targets ()
@@ -1625,19 +1444,6 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
            (goto-char 0)
            (if (search-forward "*# -*- mode:org" 100 t)
                (org-decrypt-entries)))))
-
-  ;; Following needed to avoid error message ls does not use dired.
-  (setq ls-lisp-use-insert-directory-program nil)
-  (require 'ls-lisp)
-
-  (defun iz-open-project-folder (&optional open-in-finder)
-    "Open a folder associated with a project .org file.
-  Select the file using iz-select-file-from-folders, and then open folder instead.
-  If the folder does not exist, create it."
-    (interactive "P")
-    (let ((path (file-name-sans-extension (iz-select-file-from-folders))))
-      (unless  (file-exists-p path) (make-directory path))
-      (if open-in-finder (open-folder-in-finder path) (dired path))))
 
   (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
@@ -1677,7 +1483,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                                   (car item)
                                   'entry
                                   (list 'file+datetree (cdr item))
-                                  "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
+                                  "* %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
                                dirs)))))
 
   (defun iz-todo (&optional goto)
@@ -1700,60 +1506,41 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                                                     (file-name-nondirectory dir))
                                                    dir))
                                files)))
-                 (-map-indexed
-                  (lambda (index item)
-                    (list
-                     (substring iz-capture-keycodes index (+ 1 index))
-                     (car item)
-                     'entry
-                     (list 'file+headline (cdr item) "TODOs")
-                     "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
-                  dirs)))))
-
-  (defun iz-goto (&optional level)
-    (interactive "P")
-    (if level
-        (setq org-refile-targets (list (cons (iz-select-file-from-folders) (cons :level level))))
-      (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3)))))
-    (org-refile '(4)))
+                 (-map-indexed (lambda (index item)
+                                 (list
+                                  (substring iz-capture-keycodes index (+ 1 index))
+                                  (car item)
+                                  'entry
+                                  (list 'file+headline (cdr item) "TODOs")
+                                  "* TODO %?\n :PROPERTIES:\n :DATE:\t%U\n :END:\n\n%i\n"))
+                               dirs)))))
 
   (defun iz-refile (&optional goto)
     "Refile to selected file."
     (interactive "P")
-    (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3))))
+    (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 2))))
     (org-refile goto))
+
+  (defun iz-goto ()
+    (interactive)
+    (iz-refile '(4)))
 
   (defun iz-org-file-command-menu ()
     "Menu of commands operating on iz org files."
   (interactive)
     (let* ((menu (grizzl-make-index
-                  '(
-                    "iz-log"
+                  '("iz-log"
                     "iz-todo"
-                    "iz-refile-to-date-tree"
-                    "iz-refile"
-                    "iz-open-project-folder"
                     "iz-find-file"
-                    "iz-goto"
-                    "iz-goto-last-selected-file"
-                    "org-agenda"
-                    "iz-get-and-refile-mobile-entries"
-                    "iz-refile-notes-to-log"
-                    "iz-insert-file-as-snippet"
-                    )))
+                    "org-agenda")))
            (selection (grizzl-completing-read "Select command: " menu)))
       (eval (list (intern selection)))))
 
   (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
-  (global-set-key (kbd "H-h H-h") 'iz-org-file-command-menu)
   (global-set-key (kbd "H-h H-f") 'iz-find-file)
-  (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
   (global-set-key (kbd "H-h H-l") 'iz-log)
-  (global-set-key (kbd "H-h L") 'iz-goto-last-selected-file)
-  (global-set-key (kbd "H-h H-i") 'iz-insert-file-as-snippet)
   (global-set-key (kbd "H-h H-t") 'iz-todo)
   (global-set-key (kbd "H-h H-r") 'iz-refile)
-  (global-set-key (kbd "H-h r") 'iz-refile-to-date-tree)
   (global-set-key (kbd "H-h H-g") 'iz-goto)
   (global-set-key (kbd "H-h H-c H-w") 'iz-refile)
   (global-set-key (kbd "H-h H-c H-a") 'org-agenda)
@@ -1801,190 +1588,34 @@ Enable some cool languages in org-babel mode.
 #+RESULTS:
 : org-babel-load-current-file
 
+*** DONE Orgmode latex customization
+CLOSED: [2014-06-19 Thu 10:50]
 
-*** Orgmode latex customization
+#+BEGIN_SRC emacs-glisp
+;;; Load latex package
+(require 'ox-latex)
 
-Note Mon, Dec 15 2014, 16:29 EET: XeLaTeX covers most needs that I have for western european languages, Greek and Japanese.
+;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
+(setq org-latex-pdf-process (list "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
 
-#+BEGIN_SRC emacs-lisp
-  ;;; Load latex package
-  (require 'ox-latex)
+;;; Add beamer to available latex classes, for slide-presentaton format
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
-  ;;; Use xelatex instead of pdflatex, for support of multilingual fonts (Greek etc.)
-  ;; Note: Use package polyglossia to customize dates and other details.
-  (setq org-latex-pdf-process
-        (list "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"
-              "xelatex -interaction nonstopmode -output-directory %o %f"))
-
-  ;; This is kept as reference. XeLaTeX covers all european/greek/asian needs.
-  ;; It is the original setting for working with pdflatex:
-  ;; (setq org-latex-pdf-process
-  ;;  ("pdflatex -interaction nonstopmode -output-directory %o %f"
-  ;;   "pdflatex -interaction nonstopmode -output-directory %o %f"
-  ;;   "pdflatex -interaction nonstopmode -output-directory %o %f"))
-
-  ;;; Add beamer to available latex classes, for slide-presentaton format
-  (add-to-list 'org-latex-classes
-               '("beamer"
-                 "\\documentclass\[presentation\]\{beamer\}"
-                 ("\\section\{%s\}" . "\\section*\{%s\}")
-                 ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-                 ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
-
-  ;;; Add memoir class (experimental)
-  (add-to-list 'org-latex-classes
-               '("memoir"
-                 "\\documentclass[12pt,a4paper,article]{memoir}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-  ;; Reconfigure memoir to make a book (or report) from a org subtree
-  (add-to-list 'org-latex-classes
-               '("section-to-book"
-                 "\\documentclass{memoir}"
-                 ("\\chapter{%s}" . "\\chapter*{%s}") ;; actually: BOOK TITLE!
-                 ("\\section{%s}" . "\\section*{%s}") ;; actually: Chapter!
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")))
-
-  ;; Letter
-  (add-to-list 'org-latex-classes
-               '("letter"
-                 "\\documentclass{letter}"
-                 ;; Should not use subsections at all!:
-                 ("\\chapter{%s}" . "\\chapter*{%s}")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")))
-
-  (add-to-list 'org-latex-classes
-               '("newlfm-letter"
-                 "\\documentclass[11pt,letter,dateno,sigleft]{newlfm}"
-                 ;; Should not use subsections at all!:
-                 ("\\chapter{%s}" . "\\chapter*{%s}")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+;;; Add memoir class (experimental)
+(add-to-list 'org-latex-classes
+             '("memoir"
+               "\\documentclass[12pt,a4paper,article]{memoir}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
-
-**** export subtree as latex with header selected from file template
-:PROPERTIES:
-:DATE:     <2014-12-15 Mon 20:25>
-:END:
-
-Todo:
-
-***** TODO Remodel key commands:
-:PROPERTIES:
-:DATE:     <2014-12-15 Mon 15:21>
-:END:
-- H-h H-e: Export latex as pdf and open
-  - No argument :: ask for template
-  - 1-u = '(4) :: repeat previous file/subtree/template selection
-- H-h H-E: Export latex into buffer and open window
-  - No argument :: ask for template
-  - 1-u = '(4) :: repeat previous file/subtree/template selection
-
-***** TODO Define command for switching between xelatex/pdflatex
-:PROPERTIES:
-:DATE:     <2014-12-15 Mon 15:21>
-:END:
-
-***** The code
-:PROPERTIES:
-:DATE:     <2014-12-16 Tue 13:40>
-:END:
-
-
-#+BEGIN_SRC emacs-lisp
-  (defvar latex-templates-path
-    (file-truename "~/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES"))
-
-  (defvar latex-section-template
-    '(("\\section\{%s\}" . "\\section*\{%s\}")
-      ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-      ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}")))
-
-  (defvar org-latex-last-chosen-file-name)
-
-  (defun org-export-subtree-as-latex-with-header-from-file (&optional use-previous-setting-p)
-    (interactive "P")
-    (org-latex-export-with-file-template t use-previous-setting-p t))
-
-  (defun org-export-subtree-as-pdf-with-header-from-file (&optional use-previous-setting-p)
-    (interactive "P")
-    (org-latex-export-with-file-template nil use-previous-setting-p t))
-
-  (defun org-export-buffer-as-latex-with-header-from-file (&optional use-previous-setting-p)
-    (interactive "P")
-    (org-latex-export-with-file-template t use-previous-setting-p nil))
-
-  (defun org-export-buffer-as-pdf-with-header-from-file (&optional use-previous-setting-p)
-    (interactive "P")
-    (org-latex-export-with-file-template nil use-previous-setting-p nil))
-
-
-  (defun org-latex-export-with-file-template (&optional as-latex-buffer-p use-previous-setting-p subtree-p)
-    (let* (;; backup to restore original latex-classes after this operation:
-           (org-latex-classes-backup org-latex-classes)
-           (paths (file-expand-wildcards (concat latex-templates-path "/*.tex")))
-           (names-and-paths
-            (mapcar
-             (lambda (x)
-               (cons (file-name-sans-extension (file-name-nondirectory x)) x))
-             paths))
-           (menu (grizzl-make-index (mapcar 'car names-and-paths)))
-           (chosen-filename
-            (if (and use-previous-setting-p org-latex-last-chosen-file-name)
-                org-latex-last-chosen-file-name
-              (grizzl-completing-read "Choose latex template: " menu)))
-           (chosen-template-path (cdr (assoc chosen-filename names-and-paths)))
-           (this-buffers-latex-class
-            (plist-get (org-export-get-environment 'latex t nil) :latex-class))
-           latex-header
-           (latex-sections
-            (or (cddr (assoc this-buffers-latex-class org-latex-classes))
-                latex-section-templates)))
-      (when chosen-template-path
-        (setq org-latex-last-chosen-file-name chosen-filename)
-        (setq latex-header
-              (with-temp-buffer
-                (insert-file-contents chosen-template-path)
-                (concat
-                 "[NO-DEFAULT-PACKAGES]\n"
-                 "[NO-EXTRA]\n"
-                 "\n"
-                 (buffer-string))))
-        ;; Create custom org-latex-classes to use this template:
-        (setq org-latex-classes
-              (list
-               (append
-                (list this-buffers-latex-class latex-header)
-                latex-sections)))
-        (if as-latex-buffer-p
-            (org-latex-export-as-latex nil subtree-p nil nil)
-          (org-open-file (org-latex-export-to-pdf nil subtree-p nil nil)))
-        ;; restore original latex classes:
-        (setq org-latex-classes org-latex-classes-backup)
-        ;; Open the chosen template for inspection and tweaking:
-        (unless (get-buffer (file-name-nondirectory chosen-template-path))
-          (split-window-vertically)
-          (find-file chosen-template-path)))))
-
-  (global-set-key (kbd "H-h H-e") 'org-export-subtree-as-pdf-with-header-from-file)
-  (global-set-key (kbd "H-h H-E") 'org-export-subtree-as-latex-with-header-from-file)
-  (global-set-key (kbd "H-h H-C-e") 'org-export-buffer-as-pdf-with-header-from-file)
-  (global-set-key (kbd "H-h H-C-E") 'org-export-buffer-as-latex-with-header-from-file)
-#+END_SRC
-
-
 *** Org-crypt: Encrypt selected org-mode entries
 
 #+BEGIN_SRC emacs-lisp
@@ -2223,8 +1854,6 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
-  (eval-after-load 'org
-    '(define-key org-mode-map (kbd "C-c C-'") 'org-edit-special))
 #+END_SRC
 *** org-export for docpad
 :PROPERTIES:
@@ -2251,7 +1880,7 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
         (write-file path)
         (message (format "written to path: %s" path))))
 
-  (global-set-key (kbd "H-e H-b") 'org-html-export-as-html-body-only)
+  (global-set-key (kbd "H-h H-d") 'org-html-export-as-html-body-only)
 #+END_SRC
 *** Internal: Load org-pm
 
@@ -2273,35 +1902,6 @@ Magit config: Manage git repos from inside emacs
 #+END_SRC
 
 
-* Load Default Desktop
-:PROPERTIES:
-:DATE:     [2014-12-03 Wed 02:10]
-:END:
-
-Note: This must be after the TODO config, otherwise any Org mode buffers loaded here will not inherit the TODOD config.
-
-#+BEGIN_SRC emacs-lisp
-(bmkp-desktop-jump "startup")
-#+END_SRC
-
-* Shell Scripts
-
-** Saving my config to github, bitbucket, gitlab
-
-#+BEGIN_SRC sh
-cd ~/Documents/Dev/Emacs/my-emacs-prelude-config/
-git add --all .
-git commit -am "Saved on: `date`"
-# echo "================================================================"
-echo "!!!!!!!!!!!!!!!! Created new git commit !!!!!!!!!!!!!!!!"
-echo "============================================ Pushing to github"
-git push origin master
-echo "======================== Saved repo to github.  Now pushing to bitbucket."
-git push bitbucket master
-echo "======================== Saved repo to bitbucket.  Now pushing to gitlab."
-git push gitlab master
-echo "======================== Saved repo to gitlab. Backup completed."
-#+END_SRC
 * Notes
 ** DONE Try Orgstruct, Outshine, Outorg or Poporg for elisp files instead of Babel
 CLOSED: [2014-04-07 Mon 18:21]

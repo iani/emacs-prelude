@@ -2,7 +2,27 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("Camera Uploads" 0 14
+(#1=(#("my-emacs-prelude-config" 0 23
+      (bmkp-full-record #1#))
+    (buffer-name . "my-emacs-prelude-config")
+    (front-context-string . "preload-disabled")
+    (rear-context-string . "72 Mar 18  2014 ")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21654 40991 820304 0))
+    (created . #2#)
+    (position . 870)
+    (filename . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/")
+    (dired-directory . "~/Documents/Dev/Emacs/my-emacs-prelude-config/")
+    (dired-marked)
+    (dired-switches . "-al")
+    (dired-subdirs)
+    (dired-hidden-dirs)
+    (handler . bmkp-jump-dired))
+#1=(#("Camera Uploads" 0 1
+      (bmkp-full-record #1#)
+      1 14
       (bmkp-full-record #1#))
     (buffer-name . "Camera Uploads")
     (front-context-string . ".DS_Store\n  -rw-")
@@ -408,7 +428,9 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("org-capture-last-stored" 0 23
+#1=(#("org-capture-last-stored" 0 1
+      (bmkp-full-record #1#)
+      1 23
       (bmkp-full-record #1#))
     (filename . "~/Dropbox/000WORKFILES/PRIVATE/LOG.org")
     (buffer-name . "LOG.org")
@@ -545,14 +567,16 @@
       1 7
       (bmkp-full-record #1#))
     (buffer-name . "iani.org")
-    (visits . 21)
-    (time 21652 757 441253 0)
+    (visits . 22)
+    (time 21654 40247 561659 0)
     (created 21642 6431 131796 0)
     (position . 34240)
     (filename . "   - no file -")
     (desktop-file . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/bookmarks/desktops/startup.desktop")
     (handler . bmkp-jump-desktop))
-#1=(#("auto-save-desktop" 0 17
+#1=(#("auto-save-desktop" 0 1
+      (bmkp-full-record #1#)
+      1 17
       (bmkp-full-record #1#))
     (buffer-name . "iani.org")
     (visits . 0)
@@ -591,8 +615,8 @@
     (rear-context-string . "10 Dec  2 11:38 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 8)
-    (time 21651 58578 453540 0)
+    (visits . 9)
+    (time 21654 40967 781848 0)
     (created 21629 34961 75199 0)
     (position . 707)
     (filename . "/Users/iani/Documents/Dev/Emacs/")
@@ -689,18 +713,18 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("scripts" 0 1
+#1=(#("shell scripts" 0 1
       (bmkp-full-record #1#)
-      1 7
+      1 13
       (bmkp-full-record #1#))
     (buffer-name . "SCRIPTS")
     (front-context-string . "supercollider-sc")
     (rear-context-string . "14 Nov 30 01:19 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 0)
-    (time . #2=(21630 27195 88390 0))
-    (created . #2#)
+    (visits . 1)
+    (time 21654 40748 286548 0)
+    (created 21630 27195 88390 0)
     (position . 2235)
     (filename . "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/")
     (dired-directory . "~/Dropbox/000WORKFILES/SCRIPTS/")

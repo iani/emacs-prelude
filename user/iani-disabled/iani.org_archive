@@ -1,0 +1,251 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/iani/.emacs.d/personal/user/iani.org
+
+
+* Class and Project notes, tags
+:PROPERTIES:
+:DATE:     <2014-10-14 Tue 18:47>
+:ARCHIVE_TIME: 2014-11-09 Sun 02:27
+:ARCHIVE_FILE: ~/.emacs.d/personal/user/iani.org
+:ARCHIVE_OLPATH: Customization of Specific Authoring Modes/org-mode
+:ARCHIVE_CATEGORY: iani
+:END:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-tag-alist
+        '(
+          ("home" . ?h)
+          ("finance" . ?f)
+          ("eastn" . ?e)
+          ("avarts" . ?a)
+          ("erasmus" . ?E)
+          ("researchfunding" . ?r)
+  ))
+
+  (defvar iz-log-dir
+    (expand-file-name
+     "~/Dropbox/000WORKFILES/201404NEWMIGRATION/personal-org/logs/")
+    "This directory contains all notes on current projects and classes")
+
+  (defadvice org-agenda (before update-agenda-file-list ())
+    "Re-createlist of agenda files from contents of relevant directories."
+    (iz-update-agenda-file-list))
+
+  (ad-activate 'org-agenda)
+
+  (defun iz-update-agenda-file-list ()
+    "Set value of org-agenda-files from contents of relevant directories."
+   (setq org-agenda-files
+         (append
+          (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
+          (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))
+          (list (concat iz-log-dir "log.org"))))
+   (message "org-agenda-files was updated"))
+
+  (defun iz-get-refile-target-list ()
+    "Gest list of files containing possible refile targets."
+    (append
+     (file-expand-wildcards (concat iz-log-dir "projects" "/[a-zA-Z0-9]*.org"))
+     (file-expand-wildcards (concat iz-log-dir "classes" "/[a-zA-Z0-9]*.org"))))
+
+  (setq org-refile-targets
+        '((iz-get-refile-target-list . (:level . 1))))
+
+  (defun iz-directory-file-menu (subdir)
+    (let*
+        ((files
+          (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+         (projects (mapcar 'file-name-nondirectory files))
+         (dirs
+          (mapcar (lambda (dir) (cons (file-name-nondirectory dir) dir))
+                  files))
+         (project-menu (grizzl-make-index projects))
+         (selection (cdr (assoc (grizzl-completing-read "Open: " project-menu)
+                                dirs))))
+      (find-file selection)))
+
+  (defun iz-open-project ()
+    "Open an org file from projects folder."
+    (interactive)
+    (iz-directory-file-menu "projects"))
+
+  (defun iz-open-class ()
+    "Open an org file from projects folder."
+    (interactive)
+    (iz-directory-file-menu "classes"))
+
+  (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
+
+  (defun iz-make-capture-templates (subdir)
+    "Make capture templates for project files"
+   (setq org-capture-templates
+         (setq org-capture-templates
+               (let* (
+                      (files
+                       (file-expand-wildcards
+                        (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+                      (projects (mapcar 'file-name-nondirectory files))
+                      (dirs
+                       (mapcar (lambda (dir) (cons (file-name-sans-extension
+                                                    (file-name-nondirectory dir))
+                                                   dir))
+                               files))
+                      )
+                 (-map-indexed (lambda (index item)
+                                 (list
+                                  (substring iz-capture-keycodes index (+ 1 index))
+                                  (car item)
+                                  'entry
+                                  (list 'file+datetree (cdr item))
+                                  "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"
+                                  ))
+                               dirs)))))
+
+  ;; TODO: instead of file+datetree, file the entryin a separate tree for TODOS
+  (defun iz-make-todo-capture-templates (subdir)
+    "Make capture templates for project files"
+   (setq org-capture-templates
+         (setq org-capture-templates
+               (let* (
+                      (files
+                       (file-expand-wildcards
+                        (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+                      (projects (mapcar 'file-name-nondirectory files))
+                      (dirs
+                       (mapcar (lambda (dir) (cons (file-name-sans-extension
+                                                    (file-name-nondirectory dir))
+                                                   dir))
+                               files))
+                      )
+                 (-map-indexed (lambda (index item)
+                                 (list
+                                  (substring iz-capture-keycodes index (+ 1 index))
+                                  (car item)
+                                  'entry
+                                  (list 'file+headline (cdr item) "TODOs")
+                                  "* TODO %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"
+                                  ))
+                               dirs)))))
+
+  ;; Experimental:
+  (defun iz-make-finance-capture-template ()
+    (setq org-capture-templates
+          (list
+           (list
+            "f" "FINANCE"
+            'entry
+            (list 'file+datetree (concat iz-log-dir "projects/FINANCE.org"))
+            "* %^{title}\n :PROPERTIES:\n :DATE:\t%T\n :END:\n%^{TransactionType}p%^{category}p%^{amount}p\n%?\n"
+            ))))
+
+  (defun iz-log-project ()
+    "Capture log entry in date-tree of project file."
+    (interactive)
+    (iz-make-capture-templates "projects")
+    (org-capture))
+
+  (defun iz-log-class ()
+    "Capture log entry in date-tree of class file."
+    (interactive)
+    (iz-make-capture-templates "classes")
+    (org-capture))
+
+  (defun iz-todo-project ()
+    "Capture log entry in date-tree of project file."
+    (interactive)
+    (iz-make-todo-capture-templates "projects")
+    (org-capture))
+
+  (defun iz-todo-class ()
+    "Capture log entry in date-tree of class file."
+    (interactive)
+    (iz-make-todo-capture-templates "classes")
+    (org-capture))
+
+  (global-set-key (kbd "H-h H-p") 'iz-open-project)
+  (global-set-key (kbd "H-h H-P") 'iz-log-project)
+  (global-set-key (kbd "H-h H-C-P") 'iz-todo-project)
+
+  (global-set-key (kbd "H-h H-c") 'iz-open-class)
+  (global-set-key (kbd "H-h H-C") 'iz-log-class)
+  (global-set-key (kbd "H-h H-C-C") 'iz-todo-class)
+
+
+
+
+
+#+END_SRC
+
+* CountUp geeklet code
+:PROPERTIES:
+:ARCHIVE_TIME: 2014-11-23 Sun 15:39
+:ARCHIVE_FILE: ~/.emacs.d/personal/user/iani.org
+:ARCHIVE_OLPATH: Customization of Specific Authoring Modes/org-mode/Log: (simplified alternative to capture)
+:ARCHIVE_CATEGORY: ???
+:END:
+
+#+BEGIN_SRC sh
+#!/bin/bash
+# Homework countdown
+# BETA - I will update this when I get more time
+function countdown
+{
+	CURRENT=$(date -j -f %D_%T $1 +%s)
+	TARGET=$(date +%s)
+	LEFT=$((TARGET-CURRENT))
+	WEEKS=$((LEFT/604800))
+	DAYS=$(( (LEFT%604800)/86400))
+	HOURS=$(( (LEFT%86400)/3600))
+	MINS=$(( (LEFT%3600)/60))
+	SECS=$((LEFT%60))
+
+	lblWEEKS="Weeks"
+	lblDAYS="Days"
+
+	if [ $DAYS == 1 ]
+	then
+	lblDAYS="Day"
+	fi
+
+	if [ $WEEKS == 1 ]
+	then
+	lblWEEKS="Weeky"
+	fi
+
+	if [ $HOURS -lt 10 ]
+	then
+		HOURS=0$HOURS
+	fi
+
+	if [ $MINS -lt 10 ]
+	then
+		MINS=0$MINS
+	fi
+
+
+	if [ $SECS -lt 10 ]
+	then
+		SECS=0$SECS
+	fi
+
+
+	echo $2 $HOURS:$MINS:$SECS
+	# Optional extra line between timers
+	# echo
+}
+DATES=( $( cat /Users/iani/Dropbox/000WORKFILES/org/monitoring/stopwatch.txt ) )
+# Even numbered indices are names, odd numbered indices are dates
+
+if [ ${#DATES[@]} == 0 ]
+then
+echo "No Deadlines!"
+return
+fi
+
+for (( i = 0 ; i < ${#DATES[@]} ; i+=2 ))
+do
+countdown ${DATES[i+1]} ${DATES[i]}
+done
+#+END_SRC
