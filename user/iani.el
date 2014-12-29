@@ -80,6 +80,8 @@
 
 (global-set-key (kbd "C-c C-x t") 'insert-timestamp)
 
+(require 'org-drill)
+
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -955,8 +957,8 @@ files to org-agenda-files."
           (dolist (folder folders)
             (setq files
                   (append
-                   files
-                   (file-expand-wildcards (concat folder "/*.org")))))
+                   files ;; ignore files whose name starts with underscore (_)
+                   (file-expand-wildcards (concat folder "/[!_]*.org")))))
           (-reject
            (lambda (f)
              (string-match-p "/\\." f))

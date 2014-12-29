@@ -107,6 +107,7 @@ static char *gnus-pointer[] = {
  '(main-line-separator-style (quote chamfer))
  '(org-agenda-files nil)
  '(org-attach-directory "./attachments")
+ '(org-drill-optimal-factor-matrix nil)
  '(org-export-backends (quote (ascii html icalendar latex md taskjuggler)))
  '(org-export-with-sub-superscripts (quote {}))
  '(org-mobile-directory "~/Dropbox/Apps/MobileOrg")

@@ -2,61 +2,28 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Sun Dec 21 12:13:00 2014
+;; Created Mon Dec 29 19:57:17 2014
 ;; Desktop file format version 206
 ;; Emacs version 24.4.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21654 40236 472959 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.local") (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 76) (width . 236) (left . 1440) (top + -180)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 10) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 56) (min-pixel-width . 160) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 80) (min-pixel-height-safe . 14) (min-pixel-width-safe . 32)) hc (pixel-width . 1916) (pixel-height . 1062) (total-width . 240) (total-height . 75) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 956) (pixel-height . 1062) (total-width . 120) (total-height . 75) (normal-height . 1.0) (normal-width . 0.5) (buffer "iani.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 70040) (start . 67336))) (leaf (last . t) (pixel-width . 960) (pixel-height . 1062) (total-width . 120) (total-height . 75) (normal-height . 1.0) (normal-width . 0.5) (buffer "iani.org" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 83164) (start . 70655)))))])
+(setq desktop-saved-frameset [frameset 1 (21665 38397 422782 0) (desktop . "206") "iani@turangalila2.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (powerline-cache) (frameset--id . "45A6-A737-D4D1-5FB1") (frameset--mini t) (height . 76) (width . 236) (modeline . t) (minibuffer . t) (unsplittable) (left . 1440) (top + -180) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 10) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 56) (min-pixel-width . 160) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 80) (min-pixel-height-safe . 14) (min-pixel-width-safe . 32)) hc (pixel-width . 1916) (pixel-height . 1062) (total-width . 240) (total-height . 75) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 956) (pixel-height . 1062) (total-width . 120) (total-height . 75) (normal-height . 1.0) (normal-width . 0.5) (buffer "PRIVATE" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 1722) (start . 1))) (leaf (last . t) (pixel-width . 960) (pixel-height . 1062) (total-width . 120) (total-height . 75) (normal-height . 1.0) (normal-width . 0.5) (buffer "*Org Agenda*" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 1290) (start . 1)))) (((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (visibility . t) (height . 64) (width . 176) (left . 0) (top . 0)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 179) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "inbox.org" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 72) (start . 1))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
 (setq register-alist (list (desktop-list* 105 (vector 'registerv (vector [frameset 1 (21630 19751 999764 0) register nil nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (buffer-predicate) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen) (window-system . ns) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (height . 60) (width . 95) (buffer-list "Unprintable entity") (buried-buffer-list "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity") (left . 0) (top . 27) (window-id . "1") (parent-id)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 783) (pixel-height . 826) (total-width . 97) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (buffer "-INBOX" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 139) (start . 1))))] "30B4-328D-407F-6B05" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook `(lambda nil (set-marker ,mk ,nil (get-buffer ," *temp*")))) mk)) "Unprintable entity" 'frameset--jump-to-register nil))))
-(setq file-name-history '("~/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/DOKUMENTA_APO_EPITROPI/Results_1_19122014.pdf" "~/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/DOKUMENTA_APO_EPITROPI" "/Volumes/NO NAME/00EE191218" "~/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/ALLILOGRAFIA_KAI_FORMES_SYMBLIROMENES_PROS_EPITROPI/141211_�Іцφӆʆˆǆӆ� �ņʆĆǆˆنӆǆ� �ņ͆ĆɆ��ֆņцφ͆Ԇφ�.docx" "~/Dropbox/000WORKFILES/AVARTS_STUDENTS_PHD/DanaPapachristou/DanaPapachristouPhD141217" "~/Dropbox/000WORKFILES/-INBOX/-inbox.org" "~/Dropbox/000WORKFILES/_INBOX" "/Users/iani/Dropbox/000WORKFILES/NOTES/prompt.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/" "~/.oh-my-zsh/custom/testoh.sh" "~/Dropbox/000WORKFILES/NOTES/wishlist-electronics.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Dropbox/000WORKFILES/PRIVATE/VergiGymSchedule.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-mode-scratchpad/deduce-percentage-from-whole_141127_19-43.org" "~/.emacs.d/" "/Applications/Emacs.app/Contents/Resources/lisp/README" "~/.emacs.d/emacs.desktop-debug" "~/.emacs.d/" "/Users/iani/.emacs.d/personal/user/sc-snippets.el" "~/.emacs.d/" "~/.emacs.d/personal/desktop-bookmarks" "~/.emacs.d/personal/desktop" "~/.emacs.d/personal/bookmark-sets" "~/.emacs.d/personal/.emacs.desktop" "~/.emacs.d/personal/user/iani-disabled/iani.org_archive" "~/.emacs.d/personal/user/iani-disabled/iani.org" "~/.emacs.d/personal/user/iani-disabled/iani.el"))
+(setq file-name-history '("~/Documents/publications_others/literature/akutagawa/akutagawa_ryunosuke_kashu.txt" "~/Dropbox/000WORKFILES/-INBOX/-inbox.org" "~/Dropbox/000WORKFILES/_INBOX" "/Users/iani/Dropbox/000WORKFILES/NOTES/prompt.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/" "~/.oh-my-zsh/custom/testoh.sh" "~/Dropbox/000WORKFILES/NOTES/wishlist-electronics.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Dropbox/000WORKFILES/PRIVATE/VergiGymSchedule.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-mode-scratchpad/deduce-percentage-from-whole_141127_19-43.org" "~/.emacs.d/" "/Applications/Emacs.app/Contents/Resources/lisp/README" "~/.emacs.d/emacs.desktop-debug" "~/.emacs.d/" "/Users/iani/.emacs.d/personal/user/sc-snippets.el" "~/.emacs.d/" "~/.emacs.d/personal/desktop-bookmarks" "~/.emacs.d/personal/desktop" "~/.emacs.d/personal/bookmark-sets" "~/.emacs.d/personal/.emacs.desktop" "~/.emacs.d/personal/user/iani-disabled/iani.org_archive" "~/.emacs.d/personal/user/iani-disabled/iani.org" "~/.emacs.d/personal/user/iani-disabled/iani.el" "~/.emacs.d/personal/user/iani-disabled" "~/.emacs.d/personal/user/iani.org" "~/test-bkmark.el" "~/.emacs.d/"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/iani/.emacs.d/personal/user/iani.org"
-  "iani.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  70040
-  '(67359 nil)
   nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "org-mode-scratchpad"
+  "PRIVATE"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  160
-  '(681 nil)
+  1722
+  '(1722 nil)
   t
-  '("/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-mode-scratchpad/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-mode-scratchpad/org-mode-latex-customization_141221_11-52.org"
-  "org-mode-latex-customization_141221_11-52.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  77
-  '(77 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "PUBLICATIONS"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  241
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/PUBLICATIONS/")
+  '("/Users/iani/Dropbox/000WORKFILES/PRIVATE/")
   nil)
 
 (desktop-create-buffer 206
@@ -64,263 +31,120 @@
   "000WORKFILES"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  1786
-  '(nil nil)
+  1785
+  '(2662 nil)
   t
   '("/Users/iani/Dropbox/000WORKFILES/")
   nil)
 
 (desktop-create-buffer 206
   nil
-  "SCRIPTS"
+  "DRILLS"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  407
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/SCRIPTS/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/savework.sh"
-  "savework.sh"
-  'sh-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode)
-  38
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_PHD/ArisBezas.org"
-  "ArisBezas.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN.org"
-  "EASTN.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  1
+  245
   '(1 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "AVARTS_STUDENTS_PRE_DIPLOMA"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  157
-  '(nil nil)
   t
-  '("/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_PRE_DIPLOMA/")
+  '("/Users/iani/Dropbox/000WORKFILES/DRILLS/")
   nil)
 
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/emacslisp-scratchpad/fixing-emax-shell-path_141216_15-42.el"
-  "fixing-emax-shell-path_141216_15-42.el"
-  'emacs-lisp-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode)
-  42
-  '(42 nil)
   nil
-  nil
-  '((buffer-file-coding-system . prefer-utf-8-unix)))
-
-(desktop-create-buffer 206
-  nil
-  "emacslisp-scratchpad"
+  "NOTES"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  1123
-  '(nil nil)
+  878
+  '(878 nil)
   t
-  '("/Users/iani/Dropbox/000WORKFILES/SCRIPTS/emacslisp-scratchpad/")
+  '("/Users/iani/Dropbox/000WORKFILES/NOTES/")
   nil)
 
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN-IU-FAQ.org"
-  "EASTN-IU-FAQ.org"
+  "/Users/iani/Dropbox/000WORKFILES/DRILLS/_japanese.org"
+  "_japanese.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  324
-  '(62 nil)
+  497
+  '(3730 nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+  "/Users/iani/Documents/publications_others/literature/akutagawa/ababababa.txt"
+  "ababababa.txt"
+  'text-mode
+  '(abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode)
+  1
+  '(312 nil)
   nil
-  "DOKUMENTA_APO_EPITROPI"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  324
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/DOKUMENTA_APO_EPITROPI/")
-  nil)
+  nil
+  '((buffer-file-coding-system . japanese-shift-jis-dos)))
 
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/PRIVATE/keys-id.org"
-  "keys-id.org"
+  "/Users/iani/Documents/Dev/Emacs/org-drill/spanish.org"
+  "spanish.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  61
-  '(1 nil)
+  491
+  '(nil nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
   nil
-  "CORRESPONDENCE_WITH_RC"
+  "akutagawa"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  542
+  329
+  '(487 nil)
+  t
+  '("/Users/iani/Documents/publications_others/literature/akutagawa/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "Downloads"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  17899
+  '(17899 nil)
+  t
+  '("/Users/iani/Downloads/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "literature"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  1672
   '(nil nil)
   t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/")
+  '("/Users/iani/Documents/publications_others/literature/")
   nil)
 
 (desktop-create-buffer 206
   nil
-  "ALLILOGRAFIA_KAI_FORMES_SYMBLIROMENES_PROS_EPITROPI"
+  "publications_others"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  758
-  '(758 nil)
+  3276
+  '(257 nil)
   t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/ALLILOGRAFIA_KAI_FORMES_SYMBLIROMENES_PROS_EPITROPI/")
+  '("/Users/iani/Documents/publications_others/")
   nil)
 
 (desktop-create-buffer 206
   nil
-  "FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES"
+  "Documents"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  393
+  1938
   '(nil nil)
   t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "JOINT_RESEARCH_PROJECTS"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  558
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "DanaPapachristou"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  214
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_PHD/DanaPapachristou/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "FORMES_MIA_MIA"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  1214
-  '(2360 nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/FORMES_MIA_MIA/" "/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/FORMES_MIA_MIA/AITHSEIS/" "/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/FORMES_MIA_MIA/DIOIKHTIKA/" "/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/FORMES_MIA_MIA/OIKONOMIKA/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "DIOIKHTIKA"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  1086
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/FORMES_MIA_MIA/DIOIKHTIKA/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "AITHSEIS"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  660
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/FORMES_MIA_MIA/AITHSEIS/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "OIKONOMIKA"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  424
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/CORRESPONDENCE_WITH_RC/FORMES_EPITROPIS_EREVNON_OLES_TEMPLATES/FORMES_MIA_MIA/OIKONOMIKA/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "EASTN-admin-docs-IU"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  271
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/EASTN-admin-docs-IU/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "EASTN"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  309
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "Camera Uploads"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  58930
-  '(247 nil)
-  t
-  '("/Users/iani/Dropbox/Camera Uploads/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "Dropbox"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
-  614
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/")
+  '("/Users/iani/Documents/")
   nil)
 
 (desktop-create-buffer 206
@@ -438,7 +262,7 @@
   "FacMeetings.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  1863
+  2007
   '(nil nil)
   nil
   nil
@@ -449,11 +273,11 @@
   "FacultyNonPhDRequirements.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  1
+  5747
   '(nil nil)
   nil
   nil
-  '((indent-tabs-mode) (truncate-lines)))
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/AVARTS/PE_RIGHTS.org"
@@ -610,6 +434,17 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_PHD/ArisBezas.org"
+  "ArisBezas.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_PHD/DanaPapachristou.org"
   "DanaPapachristou.org"
   'org-mode
@@ -645,6 +480,17 @@
 (desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_PHD/StratosKountouras.org"
   "StratosKountouras.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/AVARTS_STUDENTS_PRE_DIPLOMA/LoukasBasoukos.org"
+  "LoukasBasoukos.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
   1
@@ -691,7 +537,7 @@
   "IANI_EMACS_CONFIG.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  3
+  102
   '(nil nil)
   nil
   nil
@@ -702,11 +548,11 @@
   "ORG_PM_2.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  2455
+  10
   '(nil nil)
   nil
   nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+  '((indent-tabs-mode) (buffer-file-coding-system . no-conversion) (truncate-lines)))
 
 (desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/DEV_EMACS/emacs-bug-reports.org"
@@ -720,11 +566,11 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/DEV_EMACS/org-export-enhancements.org"
-  "org-export-enhancements.org"
+  "/Users/iani/Dropbox/000WORKFILES/DEV_EMACS/org-export-make-script-notes.org"
+  "org-export-make-script-notes.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  350
+  1
   '(nil nil)
   nil
   nil
@@ -746,7 +592,7 @@
   "EASTM.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  6903
+  7018
   '(nil nil)
   nil
   nil
@@ -791,6 +637,28 @@
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
   34041
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN-IU-FAQ.org"
+  "EASTN-IU-FAQ.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  324
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/EASTN.org"
+  "EASTN.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  20226
   '(nil nil)
   nil
   nil
@@ -1116,11 +984,33 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/PRIVATE/keys-id.org"
+  "keys-id.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  61
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/PRIVATE/keys-other.org"
+  "keys-other.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  140
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/PRIVATE/keys-web.org"
   "keys-web.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
-  5867
+  39827
   '(nil nil)
   nil
   nil
@@ -1202,6 +1092,17 @@
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/README.org"
+  "README.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES/LATEX_TEMPLATES_IMPORTED_NON_ORG.org"

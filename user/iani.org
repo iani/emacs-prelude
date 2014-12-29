@@ -170,6 +170,11 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 #+RESULTS:
 : insert-timestamp
 ** Generic Packages
+*** Require org-drill
+#+BEGIN_SRC emacs-lisp
+(require 'org-drill)
+#+END_SRC
+
 *** Install el-get for installing of packages from github etc.
 
 See: https://github.com/dimitri/el-get/blob/master/README.md
@@ -1454,8 +1459,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
             (dolist (folder folders)
               (setq files
                     (append
-                     files
-                     (file-expand-wildcards (concat folder "/*.org")))))
+                     files ;; ignore files whose name starts with underscore (_)
+                     (file-expand-wildcards (concat folder "/[!_]*.org")))))
             (-reject
              (lambda (f)
                (string-match-p "/\\." f))
