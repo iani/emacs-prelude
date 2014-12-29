@@ -1597,7 +1597,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   (defun iz-org-file-menu (subdir)
     (let*
         ((files
-          (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+          (file-expand-wildcards (concat iz-log-dir subdir "/[!.]*.org")))
          (projects (mapcar 'file-name-sans-extension
                            (mapcar 'file-name-nondirectory files)))
          (dirs
