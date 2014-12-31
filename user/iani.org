@@ -1442,7 +1442,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   (ad-activate 'org-agenda)
 
   (defadvice org-refile (before turn-icicles-on-for-refile ())
-    "Re-createlist of agenda files from contents of relevant directories."
+    "Turn on icicles before running org-refile.
+  Note: This piecd of advice needs checking! Maybe not valid."
     (icicle-mode 1))
 
   (defadvice org-refile (after turn-icicles-off-for-refile ())
@@ -1479,8 +1480,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
       (iz-find-file)))
 
   (defun iz-refile-to-date-tree (&optional use-last-selected)
-    "Refile to last selected file, using DATE timestamp
-  to move to file-datetree."
+    "Refile using DATE timestamp to move to file-datetree.
+  If USE-LAST-SELECTED is not nil, refile to last selected refile target."
     (interactive "P")
     (let ((origin-buffer (current-buffer))
           (origin-filename (buffer-file-name (current-buffer)))
@@ -1501,6 +1502,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
       (find-file origin-filename)))
 
   (defun org-process-entry-from-mobile-org ()
+    "Get time from mobile-entry and put it in DATE property."
     (interactive)
     (org-back-to-heading 1)
     (next-line 1)
@@ -1510,7 +1512,11 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
   (defun iz-get-and-refile-mobile-entries ()
     "Refile mobile entries to log buffer.
-  Use timestamp from mobile to refile under date-tree."
+  Use timestamp from mobile to refile under date-tree.
+
+  After finishing the refile operation, save a copy of the
+  processed file with a timestamp, and erase the contents of
+  from-mobile.org, to wait for next pull operation."
     (interactive)
    (org-mobile-pull)
    (let* ((mobile-file (file-truename "~/org/from-mobile.org"))
