@@ -1509,6 +1509,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
     (outline-next-heading))
 
   (defun iz-get-and-refile-mobile-entries ()
+    "Refile mobile entries to log buffer.
+  Use timestamp from mobile to refile under date-tree."
     (interactive)
    (org-mobile-pull)
    (let* ((mobile-file (file-truename "~/org/from-mobile.org"))
@@ -1545,6 +1547,9 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
        (save-buffer))))
 
   (defun iz-refile-notes-to-log ()
+    "Refile notes entered from terminal with quick-entry to log file.
+  Get date from DATE property of entry and use it to refile the entry
+  in the log file under date-tree."
     (interactive)
    (let* ((notes-file (concat iz-log-dir "NOTES/notes.org"))
           (notes-buffer (find-file notes-file))
