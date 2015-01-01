@@ -490,16 +490,16 @@
     (handler . bmkp-jump-dired))
 #1=(#("org-capture-last-stored" 0 23
       (bmkp-full-record #1#))
-    (filename . "~/Dropbox/000WORKFILES/JOINT_RESEARCH_PROJECTS/Alex-Kia-Alan.org")
-    (buffer-name . "Alex-Kia-Alan.org")
-    (front-context-string . "**** neujahrsgru")
+    (filename . "~/Dropbox/000WORKFILES/FRIENDS/Jean-Pierre.org")
+    (buffer-name . "Jean-Pierre.org")
+    (front-context-string . "**** nengajo\n :P")
     (rear-context-string . "12-31 Wednesday\n")
     (front-context-region-string)
     (rear-context-region-string)
     (visits . 0)
-    (time . #2=(21668 16489 344003 0))
+    (time . #2=(21668 17093 920371 0))
     (created . #2#)
-    (position . 54))
+    (position . 53))
 #1=(#("supercollider-scratchpad" 0 1
       (bmkp-full-record #1#)
       1 24

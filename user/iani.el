@@ -940,7 +940,8 @@ files to org-agenda-files."
 (ad-activate 'org-agenda)
 
 (defadvice org-refile (before turn-icicles-on-for-refile ())
-  "Re-createlist of agenda files from contents of relevant directories."
+  "Turn on icicles before running org-refile.
+Note: This piecd of advice needs checking! Maybe not valid."
   (icicle-mode 1))
 
 (defadvice org-refile (after turn-icicles-off-for-refile ())
@@ -977,8 +978,8 @@ Used to refile to date-tree of last selected file.")
     (iz-find-file)))
 
 (defun iz-refile-to-date-tree (&optional use-last-selected)
-  "Refile to last selected file, using DATE timestamp
-to move to file-datetree."
+  "Refile using DATE timestamp to move to file-datetree.
+If USE-LAST-SELECTED is not nil, refile to last selected refile target."
   (interactive "P")
   (let ((origin-buffer (current-buffer))
         (origin-filename (buffer-file-name (current-buffer)))
@@ -999,6 +1000,7 @@ to move to file-datetree."
     (find-file origin-filename)))
 
 (defun org-process-entry-from-mobile-org ()
+  "Get time from mobile-entry and put it in DATE property."
   (interactive)
   (org-back-to-heading 1)
   (next-line 1)
@@ -1007,6 +1009,12 @@ to move to file-datetree."
   (outline-next-heading))
 
 (defun iz-get-and-refile-mobile-entries ()
+  "Refile mobile entries to log buffer.
+Use timestamp from mobile to refile under date-tree.
+
+After finishing the refile operation, save a copy of the
+processed file with a timestamp, and erase the contents of
+from-mobile.org, to wait for next pull operation."
   (interactive)
  (org-mobile-pull)
  (let* ((mobile-file (file-truename "~/org/from-mobile.org"))
@@ -1043,6 +1051,9 @@ to move to file-datetree."
      (save-buffer))))
 
 (defun iz-refile-notes-to-log ()
+  "Refile notes entered from terminal with quick-entry to log file.
+Get date from DATE property of entry and use it to refile the entry
+in the log file under date-tree."
   (interactive)
  (let* ((notes-file (concat iz-log-dir "NOTES/notes.org"))
         (notes-buffer (find-file notes-file))
@@ -1095,7 +1106,7 @@ to move to file-datetree."
 (defun iz-org-file-menu (subdir)
   (let*
       ((files
-        (file-expand-wildcards (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+        (file-expand-wildcards (concat iz-log-dir subdir "/[!.]*.org")))
        (projects (mapcar 'file-name-sans-extension
                          (mapcar 'file-name-nondirectory files)))
        (dirs

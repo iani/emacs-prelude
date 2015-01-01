@@ -1557,9 +1557,9 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   Get date from DATE property of entry and use it to refile the entry
   in the log file under date-tree."
     (interactive)
-   (let* ((notes-file (concat iz-log-dir "NOTES/notes.org"))
+   (let* ((notes-file (concat iz-log-dir "0_INBOX/notes.org"))
           (notes-buffer (find-file notes-file))
-          (log-buffer (find-file (concat iz-log-dir "PRIVATE/LOG.org"))))
+          (log-buffer (find-file (concat iz-log-dir "0_PRIVATE/DIARY.org"))))
      (with-current-buffer
          notes-buffer
        (org-map-entries
