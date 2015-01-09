@@ -950,6 +950,15 @@ Note: This piecd of advice needs checking! Maybe not valid."
 
 (ad-activate 'org-refile)
 
+(defun iz-diary-entry ()
+  "Go to or create diary entry for date entered interactively."
+  (interactive)
+  (find-file (concat iz-log-dir "0_PRIVATE/DIARY.org"))
+  (org-datetree-find-date-create
+   (calendar-gregorian-from-absolute
+    (org-time-string-to-absolute (org-read-date))))
+  (org-show-entry))
+
 (defun iz-update-agenda-file-list ()
   "Set value of org-agenda-files from contents of relevant directories."
   (setq org-agenda-files
@@ -1019,7 +1028,7 @@ from-mobile.org, to wait for next pull operation."
  (org-mobile-pull)
  (let* ((mobile-file (file-truename "~/org/from-mobile.org"))
         (mobile-buffer (find-file mobile-file))
-        (log-buffer (find-file (concat iz-log-dir "PRIVATE/LOG.org"))))
+        (log-buffer (find-file (concat iz-log-dir "0_PRIVATE/DIARY.org"))))
    (with-current-buffer
        mobile-buffer
      (org-map-entries
@@ -1027,8 +1036,8 @@ from-mobile.org, to wait for next pull operation."
         (let* ((timestamp
                 (cdr (assoc "TIMESTAMP_IA" (org-entry-properties))))
                (date
-               (calendar-gregorian-from-absolute
-                (org-time-string-to-absolute timestamp))))
+                (calendar-gregorian-from-absolute
+                 (org-time-string-to-absolute timestamp))))
           (org-copy-subtree)
           (with-current-buffer
               log-buffer
@@ -1055,9 +1064,9 @@ from-mobile.org, to wait for next pull operation."
 Get date from DATE property of entry and use it to refile the entry
 in the log file under date-tree."
   (interactive)
- (let* ((notes-file (concat iz-log-dir "NOTES/notes.org"))
+ (let* ((notes-file (concat iz-log-dir "0_INBOX/notes.org"))
         (notes-buffer (find-file notes-file))
-        (log-buffer (find-file (concat iz-log-dir "PRIVATE/LOG.org"))))
+        (log-buffer (find-file (concat iz-log-dir "0_PRIVATE/DIARY.org"))))
    (with-current-buffer
        notes-buffer
      (org-map-entries
@@ -1254,6 +1263,7 @@ If the folder does not exist, create it."
                   "iz-get-and-refile-mobile-entries"
                   "iz-refile-notes-to-log"
                   "iz-insert-file-as-snippet"
+                  "iz-diary-entry"
                   )))
          (selection (grizzl-completing-read "Select command: " menu)))
     (eval (list (intern selection)))))
