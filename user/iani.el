@@ -431,7 +431,7 @@ asks to select a *subdir* of selected project to dired."
 
 (global-set-key (kbd "H-o") 'open-folder-in-finder)
 
-(defvar scratchpad-main-directory "SCRIPTS")
+(defvar scratchpad-main-directory "1_SCRIPTS")
 
 (defvar scratchpad-languages
   '(("emacslisp" .
@@ -447,7 +447,7 @@ asks to select a *subdir* of selected project to dired."
     ("org-mode" .
      (:extension "org" :template-func make-org-template))))
 
-(defun scratchpad-menu (&optional folderp)
+(defun iz-scratchpad-menu (&optional folderp)
   (interactive "P")
   (let* ((menu (grizzl-make-index (mapcar 'car scratchpad-languages)))
          (language (grizzl-completing-read "Select language: " menu))
@@ -530,7 +530,7 @@ asks to select a *subdir* of selected project to dired."
   (insert
    (concat "#+TITLE: " title (format-time-string "\n#+DATE: %c %Z\n\n"))))
 
-(global-set-key (kbd "H-h H-n") 'scratchpad-menu)
+(global-set-key (kbd "H-h H-s") 'iz-scratchpad-menu)
 
 (add-hook 'after-save-hook
           #'(lambda ()
@@ -941,7 +941,7 @@ files to org-agenda-files."
 
 (defadvice org-refile (before turn-icicles-on-for-refile ())
   "Turn on icicles before running org-refile.
-Note: This piecd of advice needs checking! Maybe not valid."
+Note: This piece of advice needs checking! Maybe not valid."
   (icicle-mode 1))
 
 (defadvice org-refile (after turn-icicles-off-for-refile ())
@@ -1263,6 +1263,7 @@ If the folder does not exist, create it."
                   "iz-get-and-refile-mobile-entries"
                   "iz-refile-notes-to-log"
                   "iz-insert-file-as-snippet"
+                  "iz-scratchpad-menu"
                   "iz-diary-entry"
                   )))
          (selection (grizzl-completing-read "Select command: " menu)))

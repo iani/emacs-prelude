@@ -787,7 +787,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
 :END:
 
 #+BEGIN_SRC emacs-lisp
-  (defvar scratchpad-main-directory "SCRIPTS")
+  (defvar scratchpad-main-directory "1_SCRIPTS")
 
   (defvar scratchpad-languages
     '(("emacslisp" .
@@ -803,7 +803,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
       ("org-mode" .
        (:extension "org" :template-func make-org-template))))
 
-  (defun scratchpad-menu (&optional folderp)
+  (defun iz-scratchpad-menu (&optional folderp)
     (interactive "P")
     (let* ((menu (grizzl-make-index (mapcar 'car scratchpad-languages)))
            (language (grizzl-completing-read "Select language: " menu))
@@ -886,7 +886,7 @@ From: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-f
     (insert
      (concat "#+TITLE: " title (format-time-string "\n#+DATE: %c %Z\n\n"))))
 
-  (global-set-key (kbd "H-h H-n") 'scratchpad-menu)
+  (global-set-key (kbd "H-h H-s") 'iz-scratchpad-menu)
 
   (add-hook 'after-save-hook
             #'(lambda ()
@@ -1443,7 +1443,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
   (defadvice org-refile (before turn-icicles-on-for-refile ())
     "Turn on icicles before running org-refile.
-  Note: This piecd of advice needs checking! Maybe not valid."
+  Note: This piece of advice needs checking! Maybe not valid."
     (icicle-mode 1))
 
   (defadvice org-refile (after turn-icicles-off-for-refile ())
@@ -1765,6 +1765,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                     "iz-get-and-refile-mobile-entries"
                     "iz-refile-notes-to-log"
                     "iz-insert-file-as-snippet"
+                    "iz-scratchpad-menu"
                     "iz-diary-entry"
                     )))
            (selection (grizzl-completing-read "Select command: " menu)))
