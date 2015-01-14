@@ -1164,7 +1164,83 @@ If the folder does not exist, create it."
 
 (defvar iz-capture-keycodes "abcdefghijklmnoprstuvwxyzABDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,(){}!@#$%^&*-_=+")
 
+;; From: http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
+
+(defun dump-vars-to-file (varlist filename)
+  "simplistic dumping of variables in VARLIST to a file FILENAME"
+  (save-excursion
+    (let ((buf (find-file-noselect filename)))
+      (set-buffer buf)
+      (erase-buffer)
+      (dump varlist buf)
+      (save-buffer)
+      (kill-buffer))))
+
+(defun dump (varlist buffer)
+  "insert into buffer the setq statement to recreate the variables in VARLIST"
+  (loop for var in varlist do
+        (print (list 'setq var (list 'quote (symbol-value var)))
+               buffer)))
+
+(defvar iz-capture-template-history nil "something")
+
+(defvar iz-capture-template-history-file
+  (concat iz-log-dir "capture-template-history.el")
+  "Store list of 10 last capture templates used.")
+
 (defun iz-log (&optional goto)
+  "Capture log entry in date-tree of selected file.
+Select from menu comprized of 2 parts:
+1. File selected from subfolders of log dir.
+2. 10 latest files where a capture was performed.
+"
+  (interactive "P")
+  (unless iz-capture-template-history
+    (if (file-exists-p iz-capture-template-history-file)
+        (load-file iz-capture-template-history-file)))
+  (let*
+      ((menu (grizzl-make-index
+              (append
+               (mapcar 'file-name-nondirectory
+                       (-select 'file-directory-p
+                                (file-expand-wildcards
+                                 (concat iz-log-dir "*"))))
+               (reverse (mapcar 'car iz-capture-template-history)))))
+       (selection (grizzl-completing-read "Select log target:" menu)))
+    (cond ((equal ":" (substring selection 0 1))
+           (let ((org-capture-entry
+                  (cdr (assoc selection iz-capture-template-history))))
+             (org-capture goto)))
+          (t
+           (message "Selection: %s" selection)
+           (message "Capture templates made from selection: %s"
+                    (iz-make-log-capture-templates selection))
+           (iz-make-log-capture-templates selection)
+           (org-capture goto)))))
+
+(defun org-capture-store-template-selection (&optional capt-template)
+  ;; (message "the arg is: %s" capt-template)
+  (unless iz-capture-template-history
+    (if (file-exists-p iz-capture-template-history-file)
+        (load-file iz-capture-template-history-file)))
+  (let ((key (concat ":" (car capt-template) "-" (cadr capt-template))))
+    (setq iz-capture-template-history
+          (-take 10
+          (cons (cons key capt-template)
+                (-reject (lambda (x) (equal key (car x)))
+                         iz-capture-template-history)))))
+  (dump-vars-to-file
+   '(iz-capture-template-history)
+   iz-capture-template-history-file)
+  capt-template)
+
+(advice-add
+ 'org-capture-select-template
+ :filter-return
+ 'org-capture-store-template-selection)
+
+;; old version:
+(defun iz-log-old (&optional goto)
   "Capture log entry in date-tree of selected file."
   (interactive "P")
   (iz-make-log-capture-templates (iz-select-folder))
