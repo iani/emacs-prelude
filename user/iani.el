@@ -912,6 +912,9 @@ files to org-agenda-files."
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-.") 'org-set-due-property))
 
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
 (setq org-tag-alist
       '(
         ("home" . ?h)
@@ -1263,7 +1266,7 @@ Select from menu comprized of 2 parts:
              (let* (
                     (files
                      (file-expand-wildcards
-                      (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+                      (concat iz-log-dir subdir "/[!_]*.org")))
                     (projects (mapcar 'file-name-nondirectory files))
                     (dirs
                      (mapcar (lambda (dir) (cons (file-name-sans-extension

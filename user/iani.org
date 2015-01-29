@@ -979,6 +979,7 @@ Needs debugging: One of these modes breaks sclang-start:
   (define-key emacs-lisp-mode-map (kbd "H-TAB") 'icicle-imenu-command)
 #+END_SRC
 ** html/css/js
+CLOCK: [2015-01-16 Fri 13:34]--[2015-01-16 Fri 13:34] =>  0:00
 
 web-beautify.
 HTML, CSS, and JavaScript/JSON formatting
@@ -1414,6 +1415,9 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 :END:
 
 #+BEGIN_SRC emacs-lisp
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+
   (setq org-tag-alist
         '(
           ("home" . ?h)
@@ -1765,7 +1769,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                (let* (
                       (files
                        (file-expand-wildcards
-                        (concat iz-log-dir subdir "/[a-zA-Z0-9]*.org")))
+                        (concat iz-log-dir subdir "/[!_]*.org")))
                       (projects (mapcar 'file-name-nondirectory files))
                       (dirs
                        (mapcar (lambda (dir) (cons (file-name-sans-extension
