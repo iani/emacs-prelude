@@ -1782,7 +1782,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                                   (car item)
                                   'entry
                                   (list 'file+datetree (cdr item))
-                                  "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
+                                  "* %?\n :PROPERTIES:\n :DATE:\t%^T\n :END:\n\n%i\n"))
                                dirs)))))
 
   (defun iz-todo (&optional goto)

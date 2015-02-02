@@ -2,38 +2,115 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Thu Jan 29 12:11:42 2015
+;; Created Thu Jan 29 20:45:18 2015
 ;; Desktop file format version 206
 ;; Emacs version 24.4.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21706 1886 547174 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.local") (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 64) (width . 176) (left . 0) (top . 0)) ((min-height . 8) (min-width . 20) (min-height-ignore . 4) (min-width-ignore . 10) (min-height-safe . 2) (min-width-safe . 4) (min-pixel-height . 112) (min-pixel-width . 160) (min-pixel-height-ignore . 56) (min-pixel-width-ignore . 80) (min-pixel-height-safe . 28) (min-pixel-width-safe . 32)) hc (pixel-width . 1436) (pixel-height . 882) (total-width . 180) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (vc (pixel-width . 716) (pixel-height . 882) (total-width . 90) (total-height . 63) (normal-height . 1.0) (normal-width . 0.5) (combination-limit) (leaf (pixel-width . 716) (pixel-height . 434) (total-width . 90) (total-height . 31) (normal-height . 0.5) (normal-width . 1.0) (buffer "*scratch*" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 306) (start . 1))) (leaf (last . t) (pixel-width . 716) (pixel-height . 448) (total-width . 90) (total-height . 32) (normal-height . 0.5) (normal-width . 1.0) (buffer "1_RESEARCH_NOTES_AND_CORRESPONDENCE" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 236) (start . 1)))) (leaf (last . t) (pixel-width . 720) (pixel-height . 882) (total-width . 90) (total-height . 63) (normal-height . 1.0) (normal-width . 0.5) (buffer "iani.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 62272) (start . 60900)))))])
+(setq desktop-saved-frameset [frameset 1 (21706 32702 864833 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (frameset--id . "4448-CD3C-07A0-9793") (frameset--mini t) (height . 35) (width . 80) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 23) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.local") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 663) (pixel-height . 476) (total-width . 82) (total-height . 34) (normal-height . 1.0) (normal-width . 1.0) (buffer "short.org" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1))) (((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.local") (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 64) (width . 176) (left . 0) (top . 0)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 179) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "KostasDrosos.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 527) (start . 1))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
 (setq register-alist (list (desktop-list* 105 (vector 'registerv (vector [frameset 1 (21630 19751 999764 0) register nil nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (buffer-predicate) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen) (window-system . ns) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (height . 60) (width . 95) (buffer-list "Unprintable entity") (buried-buffer-list "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity" "Unprintable entity") (left . 0) (top . 27) (window-id . "1") (parent-id)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 783) (pixel-height . 826) (total-width . 97) (total-height . 59) (normal-height . 1.0) (normal-width . 1.0) (buffer "-INBOX" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 139) (start . 1))))] "30B4-328D-407F-6B05" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook `(lambda nil (set-marker ,mk ,nil (get-buffer ," *temp*")))) mk)) "Unprintable entity" 'frameset--jump-to-register nil))))
-(setq file-name-history '("~/Dropbox/000WORKFILES/-INBOX/-inbox.org" "~/Dropbox/000WORKFILES/_INBOX" "/Users/iani/Dropbox/000WORKFILES/NOTES/prompt.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/" "~/.oh-my-zsh/custom/testoh.sh" "~/Dropbox/000WORKFILES/NOTES/wishlist-electronics.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Dropbox/000WORKFILES/PRIVATE/VergiGymSchedule.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-mode-scratchpad/deduce-percentage-from-whole_141127_19-43.org" "~/.emacs.d/" "/Applications/Emacs.app/Contents/Resources/lisp/README" "~/.emacs.d/emacs.desktop-debug" "~/.emacs.d/" "/Users/iani/.emacs.d/personal/user/sc-snippets.el" "~/.emacs.d/" "~/.emacs.d/personal/desktop-bookmarks" "~/.emacs.d/personal/desktop" "~/.emacs.d/personal/bookmark-sets" "~/.emacs.d/personal/.emacs.desktop" "~/.emacs.d/personal/user/iani-disabled/iani.org_archive" "~/.emacs.d/personal/user/iani-disabled/iani.org" "~/.emacs.d/personal/user/iani-disabled/iani.el" "~/.emacs.d/personal/user/iani-disabled" "~/.emacs.d/personal/user/iani.org" "~/test-bkmark.el" "~/.emacs.d/" ".emacs.desktop"))
+(setq file-name-history '("~/Dropbox/000WORKFILES/1_RESEARCH_NOTES_AND_CORRESPONDENCE/-Stavros_Katsios.org" "~/Dropbox/000WORKFILES/-INBOX/-inbox.org" "~/Dropbox/000WORKFILES/_INBOX" "/Users/iani/Dropbox/000WORKFILES/NOTES/prompt.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "~/" "~/.oh-my-zsh/custom/testoh.sh" "~/Dropbox/000WORKFILES/NOTES/wishlist-electronics.org" "~/.emacs.d/personal/user/iani.org" "/Users/iani/Dropbox/000WORKFILES/PRIVATE/VergiGymSchedule.org" "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/.git/COMMIT_EDITMSG" "/Users/iani/Dropbox/000WORKFILES/SCRIPTS/org-mode-scratchpad/deduce-percentage-from-whole_141127_19-43.org" "~/.emacs.d/" "/Applications/Emacs.app/Contents/Resources/lisp/README" "~/.emacs.d/emacs.desktop-debug" "~/.emacs.d/" "/Users/iani/.emacs.d/personal/user/sc-snippets.el" "~/.emacs.d/" "~/.emacs.d/personal/desktop-bookmarks" "~/.emacs.d/personal/desktop" "~/.emacs.d/personal/bookmark-sets" "~/.emacs.d/personal/.emacs.desktop" "~/.emacs.d/personal/user/iani-disabled/iani.org_archive" "~/.emacs.d/personal/user/iani-disabled/iani.org" "~/.emacs.d/personal/user/iani-disabled/iani.el" "~/.emacs.d/personal/user/iani-disabled" "~/.emacs.d/personal/user/iani.org" "~/test-bkmark.el" "~/.emacs.d/"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/iani/.emacs.d/personal/user/iani.org"
-  "iani.org"
+  "/Users/iani/Dropbox/000WORKFILES/2_AVARTS_STUDENTS_PHD/KostasDrosos.org"
+  "KostasDrosos.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
-  62272
-  '(75060 nil)
+  527
+  '(527 nil)
   nil
   nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Copy/personal_info/cv/2012/short.org"
+  "short.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  1
+  '(4675 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  nil
+  "2_AVARTS_STUDENTS_PHD"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
+  433
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/2_AVARTS_STUDENTS_PHD/")
+  nil)
 
 (desktop-create-buffer 206
   nil
   "1_RESEARCH_NOTES_AND_CORRESPONDENCE"
   'dired-mode
   '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
-  236
-  '(nil nil)
+  1335
+  '(1 nil)
   t
   '("/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES_AND_CORRESPONDENCE/")
   nil)
+
+(desktop-create-buffer 206
+  nil
+  "000WORKFILES"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
+  1610
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "2_AVARTS"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
+  1357
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/2_AVARTS/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/iani/.emacs.d/personal/user/iani.org"
+  "iani.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  34240
+  '(75067 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES_AND_CORRESPONDENCE/-Stavros_Katsios.org"
+  "-Stavros_Katsios.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  27
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/4_INSTALLATIONS/2WORLDS.org"
+  "2WORLDS.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  14038
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
