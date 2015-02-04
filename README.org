@@ -126,9 +126,10 @@ Not used, because it seems to interfere with sclang-ac-mode:
 * Usage notes
 ** iz-log
 
-menu shortcut: H-h H-h
-log: H-h H-l
-Todo: H-h H-t
+- menu shortcut :: H-h H-h
+- log :: H-h H-l
+- Todo :: H-h H-t
+
 ** Latex
 
 - "H-h H-e" :: org-export-subtree-as-pdf-with-header-from-file
