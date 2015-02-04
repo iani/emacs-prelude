@@ -129,6 +129,8 @@ Not used, because it seems to interfere with sclang-ac-mode:
 - menu shortcut :: H-h H-h
 - log :: H-h H-l
 - Todo :: H-h H-t
+- Find file :: H-h H-f
+- Find attachment dir :: H-h H-d
 
 ** Latex
 
