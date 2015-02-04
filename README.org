@@ -123,3 +123,15 @@ Not used, because it seems to interfere with sclang-ac-mode:
 - wanderlust :: Email-client for emacs.
 - bbdb-hooks :: Needed for wanderlust.
 - bbdb-wl :: Needed for wanderlust.
+* Usage notes
+** iz-log
+
+menu shortcut: H-h H-h
+log: H-h H-l
+Todo: H-h H-t
+** Latex
+
+- "H-h H-e" :: org-export-subtree-as-pdf-with-header-from-file
+- "H-h H-E" :: org-export-subtree-as-latex-with-header-from-file
+- "H-h H-C-e" :: org-export-buffer-as-pdf-with-header-from-file
+- "H-h H-C-E" :: org-export-buffer-as-latex-with-header-from-file

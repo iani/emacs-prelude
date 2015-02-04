@@ -1698,7 +1698,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
     "Capture log entry in date-tree of selected file.
   Select from menu comprized of 2 parts:
   1. File selected from subfolders of log dir.
-  2. 10 latest files where a capture was performed.
+  2. 20 latest files where a capture was performed.
   "
     (interactive "P")
     (unless iz-capture-template-history
@@ -1725,13 +1725,14 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
              (org-capture goto)))))
 
   (defun org-capture-store-template-selection (&optional capt-template)
+    "Keep list of 20 latest log files used."
     ;; (message "the arg is: %s" capt-template)
     (unless iz-capture-template-history
       (if (file-exists-p iz-capture-template-history-file)
           (load-file iz-capture-template-history-file)))
     (let ((key (concat ":" (car capt-template) "-" (cadr capt-template))))
       (setq iz-capture-template-history
-            (-take 10
+            (-take 20
             (cons (cons key capt-template)
                   (-reject (lambda (x) (equal key (car x)))
                            iz-capture-template-history)))))
@@ -1781,7 +1782,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                                   (substring iz-capture-keycodes index (+ 1 index))
                                   (car item)
                                   'entry
-                                  (list 'file+datetree (cdr item))
+                                  (list 'file+datetree+prompt (cdr item))
                                   "* %?\n :PROPERTIES:\n :DATE:\t%^T\n :END:\n\n%i\n"))
                                dirs)))))
 

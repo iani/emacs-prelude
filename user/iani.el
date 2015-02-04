@@ -1278,8 +1278,8 @@ Select from menu comprized of 2 parts:
                                 (substring iz-capture-keycodes index (+ 1 index))
                                 (car item)
                                 'entry
-                                (list 'file+datetree (cdr item))
-                                "* %?\n :PROPERTIES:\n :DATE:\t%T\n :END:\n\n%i\n"))
+                                (list 'file+datetree+prompt (cdr item))
+                                "* %?\n :PROPERTIES:\n :DATE:\t%^T\n :END:\n\n%i\n"))
                              dirs)))))
 
 (defun iz-todo (&optional goto)
