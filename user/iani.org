@@ -2040,6 +2040,7 @@ Todo:
 
   (defun org-export-buffer-as-pdf-with-header-from-file (&optional use-previous-setting-p)
     (interactive "P")
+    (message "running export buffer as pdf")
     (org-latex-export-with-file-template nil use-previous-setting-p nil))
 
 
@@ -2059,7 +2060,7 @@ Todo:
               (grizzl-completing-read "Choose latex template: " menu)))
            (chosen-template-path (cdr (assoc chosen-filename names-and-paths)))
            (this-buffers-latex-class
-            (plist-get (org-export-get-environment 'latex t nil) :latex-class))
+            (plist-get (org-export-get-environment 'latex subtree-p nil) :latex-class))
            latex-header
            (latex-sections
             (or (cddr (assoc this-buffers-latex-class org-latex-classes))
@@ -2080,9 +2081,9 @@ Todo:
                (append
                 (list this-buffers-latex-class latex-header)
                 latex-sections)))
-        (if as-latex-buffer-p
-            (org-latex-export-as-latex nil subtree-p nil nil)
-          (org-open-file (org-latex-export-to-pdf nil subtree-p nil nil)))
+         (if as-latex-buffer-p
+              (org-latex-export-as-latex nil subtree-p nil nil)
+            (org-open-file (org-latex-export-to-pdf nil subtree-p nil nil)))
         ;; restore original latex classes:
         (setq org-latex-classes org-latex-classes-backup)
         ;; Open the chosen template for inspection and tweaking:
