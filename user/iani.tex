@@ -1,7 +1,58 @@
+% Created 2015-02-05 Thu 11:37
 
+% This is a minimal article setting.
+% It produces a simple article
+% with page numbering in the footer.
+% It uses polyglossia and Hypatia Font.
+% It covers western european languages and greek - but not japanese.
+
+\documentclass{article}
+
+\usepackage{fontspec}
+\setmainfont{Hypatia Sans Pro}
+
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\PolyglossiaSetup{greek, english}{indentfirst=false}
+
+% Substitute the following to change language:
+% \setmainlanguage{french}
+% \setmainlanguage{german}
+% \setmainlanguage{greek}
+
+\usepackage{hyperref} % in-document links (for TOC etc)
+\usepackage{lipsum} % lorem lipsum ready-text
+\usepackage{ulem} % underline emphasis
+
+\sloppy
+
+% NOTE: Mon, Dec 15 2014, 16:12 EET:
+% French, German etc + Greek chars are supported.
+\author{IOANNIS ZANNOS}
+\date{\today}
+\title{iani}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.4.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Generic Emacs Customization}
+\label{sec-1}
+\subsection{Theme (experimental)}
+\label{sec-1-1}
+
+\begin{verbatim}
 (require 'moe-theme)
 (moe-dark)
+\end{verbatim}
+\subsection{Font (experimental)}
+\label{sec-1-2}
 
+\begin{verbatim}
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-14"))
 
@@ -22,20 +73,53 @@
 (global-set-key (kbd "C-c C--") 'smaller-frame-font)
 
 (global-set-key (kbd "C-c C-+") 'larger-frame-font)
+\end{verbatim}
 
+\subsection{Prelude stuff}
+\label{sec-1-3}
+\subsubsection{Turn off guru mode}
+\label{sec-1-3-1}
+See: \url{http://stackoverflow.com/questions/13263717/unable-to-set-off-the-guru-mode-in-emacs-prelude}
+
+\begin{verbatim}
 (guru-mode -1)
 (guru-global-mode -1)
 (setq prelude-guru nil)
 (add-hook 'prelude-prog-mode-hook
           (lambda ()
             (guru-mode -1)) t)
+\end{verbatim}
 
+\subsubsection{Prelude-copy-filename-to-clipboard}
+\label{sec-1-3-2}
+
+\begin{verbatim}
 (global-set-key (kbd "C-c p C-c") 'prelude-copy-file-name-to-clipboard)
+\end{verbatim}
 
+\subsection{Use visible bell instead of beep}
+\label{sec-1-4}
+
+\begin{verbatim}
 (setq visible-bell t)
+\end{verbatim}
 
+
+\subsection{Blink cursor}
+\label{sec-1-5}
+
+\begin{verbatim}
 (blink-cursor-mode 1)
+\end{verbatim}
 
+\subsection{Internationalization: Set Mac OS native fonts for japanese/greek}
+\label{sec-1-6}
+
+Here is a solution that works fine for displaying Latin, Greek and Japanese texts in the same buffer.  The Menlo font displays Greek clearly and smoothly, and since it is a mono-space font, it also works well in tables.  The two lisp expressions have to be evaluated in the following order for this to work.
+
+\uline{Note: This is necessary if the latin font is set to some font that does not have a full greek character set.}
+
+\begin{verbatim}
 (set-fontset-font "fontset-default"
                   'japanese-jisx0208
                   '("Hiragino Mincho Pro" . "iso10646-1"))
@@ -44,7 +128,17 @@
  ;; Note: iso10646-1 = Universal Character set (UCS)
  ;; It is compatible to Unicode, in its basic range
                   '("Menlo" . "iso10646-1"))
+\end{verbatim}
 
+Links for further reading:
+
+\url{http://sunsite.univie.ac.at/textbooks/emacs/emacs_22.html#SEC203}
+\url{http://www.gnu.org/software/emacs/manual/html_node/emacs/Modifying-Fontsets.html}
+For Greek see: \url{http://iris.math.aegean.gr/~atsol/emacs-unicode/}
+
+\subsection{Maximize/toggle frame}
+\label{sec-1-7}
+\begin{verbatim}
 ;; (maximize-frame) ;; maximize frame on startup
 (defun toggle-fullscreen ()
   "Toggle full screen"
@@ -56,16 +150,43 @@
 (tool-bar-mode -1)
 
 (global-set-key (kbd "H-f") 'toggle-fullscreen)
+\end{verbatim}
 
+\begin{verbatim}
+(toggle-fullscreen)
+\end{verbatim}
+
+\begin{verbatim}
 (require 'maxframe) ;; (maximize-frame) command/function
+\end{verbatim}
+\subsection{Toggle visual line mode}
+\label{sec-1-8}
 
+Useful for org-mode todo agenda.
+
+\begin{verbatim}
 (global-set-key (kbd "H-h v") 'visual-line-mode)
+\end{verbatim}
+\subsection{Movement: backward-sentence, forward-sentence}
+\label{sec-1-9}
 
+Bind backward-sentence and forward-sentence in 2 different ways:
+
+\begin{enumerate}
+\item Control-shift-f and b in analogy to control-b/f and meta-b/f (character and word backward and forward).
+\item Meta-[ and ] in analogy to Meta-shift-[ and ] (org-element backward and forward).
+\end{enumerate}
+
+\begin{verbatim}
 (global-set-key (kbd "M-B") 'backward-sentence)
 (global-set-key (kbd "M-F") 'forward-sentence)
 (global-set-key (kbd "M-[") 'backward-sentence)
 (global-set-key (kbd "M-]") 'forward-sentence)
+\end{verbatim}
+\subsection{Insert timestamp (C-c C-x t)}
+\label{sec-1-10}
 
+\begin{verbatim}
 (defun insert-timestamp (&optional short-type)
   "Insert a timestamp."
   (interactive "P")
@@ -79,9 +200,21 @@
    (insert (format-time-string "%a, %b %e %Y, %R %Z"))))
 
 (global-set-key (kbd "C-c C-x t") 'insert-timestamp)
-
+\end{verbatim}
+\subsection{Generic Packages}
+\label{sec-1-11}
+\subsubsection{Require org-drill}
+\label{sec-1-11-1}
+\begin{verbatim}
 (require 'org-drill)
+\end{verbatim}
 
+\subsubsection{Install el-get for installing of packages from github etc.}
+\label{sec-1-11-2}
+
+See: \url{https://github.com/dimitri/el-get/blob/master/README.md}
+
+\begin{verbatim}
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -93,9 +226,40 @@
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
+\end{verbatim}
+\subsubsection{Bring elisp up-to-date: dash.el}
+\label{sec-1-11-3}
 
+\begin{quote}
+A modern list api for Emacs. No 'cl required.
+\end{quote}
+
+See: \url{https://github.com/magnars/dash.el#functions}
+
+Used in my packages as well as in projectile and other packages.
+
+I load it here to have it available when experimenting with code.
+
+\begin{verbatim}
 (require 'dash)
+\end{verbatim}
+\subsubsection{desktop}
+\label{sec-1-11-4}
 
+Save desktop between sessions.  To clear desktop: M-x desktop-clear.
+
+Note: As of Mon, Dec  1 2014, 11:19 EET this creates error with sentinel process on startup.  Disabled.
+
+\begin{verbatim}
+(desktop-save-mode 1)
+\end{verbatim}
+
+\subsubsection{breadcrumb, bookmark+}
+\label{sec-1-11-5}
+
+See: \url{http://breadcrumbemacs.sourceforge.net/news.html}
+
+\begin{verbatim}
 (require 'breadcrumb)
 
 ;; (global-set-key [(shift space)]         'bc-set)              ;; Shift-SPACE for set bookmark
@@ -106,7 +270,9 @@
 (global-set-key [(meta down)]           'bc-local-next)     ;; M-down-arrow for local next
 (global-set-key [(control c)(j)]        'bc-goto-current)   ;; C-c j for jump to current bookmark
 (global-set-key [(control x)(meta j)]   'bc-list)           ;; C-x M-j for the bookmark menu list
+\end{verbatim}
 
+\begin{verbatim}
 (require 'desktop)
 (require 'bookmark+)
 
@@ -159,7 +325,12 @@ in under one default directory in users prelude folder."
 (global-set-key (kbd "C-x j M-k") 'bmkp-load-auto-saved-desktop)
 
 (bookmark-bmenu-list) ;; make sure bookmark list is loaded
+\end{verbatim}
 
+\subsubsection{Completion help: icicles, imenu+, auto-complete, ido, guide-key}
+\label{sec-1-11-6}
+
+\begin{verbatim}
 (require 'ido)
 (require 'flx-ido)
 (require 'imenu+)
@@ -173,7 +344,21 @@ in under one default directory in users prelude folder."
 ;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
 ;;  (guide-key-mode 1)  ; Enable guide-key-mode
 ;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
+\end{verbatim}
 
+
+\subsubsection{Buffer-move, windmove, buffer switching}
+\label{sec-1-11-7}
+
+\begin{description}
+\item[{windmove (package)}] Use cursor keys to switch cursor position between windows.  Bound to \texttt{control-super-<cursorkey>}.
+\item[{buffer-move (package)}] Use cursor keys to switch buffer position between windows.  Bound to \texttt{fn-shift-<cursor key>}.
+\item[{next-buffer, previous-buffer (built-in commands)}] Use cursor keys to switch to previous/next buffer in same window.
+\end{description}
+
+Bound to \texttt{function-super-<cursor key>}
+
+\begin{verbatim}
 (require 'windmove)
 (global-set-key (kbd "H-{") 'windmove-up)
 (global-set-key (kbd "H-}") 'windmove-down)
@@ -188,7 +373,34 @@ in under one default directory in users prelude folder."
 
 (global-set-key (kbd "<s-home>") 'previous-buffer)
 (global-set-key (kbd "<s-end>") 'next-buffer)
+\end{verbatim}
+\subsubsection{Completion help: icicles, imenu+, auto-complete, ido, guide-key}
+\label{sec-1-11-8}
 
+\begin{verbatim}
+(require 'ido)
+(require 'flx-ido)
+(require 'imenu+)
+(require 'auto-complete)
+(ido-mode t)
+(ido-vertical-mode t)
+(icicle-mode)
+;; guide-key causes erratic delays when posting in ths SC post buffer
+;; from sclang.  Therefore disabled.
+;; (require 'guide-key)
+;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+;;  (guide-key-mode 1)  ; Enable guide-key-mode
+;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
+\end{verbatim}
+
+\subsubsection{File-system navigation: projectile, helm}
+\label{sec-1-11-9}
+
+\begin{enumerate}
+\item projectile
+\label{sec-1-11-9-1}
+
+\begin{verbatim}
 (setq projectile-completion-system 'grizzl)
 (setq *grizzl-read-max-results* 40)
 (defun projectile-dired-project-root ()
@@ -223,8 +435,17 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-p +") 'projectile-add-project)
 (global-set-key (kbd "H-p -") 'projectile-remove-known-project)
 (global-set-key (kbd "H-p a") 'projectile-ack) ;; better search than grep
+\end{verbatim}
 
-;; must call these to initialize  helm-source-find-files
+\item helm
+\label{sec-1-11-9-2}
+
+NOTE: helm-swoop must be installed from:
+\url{https://raw.github.com/ShingoFukuyama/helm-swoop/master/helm-swoop.el}
+or
+\url{https://raw.github.com/ShingoFukuyama/helm-swoop/}
+\begin{verbatim}
+    ;; must call these to initialize  helm-source-find-files
 
     (require 'helm-files) ;; (not auto-loaded by system!)
 ;;    (require 'helm-projectile)
@@ -294,10 +515,102 @@ asks to select a *subdir* of selected project to dired."
             ("Asia/Jakarta" "Jakarta")
             ("Asia/Shanghai" "Shanghai")
             ("Asia/Tokyo" "Tokyo")))
+\end{verbatim}
+\end{enumerate}
 
+\subsubsection{Note on icicle key bindings and org-mode}
+\label{sec-1-11-10}
+
+C-c ' in org mode runs the command org-edit-special, for editing babel commands and other blocks.  To avoid conflict with icicles binding of the same key to icicle-occur, remap the latter to something else (e.g. C-c C-M-'), like this:
+\begin{enumerate}
+\item type M-x customize-group <RET> Icicles-Key-Bindings <RET>
+\item Scroll down to Icicle Top Level Key Bindings, open the list, find icicle-occur, enter C-c C-M-' to the \texttt{Key:} field, go to top of buffer, use the \texttt{State} button to save this.
+\end{enumerate}
+
+See also discussion here: \url{http://www.emacswiki.org/emacs/Icicles_-_Key_Binding_Discussion}
+
+\subsubsection{lacarte: select menu items from the keyboard (good for org-mode with imenu)}
+\label{sec-1-11-11}
+
+\begin{verbatim}
 (require 'lacarte)
 ;; (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
+\end{verbatim}
 
+\subsubsection{Ido-imenu command and jump back after completion, by Magnar Sveen, and others.}
+\label{sec-1-11-12}
+
+Disabled.
+
+\begin{verbatim}
+;;; ido-imenu
+(defun ido-imenu ()
+  "Update the imenu index and then use ido to select a symbol to navigate to.
+Symbols matching the text at point are put first in the completion list."
+  (interactive)
+  (imenu--make-index-alist)
+  (let ((name-and-pos '())
+        (symbol-names '()))
+    (flet ((addsymbols
+          (symbol-liost)
+          (when (listp symbol-list)
+            (dolist (symbol symbol-list)
+              (let ((name nil) (position nil))
+                (cond
+                 ((and (listp symbol) (imenu--subalist-p symbol))
+                  (addsymbols symbol))
+
+                 ((listp symbol)
+                  (setq name (car symbol))
+                  (setq position (cdr symbol)))
+
+                 ((stringp symbol)
+                  (setq name symbol)
+                  (setq position
+                        (get-text-property 1 'org-imenu-marker symbol))))
+
+                (unless (or (null position) (null name))
+                  (add-to-list 'symbol-names name)
+                  (add-to-list 'name-and-pos (cons name position))))))))
+      (addsymbols imenu--index-alist))
+;; If there are matching symbols at point, put them at the beginning of `symbol-names'.
+    (let ((symbol-at-point (thing-at-point 'symbol)))
+      (when symbol-at-point
+        (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
+               (matching-symbols
+                (delq nil (mapcar (lambda (symbol)
+                                    (if (string-match regexp symbol) symbol))
+                                  symbol-names))))
+          (when matching-symbols
+            (sort matching-symbols (lambda (a b) (> (length a) (length b))))
+            (mapc
+             (lambda (symbol)
+               (setq symbol-names (cons symbol (delete symbol symbol-names))))
+             matching-symbols)))))
+    (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
+           (position (cdr (assoc selected-symbol name-and-pos))))
+      (goto-char position))))
+
+;; Push mark when using ido-imenu
+
+(defvar push-mark-before-goto-char nil)
+
+(defadvice goto-char (before push-mark-first activate)
+  (when push-mark-before-goto-char
+    (push-mark)))
+
+(defun ido-imenu-push-mark ()
+  (interactive)
+  (let ((push-mark-before-goto-char t))
+    (ido-imenu)))
+\end{verbatim}
+
+\subsubsection{smex (auto-complete minibuffer commands called with Meta-x)}
+\label{sec-1-11-13}
+
+Note: since March 2014 I mostly use helm-M-x (bound to Hyper-meta-x) instead of Meta-x, so smex is not crucial.
+
+\begin{verbatim}
 ;; Smex: Autocomplete meta-x command
 (global-set-key [(meta x)]
                 (lambda ()
@@ -314,7 +627,12 @@ asks to select a *subdir* of selected project to dired."
                       (smex-initialize))
                   (global-set-key [(shift meta x)] 'smex-major-mode-commands)
                   (smex-major-mode-commands)))
+\end{verbatim}
 
+\subsubsection{Multiple Cursors}
+\label{sec-1-11-14}
+
+\begin{verbatim}
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -323,10 +641,20 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 ;; (global-set-key (kbd "C->") 'mc/mark-next-symbol-like-this)
 ;; (global-set-key (kbd "C->") 'mc/mark-next-word-like-this)
+\end{verbatim}
 
+\subsubsection{Whitespace Mode}
+\label{sec-1-11-15}
+
+\begin{verbatim}
 (defun turn-off-whitespace-mode () (whitespace-mode -1))
 (defun turn-on-whitespace-mode () (whitespace-mode 1))
+\end{verbatim}
 
+\subsubsection{Key Chords}
+\label{sec-1-11-16}
+
+\begin{verbatim}
 (require 'key-chord)
 (key-chord-mode 1)
 
@@ -363,13 +691,43 @@ asks to select a *subdir* of selected project to dired."
 
 ;; Jump to any symbol in buffer using ido-imenu
 (key-chord-define-global "KJ"      'ido-imenu)
+\end{verbatim}
 
+\subsubsection{hl-sexp mode (also: highlight-sexps)}
+\label{sec-1-11-17}
+
+Highlight expressions enclosed by (), \{\} or [] in code.
+
+There exist 2 versions:
+
+\begin{enumerate}
+\item hl-sexp package available from elpa.
+Package name: hl-sexp
+Mode name: hl-sexp-mode
+\item highlight-sexps.el, from \url{http://www.emacswiki.org/emacs/HighlightSexp}.
+Package name: highlight-sexps
+Mode name: highlight-sexps-mode
+\end{enumerate}
+
+highlight-sexps.el looks nicer, because it highlights both the innermost s-expression and the one enclosing it, and it does not un-highlight the line where the cursor is on.  But it sometimes stops working.  So I use hl-sexp
+
+\begin{verbatim}
 (require 'hl-sexp)
 ;; (require 'highlight-sexps)
 ;; Include color customization for dark color theme here.
 (custom-set-variables
  '(hl-sexp-background-colors (quote ("gray0"  "#0f003f"))))
+\end{verbatim}
 
+\subsubsection{Directory/Buffer navigation: Dired+, Dirtree, Speedbar}
+\label{sec-1-11-18}
+\begin{enumerate}
+\item Dired+, Dirtree, Speedbar
+\label{sec-1-11-18-1}
+
+Note about dirtree:  Very handy.  There are several versions out there, and there is also a different package under the same name.  Not all versions work.  This one works for me: \url{https://github.com/rtircher/dirtree}.  I installed it manually (not via \texttt{el-get}, el-get's registered versions of dirtree resulted in conflicts.  Dirtree is similar to file-browse mode of speedbar, but it servers a different purpose: With dirtree you can select one or more directories to browse, and keep them all in the sidebar.  Speedbar always shows only the directory of the file of the current buffer.
+
+\begin{verbatim}
 ;;  (require 'dired+)
   (require 'dirtree)
   (global-set-key (kbd "H-d d") 'dirtree-show)
@@ -378,13 +736,45 @@ asks to select a *subdir* of selected project to dired."
   ;; (speedbar-add-supported-extension ".sc")
   ;; (speedbar-add-supported-extension ".scd")
   ;; (global-set-key (kbd "H-d H-s") 'sr-speedbar-toggle)
+\end{verbatim}
 
+\item Open pdf files with default macos app in dired
+\label{sec-1-11-18-2}
+
+From: \url{http://stackoverflow.com/questions/20019732/define-keybinding-for-dired-to-run-a-command-open-on-the-file-under-the-cur}
+
+\begin{verbatim}
 (define-key dired-mode-map (kbd "<SPC>")
   (lambda () (interactive)
     (let ((lawlist-filename (dired-get-file-for-visit)))
       (if (equal (file-name-extension lawlist-filename) "pdf")
           (start-process "default-pdf-app" nil "open" lawlist-filename)))))
+\end{verbatim}
+\end{enumerate}
 
+\subsubsection{{\bfseries\sffamily TODO} Fixme minor mode?}
+\label{sec-1-11-19}
+
+\url{http://www.emacswiki.org/emacs/FixmeMode}
+\url{http://www.emacswiki.org/emacs/fixme-mode.el}
+
+Or see: hl-todo, and further packages like it, listed in hl-todo Help file:
+
+\begin{itemize}
+\item \href{http://emacswiki.org/fic-ext-mode.el}{fic-ext-mode}
+\item \href{https://github.com/lewang/fic-mode}{fic-mode}
+\item \href{http://emacswiki.org/FixmeMode}{fixme-mode}
+\item \href{https://github.com/rolandwalker/fixmee}{fixmee}
+\item see \url{http://emacswiki.org/FixmeMode} for more alternatives
+\end{itemize}
+
+If you like this you might also like \href{https://github.com/tarsius/orglink}{orglink}.
+\subsubsection{Mac-OS extension: Open file in finder}
+\label{sec-1-11-20}
+
+From: \url{http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder}
+
+\begin{verbatim}
 (defun open-finder ()
   (interactive)
   ;; IZ Dec 25, 2013 (3:25 PM): Making this work in dired:
@@ -430,7 +820,17 @@ asks to select a *subdir* of selected project to dired."
     (start-process "osascript-getinfo" nil "osascript" "-e" script)))
 
 (global-set-key (kbd "H-o") 'open-folder-in-finder)
+\end{verbatim}
 
+\section{Customization of Specific Authoring Modes}
+\label{sec-2}
+
+\subsection{Scratchbooks for coding}
+\label{sec-2-1}
+\subsubsection{logging tryout code}
+\label{sec-2-1-1}
+
+\begin{verbatim}
 (defvar scratchpad-main-directory "1_SCRIPTS")
 
 (defvar scratchpad-languages
@@ -544,7 +944,13 @@ asks to select a *subdir* of selected project to dired."
                    (shell-command (concat "chmod u+x " buffer-file-name))
                    (message
                     (concat "Saved as script: " buffer-file-name)))))
+\end{verbatim}
 
+\subsection{SuperCollider}
+\label{sec-2-2}
+\subsubsection{sclang Setup}
+\label{sec-2-2-1}
+\begin{verbatim}
 ;;; Directory of SuperCollider support, for quarks, plugins, help etc.
 (defvar sc_userAppSupportDir
   (expand-file-name "~/Library/Application Support/SuperCollider"))
@@ -561,9 +967,18 @@ asks to select a *subdir* of selected project to dired."
 
 ;; Disable switching to default SuperCollider Workspace when recompiling SClang
 (setq sclang-show-workspace-on-startup nil)
+\end{verbatim}
 
+\begin{verbatim}
 (require 'sclang)
+\end{verbatim}
 
+\subsubsection{SuperCollider-specific minor modes}
+\label{sec-2-2-2}
+
+Needs debugging: One of these modes breaks sclang-start:
+
+\begin{verbatim}
 ;; Note: Paredit-style bracket movement commands d, u, f, b, n, p work
 ;; in sclang-mode without loading Paredit.
 ;; (add-hook 'sclang-mode-hook 'paredit-mode)
@@ -577,12 +992,20 @@ asks to select a *subdir* of selected project to dired."
 ;; sclang-ac mode constantly tries to run code.
 ;; that can lead to loops that hang, for example constantly creating a view.
 ;; (add-hook 'sclang-mode-hook 'sclang-extensions-mode)
+\end{verbatim}
 
+\subsubsection{sclang keyboard shortcuts}
+\label{sec-2-2-3}
+
+\begin{verbatim}
 ;; Global keyboard shortcut for starting sclang
 (global-set-key (kbd "C-c M-s") 'sclang-start)
 ;; Show workspace
 (global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
-
+\end{verbatim}
+\subsection{Emacs Lisp}
+\label{sec-2-3}
+\begin{verbatim}
 (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 (global-set-key (kbd "H-l h") 'hs-hide-level)
@@ -598,17 +1021,54 @@ asks to select a *subdir* of selected project to dired."
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 ;; H-C-i:
 (define-key emacs-lisp-mode-map (kbd "H-TAB") 'icicle-imenu-command)
+\end{verbatim}
+\subsection{html/css/js}
+\label{sec-2-4}
+web-beautify.
+HTML, CSS, and JavaScript/JSON formatting
+\url{https://github.com/yasuyk/web-beautify}
 
+Shell command, install js-beautify library:web
+\begin{verbatim}
+npm -g install js-beautify
+\end{verbatim}
+Emacs sexp, install emacs web-beautify package:
+\begin{verbatim}
+(package-install 'web-beautify)
+\end{verbatim}
+
+\subsection{org-mode}
+\label{sec-2-5}
+\subsubsection{binding for org show subtree}
+\label{sec-2-5-1}
+
+\begin{verbatim}
 (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-x s") 'org-show-subtree))
+\end{verbatim}
 
+\subsubsection{Using ido for org-goto}
+\label{sec-2-5-2}
+
+\begin{verbatim}
 (setq org-goto-interface 'outline-path-completion
       org-goto-max-level 10)
+\end{verbatim}
 
+\subsubsection{Working with icicles/ido-menu/lacarte in org-mode and elsewhere}
+\label{sec-2-5-3}
+\begin{enumerate}
+\item lacarte/icicle-menu shortcut: H-C-i,
+\label{sec-2-5-3-1}
+\begin{verbatim}
 ;; Previously bound only to org-mode map.
 (global-set-key (kbd "H-TAB") 'icicle-imenu)
 (global-set-key (kbd "H-C-l") 'lacarte-execute-menu-command)
-
+\end{verbatim}
+\item making icicle-imenu and icicle-occur work with org-mode
+\label{sec-2-5-3-2}
+Following needs review! Fri, Nov 28 2014, 10:44 EET
+\begin{verbatim}
 (defun org-icicle-occur ()
   "In org-mode, show entire buffer contents before running icicle-occur.
  Otherwise icicle-occur will not place cursor at found location,
@@ -678,12 +1138,26 @@ If called with prefix argument (C-u), then:
 ;;; ???? Adapt org-mode to icicle menus when refiling (C-c C-w)
 ;;; Still problems. Cannot use standard org refiling with icicles activated!
 (setq org-outline-path-complete-in-steps nil)
+\end{verbatim}
 
+\item Definitely switch prelude off in org mode, as it totally screws-up key bindings
+\label{sec-2-5-3-3}
+
+Especially in the case of Meta-shift-up and Meta-shift-down for spreadsheets.
+Have not figured out yet how to override those keys specifically.
+
+\begin{verbatim}
 (add-hook 'org-mode-hook
           (lambda ()
             (prelude-mode -1)))
 (add-hook 'org-mode-hook 'prelude-off)
+\end{verbatim}
 
+
+\item Providing alternatives for refile and copy using icicles
+\label{sec-2-5-3-4}
+
+\begin{verbatim}
 (defun org-refile-icy (as-subtree &optional do-copy-p)
   "Alternative to org-refile using icicles.
 Refile or copy current section, to a location in the file selected with icicles.
@@ -715,14 +1189,28 @@ See org-refile-icy."
   '(define-key org-mode-map (kbd "C-c i r") 'org-refile-icy))
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c i c") 'org-copy-icy))
+\end{verbatim}
+\end{enumerate}
 
+\subsubsection{Use visual line, whitespace and windmove in org-mode}
+\label{sec-2-5-4}
+
+\begin{verbatim}
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'turn-off-whitespace-mode)
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
+\end{verbatim}
 
+\subsubsection{Customize Org-mode display, including todo colors}
+\label{sec-2-5-5}
+
+Adapted from:
+
+
+\begin{verbatim}
 (setq org-startup-indented t) ;; auto-indent text in subtrees
 (setq org-hide-leading-stars t) ;; hide leading stars in subtree headings
 (setq org-src-fontify-natively t) ;; colorize source-code blocks natively
@@ -760,13 +1248,40 @@ See org-refile-icy."
         ("DELEGATE_DONE" . (:foreground "LawnGreen" :weight bold))
         ("WAITING" . (:foreground "goldenrod" :weight bold))
         ("SOMEDAY" . (:foreground "gray" :weight bold))))
+\end{verbatim}
 
+\subsubsection{Mobile Org}
+\label{sec-2-5-6}
+
+\begin{verbatim}
 ;; the rest of the setup was done by customizing the variables
 ;; org-mobile-directory and org-mobile-inbox-for-pull, and is in custom.el
 
 (global-set-key (kbd "H-h m p") 'org-mobile-push)
 (global-set-key (kbd "H-h m l") 'org-mobile-pull)
+\end{verbatim}
 
+Following was tested, works OK, but is disabled for the moment:
+
+\url{http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/}
+
+\begin{verbatim}
+(defun install-monitor (file secs)
+  (run-with-timer
+   0 secs
+   (lambda (f p)
+     (unless (< p (second (time-since (elt (file-attributes f) 5))))
+       (org-mobile-pull)))
+   file secs))
+
+(defvar monitor-timer
+  (install-monitor (concat org-mobile-directory "/mobileorg.org") 30)
+  "Check if file changed every 30 s.")
+\end{verbatim}
+\subsubsection{line->headline}
+\label{sec-2-5-7}
+
+\begin{verbatim}
 (defun org-headline-line ()
   "convert current line into headline at same level as above."
   (interactive)
@@ -777,9 +1292,20 @@ See org-refile-icy."
 (eval-after-load 'org
   '(progn
      (define-key org-mode-map (kbd "C-M-<return>") 'org-headline-line)))
+\end{verbatim}
 
+\subsubsection{Agenda}
+\label{sec-2-5-8}
+\begin{enumerate}
+\item Global key for org-agenda: C-c a
+\label{sec-2-5-8-1}
+\begin{verbatim}
 (global-set-key "\C-ca" 'org-agenda)
+\end{verbatim}
+\item Add, remove, save agenda file list
+\label{sec-2-5-8-2}
 
+\begin{verbatim}
 (defvar org-agenda-list-save-path
   "~/.emacs.d/savefile/org-agenda-list.el"
 "Path to save the list of files belonging to the agenda.")
@@ -864,12 +1390,28 @@ files to org-agenda-files."
    (call-interactively (intern command))))
 
 (global-set-key (kbd "H-a H-a") 'org-agenda-list-menu)
+\end{verbatim}
 
+
+\item Calendar framework: Show org agenda in iCal-style layout
+\label{sec-2-5-8-3}
+
+\begin{verbatim}
 (require 'calfw-org)
+\end{verbatim}
 
+\item Global key for cfw org calendar framework): C-c M-a
+\label{sec-2-5-8-4}
+
+\begin{verbatim}
 (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
 (global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
+\end{verbatim}
 
+\item Insert DATE property
+\label{sec-2-5-8-5}
+
+\begin{verbatim}
 (defun org-set-date (&optional active property)
   "Set DATE property with current time.  Active timestamp."
   (interactive "P")
@@ -902,7 +1444,12 @@ files to org-agenda-files."
      ;; But we disable prelude in org-mode because of other, more serious conflicts,
      ;; So we keep this alternative key binding:
      (define-key org-mode-map (kbd "C-c d") 'org-set-date)))
+\end{verbatim}
 
+\item Set DUE property with selected time/date
+\label{sec-2-5-8-6}
+
+\begin{verbatim}
 (defun org-set-due-property ()
   (interactive)
   (org-set-property
@@ -911,7 +1458,13 @@ files to org-agenda-files."
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-.") 'org-set-due-property))
+\end{verbatim}
+\end{enumerate}
 
+\subsubsection{Class and Project notes, tags, diary}
+\label{sec-2-5-9}
+
+\begin{verbatim}
 (setq org-clock-persist 'history)
 (org-clock-persistence-insinuate)
 
@@ -1377,7 +1930,17 @@ Select from menu comprized of 2 parts:
           (list 'file+datetree (concat iz-log-dir "projects/FINANCE.org"))
           "* %^{title}\n :PROPERTIES:\n :DATE:\t%T\n :END:\n%^{TransactionType}p%^{category}p%^{amount}p\n%?\n"
           ))))
+\end{verbatim}
 
+\subsubsection{Org-Babel}
+\label{sec-2-5-10}
+\begin{enumerate}
+\item Org-Babel: enable some languages
+\label{sec-2-5-10-1}
+
+Enable some cool languages in org-babel mode.
+
+\begin{verbatim}
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -1386,7 +1949,11 @@ Select from menu comprized of 2 parts:
    (python . t)
    (perl . t)
    ))
+\end{verbatim}
+\item Org-Babel: load current file
+\label{sec-2-5-10-2}
 
+\begin{verbatim}
 (defun org-babel-load-current-file ()
   (interactive)
   (org-babel-load-file (buffer-file-name (current-buffer))))
@@ -1395,7 +1962,16 @@ Select from menu comprized of 2 parts:
 ;; C-c C-v f -> tangle, C-c C-v C-f -> load
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
+\end{verbatim}
+\end{enumerate}
 
+
+\subsubsection{Orgmode latex customization}
+\label{sec-2-5-11}
+
+Note Mon, Dec 15 2014, 16:29 EET: XeLaTeX covers most needs that I have for western european languages, Greek and Japanese.
+
+\begin{verbatim}
 ;;; Load latex package
 (require 'ox-latex)
 
@@ -1461,7 +2037,38 @@ Select from menu comprized of 2 parts:
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+\end{verbatim}
 
+\begin{enumerate}
+\item export subtree as latex with header selected from file template
+\label{sec-2-5-11-1}
+
+Todo:
+
+\begin{enumerate}
+\item {\bfseries\sffamily TODO} Remodel key commands:
+\label{sec-2-5-11-1-1}
+\begin{itemize}
+\item H-h H-e: Export latex as pdf and open
+\begin{description}
+\item[{No argument}] ask for template
+\item[{1-u = '(4)}] repeat previous file/subtree/template selection
+\end{description}
+\item H-h H-E: Export latex into buffer and open window
+\begin{description}
+\item[{No argument}] ask for template
+\item[{1-u = '(4)}] repeat previous file/subtree/template selection
+\end{description}
+\end{itemize}
+
+\item {\bfseries\sffamily TODO} Define command for switching between xelatex/pdflatex
+\label{sec-2-5-11-1-2}
+
+\item The code
+\label{sec-2-5-11-1-3}
+
+
+\begin{verbatim}
 (defvar latex-templates-path
   (file-truename "~/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES"))
 
@@ -1540,23 +2147,63 @@ Select from menu comprized of 2 parts:
 (global-set-key (kbd "H-l H-l") 'org-export-subtree-as-latex-with-header-from-file)
 (global-set-key (kbd "H-l p") 'org-export-buffer-as-pdf-with-header-from-file)
 (global-set-key (kbd "H-l l") 'org-export-buffer-as-latex-with-header-from-file)
+\end{verbatim}
+\end{enumerate}
+\end{enumerate}
 
+
+\subsubsection{Org-crypt: Encrypt selected org-mode entries}
+\label{sec-2-5-12}
+
+\begin{verbatim}
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 ;; GPG key to use for encryption
 ;; Either the Key ID or set to nil to use symmetric encryption.
 (setq org-crypt-key nil)
+\end{verbatim}
 
+\subsubsection{org-reveal, ox-impress: Export slides for Reveal.js and impress.js from orgmode}
+\label{sec-2-5-13}
+
+Load org-reveal to make slides with reveal.js
+
+\url{https://github.com/yjwen/org-reveal/}
+\url{https://github.com/kinjo/org-impress-js.el}
+
+\begin{verbatim}
+(require 'ox-reveal)
+(require 'ox-impress-js)
+\end{verbatim}
+
+\subsubsection{Folding and unfolding, selecting headings}
+\label{sec-2-5-14}
+
+\begin{enumerate}
+\item Extra shortcut: Widen
+\label{sec-2-5-14-1}
+\begin{verbatim}
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "H-W") 'widen))
+\end{verbatim}
+\item Macro: toggle drawer visibility for this node
+\label{sec-2-5-14-2}
 
+See: \url{http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specific-emacs-mode}
+
+\begin{verbatim}
 (fset 'org-toggle-drawer
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
+\end{verbatim}
 
+\item Toggle folding of current item (Command and keyboard command)
+\label{sec-2-5-14-3}
+
+\begin{verbatim}
 (defun org-cycle-current-entry ()
   "toggle visibility of current entry from within the entry."
   (interactive)
@@ -1566,7 +2213,14 @@ Select from menu comprized of 2 parts:
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-/") 'org-cycle-current-entry))
+\end{verbatim}
 
+\item Keyboard Command Shortcut: Select heading of this node (for editing)
+\label{sec-2-5-14-4}
+
+Note: outline-previous-heading (C-c p) places the point at the beginning of the heading line.  To edit the heading, one has to go past the * that mark the heading.  org-select heading places the mark at the beginning of the heading text and selects the heading, so one can start editing the heading right away.
+
+\begin{verbatim}
 (defun org-select-heading ()
   "Go to heading of current node, select heading."
   (interactive)
@@ -1579,18 +2233,37 @@ Select from menu comprized of 2 parts:
 
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-h") 'org-select-heading))
+\end{verbatim}
+\end{enumerate}
 
+\subsubsection{Encryption}
+\label{sec-2-5-15}
+
+\begin{verbatim}
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 ;; GPG key to use for encryption
 ;; Either the Key ID or set to nil to use symmetric encryption.
 (setq org-crypt-key nil)
+\end{verbatim}
 
+\subsubsection{Create menu for org-mode entries (lacarte lets you reach it from the keyboard, too)}
+\label{sec-2-5-16}
+
+\begin{verbatim}
 (add-hook 'org-mode-hook
           (lambda () (imenu-add-to-menubar "Imenu")))
 (setq org-imenu-depth 3)
+\end{verbatim}
 
+\subsubsection{Property shortcuts for collaboration: From-To}
+\label{sec-2-5-17}
+
+Note: searchable both with org-mode match: C-c / p and with icicles search,
+org-icicle-occur or icicle-occur, here: C-c C-'
+
+\begin{verbatim}
 (defun org-from ()
   "Set property 'FROM'."
   (interactive)
@@ -1605,7 +2278,116 @@ Select from menu comprized of 2 parts:
   '(define-key org-mode-map (kbd "C-c x f") 'org-from))
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c x t") 'org-to))
+\end{verbatim}
 
+\subsubsection{{\bfseries\sffamily OBSOLETE} fname-find-file-standardized: Consistent multi-component filenames}
+\label{sec-2-5-18}
+
+\begin{verbatim}
+(defvar fname-parts-1-2 nil)
+(defvar fname-part-3 nil)
+(defvar fname-root "~/Dropbox/000Workfiles/2014/")
+(defvar fname-filename-components
+  (concat fname-root  "00000fname-filename-components.org"))
+
+(defun fname-find-file-standardized (&optional do-not-update-timestamp)
+  (interactive "P")
+  (unless fname-part-3 (fname-load-file-components))
+  (setq *grizzl-read-max-results* 40)
+  (let* ((root fname-root)
+         (index-1 (grizzl-make-index
+                   (mapcar 'car fname-parts-1-2)))
+         (name-1 (grizzl-completing-read "Part 1: " index-1))
+         (index-2 (grizzl-make-index (cdr (assoc name-1 fname-parts-1-2))))
+         (name-2 (grizzl-completing-read "Part 2: " index-2))
+         (index-3 (grizzl-make-index fname-part-3))
+         (name-3 (grizzl-completing-read "Part 3: " index-3))
+         (path (concat root name-1 "_" name-2 "_" name-3 "_"))
+         (candidates (file-expand-wildcards (concat path "*")))
+         extension-index extension final-choice)
+    (setq final-choice
+          (completing-read "Choose file or enter last component: " candidates))
+    (cond ((string-match (concat "^" path) final-choice)
+           (setq path final-choice))
+      (t
+       (setq extension (ido-completing-read
+                        "Enter extension:" '("org" "el" "html" "scd" "sc" "ck")))
+       (setq path (concat path final-choice
+                          (format-time-string "_%Y-%m-%d-%H-%M" (current-time))
+                          "." extension))))
+    (find-file path)
+    (unless do-not-update-timestamp
+     (set-visited-file-name
+      (replace-regexp-in-string
+       "_[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}-[0-9]\\{2\\}"
+       (format-time-string "_%Y-%m-%d-%H-%M" (current-time)) path)))
+    (kill-new (buffer-file-name (current-buffer)))))
+
+(defun fname-load-file-components (&optional keep-buffer)
+  (interactive "P")
+  (let ((buffer (find-file fname-filename-components)))
+    (fname-load-file-components-from-buffer buffer)
+    (unless keep-buffer (kill-buffer buffer)))
+  (message "file component list updated"))
+
+(defun fname-load-file-components-from-buffer (buffer)
+  (set-buffer buffer)
+  (setq fname-parts-1-2 nil)
+  (setq fname-part-3 nil)
+  (org-map-entries
+   (lambda ()
+     (let ((plist (cadr (org-element-at-point))))
+       (cond
+        ((equal (plist-get plist :level) 2)
+         (setq fname-parts-1-2
+               (append fname-parts-1-2
+                       (list (list (plist-get plist :raw-value))))))
+        ((equal (plist-get plist :level) 3)
+         (setcdr (car (last fname-parts-1-2))
+                 (append (cdar (last fname-parts-1-2))
+                         (list (plist-get plist :raw-value))))))))
+   "LEVELS1_2")
+  (org-map-entries
+   (lambda ()
+     (let ((plist (cadr (org-element-at-point))))
+       (when
+           (equal 2 (plist-get plist :level))
+         (setq fname-part-3
+               (append fname-part-3 (list (plist-get plist :raw-value)))))))
+   "LEVEL3"))
+
+(defun fname-edit-file-components ()
+  (interactive)
+  (find-file fname-filename-components)
+  (add-to-list 'write-contents-functions
+               (lambda ()
+                 (fname-load-file-components-from-buffer (current-buffer))
+                 (message "Updated file name components from: %s" (current-buffer))
+                 (set-buffer-modified-p nil)))
+  ;; Debugging:
+  (message "write-contents-functions of file %s are: %s"
+           (buffer-file-name) write-contents-functions))
+  (defun fname-menu ()
+  (interactive)
+  (let ((action (ido-completing-read
+                 "Choose action: "
+                 '("fname-edit-file-components"
+                  "fname-load-file-components"
+                  "fname-find-file-standardized"))))
+    (funcall (intern action))))
+
+(global-set-key (kbd "H-f f") 'fname-find-file-standardized)
+(global-set-key (kbd "H-f m") 'fname-menu)
+(global-set-key (kbd "H-f e") 'fname-edit-file-components)
+(global-set-key (kbd "H-f l") 'fname-load-file-components)
+\end{verbatim}
+\subsubsection{Macro: toggle drawer visibility for this section;}
+\label{sec-2-5-19}
+
+
+See: \url{http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specific-emacs-mode}
+
+\begin{verbatim}
 (fset 'org-toggle-drawer
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([67108896 3 16 14 tab 24 24] 0 "%d")) arg)))
 
@@ -1613,7 +2395,10 @@ Select from menu comprized of 2 parts:
   '(define-key org-mode-map (kbd "C-c M-d") 'org-toggle-drawer))
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-'") 'org-edit-special))
-
+\end{verbatim}
+\subsubsection{org-export for docpad}
+\label{sec-2-5-20}
+\begin{verbatim}
 (defun org-html-export-as-html-body-only ()
   "Export only the body. Useful for using the built-in exporter of Org mode
 with the docpad website framework."
@@ -1634,12 +2419,111 @@ with the docpad website framework."
       (message (format "written to path: %s" path))))
 
 (global-set-key (kbd "H-e H-b") 'org-html-export-as-html-body-only)
+\end{verbatim}
+\subsubsection{Internal: Load org-pm}
+\label{sec-2-5-21}
 
+\begin{verbatim}
+(org-babel-load-file "/Users/iani/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
+\end{verbatim}
+
+\subsection{Magit (git for emacs) Add git repositories)}
+\label{sec-2-6}
+
+Magit config: Manage git repos from inside emacs
+
+\begin{verbatim}
 (setq magit-repo-dirs
       '(
         "~/Dropbox/000WORKFILES/org"
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+\end{verbatim}
 
+
+\section{Load Default Desktop}
+\label{sec-3}
+
+Note: This must be after the TODO config, otherwise any Org mode buffers loaded here will not inherit the TODOD config.
+
+\begin{verbatim}
 (bmkp-desktop-jump "startup")
+\end{verbatim}
+
+\section{Shell Scripts}
+\label{sec-4}
+
+\subsection{Saving my config to github, bitbucket, gitlab}
+\label{sec-4-1}
+
+\begin{verbatim}
+cd ~/Documents/Dev/Emacs/my-emacs-prelude-config/
+git add --all .
+git commit -am "Saved on: `date`"
+# echo "================================================================"
+echo "!!!!!!!!!!!!!!!! Created new git commit !!!!!!!!!!!!!!!!"
+echo "============================================ Pushing to github"
+git push origin master
+echo "======================== Saved repo to github.  Now pushing to bitbucket."
+git push bitbucket master
+echo "======================== Saved repo to bitbucket.  Now pushing to gitlab."
+git push gitlab master
+echo "======================== Saved repo to gitlab. Backup completed."
+\end{verbatim}
+\section{Notes}
+\label{sec-5}
+\subsection{{\bfseries\sffamily DONE} Try Orgstruct, Outshine, Outorg or Poporg for elisp files instead of Babel}
+\label{sec-5-1}
+
+\url{http://orgmode.org/worg/org-tutorials/org-outside-org.html}
+\subsection{Capture for project logs in one folder}
+\label{sec-5-2}
+
+\subsubsection{About folder "project-logs"}
+\label{sec-5-2-1}
+
+This folder, project-logs, is for monitoring the progress of individual projects.  Each project has a separate file.
+
+\subsubsection{Methodology}
+\label{sec-5-2-2}
+
+Keep using the global file log.org for fast logging of all entries, regarding any project.  To update the status of a project in the individual project files of the present folder, go to the global log.org file and copy sections to the related individual project files.  For example, if file log.org contains a section related to project "proj1", then copy that section to file "proj1.org".  Therefore keep both the original entries in log and the copied entries in the individual project files in the present folder ("project-logs").  In file log.org it may be useful to mark those entries that have been copied with a property such as "COPIED" set to true.
+
+\subsubsection{Keyboard shortcuts, custom functions}
+\label{sec-5-2-3}
+
+\begin{description}
+\item[{C-c M-w}] Copy subtree to other subtree.
+\end{description}
+
+New functions to program:
+
+\begin{description}
+\item[{org-capture-to-folder}] Like org-capture, but modified in the following points:
+\begin{enumerate}
+\item Use a grizzle-style vertical menu for selecting the target of refile (instead of a single-key shortcut)
+\item Create the menu of refile targets by scanning the project-logs folder (instead of statically from a list hard-coded in emacs-lisp).
+\item Possibly allow several variants of capture:
+\begin{enumerate}
+\item date-tree-prompt style (file+datetree+prompt)
+\item "entry" type, target (file "path/to/file")
+\item "entry" type, target id or file+headline
+\end{enumerate}
+\end{enumerate}
+\item[{org-copy-to-project}] like org-capture-to-folder, but instead of capture, it just copies to the project file.
+\end{description}
+
+\subsubsection{Implementation}
+\label{sec-5-2-4}
+
+Implementation is underway in file scratch/disperse.org
+
+\section{Postamble}
+\label{sec-6}
+
+\begin{verbatim}
+;;; org-pm.el ends here
+\end{verbatim}
+% Emacs 24.4.1 (Org mode 8.2.10)
+\end{document}

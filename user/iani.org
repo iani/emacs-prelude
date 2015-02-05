@@ -1848,6 +1848,10 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                     "iz-insert-file-as-snippet"
                     "iz-scratchpad-menu"
                     "iz-diary-entry"
+                    "org-export-subtree-as-latex-with-header-from-file"
+                    "org-export-subtree-as-pdf-with-header-from-file"
+                    "org-export-buffer-as-latex-with-header-from-file"
+                    "org-export-buffer-as-pdf-with-header-from-file"
                     )))
            (selection (grizzl-completing-read "Select command: " menu)))
       (eval (list (intern selection)))))
@@ -2013,7 +2017,7 @@ Todo:
 
 #+BEGIN_SRC emacs-lisp
   (defvar latex-templates-path
-    (file-truename "~/Dropbox/000WORKFILES/SNIPPETS_AND_TEMPLATES"))
+    (file-truename "~/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES"))
 
   (defvar latex-section-template
     '(("\\section\{%s\}" . "\\section*\{%s\}")
@@ -2086,10 +2090,10 @@ Todo:
           (split-window-vertically)
           (find-file chosen-template-path)))))
 
-  (global-set-key (kbd "H-h H-e") 'org-export-subtree-as-pdf-with-header-from-file)
-  (global-set-key (kbd "H-h H-E") 'org-export-subtree-as-latex-with-header-from-file)
-  (global-set-key (kbd "H-h H-C-e") 'org-export-buffer-as-pdf-with-header-from-file)
-  (global-set-key (kbd "H-h H-C-E") 'org-export-buffer-as-latex-with-header-from-file)
+  (global-set-key (kbd "H-l H-p") 'org-export-subtree-as-pdf-with-header-from-file)
+  (global-set-key (kbd "H-l H-l") 'org-export-subtree-as-latex-with-header-from-file)
+  (global-set-key (kbd "H-l p") 'org-export-buffer-as-pdf-with-header-from-file)
+  (global-set-key (kbd "H-l l") 'org-export-buffer-as-latex-with-header-from-file)
 #+END_SRC
 
 

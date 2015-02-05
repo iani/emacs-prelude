@@ -134,7 +134,9 @@ Not used, because it seems to interfere with sclang-ac-mode:
 
 ** Latex
 
-- "H-h H-e" :: org-export-subtree-as-pdf-with-header-from-file
-- "H-h H-E" :: org-export-subtree-as-latex-with-header-from-file
-- "H-h H-C-e" :: org-export-buffer-as-pdf-with-header-from-file
-- "H-h H-C-E" :: org-export-buffer-as-latex-with-header-from-file
+- "H-l p" :: org-export-buffer-as-pdf-with-header-from-file
+- "H-l l" :: org-export-buffer-as-latex-with-header-from-file
+- "H-l H-p" :: org-export-subtree-as-pdf-with-header-from-file
+- "H-l H-l" :: org-export-subtree-as-latex-with-header-from-file
+
+_Note: C-U (prefix) makes the above commands use the last selected template instead of presenting a menu to select a template._

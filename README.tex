@@ -1,0 +1,237 @@
+% Created 2015-02-05 Thu 11:41
+
+% This is a minimal article setting.
+% It produces a simple article
+% with page numbering in the footer.
+% It uses polyglossia and Hypatia Font.
+% It covers western european languages and greek - but not japanese.
+
+\documentclass{article}
+
+\usepackage{fontspec}
+\setmainfont{Hypatia Sans Pro}
+
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\PolyglossiaSetup{greek, english}{indentfirst=false}
+
+% Substitute the following to change language:
+% \setmainlanguage{french}
+% \setmainlanguage{german}
+% \setmainlanguage{greek}
+
+\usepackage{hyperref} % in-document links (for TOC etc)
+\usepackage{lipsum} % lorem lipsum ready-text
+\usepackage{ulem} % underline emphasis
+
+\sloppy
+
+% NOTE: Mon, Dec 15 2014, 16:12 EET:
+% French, German etc + Greek chars are supported.
+\author{IOANNIS ZANNOS}
+\date{\today}
+\title{README}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.4.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+These are the contents of folder "personal" in my .emacs.d folder.
+
+I use emacs-prelude (\url{https://github.com/bbatsov/prelude}) to manage configuration.
+
+This loads all emacs-lisp files in folder "preload" first, and then runs init.el.
+
+My init.el first adds all packages from folder "packages" to the load path to make them available.  Then it runs my init file, which is user/iani2.org.
+
+iani2.org contains all the configuration code, as org-babel blocks containing emacs-lisp.
+
+The present repository also contains chuck-mode, for the computer music language ChucK and sclang for SuperCollider.
+
+IZ Dec 23, 2013 (10:52 PM)
+
+\section{List of packages used}
+\label{sec-1}
+
+This is an (incomplete) list of the packages used in this configuration.
+
+Note: \textbf{use command \texttt{package-install}, or \texttt{list-packages} to install these}.
+
+Some of these packages have been downloaded manually and put in packages folder.
+
+Some of the packages configurations (for example: wanderlust) have not yet been moved to the present file.
+
+\subsection{Generic packages for overall Emacs configuration}
+\label{sec-1-1}
+
+\subsubsection{Persistence}
+\label{sec-1-1-1}
+
+(See: \url{http://www.emacswiki.org/emacs/CategoryPersistence})
+
+\begin{description}
+\item[{desktop}] Automatically save and restore buffer configurations between sessions.
+Note: Works with bookmark+, but interactive interface and settings are unclear as to what gets overwritten when.  So I use my own alternative "simple-desktop" package:
+\item[{simple-desktops}] Simple scheme for saving and reloading of file lists, independent of desktop or bookmark+. (By IZ).
+\end{description}
+
+\subsubsection{Windows and buffers}
+\label{sec-1-1-2}
+
+\begin{description}
+\item[{windmove}] move cursor between windows (using function-shift-cursor keys)
+\item[{switch-window}] When more than 2 windows, then select window by number, showing window number in large font overlay.
+\item[{buffer-move}] Switch buffer positions in windows (using function-control-cursor keys)
+\end{description}
+
+\subsubsection{Navigating, finding things}
+\label{sec-1-1-3}
+
+\begin{description}
+\item[{ido-mode}] Basic enhancement of autocomplete for minibuffer.
+But also autocompletion when coding.
+\item[{icicles}] More powerful enhancement of autocomplete in all sorts of situations.
+See: \url{http://www.emacswiki.org/emacs/EmacsNewbieWithIcicles}
+\item[{helm}] Fast navigation for files, folders and commands.  Simpler to use than icicles. (Provided with prelude).  Convenient marking and interactive, incremental grep on files and folders.
+\item[{projectile}] Folders become projects, for focussed search and access of files/contents.  Combines with grizzl autocomplete method, which is better suited for display of full paths in match list.  Also grep
+and ack.
+\item[{helm-projectile}] Integrate projectile into helm.  Run with C-c p h.
+\item[{bookmark+}] Bookmark enhancement.
+\item[{smex}] Enhancement of autocomplete fγor commands in minibuffer.
+\item[{lacarte}] execute menu commands from the keyboard
+\item[{AceJump}] Jump to any one of displayed characters/words/lines starting with a character typed (triggered by key-chord combinations).
+\item[{dired+}] Enhancement of dired.
+\item[{speedbar}] A sidebar showing directory or files (with foldable buffers and navigation) or list of buffers. (Type f for folders, b for buffers).
+Speedbar is part of prelude.  The home page of speedbar is: \url{http://cedet.sourceforge.net/speedbar.shtml}
+Speedbar opens in a separate frame.  To open it in the same frame as the editing window(s), use sr-speedbar.
+\item[{sr-speedbar}] Open sidebar in same frame.
+\item[{dirtree}] Tree-like display of directories and files.  (Like file-list view in Finder or Windows navigator).  Version used:  \url{https://github.com/rtircher/dirtree}.
+Note: Speedbar in file mode does the same job as dirtree.  The main difference is that in dirtree one can browse several different directories in the same sidebar.  In sidebar, the directory browsed changes to reflect the directory of the selected buffer.
+\end{description}
+\begin{enumerate}
+\item for later: ack, ag
+\label{sec-1-1-3-1}
+\begin{description}
+\item[{ack-and-a-half}] Perl based search in files.  Used by projectile.  See:
+\url{http://www.emacswiki.org/emacs/Ack}
+\item[{ag}] Silver replacement for ack.  See:
+\url{https://github.com/Wilfred/ag.el}
+\end{description}
+\end{enumerate}
+
+\subsubsection{Snippets and macros}
+\label{sec-1-1-4}
+
+\begin{description}
+\item[{yasnippets}] Expand keywords into code snippets.
+\item[{auto-complete}] Provide auto-completion with popup window
+\end{description}
+
+\subsubsection{Generic authoring/editing packages}
+\label{sec-1-1-5}
+
+\begin{description}
+\item[{paredit}] Paredit mode.
+\item[{rainbow-delimiters-mode}] Multi-color parentheses, brackets, braces.
+\item[{hl-sexp-mode (alternative: highlight-sexps-mode)}] highight regions enclosed in parentheses, brackets, braces
+\item[{multiple-cursors}] Magnar Sveen's multiple cursor package.
+\item[{key-chord}] Trigger a command or keyboard macro by typing two characters in quick succession or together.
+\item[{whitespace mode}] mark unnecessary white space and long lines (disabled in org-mode).
+\end{description}
+
+\subsubsection{Display, colors}
+\label{sec-1-1-6}
+
+\begin{description}
+\item[{solarized-dark}] Additional emacs color theme.
+\end{description}
+
+\subsection{Packages for specific authoring modes (emacs-lisp, SuperCollider etc.)}
+\label{sec-1-2}
+
+\subsubsection{Emacs-lisp}
+\label{sec-1-2-1}
+
+\begin{description}
+\item[{ElDoc}] Show arguments required by current function in minibuffer.
+\item[{dash.el}] "A modern list api for Emacs. No 'cl required."
+\url{https://github.com/magnars/dash.el#functions}
+\end{description}
+
+\subsubsection{Org-mode}
+\label{sec-1-2-2}
+
+\begin{description}
+\item[{org}] Org-mode.
+\item[{epresent}] Present slides directly from org-mode.
+\item[{calfw}] Present org-mode agenda in calendar-style day, week and month views.
+\item[{collector}] Collect property data into org-mode table.
+\item[{org-bibedit}] Bibtex integration for orgmode.
+\item[{ox-latex}] Latex support
+\item[{org-crypt}] Encrypt org-mode entries tagged with \texttt{crypt}
+\item[{ox-reveal}] Export org-mode files as reveal.js slide presentations.
+\item[{org-drill, flashcard, flashcard-sm5}] Flashcard memorization drill software for org-mode.
+\end{description}
+
+\subsubsection{SuperCollider}
+\label{sec-1-2-3}
+
+\begin{description}
+\item[{sclang}] SuperCollider.
+\item[{sclang-ac-mode}] auto-complete mode for SuperCollider.
+\item[{sclang-snippets}] yasnippets for SuperCollider.
+\end{description}
+
+Not used, because it seems to interfere with sclang-ac-mode:
+
+\begin{description}
+\item[{sclang-extensions}] Context sensitive moving and evaluation in SuperCollide
+\end{description}
+
+\subsubsection{ChucK}
+\label{sec-1-2-4}
+
+\begin{description}
+\item[{chuck}] chuck-mode.
+\end{description}
+
+\subsection{Other extensions: Email, shells etc.}
+\label{sec-1-3}
+\subsubsection{Wanderlust: Email client for emacs}
+\label{sec-1-3-1}
+
+\begin{description}
+\item[{wanderlust}] Email-client for emacs.
+\item[{bbdb-hooks}] Needed for wanderlust.
+\item[{bbdb-wl}] Needed for wanderlust.
+\end{description}
+\section{Usage notes}
+\label{sec-2}
+\subsection{iz-log}
+\label{sec-2-1}
+
+\begin{description}
+\item[{menu shortcut}] H-h H-h
+\item[{log}] H-h H-l
+\item[{Todo}] H-h H-t
+\item[{Find file}] H-h H-f
+\item[{Find attachment dir}] H-h H-d
+\end{description}
+
+\subsection{Latex}
+\label{sec-2-2}
+
+\begin{description}
+\item[{"H-l p"}] org-export-buffer-as-pdf-with-header-from-file
+\item[{"H-l l"}] org-export-buffer-as-latex-with-header-from-file
+\item[{"H-l H-p"}] org-export-subtree-as-pdf-with-header-from-file
+\item[{"H-l H-l"}] org-export-subtree-as-latex-with-header-from-file
+\end{description}
+
+\uline{Note: C-U (prefix) makes the above commands use the last selected template instead of presenting a menu to select a template.}
+% Emacs 24.4.1 (Org mode 8.2.10)
+\end{document}
