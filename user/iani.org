@@ -2040,9 +2040,7 @@ Todo:
 
   (defun org-export-buffer-as-pdf-with-header-from-file (&optional use-previous-setting-p)
     (interactive "P")
-    (message "running export buffer as pdf")
     (org-latex-export-with-file-template nil use-previous-setting-p nil))
-
 
   (defun org-latex-export-with-file-template (&optional as-latex-buffer-p use-previous-setting-p subtree-p)
     (let* (;; backup to restore original latex-classes after this operation:
