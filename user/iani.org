@@ -2113,7 +2113,7 @@ Todo:
                          (file-name-nondirectory chosen-template-path))
                         t)
              (shell-command (concat
-                             "open -a /Applications/Preview.app"
+                             "open -a /Applications/Preview.app "
                              "\""
                              attach-path
                              (file-name-nondirectory pdf-path)
