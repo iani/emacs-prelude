@@ -1462,6 +1462,8 @@ Select from menu comprized of 2 parts:
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
+(require 'org-attach)
+
 (defvar latex-templates-path
   (file-truename "~/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES"))
 
@@ -1488,7 +1490,6 @@ Select from menu comprized of 2 parts:
   (interactive "P")
   (org-latex-export-with-file-template nil use-previous-setting-p nil))
 
-
 (defun org-latex-export-with-file-template (&optional as-latex-buffer-p use-previous-setting-p subtree-p)
   (let* (;; backup to restore original latex-classes after this operation:
          (org-latex-classes-backup org-latex-classes)
@@ -1505,7 +1506,7 @@ Select from menu comprized of 2 parts:
             (grizzl-completing-read "Choose latex template: " menu)))
          (chosen-template-path (cdr (assoc chosen-filename names-and-paths)))
          (this-buffers-latex-class
-          (plist-get (org-export-get-environment 'latex t nil) :latex-class))
+          (plist-get (org-export-get-environment 'latex subtree-p nil) :latex-class))
          latex-header
          (latex-sections
           (or (cddr (assoc this-buffers-latex-class org-latex-classes))
@@ -1526,15 +1527,60 @@ Select from menu comprized of 2 parts:
              (append
               (list this-buffers-latex-class latex-header)
               latex-sections)))
-      (if as-latex-buffer-p
-          (org-latex-export-as-latex nil subtree-p nil nil)
-        (org-open-file (org-latex-export-to-pdf nil subtree-p nil nil)))
+
+       (if as-latex-buffer-p
+            (org-latex-export-as-latex nil subtree-p nil nil)
+         (let ((pdf-path (org-export-output-file-name ".pdf" subtree-p))
+               (tex-path (org-export-output-file-name ".tex" subtree-p))
+               (attach-path
+                (cond (subtree-p
+                       (concat (org-attach-dir subtree-p)) "/")
+                      (t (org-file-attachment-dir t)))))
+           ;; TODO: next move files from pdf-path and tex-path to attachments
+           ;; of this subtree or file.
+           ;; Also copy template to the attachment of this subtree.
+           ;; Set properties for this subtree or file depending on subtree-p:
+           ;; 1. LATEX_TEMPLATE                                          (ref:)
+           ;; 2. LATEX_EXPORT_DATE
+           (org-latex-export-to-pdf nil subtree-p nil nil)
+           (copy-file pdf-path
+                      (concat
+                       attach-path
+                       (file-name-nondirectory pdf-path))
+                      t)
+           (copy-file tex-path
+                      (concat
+                       attach-path
+                       (file-name-nondirectory tex-path))
+                      t)
+           (copy-file chosen-template-path
+                      (concat
+                       attach-path
+                       (file-name-nondirectory chosen-template-path))
+                      t)
+           (shell-command (concat
+                           "open "
+                           "\""
+                           attach-path
+                           (file-name-nondirectory pdf-path)) )))
       ;; restore original latex classes:
       (setq org-latex-classes org-latex-classes-backup)
       ;; Open the chosen template for inspection and tweaking:
-      (unless (get-buffer (file-name-nondirectory chosen-template-path))
-        (split-window-vertically)
-        (find-file chosen-template-path)))))
+      ;; (unless (get-buffer (file-name-nondirectory chosen-template-path))
+      ;;   (split-window-vertically)
+      ;;   (find-file chosen-template-path))
+      )))
+
+(defun org-file-attachment-dir (&optional make-if-needed)
+  (let ((path
+         (concat
+          (file-name-directory (buffer-file-name))
+          "attachments/"
+          (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))
+          "/")))
+    (unless (file-exists-p path)
+      (if make-if-needed (make-directory path t)))
+    path))
 
 (global-set-key (kbd "H-l H-p") 'org-export-subtree-as-pdf-with-header-from-file)
 (global-set-key (kbd "H-l H-l") 'org-export-subtree-as-latex-with-header-from-file)
