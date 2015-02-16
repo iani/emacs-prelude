@@ -2,12 +2,12 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Thu Feb 12 20:41:49 2015
+;; Created Mon Feb 16 13:50:53 2015
 ;; Desktop file format version 206
 ;; Emacs version 24.4.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21724 62445 528631 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.local") (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 64) (width . 176) (left . 0) (top . 0)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 180) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "french-text.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 8716) (start . 316))))])
+(setq desktop-saved-frameset [frameset 1 (21729 55709 829947 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.local") (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 76) (width . 236) (left . 0) (top . 0)) ((min-height . 8) (min-width . 20) (min-height-ignore . 4) (min-width-ignore . 10) (min-height-safe . 2) (min-width-safe . 4) (min-pixel-height . 112) (min-pixel-width . 160) (min-pixel-height-ignore . 56) (min-pixel-width-ignore . 80) (min-pixel-height-safe . 28) (min-pixel-width-safe . 32)) hc (pixel-width . 1916) (pixel-height . 1062) (total-width . 240) (total-height . 76) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (vc (pixel-width . 956) (pixel-height . 1062) (total-width . 120) (total-height . 76) (normal-height . 1.0) (normal-width . 0.5) (combination-limit) (leaf (pixel-width . 956) (pixel-height . 530) (total-width . 120) (total-height . 38) (normal-height . 0.5) (normal-width . 1.0) (buffer "iani.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 72508) (start . 34387))) (leaf (last . t) (pixel-width . 956) (pixel-height . 532) (total-width . 120) (total-height . 38) (normal-height . 0.5) (normal-width . 1.0) (buffer "iani.org" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 81353) (start . 79720)))) (leaf (last . t) (pixel-width . 960) (pixel-height . 1062) (total-width . 120) (total-height . 76) (normal-height . 1.0) (normal-width . 0.5) (buffer "latex-export-tests.org" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 1526) (start . 1)))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
@@ -16,122 +16,23 @@
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/LaTeX-Tests/french-text.org"
-  "french-text.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
-  8716
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "LaTeX-Tests"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
-  547
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/LaTeX-Tests/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "1_SNIPPETS_AND_TEMPLATES"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
-  461
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "000WORKFILES"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
-  1143
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "1_DEV_EMACS"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
-  687
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_DEV_EMACS/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/3_JOINT_PROJECTS/ErasmusStrategicPartnership1503.org"
-  "ErasmusStrategicPartnership1503.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
-  1359
-  '(1959 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/latex-simple-article-english-georgia.tex"
-  "latex-simple-article-english-georgia.tex"
-  'latex-mode
-  '(abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode icicle-mode)
-  659
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/latex-greek-letter.tex"
-  "latex-greek-letter.tex"
-  'latex-mode
-  '(abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode icicle-mode)
-  1980
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
   "/Users/iani/.emacs.d/personal/user/iani.org"
   "iani.org"
   'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
-  75767
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  72508
   '(71954 nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/3_JOINT_PROJECTS/EASTN.org"
-  "EASTN.org"
+  "/Users/iani/Dropbox/000WORKFILES/1_TESTS/latex-export-tests.org"
+  "latex-export-tests.org"
   'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
-  76178
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/4_INSTALLATIONS/Performigrations.org"
-  "Performigrations.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
-  45863
-  '(nil nil)
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  1526
+  '(1 nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
