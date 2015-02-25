@@ -961,6 +961,9 @@ Needs debugging: One of these modes breaks sclang-start:
 (global-set-key (kbd "C-c C-M-w") 'sclang-switch-to-workspace)
 #+END_SRC
 ** Emacs Lisp
+:PROPERTIES:
+:ID:       63CDCCDC-EE4D-4C1E-8C72-4B605B330969
+:END:
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
   (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
@@ -980,6 +983,9 @@ Needs debugging: One of these modes breaks sclang-start:
 #+END_SRC
 ** html/css/js
 CLOCK: [2015-01-16 Fri 13:34]--[2015-01-16 Fri 13:34] =>  0:00
+:PROPERTIES:
+:ID:       D3EC60BA-8854-4752-9A9B-7DF7322D0589
+:END:
 
 web-beautify.
 HTML, CSS, and JavaScript/JSON formatting
@@ -1993,17 +1999,6 @@ Note Mon, Dec 15 2014, 16:29 EET: XeLaTeX covers most needs that I have for west
 
 Todo:
 
-***** TODO Remodel key commands:
-:PROPERTIES:
-:DATE:     <2014-12-15 Mon 15:21>
-:END:
-- H-h H-e: Export latex as pdf and open
-  - No argument :: ask for template
-  - 1-u = '(4) :: repeat previous file/subtree/template selection
-- H-h H-E: Export latex into buffer and open window
-  - No argument :: ask for template
-  - 1-u = '(4) :: repeat previous file/subtree/template selection
-
 ***** TODO Define command for switching between xelatex/pdflatex
 :PROPERTIES:
 :DATE:     <2014-12-15 Mon 15:21>
@@ -2026,7 +2021,7 @@ Todo:
   (defvar latex-section-template
     '(("\\section\{%s\}" . "\\section*\{%s\}")
       ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-      ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}")))
+      ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
   (defvar org-latex-last-chosen-file-name nil
     "Path of last chosen latex template.")
@@ -2047,13 +2042,6 @@ Todo:
     (interactive)
     (org-latex-export-with-file-template nil nil))
 
-  (defun org-latex-export-with-file-template-debugging (&optional as-latex-buffer-p subtree-p)
-    (let* (;; backup to restore original latex-classes after this operation:
-           (org-latex-classes-backup org-latex-classes)
-           (chosen-template-path (org-query-latex-template-path subtree-p))
-           )
-  ))
-
   (defun org-latex-export-with-file-template (&optional as-latex-buffer-p subtree-p)
     (let* (;; backup to restore original latex-classes after this operation:
            (org-latex-classes-backup org-latex-classes)
@@ -2062,8 +2050,9 @@ Todo:
             (plist-get (org-export-get-environment 'latex subtree-p nil) :latex-class))
            latex-header
            (latex-sections
-            (or (cddr (assoc this-buffers-latex-class org-latex-classes))
-                latex-section-templates)))
+            (or ;; TODO: Add (org-latex-get-local-section-settings subtree-p) here.
+             (cddr (assoc this-buffers-latex-class org-latex-classes))
+             latex-section-templates)))
       (when chosen-template-path
         (setq org-latex-last-chosen-file-name chosen-template-path)
         (setq latex-header
@@ -2110,6 +2099,8 @@ Todo:
                             "\""))))
         ;; restore original latex classes:
         (setq org-latex-classes org-latex-classes-backup))))
+
+  ;; TODO: (defun org-latex-get-local-section-settings (subtree-p) ...)
 
   (defun org-query-latex-template-path (&optional subtree-p)
     "Get and set latex template path from menu of paths found in default folder.

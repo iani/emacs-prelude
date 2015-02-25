@@ -1472,33 +1472,36 @@ Select from menu comprized of 2 parts:
     ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
     ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}")))
 
-(defvar org-latex-last-chosen-file-name)
+(defvar org-latex-last-chosen-file-name nil
+  "Path of last chosen latex template.")
 
-(defun org-export-subtree-as-latex-with-header-from-file (&optional template-choice)
-  (interactive "P")
-  (org-latex-export-with-file-template
-   t (org-query-latex-template-path template-choice) t))
+(defun org-export-subtree-as-latex-with-header-from-file ()
+  (interactive)
+  (org-latex-export-with-file-template t t))
 
-(defun org-export-subtree-as-pdf-with-header-from-file (&optional template-choice)
-  (interactive "P")
-  (org-latex-export-with-file-template
-   nil (org-query-latex-template-path template-choice) t))
+(defun org-export-subtree-as-pdf-with-header-from-file ()
+  (interactive)
+  (org-latex-export-with-file-template nil t))
 
-(defun org-export-buffer-as-latex-with-header-from-file (&optional template-choice)
-  (interactive "P")
-  (org-latex-export-with-file-template
-   t (org-query-latex-template-path template-choice) nil))
+(defun org-export-buffer-as-latex-with-header-from-file ()
+  (interactive)
+  (org-latex-export-with-file-template t nil))
 
-(defun org-export-buffer-as-pdf-with-header-from-file (&optional template-choice)
-  (interactive "P")
-  (org-latex-export-with-file-template
-   nil (org-query-latex-template-path template-choice) nil))
+(defun org-export-buffer-as-pdf-with-header-from-file ()
+  (interactive)
+  (org-latex-export-with-file-template nil nil))
 
-(defun org-latex-export-with-file-template (&optional as-latex-buffer-p template-path subtree-p)
+(defun org-latex-export-with-file-template-debugging (&optional as-latex-buffer-p subtree-p)
   (let* (;; backup to restore original latex-classes after this operation:
          (org-latex-classes-backup org-latex-classes)
-         (chosen-template-path
-          (or template-path (org-query-latex-template-path)))
+         (chosen-template-path (org-query-latex-template-path subtree-p))
+         )
+))
+
+(defun org-latex-export-with-file-template (&optional as-latex-buffer-p subtree-p)
+  (let* (;; backup to restore original latex-classes after this operation:
+         (org-latex-classes-backup org-latex-classes)
+         (chosen-template-path (org-query-latex-template-path subtree-p))
          (this-buffers-latex-class
           (plist-get (org-export-get-environment 'latex subtree-p nil) :latex-class))
          latex-header
@@ -1506,7 +1509,7 @@ Select from menu comprized of 2 parts:
           (or (cddr (assoc this-buffers-latex-class org-latex-classes))
               latex-section-templates)))
     (when chosen-template-path
-      (setq org-latex-last-chosen-file-name chosen-filename)
+      (setq org-latex-last-chosen-file-name chosen-template-path)
       (setq latex-header
             (with-temp-buffer
               (insert-file-contents chosen-template-path)
@@ -1526,16 +1529,7 @@ Select from menu comprized of 2 parts:
           (org-latex-export-as-latex nil subtree-p nil nil)
         (let ((pdf-path (org-export-output-file-name ".pdf" subtree-p))
               (tex-path (org-export-output-file-name ".tex" subtree-p))
-              (attach-path
-               (if subtree-p
-                   (concat (org-attach-dir subtree-p) "/")
-                 (org-file-attachment-dir t))))
-          ;; TODO: next move files from pdf-path and tex-path to attachments
-          ;; of this subtree or file.
-          ;; Also copy template to the attachment of this subtree.
-          ;; Set properties for this subtree or file depending on subtree-p:
-          ;; 1. LATEX_TEMPLATE                                          (ref:)
-          ;; 2. LATEX_EXPORT_DATE
+              (attach-path (org-file-or-subtree-attachment-dir subtree-p t)))
           (org-latex-export-to-pdf nil subtree-p nil nil)
           (copy-file pdf-path
                      (concat
@@ -1559,12 +1553,7 @@ Select from menu comprized of 2 parts:
                           (file-name-nondirectory pdf-path)
                           "\""))))
       ;; restore original latex classes:
-      (setq org-latex-classes org-latex-classes-backup)
-      ;; Open the chosen template for inspection and tweaking:
-      ;; (unless (get-buffer (file-name-nondirectory chosen-template-path))
-      ;;   (split-window-vertically)
-      ;;   (find-file chosen-template-path))
-      )))
+      (setq org-latex-classes org-latex-classes-backup))))
 
 (defun org-query-latex-template-path (&optional subtree-p)
   "Get and set latex template path from menu of paths found in default folder.
@@ -1588,35 +1577,34 @@ Also:
        (local-template-path (org-get-option-or-property "LATEX_TEMPLATE" subtree-p))
        (local-template-copy-path
         (org-get-option-or-property "LATEX_TEMPLATE_COPY" subtree-p))
-       menu chosen-filename, new-template-copy-path)
-    ;; ================================================================
+       menu chosen-filename new-template-copy-path)
     (if org-latex-last-chosen-file-name
         (setq names-and-paths
               (append
                names-and-paths
-               (cons (concat
-                      "[Last chosen template:] "
-                      (file-name-sans-extension
-                       (file-name-nondirectory org-latex-last-chosen-file-name)))
-                     org-latex-last-chosen-file-name))))
+               (list (cons (concat
+                            "[Last chosen template:] "
+                            (file-name-sans-extension
+                             (file-name-nondirectory org-latex-last-chosen-file-name)))
+                           org-latex-last-chosen-file-name)))))
     (if local-template-path
         (setq names-and-paths
               (append
                names-and-paths
-               (cons (concat
-                      "[Local template:] "
-                      (file-name-sans-extension
-                       (file-name-nondirectory local-template-path)))
-                     org-latex-last-chosen-file-name))))
+               (list (cons (concat
+                            "[Local template:] "
+                            (file-name-sans-extension
+                             (file-name-nondirectory local-template-path)))
+                           org-latex-last-chosen-file-name)))))
     (if local-template-copy-path
         (setq names-and-paths
               (append
                names-and-paths
-               (cons (concat
-                      "[Copy of local template:] "
-                      (file-name-sans-extension
-                       (file-name-nondirectory local-template-copy-path)))
-                     org-latex-last-chosen-file-name))))
+               (list (cons (concat
+                            "[Copy of local template:] "
+                            (file-name-sans-extension
+                             (file-name-nondirectory local-template-copy-path)))
+                           org-latex-last-chosen-file-name)))))
     (setq menu (grizzl-make-index (mapcar 'car names-and-paths)))
     (setq chosen-filename
           (cdr (assoc (grizzl-completing-read "Choose latex template: " menu)
