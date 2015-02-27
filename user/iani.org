@@ -1417,7 +1417,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 :PROPERTIES:
 :DATE:     <2014-10-14 Tue 18:47>
 :ID:       D2E016DB-670B-4FD9-90C2-3A43C84C7123
-:eval-id:  3
+:eval-id:  10
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -1479,8 +1479,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
             (dolist (folder folders)
               (setq files
                     (append
-                     files ;; ignore files whose name starts with underscore (_)
-                     (file-expand-wildcards (concat folder "/[!_]*.org")))))
+                     files ;; ignore files whose name starts with dash (-)
+                     (file-expand-wildcards (concat folder "/[!-]*.org")))))
             (-reject
              (lambda (f)
                (string-match-p "/\\." f))
@@ -1776,7 +1776,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                (let* (
                       (files
                        (file-expand-wildcards
-                        (concat iz-log-dir subdir "/[!_]*.org")))
+                        (concat iz-log-dir subdir "/[!-]*.org")))
                       (projects (mapcar 'file-name-nondirectory files))
                       (dirs
                        (mapcar (lambda (dir) (cons (file-name-sans-extension

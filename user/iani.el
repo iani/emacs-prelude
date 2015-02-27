@@ -1470,7 +1470,7 @@ Select from menu comprized of 2 parts:
 (defvar latex-section-template
   '(("\\section\{%s\}" . "\\section*\{%s\}")
     ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
-    ("\\subsubsect1on\{%s\}" . "\\subsubsection*\{%s\}")))
+    ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
 
 (defvar org-latex-last-chosen-file-name nil
   "Path of last chosen latex template.")
@@ -1491,13 +1491,6 @@ Select from menu comprized of 2 parts:
   (interactive)
   (org-latex-export-with-file-template nil nil))
 
-(defun org-latex-export-with-file-template-debugging (&optional as-latex-buffer-p subtree-p)
-  (let* (;; backup to restore original latex-classes after this operation:
-         (org-latex-classes-backup org-latex-classes)
-         (chosen-template-path (org-query-latex-template-path subtree-p))
-         )
-))
-
 (defun org-latex-export-with-file-template (&optional as-latex-buffer-p subtree-p)
   (let* (;; backup to restore original latex-classes after this operation:
          (org-latex-classes-backup org-latex-classes)
@@ -1506,8 +1499,9 @@ Select from menu comprized of 2 parts:
           (plist-get (org-export-get-environment 'latex subtree-p nil) :latex-class))
          latex-header
          (latex-sections
-          (or (cddr (assoc this-buffers-latex-class org-latex-classes))
-              latex-section-templates)))
+          (or ;; TODO: Add (org-latex-get-local-section-settings subtree-p) here.
+           (cddr (assoc this-buffers-latex-class org-latex-classes))
+           latex-section-templates)))
     (when chosen-template-path
       (setq org-latex-last-chosen-file-name chosen-template-path)
       (setq latex-header
@@ -1554,6 +1548,8 @@ Select from menu comprized of 2 parts:
                           "\""))))
       ;; restore original latex classes:
       (setq org-latex-classes org-latex-classes-backup))))
+
+;; TODO: (defun org-latex-get-local-section-settings (subtree-p) ...)
 
 (defun org-query-latex-template-path (&optional subtree-p)
   "Get and set latex template path from menu of paths found in default folder.
