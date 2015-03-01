@@ -970,8 +970,8 @@ Note: This piece of advice needs checking! Maybe not valid."
           (dolist (folder folders)
             (setq files
                   (append
-                   files ;; ignore files whose name starts with underscore (_)
-                   (file-expand-wildcards (concat folder "/[!_]*.org")))))
+                   files ;; ignore files whose name starts with dash (-)
+                   (file-expand-wildcards (concat folder "/[!-]*.org")))))
           (-reject
            (lambda (f)
              (string-match-p "/\\." f))
@@ -1267,7 +1267,7 @@ Select from menu comprized of 2 parts:
              (let* (
                     (files
                      (file-expand-wildcards
-                      (concat iz-log-dir subdir "/[!_]*.org")))
+                      (concat iz-log-dir subdir "/[!-]*.org")))
                     (projects (mapcar 'file-name-nondirectory files))
                     (dirs
                      (mapcar (lambda (dir) (cons (file-name-sans-extension

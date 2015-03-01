@@ -2,12 +2,12 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Fri Feb 27 08:18:16 2015
+;; Created Sat Feb 28 17:50:53 2015
 ;; Desktop file format version 206
 ;; Emacs version 24.4.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21744 3112 635525 0) (desktop . "206") "iani@turangalila2.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (visibility . t) (height . 64) (width . 176) (left . 0) (top . 0)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 179) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "DIARY.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 31940) (start . 26751))))])
+(setq desktop-saved-frameset [frameset 1 (21745 58333 492290 0) (desktop . "206") "iani@turangalila2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (powerline-cache) (frameset--id . "D276-F2BC-68FA-855E") (frameset--mini t) (height . 64) (width . 176) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 0) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.local") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 180) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "Performigrations.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 79969) (start . 1))) (((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.local") (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 64) (width . 176) (left . 0) (top . 0)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 10) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 56) (min-pixel-width . 160) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 80) (min-pixel-height-safe . 14) (min-pixel-width-safe . 32)) hc (pixel-width . 1436) (pixel-height . 882) (total-width . 180) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 716) (pixel-height . 882) (total-width . 90) (total-height . 63) (normal-height . 1.0) (normal-width . 0.5) (buffer "Performigrations.org" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 79969) (start . 1))) (leaf (last . t) (pixel-width . 720) (pixel-height . 882) (total-width . 90) (total-height . 63) (normal-height . 1.0) (normal-width . 0.5) (buffer "AthensScienceFest.org" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 1228) (start . 1)))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
@@ -16,15 +16,70 @@
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/4_INSTALLATIONS/Performigrations.org"
+  "Performigrations.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  79969
+  '(79363 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/5_LECTURES_AND_TALKS/AthensScienceFest.org"
+  "AthensScienceFest.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  1228
+  '(2552 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  nil
+  "Performigrations"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
+  161
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/4_INSTALLATIONS/Performigrations/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "4_INSTALLATIONS"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
+  617
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/4_INSTALLATIONS/")
+  nil)
+
+(desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/0_PRIVATE/DIARY.org"
   "DIARY.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
-  31940
-  '(31940 nil)
+  31890
+  '(31847 nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  nil
+  "5_LECTURES_AND_TALKS"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode icicle-mode)
+  308
+  '(nil nil)
+  t
+  '("/Users/iani/Dropbox/000WORKFILES/5_LECTURES_AND_TALKS/")
+  nil)
 
 (desktop-create-buffer 206
   "/Users/iani/.emacs.d/personal/user/iani.org"
@@ -36,4 +91,15 @@
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/4_INSTALLATIONS/2WORLDS.org"
+  "2WORLDS.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  15702
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
