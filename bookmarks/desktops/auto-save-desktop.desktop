@@ -2,12 +2,12 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Sat Mar  7 12:27:36 2015
+;; Created Sat Mar  7 15:27:04 2015
 ;; Desktop file format version 206
 ;; Emacs version 24.4.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21754 53912 512807 0) (desktop . "206") "iani@turangalila2.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "white") (background-color . "black") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha 85 85) (fullscreen) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (frameset--id . "0635-A55D-E76A-B38F") (frameset--mini t) (height . 35) (width . 80) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 23) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top)) ((min-height . 8) (min-width . 10) (min-height-ignore . 4) (min-width-ignore . 5) (min-height-safe . 2) (min-width-safe . 2) (min-pixel-height . 128) (min-pixel-width . 80) (min-pixel-height-ignore . 56) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 28) (min-pixel-width-safe . 16)) vc (pixel-width . 663) (pixel-height . 476) (total-width . 82) (total-height . 34) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 663) (pixel-height . 238) (total-width . 82) (total-height . 17) (normal-height . 0.5) (normal-width . 1.0) (buffer "osc.js" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 107) (start . 36))) (leaf (last . t) (pixel-width . 663) (pixel-height . 238) (total-width . 82) (total-height . 17) (normal-height . 0.5) (normal-width . 1.0) (buffer "*magit: ofxJavascript*" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1)))) (((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Courier-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "white") (background-color . "black") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha 50 50) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (visibility . t) (height . 56) (width . 176) (left . 0) (top . 0)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 10) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 64) (min-pixel-width . 160) (min-pixel-height-ignore . 32) (min-pixel-width-ignore . 80) (min-pixel-height-safe . 16) (min-pixel-width-safe . 32)) hc (pixel-width . 1436) (pixel-height . 880) (total-width . 180) (total-height . 55) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 1108) (pixel-height . 880) (total-width . 139) (total-height . 55) (normal-height . 1.0) (normal-width . 0.7715877437325905) (buffer "DIARY.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 34041) (start . 31114))) (leaf (last . t) (pixel-width . 328) (pixel-height . 880) (total-width . 41) (total-height . 55) (normal-height . 1.0) (normal-width . 0.22841225626740946) (buffer "*SPEEDBAR*" (selected) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated . t) (point . 250) (start . 1)))))])
+(setq desktop-saved-frameset [frameset 1 (21754 64680 447056 0) (desktop . "206") "iani@turangalila2.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 14) (font . "-*-Anonymous Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 4) (right-fringe . 4) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#c6c6c6") (environment) (powerline-cache) (frameset--id . "30B4-328D-407F-6B05") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top) (visibility . t) (height . 64) (width . 176) (left . 0) (top . 0)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 5) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 80) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 40) (min-pixel-height-safe . 14) (min-pixel-width-safe . 16)) leaf (pixel-width . 1436) (pixel-height . 882) (total-width . 179) (total-height . 63) (normal-height . 1.0) (normal-width . 1.0) (buffer "iani.org" (selected . t) (hscroll . 0) (fringes 4 4 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 58256) (start . 55881))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
@@ -16,200 +16,24 @@
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/0_PRIVATE/DIARY.org"
-  "DIARY.org"
+  "/Users/iani/.emacs.d/personal/user/iani.org"
+  "iani.org"
   'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  34041
-  '(33000 nil)
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  58256
+  '(nil nil)
   nil
   nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
   nil
   "000WORKFILES"
   'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode magit-auto-revert-mode)
-  634
-  '(1038 nil)
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  627
+  '(nil nil)
   t
   '("/Users/iani/Dropbox/000WORKFILES/")
   nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/.emacs.d/personal/user/iani.org"
-  "iani.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  83881
-  '(75021 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "4_PUBLICATIONS"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode magit-auto-revert-mode)
-  390
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/4_PUBLICATIONS/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Applications/Emacs.app/Contents/Resources/lisp/speedbar.el"
-  "speedbar.el"
-  'emacs-lisp-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode magit-auto-revert-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . prefer-utf-8-unix)))
-
-(desktop-create-buffer 206
-  nil
-  "lisp"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode magit-auto-revert-mode)
-  26816
-  '(nil nil)
-  t
-  '("/Applications/Emacs.app/Contents/Resources/lisp/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/.emacs.d/elpa/sr-speedbar-20141004.532/sr-speedbar.el"
-  "sr-speedbar.el"
-  'emacs-lisp-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode magit-auto-revert-mode)
-  14898
-  '(2872 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . prefer-utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/.emacs.d/elpa/sr-speedbar-20141004.532/sr-speedbar-autoloads.el"
-  "sr-speedbar-autoloads.el"
-  'emacs-lisp-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode magit-auto-revert-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . prefer-utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/.emacs.d/elpa/sr-speedbar-20141004.532/sr-speedbar-pkg.el"
-  "sr-speedbar-pkg.el"
-  'emacs-lisp-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode magit-auto-revert-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . prefer-utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/of_v0.8.4_osx_release/addons/ofxJavascript/example/liveCoding/bin/data/sound/sound.js"
-  "sound.js"
-  'js-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode magit-auto-revert-mode)
-  238
-  '(646 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/of_v0.8.4_osx_release/addons/ofxJavascript/example/liveCoding/bin/data/osc/osc.js"
-  "osc.js"
-  'js-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode magit-auto-revert-mode)
-  215
-  '(107 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/1_SCRIPTS/emacslisp-scratchpad/transparent-frame_150306_20-44.el"
-  "transparent-frame_150306_20-44.el"
-  'emacs-lisp-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode magit-auto-revert-mode)
-  537
-  '(339 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . prefer-utf-8-unix)))
-
-(desktop-create-buffer 206
-  nil
-  "emacslisp-scratchpad"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode magit-auto-revert-mode)
-  3271
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_SCRIPTS/emacslisp-scratchpad/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "1_SCRIPTS"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode magit-auto-revert-mode)
-  1085
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_SCRIPTS/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/1_DEV/GEA.org"
-  "GEA.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  3908
-  '(4040 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/.emacs.d/personal/user/iani.el"
-  "iani.el"
-  'emacs-lisp-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode magit-auto-revert-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . prefer-utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/0_DRILLS/-japanese.org"
-  "-japanese.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  2587
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/0_INBOX/01_TODO_MASTER_LIST_0902_TMP_TMP.org"
-  "01_TODO_MASTER_LIST_0902_TMP_TMP.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 

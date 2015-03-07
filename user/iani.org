@@ -1647,8 +1647,29 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
     (interactive)
     (setq org-refile-targets '((iz-select-file-from-folders . (:maxlevel . 2)))))
 
+  (defun iz-find-file-flat (&optional dired)
+    "Open a file by selecting from all org-files in subfolders of iz-log-dir."
+    (interactive "P")
+    (cond ((equal dired '(4))
+           (dired (concat iz-log-dir (iz-select-folder))))
+          ((equal dired '(16))
+           (progn
+             (dired iz-log-dir)
+             (sr-speedbar-open)))
+          (t
+           (let* ((items (iz-make-log-capture-templates-flat))
+                  (menu-items (mapcar 'car items))
+                  (menu (grizzl-make-index menu-items))
+                  (selection (grizzl-completing-read "Select a file:" menu)))
+             (when selection
+               (find-file
+                (car (last (nth 4 (assoc selection items)))))
+               (save-excursion (goto-char 0)
+                               (if (search-forward "*# -*- mode:org" 100 t)
+                                   (org-decrypt-entries))))))))
+
   (defun iz-find-file (&optional dired)
-    "open a file by selecting from subfolders."
+    "Open a file by selecting from subfolders of iz-log-dir."
     (interactive "P")
     (cond ((equal dired '(4))
            (dired (concat iz-log-dir (iz-select-folder))))
@@ -1731,6 +1752,19 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
              (iz-make-log-capture-templates selection)
              (org-capture goto)))))
 
+  (defun iz-log-flat (&optional goto)
+    "Capture log entry in date-tree of selected file.
+  Select from menu comprized of all org files under the subdirectories
+  of iz-log-dir."
+    (interactive "P")
+    (let*
+        ((entries (iz-make-log-capture-templates-flat))
+         (menu (grizzl-make-index (mapcar 'car entries)))
+         (selection (grizzl-completing-read "Select log target:" menu)))
+      (let ((org-capture-entry
+             (cdr (assoc selection entries))))
+        (org-capture goto))))
+
   (defun org-capture-store-template-selection (&optional capt-template)
     "Keep list of 20 latest log files used."
     ;; (message "the arg is: %s" capt-template)
@@ -1780,26 +1814,63 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
   (defun iz-make-log-capture-templates (subdir)
     "Make capture templates for selected subdirectory under datetree."
-   (setq org-capture-templates
-         (setq org-capture-templates
-               (let* (
-                      (files
-                       (file-expand-wildcards
-                        (concat iz-log-dir subdir "/[!-]*.org")))
-                      (projects (mapcar 'file-name-nondirectory files))
-                      (dirs
-                       (mapcar (lambda (dir) (cons (file-name-sans-extension
-                                                    (file-name-nondirectory dir))
-                                                   dir))
-                               files)))
-                 (-map-indexed (lambda (index item)
-                                 (list
-                                  (substring iz-capture-keycodes index (+ 1 index))
-                                  (car item)
-                                  'entry
-                                  (list 'file+datetree+prompt (cdr item))
-                                  "* %?\n :PROPERTIES:\n :DATE:\t%^T\n :END:\n\n%i\n"))
-                               dirs)))))
+    (setq org-capture-templates
+          (let* ((files
+                  (file-expand-wildcards
+                   (concat iz-log-dir subdir "/[!-]*.org")))
+                 (dirs
+                  (mapcar (lambda (dir) (cons (file-name-sans-extension
+                                               (file-name-nondirectory dir))
+                                              dir))
+                          files)))
+            (-map-indexed (lambda (index item)
+                            (list
+                             (substring iz-capture-keycodes index (+ 1 index))
+                             (car item)
+                             'entry
+                             (list 'file+datetree+prompt (cdr item))
+                             "* %?\n :PROPERTIES:\n :DATE:\t%^T\n :END:\n\n%i\n"))
+                          dirs))))
+
+  (defun iz-make-log-capture-templates-flat ()
+    "Make capture templates for all subdirectories of iz-log-dir."
+    (let (templates
+          (subdirs
+           (-select
+            'file-directory-p (file-expand-wildcards (concat iz-log-dir "*")))))
+      (dolist (subdir subdirs templates)
+        (setq
+         templates
+         (append
+          templates
+          (let* (
+                 (files
+                  (file-expand-wildcards
+                   (concat subdir "/[!-]*.org")))
+                 (dirs
+                  (mapcar
+                   (lambda (dir)
+                     (cons
+                      (concat
+                       (file-name-nondirectory
+                        (directory-file-name
+                         (file-name-directory dir)))
+                       ":"
+                       (file-name-sans-extension
+                        (file-name-nondirectory dir)))
+                      dir))
+                   files)))
+            (mapcar
+             (lambda (item)
+               (list
+                (car item) ;; grizzl-menu item and assoc list key
+                "a" ;; this is not used. Choice is by grizzl-menu
+                (car item) ;; this is also not used
+                'entry
+                (list 'file+datetree+prompt (cdr item))
+                "* %?\n :PROPERTIES:\n :DATE:\t%^T\n :END:\n\n%i\n"))
+             dirs)))))))
+
 
   (defun iz-todo (&optional goto)
     "Capture TODO entry in date-tree of selected file."
@@ -1841,7 +1912,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   (defun iz-refile (&optional goto)
     "Refile to selected file."
     (interactive "P")
-    (setq org-refile-targets (list (cons (iz-select-file-from-folders) '(:maxlevel . 3))))
+    (setq org-refile-targets
+          (list (cons (iz-select-file-from-folders) '(:maxlevel . 3))))
     (org-refile goto))
 
   (defun iz-org-file-command-menu ()
@@ -1873,10 +1945,12 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
   (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
   (global-set-key (kbd "H-h H-h") 'iz-org-file-command-menu)
-  (global-set-key (kbd "H-h H-f") 'iz-find-file)
+  (global-set-key (kbd "H-h H-f") 'iz-find-file-flat)
+  (global-set-key (kbd "H-h H-F") 'iz-find-file)
   (global-set-key (kbd "H-h H-s") 'sr-speedbar-toggle)
   (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
-  (global-set-key (kbd "H-h H-l") 'iz-log)
+  (global-set-key (kbd "H-h H-l") 'iz-log-flat)
+  (global-set-key (kbd "H-h H-L") 'iz-log)
   (global-set-key (kbd "H-h L") 'iz-goto-last-selected-file)
   (global-set-key (kbd "H-h H-i") 'iz-insert-file-as-snippet)
   (global-set-key (kbd "H-h H-t") 'iz-todo)
