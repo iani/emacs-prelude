@@ -1141,11 +1141,10 @@ in the log file under date-tree."
   (interactive "P")
   (cond ((equal dired '(4))
          (dired (concat iz-log-dir (iz-select-folder))))
-        ((equal dired '(16)) (dired iz-log-dir))
-        ((equal dired '(64))
-         (dirtree (concat iz-log-dir (iz-select-folder)) nil))
-        ((equal dired '(256))
-         (dirtree iz-log-dir nil))
+        ((equal dired '(16))
+         (progn
+           (dired iz-log-dir)
+           (sr-speedbar-open)))
         (t
          (find-file (iz-select-file-from-folders))
          (goto-char 0)
@@ -1227,7 +1226,15 @@ Select from menu comprized of 2 parts:
   (unless iz-capture-template-history
     (if (file-exists-p iz-capture-template-history-file)
         (load-file iz-capture-template-history-file)))
-  (let ((key (concat ":" (car capt-template) "-" (cadr capt-template))))
+  (let* ((temp-path (car (last (nth 3 capt-template))))
+         (key (concat ":"
+                      (file-name-nondirectory
+                       (directory-file-name
+                        (file-name-directory temp-path)))
+                      "/"
+                     (file-name-sans-extension (file-name-nondirectory temp-path))
+                     ;; (car capt-template) "-" (cadr capt-template)
+                     )))
     (setq iz-capture-template-history
           (-take 20
           (cons (cons key capt-template)
@@ -1356,6 +1363,7 @@ Select from menu comprized of 2 parts:
 (global-set-key (kbd "H-h H-m") 'iz-org-file-command-menu)
 (global-set-key (kbd "H-h H-h") 'iz-org-file-command-menu)
 (global-set-key (kbd "H-h H-f") 'iz-find-file)
+(global-set-key (kbd "H-h H-s") 'sr-speedbar-toggle)
 (global-set-key (kbd "H-h H-d") 'iz-open-project-folder)
 (global-set-key (kbd "H-h H-l") 'iz-log)
 (global-set-key (kbd "H-h L") 'iz-goto-last-selected-file)
@@ -1707,6 +1715,7 @@ Whole file attachment directory is attachments/<file-name-sans-extension>/"
 
 (add-hook 'org-mode-hook
           (lambda () (imenu-add-to-menubar "Imenu")))
+;; Useful for browsing date-tree log entries with speedbar:
 (setq org-imenu-depth 3)
 
 (defun org-from ()

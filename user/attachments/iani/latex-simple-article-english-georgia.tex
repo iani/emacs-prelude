@@ -1,0 +1,28 @@
+% This is a minimal article setting.
+% It produces a simple article
+% with page numbering in the footer.
+% It uses polyglossia and Hypatia Font.
+% It covers western european languages and greek - but not japanese.
+
+\documentclass{article}
+
+\usepackage{fontspec}
+\setmainfont{Georgia}
+
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\PolyglossiaSetup{greek, english}{indentfirst=false}
+
+% Substitute the following to change language:
+% \setmainlanguage{french}
+% \setmainlanguage{german}
+% \setmainlanguage{greek}
+
+\usepackage{hyperref} % in-document links (for TOC etc)
+\usepackage{lipsum} % lorem lipsum ready-text
+\usepackage{ulem} % underline emphasis
+
+\sloppy
+
+% NOTE: Mon, Dec 15 2014, 16:12 EET:
+% French, German etc + Greek chars are supported.
