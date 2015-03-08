@@ -99,7 +99,7 @@ static char *gnus-pointer[] = {
       ("*scratch*")
       icicle-case-string-less-p)
      ("All, *...* Buffers Last" nil nil nil nil icicle-buffer-sort-*\.\.\.*-last))))
- '(icicle-mode nil)
+ '(icicle-mode t)
  '(linum-format " %7d ")
  '(magit-use-overlays nil)
  '(main-line-color1 "#1E1E1E")

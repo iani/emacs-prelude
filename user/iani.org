@@ -1959,6 +1959,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   (global-set-key (kbd "H-h H-g") 'iz-goto)
   (global-set-key (kbd "H-h H-c H-w") 'iz-refile)
   (global-set-key (kbd "H-h H-c H-a") 'org-agenda)
+  (global-set-key (kbd "H-h H-a") 'org-agenda-list)
+  (global-set-key (kbd "H-h H-t") 'org-todo-list)
 
   ;; Experimental:
   (defun iz-make-finance-capture-template ()
@@ -2597,7 +2599,8 @@ Magit config: Manage git repos from inside emacs
 Note: This must be after the TODO config, otherwise any Org mode buffers loaded here will not inherit the TODOD config.
 
 #+BEGIN_SRC emacs-lisp
-(bmkp-desktop-jump "startup")
+ (bmkp-desktop-jump "startup")
+ (calendar)
 #+END_SRC
 
 * Shell Scripts

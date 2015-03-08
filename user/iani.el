@@ -1227,7 +1227,7 @@ Select from menu comprized of 2 parts:
                (mapcar 'file-name-nondirectory
                        (-select 'file-directory-p
                                 (file-expand-wildcards
-                                 (concat iz-log-dir "*"))))
+                                 (concat iz-log-dir "[!.]*"))))
                (reverse (mapcar 'car iz-capture-template-history)))))
        (selection (grizzl-completing-read "Select log target:" menu)))
     (cond ((equal ":" (substring selection 0 1))
@@ -1448,6 +1448,8 @@ of iz-log-dir."
 (global-set-key (kbd "H-h H-g") 'iz-goto)
 (global-set-key (kbd "H-h H-c H-w") 'iz-refile)
 (global-set-key (kbd "H-h H-c H-a") 'org-agenda)
+(global-set-key (kbd "H-h H-a") 'org-agenda-list)
+(global-set-key (kbd "H-h H-t") 'org-todo-list)
 
 ;; Experimental:
 (defun iz-make-finance-capture-template ()
@@ -1844,3 +1846,4 @@ with the docpad website framework."
 ))
 
 (bmkp-desktop-jump "startup")
+(calendar)
