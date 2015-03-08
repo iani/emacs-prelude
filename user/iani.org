@@ -1419,7 +1419,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 :PROPERTIES:
 :DATE:     <2014-10-14 Tue 18:47>
 :ID:       D2E016DB-670B-4FD9-90C2-3A43C84C7123
-:eval-id:  10
+:eval-id:  11
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -1738,7 +1738,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
                  (mapcar 'file-name-nondirectory
                          (-select 'file-directory-p
                                   (file-expand-wildcards
-                                   (concat iz-log-dir "*"))))
+                                   (concat iz-log-dir "[!.]*"))))
                  (reverse (mapcar 'car iz-capture-template-history)))))
          (selection (grizzl-completing-read "Select log target:" menu)))
       (cond ((equal ":" (substring selection 0 1))
