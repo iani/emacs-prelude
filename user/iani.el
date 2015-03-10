@@ -1846,4 +1846,5 @@ with the docpad website framework."
 ))
 
 (bmkp-desktop-jump "startup")
-(calendar)
+;; (calendar)
+(cfw:open-org-calendar)
