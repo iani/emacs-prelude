@@ -1252,7 +1252,9 @@ of iz-log-dir."
        (selection (grizzl-completing-read "Select log target:" menu)))
     (let ((org-capture-entry
            (cdr (assoc selection entries))))
-      (org-capture goto))))
+      (if (eq major-mode 'org-agenda-mode)
+          (org-agenda-capture)
+       (org-capture goto)))))
 
 (defun org-capture-store-template-selection (&optional capt-template)
   "Keep list of 20 latest log files used."
