@@ -325,7 +325,7 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
 
 *** Buffer-move, windmove, buffer switching
 
-- windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to =control-super-<cursorkey>=.
+- windmove (package) :: Use cursor keys to switch cursor position between windows.  Bound to =control-super-<cursorkey>=. (Super is the "Apple/cmd" key on Mac keyboards or the "Windows" key on MS keyboards.
 - buffer-move (package) :: Use cursor keys to switch buffer position between windows.  Bound to =fn-shift-<cursor key>=.
 - next-buffer, previous-buffer (built-in commands) :: Use cursor keys to switch to previous/next buffer in same window.
 
@@ -334,9 +334,13 @@ Bound to =function-super-<cursor key>=
 #+BEGIN_SRC emacs-lisp
   (require 'windmove)
   (global-set-key (kbd "H-{") 'windmove-up)
+  (global-set-key (kbd "<C-s-up>") 'windmove-up)
   (global-set-key (kbd "H-}") 'windmove-down)
+  (global-set-key (kbd "<C-s-down>") 'windmove-down)
   (global-set-key (kbd "H-]") 'windmove-right)
+  (global-set-key (kbd "<C-s-right>") 'windmove-right)
   (global-set-key (kbd "H-[") 'windmove-left)
+  (global-set-key (kbd "<C-s-left>") 'windmove-left)
 
   (require 'buffer-move)
   (global-set-key (kbd "<S-prior>") 'buf-move-up)

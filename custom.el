@@ -112,6 +112,7 @@ static char *gnus-pointer[] = {
  '(org-drill-optimal-factor-matrix (quote ((1 (2.5 . 4.0) (1.96 . 3.58)))))
  '(org-export-backends (quote (ascii html icalendar latex md taskjuggler)))
  '(org-export-with-sub-superscripts (quote {}))
+ '(org-log-into-drawer t)
  '(org-mobile-directory "~/Dropbox/Apps/MobileOrg")
  '(org-modules
    (quote
