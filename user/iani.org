@@ -1245,7 +1245,8 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
     (interactive)
     (beginning-of-line)
     (org-meta-return)
-    (delete-char 1))
+    ;; (delete-char 1)
+    )
 
   (eval-after-load 'org
     '(progn

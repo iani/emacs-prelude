@@ -1,6 +1,6 @@
 
 (require 'moe-theme)
-(moe-dark)
+;; (moe-dark)
 
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-14"))
@@ -772,7 +772,8 @@ See org-refile-icy."
   (interactive)
   (beginning-of-line)
   (org-meta-return)
-  (delete-char 1))
+  ;;   (delete-char 1)
+  )
 
 (eval-after-load 'org
   '(progn
