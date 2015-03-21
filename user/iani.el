@@ -3,7 +3,7 @@
 (moe-dark)
 
 (add-to-list 'default-frame-alist
-             '(font . "Anonymous Pro-14"))
+             '(font . "Anonymous Pro-12"))
 
 (defun larger-frame-font ()
   (interactive)
@@ -20,7 +20,6 @@
    (- (face-attribute 'default :height) 10)) )
 
 (global-set-key (kbd "C-c C--") 'smaller-frame-font)
-
 (global-set-key (kbd "C-c C-+") 'larger-frame-font)
 
 (guru-mode -1)
@@ -96,10 +95,12 @@
 
 (require 'dash)
 
+(desktop-save-mode -1)
+
 (require 'breadcrumb)
 
-;; (global-set-key [(shift space)]         'bc-set)              ;; Shift-SPACE for set bookmark
-(global-set-key (kbd "S-SPC")            'bc-set) ;; Shift-SPACE for set bookmark
+;; (global-set-key [(shift space)]         'bc-set)              ;;  Shift-SPACE for set bookmark
+(global-set-key (kbd "H-S-SPC")            'bc-set) ;; Hyper-Shift-SPACE for set bookmark
 (global-set-key [(meta j)]              'bc-previous)       ;; M-j for jump to previous
 (global-set-key [(shift meta j)]        'bc-next)           ;; Shift-M-j for jump to next
 (global-set-key [(meta up)]             'bc-local-previous) ;; M-up-arrow for local previous
@@ -176,9 +177,13 @@ in under one default directory in users prelude folder."
 
 (require 'windmove)
 (global-set-key (kbd "H-{") 'windmove-up)
+(global-set-key (kbd "<C-s-up>") 'windmove-up)
 (global-set-key (kbd "H-}") 'windmove-down)
+(global-set-key (kbd "<C-s-down>") 'windmove-down)
 (global-set-key (kbd "H-]") 'windmove-right)
+(global-set-key (kbd "<C-s-right>") 'windmove-right)
 (global-set-key (kbd "H-[") 'windmove-left)
+(global-set-key (kbd "<C-s-left>") 'windmove-left)
 
 (require 'buffer-move)
 (global-set-key (kbd "<S-prior>") 'buf-move-up)
@@ -188,6 +193,20 @@ in under one default directory in users prelude folder."
 
 (global-set-key (kbd "<s-home>") 'previous-buffer)
 (global-set-key (kbd "<s-end>") 'next-buffer)
+
+(require 'ido)
+(require 'flx-ido)
+(require 'imenu+)
+(require 'auto-complete)
+(ido-mode t)
+(ido-vertical-mode t)
+(icicle-mode)
+;; guide-key causes erratic delays when posting in ths SC post buffer
+;; from sclang.  Therefore disabled.
+;; (require 'guide-key)
+;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "H-h" "H-m" "H-p" "H-d" "C-c"))
+;;  (guide-key-mode 1)  ; Enable guide-key-mode
+;; (yas-global-mode) ; interferes with auto-complete in elisp mode.
 
 (setq projectile-completion-system 'grizzl)
 (setq *grizzl-read-max-results* 40)
@@ -295,8 +314,66 @@ asks to select a *subdir* of selected project to dired."
             ("Asia/Shanghai" "Shanghai")
             ("Asia/Tokyo" "Tokyo")))
 
-(require 'lacarte)
-;; (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
+;;; ido-imenu
+(defun ido-imenu ()
+  "Update the imenu index and then use ido to select a symbol to navigate to.
+Symbols matching the text at point are put first in the completion list."
+  (interactive)
+  (imenu--make-index-alist)
+  (let ((name-and-pos '())
+        (symbol-names '()))
+    (flet ((addsymbols
+          (symbol-liost)
+          (when (listp symbol-list)
+            (dolist (symbol symbol-list)
+              (let ((name nil) (position nil))
+                (cond
+                 ((and (listp symbol) (imenu--subalist-p symbol))
+                  (addsymbols symbol))
+
+                 ((listp symbol)
+                  (setq name (car symbol))
+                  (setq position (cdr symbol)))
+
+                 ((stringp symbol)
+                  (setq name symbol)
+                  (setq position
+                        (get-text-property 1 'org-imenu-marker symbol))))
+
+                (unless (or (null position) (null name))
+                  (add-to-list 'symbol-names name)
+                  (add-to-list 'name-and-pos (cons name position))))))))
+      (addsymbols imenu--index-alist))
+;; If there are matching symbols at point, put them at the beginning of `symbol-names'.
+    (let ((symbol-at-point (thing-at-point 'symbol)))
+      (when symbol-at-point
+        (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
+               (matching-symbols
+                (delq nil (mapcar (lambda (symbol)
+                                    (if (string-match regexp symbol) symbol))
+                                  symbol-names))))
+          (when matching-symbols
+            (sort matching-symbols (lambda (a b) (> (length a) (length b))))
+            (mapc
+             (lambda (symbol)
+               (setq symbol-names (cons symbol (delete symbol symbol-names))))
+             matching-symbols)))))
+    (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
+           (position (cdr (assoc selected-symbol name-and-pos))))
+      (goto-char position))))
+
+;; Push mark when using ido-imenu
+
+(defvar push-mark-before-goto-char nil)
+
+(defadvice goto-char (before push-mark-first activate)
+  (when push-mark-before-goto-char
+    (push-mark)))
+
+(defun ido-imenu-push-mark ()
+  (interactive)
+  (let ((push-mark-before-goto-char t))
+    (ido-imenu)))
 
 ;; Smex: Autocomplete meta-x command
 (global-set-key [(meta x)]
@@ -733,6 +810,7 @@ See org-refile-icy."
          "!(3)"  ; next action
          "TODO(t)"  ; next action
          "STARTED(s)"
+         "TOCHECK(C)"
          "WAITING(w@/!)"
          "TOBLOG(b)"  ; next action
          "SOMEDAY(.)" "|"
@@ -751,6 +829,7 @@ See org-refile-icy."
         ("TODO" . (:foreground "LightSalmon" :weight bold))
         ("TOBLOG" . (:foreground "MediumVioletRed" :weight bold))
         ("STARTED" . (:foreground "DeepPink" :weight bold))
+        ("TOCHECK" . (:foreground "IndianRed2" :weight bold))
         ("WAITING" . (:foreground "gold" :weight bold))
         ("DONE" . (:foreground "SeaGreen" :weight bold))
         ("CANCELLED" . (:foreground "wheat" :weight bold))
@@ -870,6 +949,17 @@ files to org-agenda-files."
 
 (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
 (global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
+
+(defun cfw:open-org-calendar-two-week ()
+  "Open an org schedule calendar in the new buffer."
+  (interactive)
+  (let* ((source1 (cfw:org-create-source))
+         (cp (cfw:create-calendar-component-buffer
+              :view 'two-weeks
+              :contents-sources (list source1)
+              :custom-map cfw:org-schedule-map
+              :sorter 'cfw:org-schedule-sorter)))
+    (switch-to-buffer (cfw:cp-get-buffer cp))))
 
 (defun org-set-date (&optional active property)
   "Set DATE property with current time.  Active timestamp."
@@ -1483,6 +1573,33 @@ of iz-log-dir."
 (eval-after-load 'org
   '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
 
+(defun org-find-next-elisp-block ()
+  (interactive)
+  (re-search-forward "^#\\+BEGIN_SRC \\(emacs-lisp\\|elisp\\)" nil t)
+  (when (match-string 0)
+    (org-reveal)
+    (recenter-top-bottom 3)))
+
+(defun org-toggle-elisp-block ()
+  (interactive)
+  (save-excursion
+    (let* ((plist (cadr (org-element-at-point)))
+          (language (plist-get plist :language))
+          (begin (plist-get plist :begin)))
+      (goto-char begin)
+      (cond
+       ((equal language "emacs-lisp")
+        (re-search-forward "emacs-lisp")
+        (replace-match "elisp"))
+       ((equal language "elisp")
+        (re-search-forward "elisp")
+        (replace-match "emacs-lisp"))))))
+
+(global-set-key (kbd "H-b e") 'org-find-next-elisp-block)
+(global-set-key (kbd "<f5>") 'org-find-next-elisp-block)
+(global-set-key (kbd "H-b t") 'org-toggle-elisp-block)
+(global-set-key (kbd "<f6>") 'org-toggle-elisp-block)
+
 ;;; Load latex package
 (require 'ox-latex)
 
@@ -1848,6 +1965,13 @@ with the docpad website framework."
         "~/.emacs.d/personal"
 ))
 
-(bmkp-desktop-jump "startup")
-;; (calendar)
-(cfw:open-org-calendar)
+(toggle-frame-fullscreen)
+(org-todo-list)
+(split-window-horizontally)
+(other-window 1)
+(cfw:open-org-calendar-two-week)
+(other-window 1)
+(delete-window)
+(buf-move-left)
+
+;;; iani.el ends here

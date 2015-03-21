@@ -14,7 +14,7 @@
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
-               '(font . "Anonymous Pro-14"))
+               '(font . "Anonymous Pro-12"))
 
   (defun larger-frame-font ()
     (interactive)
@@ -31,11 +31,11 @@
      (- (face-attribute 'default :height) 10)) )
 
   (global-set-key (kbd "C-c C--") 'smaller-frame-font)
-
   (global-set-key (kbd "C-c C-+") 'larger-frame-font)
 #+END_SRC
 
 #+RESULTS:
+: #<buffer *cfw-calendar*>
 
 ** Prelude stuff
 *** Turn off guru mode
@@ -111,10 +111,6 @@ For Greek see: http://iris.math.aegean.gr/~atsol/emacs-unicode/
 
   (global-set-key (kbd "H-f") 'toggle-fullscreen)
 
-#+END_SRC
-
-#+BEGIN_SRC elisp
-(toggle-fullscreen)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -224,14 +220,14 @@ Save desktop between sessions.  To clear desktop: M-x desktop-clear.
 
 Note: As of Mon, Dec  1 2014, 11:19 EET this creates error with sentinel process on startup.  Disabled.
 
-#+BEGIN_SRC elisp
-(desktop-save-mode 1)
+#+BEGIN_SRC emacs-lisp
+(desktop-save-mode -1)
 #+END_SRC
 
 *** breadcrumb, bookmark+
 :PROPERTIES:
 :ID:       FFED8BC2-0CE8-4BA0-ABC2-1AE9B4EFFFF3
-:eval-id:  2
+:eval-id:  3
 :END:
 
 See: http://breadcrumbemacs.sourceforge.net/news.html
@@ -239,8 +235,8 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
 #+BEGIN_SRC emacs-lisp
   (require 'breadcrumb)
 
-  ;; (global-set-key [(shift space)]         'bc-set)              ;; Shift-SPACE for set bookmark
-  (global-set-key (kbd "S-SPC")            'bc-set) ;; Shift-SPACE for set bookmark
+  ;; (global-set-key [(shift space)]         'bc-set)              ;;  Shift-SPACE for set bookmark
+  (global-set-key (kbd "H-S-SPC")            'bc-set) ;; Hyper-Shift-SPACE for set bookmark
   (global-set-key [(meta j)]              'bc-previous)       ;; M-j for jump to previous
   (global-set-key [(shift meta j)]        'bc-next)           ;; Shift-M-j for jump to next
   (global-set-key [(meta up)]             'bc-local-previous) ;; M-up-arrow for local previous
@@ -353,7 +349,7 @@ Bound to =function-super-<cursor key>=
 #+END_SRC
 *** Completion help: icicles, imenu+, auto-complete, ido, guide-key
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   (require 'ido)
   (require 'flx-ido)
   (require 'imenu+)
@@ -500,7 +496,7 @@ See also discussion here: http://www.emacswiki.org/emacs/Icicles_-_Key_Binding_D
 
 *** lacarte: select menu items from the keyboard (good for org-mode with imenu)
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
 (require 'lacarte)
 ;; (global-set-key [?\e ?\M-x] 'lacarte-execute-command)
 #+END_SRC
@@ -509,7 +505,7 @@ See also discussion here: http://www.emacswiki.org/emacs/Icicles_-_Key_Binding_D
 
 Disabled.
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
   ;;; ido-imenu
   (defun ido-imenu ()
     "Update the imenu index and then use ido to select a symbol to navigate to.
@@ -1182,6 +1178,7 @@ Adapted from:
            "!(3)"  ; next action
            "TODO(t)"  ; next action
            "STARTED(s)"
+           "TOCHECK(C)"
            "WAITING(w@/!)"
            "TOBLOG(b)"  ; next action
            "SOMEDAY(.)" "|"
@@ -1200,6 +1197,7 @@ Adapted from:
           ("TODO" . (:foreground "LightSalmon" :weight bold))
           ("TOBLOG" . (:foreground "MediumVioletRed" :weight bold))
           ("STARTED" . (:foreground "DeepPink" :weight bold))
+          ("TOCHECK" . (:foreground "IndianRed2" :weight bold))
           ("WAITING" . (:foreground "gold" :weight bold))
           ("DONE" . (:foreground "SeaGreen" :weight bold))
           ("CANCELLED" . (:foreground "wheat" :weight bold))
@@ -1227,7 +1225,6 @@ Following was tested, works OK, but is disabled for the moment:
 http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
 #+BEGIN_SRC elisp
-
 (defun install-monitor (file secs)
   (run-with-timer
    0 secs
@@ -1359,11 +1356,26 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
  (require 'calfw-org)
 #+END_SRC
 
-**** Global key for cfw org calendar framework): C-c M-a
+***** Global key for cfw org calendar framework): C-c M-a
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key "\C-c\M-a" 'cfw:open-org-calendar)
   (global-set-key "\C-c\C-xm" 'org-mark-ring-goto)
+#+END_SRC
+
+***** Open cfw in 2-week mode
+
+#+BEGIN_SRC emacs-lisp
+  (defun cfw:open-org-calendar-two-week ()
+    "Open an org schedule calendar in the new buffer."
+    (interactive)
+    (let* ((source1 (cfw:org-create-source))
+           (cp (cfw:create-calendar-component-buffer
+                :view 'two-weeks
+                :contents-sources (list source1)
+                :custom-map cfw:org-schedule-map
+                :sorter 'cfw:org-schedule-sorter)))
+      (switch-to-buffer (cfw:cp-get-buffer cp))))
 #+END_SRC
 
 **** Insert DATE property
@@ -2011,7 +2023,39 @@ Enable some cool languages in org-babel mode.
 
 #+RESULTS:
 : org-babel-load-current-file
+**** emacs-lisp block (de-)activation
 
+#+BEGIN_SRC emacs-lisp
+  (defun org-find-next-elisp-block ()
+    (interactive)
+    (re-search-forward "^#\\+BEGIN_SRC \\(emacs-lisp\\|elisp\\)" nil t)
+    (when (match-string 0)
+      (org-reveal)
+      (recenter-top-bottom 3)))
+
+  (defun org-toggle-elisp-block ()
+    (interactive)
+    (save-excursion
+      (let* ((plist (cadr (org-element-at-point)))
+            (language (plist-get plist :language))
+            (begin (plist-get plist :begin)))
+        (goto-char begin)
+        (cond
+         ((equal language "emacs-lisp")
+          (re-search-forward "emacs-lisp")
+          (replace-match "elisp"))
+         ((equal language "elisp")
+          (re-search-forward "elisp")
+          (replace-match "emacs-lisp"))))))
+
+  (global-set-key (kbd "H-b e") 'org-find-next-elisp-block)
+  (global-set-key (kbd "<f5>") 'org-find-next-elisp-block)
+  (global-set-key (kbd "H-b t") 'org-toggle-elisp-block)
+  (global-set-key (kbd "<f6>") 'org-toggle-elisp-block)
+#+END_SRC
+
+#+RESULTS:
+: org-toggle-elisp-block
 
 *** Orgmode latex customization
 
@@ -2598,17 +2642,20 @@ Magit config: Manage git repos from inside emacs
 #+END_SRC
 
 
-* Load Default Desktop
+* Final environment adjustments
 :PROPERTIES:
 :DATE:     [2014-12-03 Wed 02:10]
 :END:
 
-Note: This must be after the TODO config, otherwise any Org mode buffers loaded here will not inherit the TODOD config.
-
 #+BEGIN_SRC emacs-lisp
-  (bmkp-desktop-jump "startup")
-  ;; (calendar)
-  (cfw:open-org-calendar)
+  (toggle-frame-fullscreen)
+  (org-todo-list)
+  (split-window-horizontally)
+  (other-window 1)
+  (cfw:open-org-calendar-two-week)
+  (other-window 1)
+  (delete-window)
+  (buf-move-left)
 #+END_SRC
 
 * Shell Scripts
@@ -2671,6 +2718,6 @@ Implementation is underway in file scratch/disperse.org
 
 * Postamble
 
-#+BEGIN_SRC elisp
-  ;;; org-pm.el ends here
+#+BEGIN_SRC emacs-lisp
+  ;;; iani.el ends here
 #+END_SRC

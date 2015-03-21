@@ -2,7 +2,9 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("webserver-root-documents" 0 24
+(#1=(#("webserver-root-documents" 0 1
+      (bmkp-full-record #1#)
+      1 24
       (bmkp-full-record #1#))
     (buffer-name . "WebServer/Documents")
     (front-context-string . "Cesium-1.2\n  -rw")
@@ -20,7 +22,9 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("localhost-homepage-html" 0 23
+#1=(#("localhost-homepage-html" 0 1
+      (bmkp-full-record #1#)
+      1 23
       (bmkp-full-record #1#))
     (filename . "/Library/WebServer/Documents/index.html")
     (buffer-name . "Documents/index.html")
@@ -245,17 +249,17 @@
       (bmkp-full-record #1#)
       1 8
       (bmkp-full-record #1#))
-    (end-position . 50921)
+    (end-position . 51725)
     (filename . "~/.emacs.d/personal/user/iani.org")
     (buffer-name . "iani.org")
     (front-context-string . "\n  (defun iz-upd")
     (rear-context-string . "rg-show-entry))\n")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 56)
-    (time 21767 6059 280664 0)
+    (visits . 85)
+    (time 21773 34062 699122 0)
     (created 21676 59515 52572 0)
-    (position . 50921))
+    (position . 51725))
 #1=(#("publications_others" 0 1
       (bmkp-full-record #1#)
       1 19
@@ -265,8 +269,8 @@
     (rear-context-string . "28 Nov  8 14:31 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 3)
-    (time 21748 16302 135363 0)
+    (visits . 4)
+    (time 21773 3952 676578 0)
     (created 21665 30070 227817 0)
     (position . 257)
     (filename . "/Users/iani/Documents/publications_others/")
@@ -325,8 +329,8 @@
     (rear-context-string . "72 Mar 18  2014 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 4)
-    (time 21665 23605 504146 0)
+    (visits . 7)
+    (time 21773 18202 958870 0)
     (created 21654 40991 820304 0)
     (position . 870)
     (filename . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/")
@@ -733,8 +737,8 @@
     (rear-context-string . "49 May 18  2014 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 6)
-    (time 21756 56558 128004 0)
+    (visits . 7)
+    (time 21773 3966 779292 0)
     (created 21631 10332 21497 0)
     (position . 15210)
     (filename . "/Users/iani/Downloads/")
@@ -748,14 +752,14 @@
       (bmkp-full-record #1#))
     (filename . "~/Dropbox/000WORKFILES/0_PRIVATE/SUDEL.org")
     (buffer-name . "SUDEL.org")
-    (front-context-string . "**** windmove-le")
-    (rear-context-string . " with yasnippet\n")
+    (front-context-string . "**** opencl demo")
+    (rear-context-string . "t 08:26>\n :END:\n")
     (front-context-region-string)
     (rear-context-region-string)
     (visits . 0)
-    (time . #2=(21767 6014 607462 0))
+    (time . #2=(21773 37043 612465 0))
     (created . #2#)
-    (position . 35081))
+    (position . 41519))
 #1=(#("supercollider-scratchpad" 0 1
       (bmkp-full-record #1#)
       1 24
@@ -881,8 +885,8 @@
       1 7
       (bmkp-full-record #1#))
     (buffer-name . "000WORKFILES")
-    (visits . 26)
-    (time 21766 61954 403671 0)
+    (visits . 42)
+    (time 21773 13395 503906 0)
     (created 21756 49425 979400 0)
     (position . 637)
     (filename . "   - no file -")
@@ -890,11 +894,11 @@
     (handler . bmkp-jump-desktop))
 #1=(#("auto-save-desktop" 0 17
       (bmkp-full-record #1#))
-    (buffer-name . "2_AVARTS")
+    (buffer-name . "*cfw-calendar*")
     (visits . 0)
-    (time . #2=(21766 53044 822798 0))
+    (time . #2=(21773 35492 380863 0))
     (created . #2#)
-    (position . 141)
+    (position . 4018)
     (filename . "   - no file -")
     (desktop-file . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/bookmarks/desktops/auto-save-desktop.desktop")
     (handler . bmkp-jump-desktop))
@@ -1045,19 +1049,4 @@
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
-#1=(#("iani (org)" 0 1
-      (bmkp-full-record #1#)
-      1 10
-      (bmkp-full-record #1#))
-    (end-position . 8646)
-    (filename . "~/.emacs.d/personal/user/iani.org")
-    (buffer-name . "iani.org")
-    (front-context-string . "desktop-save-nam")
-    (rear-context-string . "x r C-k\") 'bmkp-")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 102)
-    (time 21752 6782 83926 0)
-    (created 21628 27985 311489 0)
-    (position . 8646))
 )

@@ -16,7 +16,7 @@
    "/Users/iani/.emacs.d/personal/bookmarks/default-bookmarks.bmk")
  '(calendar-latitude 39.619)
  '(calendar-longitude 19.919)
- '(cursor-color "#cccctscc")
+ '(cursor-color "#cccccc")
  '(cursor-type (quote bar))
  '(custom-enabled-themes (quote (tangotango)))
  '(custom-safe-themes
