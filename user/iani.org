@@ -6,10 +6,30 @@
 :DATE:     [2014-12-02 Tue 11:21]
 :END:
 
+Current theme:
+
 #+BEGIN_SRC emacs-lisp
+;;; Paired hl-line face background: #300
+(load-theme 'firebelly)
+#+END_SRC
+
+Alternative theme:
+#+BEGIN_SRC elisp
   (require 'moe-theme)
   (moe-dark)
 #+END_SRC
+
+Alternatives:
+
+- firebelly
+- (not:) hipster (problems with elisp commented lines)
+
+
+hl-line face background colors
+
+- #300 (current)
+- firebrick4
+
 ** Font (experimental)
 
 #+BEGIN_SRC emacs-lisp

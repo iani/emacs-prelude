@@ -1,6 +1,6 @@
 
-(require 'moe-theme)
-(moe-dark)
+;;; Paired hl-line face background: #300
+(load-theme 'firebelly)
 
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-12"))
