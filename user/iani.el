@@ -2,6 +2,9 @@
 (require 'moe-theme)
 (moe-dark)
 
+(require 'powerline)
+(powerline-default-theme)
+
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-12"))
 
