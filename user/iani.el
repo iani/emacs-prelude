@@ -1,6 +1,6 @@
 
-;;; Paired hl-line face background: #300
-(load-theme 'firebelly)
+(require 'moe-theme)
+(moe-dark)
 
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-12"))
@@ -178,13 +178,16 @@ in under one default directory in users prelude folder."
 (require 'windmove)
 (global-set-key (kbd "H-{") 'windmove-up)
 (global-set-key (kbd "<C-s-up>") 'windmove-up)
+(global-set-key (kbd "<C-prior>") 'windmove-up)
 (global-set-key (kbd "H-}") 'windmove-down)
 (global-set-key (kbd "<C-s-down>") 'windmove-down)
+(global-set-key (kbd "<C-next>") 'windmove-down)
 (global-set-key (kbd "H-]") 'windmove-right)
 (global-set-key (kbd "<C-s-right>") 'windmove-right)
+(global-set-key (kbd "<C-end>") 'windmove-right)
 (global-set-key (kbd "H-[") 'windmove-left)
 (global-set-key (kbd "<C-s-left>") 'windmove-left)
-
+(global-set-key (kbd "<C-home>") 'windmove-left)
 (require 'buffer-move)
 (global-set-key (kbd "<S-prior>") 'buf-move-up)
 (global-set-key (kbd "<S-next>") 'buf-move-down)
