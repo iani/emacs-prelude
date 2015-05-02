@@ -3,7 +3,8 @@
 (moe-dark)
 
 (require 'powerline)
-(powerline-default-theme)
+;; (powerline-default-theme)
+(powerline-moe-theme)
 
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-12"))
@@ -251,74 +252,76 @@ asks to select a *subdir* of selected project to dired."
 
 ;; must call these to initialize  helm-source-find-files
 
-    (require 'helm-files) ;; (not auto-loaded by system!)
-;;    (require 'helm-projectile)
-    (require 'helm-swoop) ;; must be put into packages
-    ;; Don't bicker if not in a project:
-    (setq projectile-require-project-root)
+(require 'helm-files) ;; (not auto-loaded by system!)
+(require 'helm-projectile)
+(require 'helm-swoop) ;; must be put into packages
+(require 'helm-descbinds)
+(helm-descbinds-mode)
+;; Don't bicker if not in a project:
+(setq projectile-require-project-root)
 
-    ;; Added by IZ following this:
-    ;; https://github.com/emacs-helm/helm/issues/604
-    ;; :
+;; Added by IZ following this:
+;; https://github.com/emacs-helm/helm/issues/604
+;; :
 
-    (add-hook 'helm-find-files-before-init-hook
-              (lambda ()
-                (progn
-                  ;; List Hg files in project.
-                  (helm-add-action-to-source-if
-                   "Hg list files"
-                   'helm-ff-hg-find-files
-                   helm-source-find-files
-                   'helm-hg-root-p)
-                  ;; Byte compile files async
-                  (helm-add-action-to-source-if
-                   "Byte compile file(s) async"
-                   'async-byte-compile-file
-                   helm-source-find-files
-                   'helm-ff-candidates-lisp-p)
-                  ;; Add add-to-projectile action after helm-find-files.
-                  (let ((find-files-action (assoc 'action helm-source-find-files)))
-                    (setcdr find-files-action
-                            (cons
-                             (cadr find-files-action)
-                             (cons '("Add to projectile" . helm-add-to-projectile)
-                                   (cddr find-files-action))))))))
+(add-hook 'helm-find-files-before-init-hook
+          (lambda ()
+            (progn
+              ;; List Hg files in project.
+              (helm-add-action-to-source-if
+               "Hg list files"
+               'helm-ff-hg-find-files
+               helm-source-find-files
+               'helm-hg-root-p)
+              ;; Byte compile files async
+              (helm-add-action-to-source-if
+               "Byte compile file(s) async"
+               'async-byte-compile-file
+               helm-source-find-files
+               'helm-ff-candidates-lisp-p)
+              ;; Add add-to-projectile action after helm-find-files.
+              (let ((find-files-action (assoc 'action helm-source-find-files)))
+                (setcdr find-files-action
+                        (cons
+                         (cadr find-files-action)
+                         (cons '("Add to projectile" . helm-add-to-projectile)
+                               (cddr find-files-action))))))))
 
-    ;; Use helm-find-files actions in helm-projectile
- ;;   (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
- ;;       (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
+;; Use helm-find-files actions in helm-projectile
+; (let ((projectile-files-action (assoc 'action helm-source-projectile-files-list)))
+;; (setcdr projectile-files-action (cdr (assoc 'action helm-source-find-files))))
 
-    (defun helm-add-to-projectile (path)
-      "Add directory of file to projectile projects.
+(defun helm-add-to-projectile (path)
+  "Add directory of file to projectile projects.
     Used as helm action in helm-source-find-files"
-      (projectile-add-known-project (file-name-directory path)))
+  (projectile-add-known-project (file-name-directory path)))
 
-    (global-set-key (kbd "H-h p") 'helm-projectile)
-    (global-set-key (kbd "H-h g") 'helm-do-grep)
-    (global-set-key (kbd "H-h f") 'helm-find-files)
-    (global-set-key (kbd "H-h r") 'helm-resume)
-    (global-set-key (kbd "H-h b") 'helm-bookmarks)
-    (global-set-key (kbd "H-h l") 'helm-buffers-list)
-    (global-set-key (kbd "H-M-h") 'helm-M-x)
-    (global-set-key (kbd "H-h w") 'helm-world-time)
-    (global-set-key (kbd "H-h s") 'helm-swoop)
-    (global-set-key (kbd "C-c m") 'helm-mini)
+(global-set-key (kbd "H-h p") 'helm-projectile)
+(global-set-key (kbd "H-h g") 'helm-do-grep)
+(global-set-key (kbd "H-h f") 'helm-find-files)
+(global-set-key (kbd "H-h r") 'helm-resume)
+(global-set-key (kbd "H-h b") 'helm-bookmarks)
+(global-set-key (kbd "H-h l") 'helm-buffers-list)
+(global-set-key (kbd "H-M-h") 'helm-M-x)
+(global-set-key (kbd "H-h w") 'helm-world-time)
+(global-set-key (kbd "H-h s") 'helm-swoop)
+(global-set-key (kbd "C-c m") 'helm-mini)
 
-    (setq display-time-world-list
-          '(("America/Los_Angeles" "Santa Barbara")
-            ("America/New_York" "New York")
-            ("Europe/London" "London")
-            ("Europe/Lisbon" "Lisboa")
-            ("Europe/Madrid" "Barcelona")
-            ("Europe/Paris" "Paris")
-            ("Europe/Berlin" "Berlin")
-            ("Europe/Rome" "Rome")
-            ;; ("Europe/Albania" "Gjirokastra") ;; what city to name here?
-            ("Europe/Athens" "Athens")
-            ("Asia/Calcutta" "Kolkatta")
-            ("Asia/Jakarta" "Jakarta")
-            ("Asia/Shanghai" "Shanghai")
-            ("Asia/Tokyo" "Tokyo")))
+(setq display-time-world-list
+      '(("America/Los_Angeles" "Santa Barbara")
+        ("America/New_York" "New York")
+        ("Europe/London" "London")
+        ("Europe/Lisbon" "Lisboa")
+        ("Europe/Madrid" "Barcelona")
+        ("Europe/Paris" "Paris")
+        ("Europe/Berlin" "Berlin")
+        ("Europe/Rome" "Rome")
+        ;; ("Europe/Albania" "Gjirokastra") ;; what city to name here?
+        ("Europe/Athens" "Athens")
+        ("Asia/Calcutta" "Kolkatta")
+        ("Asia/Jakarta" "Jakarta")
+        ("Asia/Shanghai" "Shanghai")
+        ("Asia/Tokyo" "Tokyo")))
 
 ;;; ido-imenu
 (defun ido-imenu ()

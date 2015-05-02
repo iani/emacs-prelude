@@ -14,7 +14,8 @@
 
 #+BEGIN_SRC emacs-lisp
 (require 'powerline)
-(powerline-default-theme)
+;; (powerline-default-theme)
+(powerline-moe-theme)
 #+END_SRC
 *** Alternative theme: firebelly
 
