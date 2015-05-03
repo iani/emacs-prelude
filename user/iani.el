@@ -192,6 +192,7 @@ in under one default directory in users prelude folder."
 (global-set-key (kbd "H-[") 'windmove-left)
 (global-set-key (kbd "<C-s-left>") 'windmove-left)
 (global-set-key (kbd "<C-home>") 'windmove-left)
+
 (require 'buffer-move)
 (global-set-key (kbd "<S-prior>") 'buf-move-up)
 (global-set-key (kbd "<S-next>") 'buf-move-down)
@@ -200,6 +201,12 @@ in under one default directory in users prelude folder."
 
 (global-set-key (kbd "<s-home>") 'previous-buffer)
 (global-set-key (kbd "<s-end>") 'next-buffer)
+
+;; Alternatives for apple extended keyboard
+(global-set-key (kbd "<f13> <up>") 'buf-move-up)
+(global-set-key (kbd "<f13> <down>") 'buf-move-down)
+(global-set-key (kbd "<f13> <left>") 'buf-move-left)
+(global-set-key (kbd "<f13> <right>") 'buf-move-right)
 
 (require 'ido)
 (require 'flx-ido)
@@ -306,6 +313,16 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-h w") 'helm-world-time)
 (global-set-key (kbd "H-h s") 'helm-swoop)
 (global-set-key (kbd "C-c m") 'helm-mini)
+
+;; adding alternative for apple extended keyboard
+(global-set-key (kbd "<f13> p") 'helm-projectile)
+(global-set-key (kbd "<f13> g") 'helm-do-grep)
+(global-set-key (kbd "<f13> f") 'helm-find-files)
+(global-set-key (kbd "<f13> r") 'helm-resume)
+(global-set-key (kbd "<f13> b") 'helm-bookmarks)
+(global-set-key (kbd "<f13> l") 'helm-buffers-list)
+(global-set-key (kbd "<f13> w") 'helm-world-time)
+(global-set-key (kbd "<f13> s") 'helm-swoop)
 
 (setq display-time-world-list
       '(("America/Los_Angeles" "Santa Barbara")
@@ -1973,6 +1990,8 @@ with the docpad website framework."
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+;; needed since version 1.4.0:
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 (toggle-frame-fullscreen)
 (org-todo-list)
