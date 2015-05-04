@@ -2,12 +2,12 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Mon May  4 02:56:17 2015
+;; Created Mon May  4 09:35:30 2015
 ;; Desktop file format version 206
 ;; Emacs version 24.5.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21830 46497 72885 0) (desktop . "206") "iani@chamade.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#FF5") (environment) (powerline-cache) (maximized) (frameset--id . "3B72-2ED1-B9CD-E197") (frameset--mini t . t) (height . 85) (width . 269) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 0) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "chamade.lan") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 14) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 56) (min-pixel-width . 140) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 98) (min-pixel-height-safe . 14) (min-pixel-width-safe . 28)) hc (pixel-width . 1916) (pixel-height . 1182) (total-width . 274) (total-height . 84) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 957) (pixel-height . 1182) (total-width . 137) (total-height . 84) (normal-height . 1.0) (normal-width . 0.5) (buffer "WEBSITE-DEV.org" (selected . t) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 51) (start . 1))) (leaf (last . t) (pixel-width . 959) (pixel-height . 1182) (total-width . 137) (total-height . 84) (normal-height . 1.0) (normal-width . 0.5) (buffer "1_DEV_NOTES" (selected) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 468) (start . 1)))))])
+(setq desktop-saved-frameset [frameset 1 (21831 4914 547672 0) (desktop . "206") "iani@chamade.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#FF5") (environment) (powerline-cache) (maximized) (frameset--id . "F981-B930-80EE-B80F") (frameset--mini t . t) (height . 85) (width . 269) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 0) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "chamade.local") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 7) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 56) (min-pixel-width . 70) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 49) (min-pixel-height-safe . 14) (min-pixel-width-safe . 14)) leaf (pixel-width . 1916) (pixel-height . 1182) (total-width . 274) (total-height . 84) (normal-height . 1.0) (normal-width . 1.0) (buffer "iani.org" (selected . t) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 17073) (start . 4455))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
@@ -16,70 +16,15 @@
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/WEBSITE-DEV.org"
-  "WEBSITE-DEV.org"
+  "/Users/iani/.emacs.d/personal/user/iani.org"
+  "iani.org"
   'org-mode
   '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  51
-  '(nil nil)
+  17073
+  '(72799 nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "1_RESEARCH_NOTES"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode magit-auto-revert-mode diff-hl-dired-mode)
-  1882
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "000WORKFILES"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode magit-auto-revert-mode diff-hl-dired-mode)
-  1047
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "1_DEV_PROJECTS"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode magit-auto-revert-mode diff-hl-dired-mode)
-  960
-  '(960 nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_DEV_PROJECTS/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "1_DEV_NOTES"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode magit-auto-revert-mode diff-hl-dired-mode)
-  468
-  '(nil nil)
-  t
-  '("/Users/iani/Dropbox/000WORKFILES/1_DEV_NOTES/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/6_WEBSITES-ORG/SUDEL.org"
-  "SUDEL.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  116185
-  '(116118 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
   "/Users/iani/Dropbox/000WORKFILES/00_META/Backups.org"
@@ -725,6 +670,17 @@
   'org-mode
   '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
   1
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/2_AVARTS/AVARTS_FEST.org"
+  "AVARTS_FEST.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
+  1731
   '(nil nil)
   nil
   nil
@@ -1796,26 +1752,4 @@
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/2_AVARTS/AVARTS_FEST.org"
-  "AVARTS_FEST.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  1731
-  '(nil nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Dropbox/000WORKFILES/1_DEV_NOTES/supercollider.org"
-  "supercollider.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  23
-  '(813 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 

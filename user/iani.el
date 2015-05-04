@@ -320,7 +320,7 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "<f13> f") 'helm-find-files)
 (global-set-key (kbd "<f13> r") 'helm-resume)
 (global-set-key (kbd "<f13> b") 'helm-bookmarks)
-(global-set-key (kbd "<f13> l") 'helm-buffers-list)
+(global-set-key (kbd "<f13> <f13>") 'helm-buffers-list)
 (global-set-key (kbd "<f13> w") 'helm-world-time)
 (global-set-key (kbd "<f13> s") 'helm-swoop)
 
@@ -1572,10 +1572,10 @@ of iz-log-dir."
 
 ;; Adding alternatives for apple extended keyboard
 (global-set-key (kbd "<f13> m") 'iz-org-file-command-menu)
-(global-set-key (kbd "<f13> <f13>") 'iz-org-file-command-menu)
+;; (global-set-key (kbd "<f13> <f13>") 'iz-org-file-command-menu)
 (global-set-key (kbd "<f13> f") 'iz-find-file-flat)
 (global-set-key (kbd "<f13> F") 'iz-find-file)
-(global-set-key (kbd "<f13> s") 'sr-speedbar-toggle)
+(global-set-key (kbd "<f13> S") 'sr-speedbar-toggle)
 (global-set-key (kbd "<f13> d") 'iz-open-project-folder)
 (global-set-key (kbd "<f13> l") 'iz-log-flat)
 (global-set-key (kbd "<f13> L") 'iz-log)
