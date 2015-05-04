@@ -1570,6 +1570,26 @@ of iz-log-dir."
 (global-set-key (kbd "H-h H-a") 'org-agenda-list)
 (global-set-key (kbd "H-h H-t") 'org-todo-list)
 
+;; Adding alternatives for apple extended keyboard
+(global-set-key (kbd "<f13> m") 'iz-org-file-command-menu)
+(global-set-key (kbd "<f13> <f13>") 'iz-org-file-command-menu)
+(global-set-key (kbd "<f13> f") 'iz-find-file-flat)
+(global-set-key (kbd "<f13> F") 'iz-find-file)
+(global-set-key (kbd "<f13> s") 'sr-speedbar-toggle)
+(global-set-key (kbd "<f13> d") 'iz-open-project-folder)
+(global-set-key (kbd "<f13> l") 'iz-log-flat)
+(global-set-key (kbd "<f13> L") 'iz-log)
+(global-set-key (kbd "<f13> C-l") 'iz-goto-last-selected-file)
+(global-set-key (kbd "<f13> i") 'iz-insert-file-as-snippet)
+(global-set-key (kbd "<f13> t") 'iz-todo)
+(global-set-key (kbd "<f13> r") 'iz-refile)
+(global-set-key (kbd "<f13> r") 'iz-refile-to-date-tree)
+(global-set-key (kbd "<f13> g") 'iz-goto)
+(global-set-key (kbd "<f13> c w") 'iz-refile)
+(global-set-key (kbd "<f13> c a") 'org-agenda)
+(global-set-key (kbd "<f13> a") 'org-agenda-list)
+(global-set-key (kbd "<f13> t") 'org-todo-list)
+
 ;; Experimental:
 (defun iz-make-finance-capture-template ()
   (setq org-capture-templates

@@ -518,7 +518,7 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/
   (global-set-key (kbd "<f13> f") 'helm-find-files)
   (global-set-key (kbd "<f13> r") 'helm-resume)
   (global-set-key (kbd "<f13> b") 'helm-bookmarks)
-  (global-set-key (kbd "<f13> l") 'helm-buffers-list)
+  (global-set-key (kbd "<f13> <f13>") 'helm-buffers-list)
   (global-set-key (kbd "<f13> w") 'helm-world-time)
   (global-set-key (kbd "<f13> s") 'helm-swoop)
 
@@ -1489,7 +1489,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 :PROPERTIES:
 :DATE:     <2014-10-14 Tue 18:47>
 :ID:       D2E016DB-670B-4FD9-90C2-3A43C84C7123
-:eval-id:  11
+:eval-id:  15
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -2036,14 +2036,14 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 
   ;; Adding alternatives for apple extended keyboard
   (global-set-key (kbd "<f13> m") 'iz-org-file-command-menu)
-  (global-set-key (kbd "<f13> <f13>") 'iz-org-file-command-menu)
+  ;; (global-set-key (kbd "<f13> <f13>") 'iz-org-file-command-menu)
   (global-set-key (kbd "<f13> f") 'iz-find-file-flat)
   (global-set-key (kbd "<f13> F") 'iz-find-file)
-  (global-set-key (kbd "<f13> s") 'sr-speedbar-toggle)
+  (global-set-key (kbd "<f13> S") 'sr-speedbar-toggle)
   (global-set-key (kbd "<f13> d") 'iz-open-project-folder)
   (global-set-key (kbd "<f13> l") 'iz-log-flat)
   (global-set-key (kbd "<f13> L") 'iz-log)
-  (global-set-key (kbd "<f13> L") 'iz-goto-last-selected-file)
+  (global-set-key (kbd "<f13> C-l") 'iz-goto-last-selected-file)
   (global-set-key (kbd "<f13> i") 'iz-insert-file-as-snippet)
   (global-set-key (kbd "<f13> t") 'iz-todo)
   (global-set-key (kbd "<f13> r") 'iz-refile)
