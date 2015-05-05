@@ -197,7 +197,7 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 (require 'org-drill)
 #+END_SRC
 
-*** Install el-get for installing of packages from github etc.
+*** Install+configure el-get for installing of packages from github etc.
 
 See: https://github.com/dimitri/el-get/blob/master/README.md
 
@@ -212,7 +212,21 @@ See: https://github.com/dimitri/el-get/blob/master/README.md
       (eval-print-last-sexp)))
 
   (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+  (add-to-list 'el-get-recipe-path "~/.emacs.d/personal/el-get/recipes")
   (el-get 'sync)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;; load all recipes contained in .emacs.d/personal/el-get/recipes:
+  (el-get 'sync
+          (mapcar
+           (lambda (path)
+             (let ((name (file-name-nondirectory (file-name-sans-extension path))))
+               (message "el-get loading: %s" name)
+               name))
+           (file-expand-wildcards
+            (concat (file-truename (car el-get-recipe-path)) "/*.rcp"))))
+
 #+END_SRC
 
 #+RESULTS:
@@ -2697,9 +2711,14 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 #+END_SRC
 *** Internal: Load org-pm
 
+Old style: Load from local file
 #+BEGIN_SRC elisp
   (org-babel-load-file "/Users/iani/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
 #+END_SRC
+
+This will be replaced by el-get to load from git repository.
+
+
 
 ** Magit (git for emacs) Add git repositories)
 

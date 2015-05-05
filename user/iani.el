@@ -95,7 +95,18 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(add-to-list 'el-get-recipe-path "~/.emacs.d/personal/el-get/recipes")
 (el-get 'sync)
+
+;; load all recipes contained in .emacs.d/personal/el-get/recipes:
+(el-get 'sync
+        (mapcar
+         (lambda (path)
+           (let ((name (file-name-nondirectory (file-name-sans-extension path))))
+             (message "el-get loading: %s" name)
+             name))
+         (file-expand-wildcards
+          (concat (file-truename (car el-get-recipe-path)) "/*.rcp"))))
 
 (require 'dash)
 
