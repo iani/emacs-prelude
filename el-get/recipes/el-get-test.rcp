@@ -1,0 +1,3 @@
+(:name el-get-test :url "http://github.com/iani/el-get-test.git" :type git :features
+       (el-get-test)
+       :after nil)

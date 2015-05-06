@@ -14,7 +14,8 @@
 
 #+BEGIN_SRC emacs-lisp
 (require 'powerline)
-(powerline-default-theme)
+;; (powerline-default-theme)
+(powerline-moe-theme)
 #+END_SRC
 *** Alternative theme: firebelly
 
@@ -196,7 +197,7 @@ Bind backward-sentence and forward-sentence in 2 different ways:
 (require 'org-drill)
 #+END_SRC
 
-*** Install el-get for installing of packages from github etc.
+*** Install+configure el-get for installing of packages from github etc.
 
 See: https://github.com/dimitri/el-get/blob/master/README.md
 
@@ -211,7 +212,21 @@ See: https://github.com/dimitri/el-get/blob/master/README.md
       (eval-print-last-sexp)))
 
   (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+  (add-to-list 'el-get-recipe-path "~/.emacs.d/personal/el-get/recipes")
   (el-get 'sync)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;; load all recipes contained in .emacs.d/personal/el-get/recipes:
+  (el-get 'sync
+          (mapcar
+           (lambda (path)
+             (let ((name (file-name-nondirectory (file-name-sans-extension path))))
+               (message "el-get loading: %s" name)
+               name))
+           (file-expand-wildcards
+            (concat (file-truename (car el-get-recipe-path)) "/*.rcp"))))
+
 #+END_SRC
 
 #+RESULTS:
@@ -361,6 +376,7 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
   (global-set-key (kbd "H-[") 'windmove-left)
   (global-set-key (kbd "<C-s-left>") 'windmove-left)
   (global-set-key (kbd "<C-home>") 'windmove-left)
+
   (require 'buffer-move)
   (global-set-key (kbd "<S-prior>") 'buf-move-up)
   (global-set-key (kbd "<S-next>") 'buf-move-down)
@@ -369,6 +385,13 @@ See: http://breadcrumbemacs.sourceforge.net/news.html
 
   (global-set-key (kbd "<s-home>") 'previous-buffer)
   (global-set-key (kbd "<s-end>") 'next-buffer)
+
+  ;; Alternatives for apple extended keyboard
+  (global-set-key (kbd "<f13> <up>") 'buf-move-up)
+  (global-set-key (kbd "<f13> <down>") 'buf-move-down)
+  (global-set-key (kbd "<f13> <left>") 'buf-move-left)
+  (global-set-key (kbd "<f13> <right>") 'buf-move-right)
+
 #+END_SRC
 
 **** TODO write overview of window moving commands
@@ -502,6 +525,16 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/
   (global-set-key (kbd "H-h w") 'helm-world-time)
   (global-set-key (kbd "H-h s") 'helm-swoop)
   (global-set-key (kbd "C-c m") 'helm-mini)
+
+  ;; adding alternative for apple extended keyboard
+  (global-set-key (kbd "<f13> p") 'helm-projectile)
+  (global-set-key (kbd "<f13> g") 'helm-do-grep)
+  (global-set-key (kbd "<f13> f") 'helm-find-files)
+  (global-set-key (kbd "<f13> r") 'helm-resume)
+  (global-set-key (kbd "<f13> b") 'helm-bookmarks)
+  (global-set-key (kbd "<f13> <f13>") 'helm-buffers-list)
+  (global-set-key (kbd "<f13> w") 'helm-world-time)
+  (global-set-key (kbd "<f13> s") 'helm-swoop)
 
   (setq display-time-world-list
         '(("America/Los_Angeles" "Santa Barbara")
@@ -1470,7 +1503,7 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
 :PROPERTIES:
 :DATE:     <2014-10-14 Tue 18:47>
 :ID:       D2E016DB-670B-4FD9-90C2-3A43C84C7123
-:eval-id:  11
+:eval-id:  15
 :END:
 
 #+BEGIN_SRC emacs-lisp
@@ -2014,6 +2047,26 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
   (global-set-key (kbd "H-h H-c H-a") 'org-agenda)
   (global-set-key (kbd "H-h H-a") 'org-agenda-list)
   (global-set-key (kbd "H-h H-t") 'org-todo-list)
+
+  ;; Adding alternatives for apple extended keyboard
+  (global-set-key (kbd "<f13> m") 'iz-org-file-command-menu)
+  ;; (global-set-key (kbd "<f13> <f13>") 'iz-org-file-command-menu)
+  (global-set-key (kbd "<f13> f") 'iz-find-file-flat)
+  (global-set-key (kbd "<f13> F") 'iz-find-file)
+  (global-set-key (kbd "<f13> S") 'sr-speedbar-toggle)
+  (global-set-key (kbd "<f13> d") 'iz-open-project-folder)
+  (global-set-key (kbd "<f13> l") 'iz-log-flat)
+  (global-set-key (kbd "<f13> L") 'iz-log)
+  (global-set-key (kbd "<f13> C-l") 'iz-goto-last-selected-file)
+  (global-set-key (kbd "<f13> i") 'iz-insert-file-as-snippet)
+  (global-set-key (kbd "<f13> t") 'iz-todo)
+  (global-set-key (kbd "<f13> r") 'iz-refile)
+  (global-set-key (kbd "<f13> r") 'iz-refile-to-date-tree)
+  (global-set-key (kbd "<f13> g") 'iz-goto)
+  (global-set-key (kbd "<f13> c w") 'iz-refile)
+  (global-set-key (kbd "<f13> c a") 'org-agenda)
+  (global-set-key (kbd "<f13> a") 'org-agenda-list)
+  (global-set-key (kbd "<f13> t") 'org-todo-list)
 
   ;; Experimental:
   (defun iz-make-finance-capture-template ()
@@ -2658,9 +2711,14 @@ See: http://stackoverflow.com/questions/5500035/set-custom-keybinding-for-specif
 #+END_SRC
 *** Internal: Load org-pm
 
+Old style: Load from local file
 #+BEGIN_SRC elisp
   (org-babel-load-file "/Users/iani/Documents/Dev/Emacs/org-publish-meta/org-pm.org")
 #+END_SRC
+
+This will be replaced by el-get to load from git repository.
+
+
 
 ** Magit (git for emacs) Add git repositories)
 
@@ -2673,6 +2731,8 @@ Magit config: Manage git repos from inside emacs
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+;; needed since version 1.4.0:
+(setq magit-last-seen-setup-instructions "1.4.0")
 #+END_SRC
 
 

@@ -2,16 +2,25 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
+<<<<<<< HEAD
 ;; Created Wed May  6 16:20:38 2015
+=======
+;; Created Tue May  5 04:42:50 2015
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
 ;; Desktop file format version 206
-;; Emacs version 24.4.1
+;; Emacs version 24.5.1
 
 ;; Global section:
+<<<<<<< HEAD
 (setq desktop-saved-frameset [frameset 1 (21834 5414 202060 0) (desktop . "206") "iani@turangalila2-2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#FF5") (environment) (powerline-cache) (maximized) (frameset--id . "C482-9B6B-942A-AF73") (frameset--mini t . t) (height . 64) (width . 201) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 0) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2-2.local") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 14) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 48) (min-pixel-width . 140) (min-pixel-height-ignore . 36) (min-pixel-width-ignore . 98) (min-pixel-height-safe . 12) (min-pixel-width-safe . 28)) hc (pixel-width . 1436) (pixel-height . 884) (total-width . 205) (total-height . 73) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 715) (pixel-height . 884) (total-width . 102) (total-height . 73) (normal-height . 1.0) (normal-width . 0.5) (buffer "*cfw-calendar*" (selected . t) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 431) (start . 1))) (leaf (last . t) (pixel-width . 721) (pixel-height . 884) (total-width . 103) (total-height . 73) (normal-height . 1.0) (normal-width . 0.5) (buffer "*Org Agenda*" (selected) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1)))))])
+=======
+(setq desktop-saved-frameset [frameset 1 (21832 8218 582285 0) (desktop . "206") "iani@chamade.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#c6c6c6") (background-color . "#303030") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (horizontal-scroll-bars . t) (display-type . color) (background-mode . dark) (cursor-color . "#FF5") (environment) (powerline-cache) (maximized) (frameset--id . "A24E-36AB-04EC-0A0F") (frameset--mini t . t) (height . 85) (width . 269) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 0) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "chamade.local") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 14) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 56) (min-pixel-width . 140) (min-pixel-height-ignore . 28) (min-pixel-width-ignore . 98) (min-pixel-height-safe . 14) (min-pixel-width-safe . 28)) hc (pixel-width . 1916) (pixel-height . 1182) (total-width . 274) (total-height . 84) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 957) (pixel-height . 1182) (total-width . 137) (total-height . 84) (normal-height . 1.0) (normal-width . 0.5) (buffer "el-get" (selected . t) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 445) (start . 1))) (leaf (last . t) (pixel-width . 959) (pixel-height . 1182) (total-width . 137) (total-height . 84) (normal-height . 1.0) (normal-width . 0.5) (buffer "*Org Agenda*" (selected) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1)))))])
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
 (setq register-alist nil)
+<<<<<<< HEAD
 (setq file-name-history '("/Users/iani/Desktop/georgia-pics-tiddlers/Georgia 12.tid" "/Users/iani/Desktop/georgia-pics-tiddlers/Georgia 01.tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/Georgia Interviews.tid" "~/Documents/Dev/Projects/Performigrations/secretschoolwiki/pages/tiddlers/Georgia Interviews.tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/Damiette.tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/Nouvelles Impressions d'Afrique.tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/le soleil échauffant jusqu†¢au marbre.tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/parfois une étincelle,.tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/Georgia Interview 3 (Greek).tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/Georgia Interview 3 (English).tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/Georgia Interview 3.tid" "/ssh:pi@192.168.77.1:/home/pi/Dev/secretschoolwiki/pages/tiddlers/Georgia Interviews.tid" "/Users/iani/Documents/Dev/Projects/Performigrations/secretschoolsc/.git/COMMIT_EDITMSG" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/startup.scd" "/ssh:pi@192.168.77.2:/home/pi/.config/SuperCollider" "/Users/iani/Documents/Dev/Projects/Performigrations/secretschoolsc/.git/COMMIT_EDITMSG" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/boot-server.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/startup.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/tests/sounds-to-keywords-test.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/02KeywordsTW1stDraft.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/tests/02KeywordsTW1stDraft.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/tests/01KeywordActionTest.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/tests/00FirstTests.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/tests" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/photos-to-keywords.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/sounds-to-keywords-test.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/sounds-to-keywords.scd" "~/Documents/Dev/Projects/Performigrations/secretschoolsc/sounds-to-keywords.el" "/Users/iani/Documents/Dev/Projects/Performigrations/secretschoolwiki/.git/COMMIT_EDITMSG"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
@@ -20,6 +29,27 @@
   "Backups.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+(setq file-name-history '("~/.emacs.d/el-get/" "~/.emacs.d/personal/user/iani.org" "~/.emacs.d/el-get/.status.el" "~/.emacs.d/el-get/el-get-test/" "~/.emacs.d/el-get/" "~/.emacs.d/el-get/el-get/recipes/" "~/.emacs.d/personal/el-get/recipes/el-get-test.rcp" "~/.emacs.d/personal/el-get/recipes" "~/.emacs.d/personal/el-get" "~/.emacs.d/el-get/.status.el" "~/.emacs.d/el-get/el-get/recipes/el-get-test.rcp" "~/.emacs.d/el-get/" "/Users/iani/Documents/Dev/Emacs/el-get-test/.git/COMMIT_EDITMSG" "~/Documents/Dev/Emacs/el-get-test/el-get-test.el" "~/.emacs.d/el-get/el-get/" "~/.emacs.d/" "~/.emacs.d/el-get/" "~/.emacs.d/personal/user/" "~/.emacs.d/" "~/.emacs.d/personal/user/iani.el" "~/Dropbox/000WORKFILES/3_JOINT_PROJECTS/EASTN/EASTN-Travel-Docs-IZ/150522_MusicaNova_Lisbon" "~/Dropbox/000WORKFILES/3_JOINT_PROJECTS/EASTN/EASTN-Travel-Docs-IZ" "~/.emacs.d/el-get/" "~/.emacs.d/el-get-user/" "~/Documents/Dev/Emacs/my-emacs-prelude-config/packages/test" "~/Documents/Dev/Emacs/test/test.el" "~/Documents/Dev/Emacs/test" "/Users/iani/.emacs.d/personal/.git/COMMIT_EDITMSG" "/Users/iani/Dropbox/000WORKFILES/1_DEV_NOTES/supercollider.org" "~/Library/Application Support/SuperCollider/Extensions/tiny-sc" "~/Library/Application Support/SuperCollider/Extensions/Classes" "~/Library/Application Support/SuperCollider/Extensions/sc" "/Users/iani/Library/Application Support/SuperCollider/Extensions/.DS_Store" "~/Dropbox/000WORKFILES/1_DEV_NOTES/emacs-bug-reports.org" "~/Dropbox/000WORKFILES/1_DEV_NOTES/macos.org" "~/Dropbox/000WORKFILES/1_DEV_NOTES/git.org" "~/Dropbox/000WORKFILES/1_DEV_NOTES/Haskell.org" "~/Dropbox/000WORKFILES/1_DEV_NOTES" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Other.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Biology.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Sound-Art.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Algorithmic-Art.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Computer-Music_Acoustics_Music-Technology.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Education.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Religion.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Scholars_Artists.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Literature_Criticism_Aesthetics.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Film.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Dance.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Politics_Economy.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Philosophy_Media-Theory.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Art-Science-Technology.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Mathematics_Computer-Science_Physics.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Research-Tools_Links_Bibliographies.org" "/Users/iani/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Computers-Programming-Tools.org" "~/Dropbox/000WORKFILES/2_AVARTS_STUDENTS_PHD/MartinCarle/" "~/Dropbox/000WORKFILES/6_WEBSITES-ORG/SUDEL.tex" "~/Dropbox/000WORKFILES/6_WEBSITES-ORG/SUDEL.pdf" "~/Dropbox/000WORKFILES/6_WEBSITES-ORG/SUDEL.org" "~/Dropbox/000WORKFILES/6_WEBSITES-ORG/SUDEL.html" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/bibtex" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/RESEARCH-NOTES.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Music.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/MediaArt.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/Haskell.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/CV.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/CV" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/C++Study.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/macos.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/git.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/emacs-bug-reports.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/SC_CODE_STUDY.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES/WEBSITE-DEV.org" "~/Dropbox/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/org-manual.css" "~/Dropbox/000WORKFILES/1_DEV_NOTES" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES_AND_CORRESPONDENCE/Haskell.org" "~/Dropbox/000WORKFILES/1_RESEARCH_NOTES_AND_CORRESPONDENCE/C++Study.org" "/Users/iani/.emacs.d/personal/.git/COMMIT_EDITMSG" "~/.emacs.d/personal/" "~/.emacs.d/personal" "~/Documents/Dev/Emacs/" "~/" "/Applications/" "~/Dev/PD" "~/"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  nil
+  "el-get"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode icicle-mode diff-hl-dired-mode)
+  445
+  '(nil nil)
+  t
+  '("/Users/iani/.emacs.d/el-get/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/000WORKFILES/00_META/Backups.org"
+  "Backups.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -30,7 +60,11 @@
   "/Users/iani/Copy/000WORKFILES/00_META/Folder_Structure.org"
   "Folder_Structure.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -41,7 +75,11 @@
   "/Users/iani/Copy/000WORKFILES/00_META/Orgmode_Stuff.org"
   "Orgmode_Stuff.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -52,7 +90,11 @@
   "/Users/iani/Copy/000WORKFILES/0_DRILLS/0_DRILLS.org"
   "0_DRILLS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -63,7 +105,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/0_FRIENDS.org"
   "0_FRIENDS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -74,7 +120,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/AndreasMniestris.org"
   "AndreasMniestris.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -85,7 +135,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/Jean-PierreHebert.org"
   "Jean-PierreHebert.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -96,7 +150,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/JochenOtto.org"
   "JochenOtto.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -107,7 +165,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/JulianRohrhuber.org"
   "JulianRohrhuber.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -118,7 +180,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/MartinCarle.org"
   "MartinCarle.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -129,7 +195,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/UweSeifert.org"
   "UweSeifert.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -140,7 +210,11 @@
   "/Users/iani/Copy/000WORKFILES/0_FRIENDS/VickyBisbiki.org"
   "VickyBisbiki.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -151,7 +225,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/01_TODO_MASTER_LIST_0902_TMP_TMP.org"
   "01_TODO_MASTER_LIST_0902_TMP_TMP.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -162,7 +240,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/0_INBOX.org"
   "0_INBOX.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -173,7 +255,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/EMAIL-OUTBOX.org"
   "EMAIL-OUTBOX.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -184,7 +270,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/ShipsIgoumenitsaKerkyra140803.org"
   "ShipsIgoumenitsaKerkyra140803.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -195,7 +285,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/TODO-INBOX.org"
   "TODO-INBOX.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -206,7 +300,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/cheatsheet-emacs.org"
   "cheatsheet-emacs.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -217,7 +315,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/clipboard.org"
   "clipboard.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -228,7 +330,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/demo-jochen.org"
   "demo-jochen.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -239,7 +345,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/emacs.org"
   "emacs.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -250,7 +360,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/ichiticokperopatos.org"
   "ichiticokperopatos.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -261,7 +375,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/inbox.org"
   "inbox.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -272,7 +390,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/ledger.org"
   "ledger.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -283,6 +405,7 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/log_2013-14_to_transfer.org"
   "log_2013-14_to_transfer.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
   '(nil nil)
@@ -296,6 +419,10 @@
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  819779
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   '(nil nil)
   nil
   nil
@@ -305,7 +432,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/notes.org"
   "notes.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -316,7 +447,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/notes2014-12-08-08-16-39.org"
   "notes2014-12-08-08-16-39.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -327,7 +462,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/notes2014-12-08-12-56-25.org"
   "notes2014-12-08-12-56-25.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -338,7 +477,11 @@
   "/Users/iani/Copy/000WORKFILES/0_INBOX/wishlist-electronics.org"
   "wishlist-electronics.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -349,7 +492,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/DAILYTODOS.org"
   "DAILYTODOS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -360,8 +507,13 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/DIARY.org"
   "DIARY.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  41182
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   '(nil nil)
   nil
   nil
@@ -371,7 +523,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/EXPENSES.org"
   "EXPENSES.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -382,7 +538,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/FINANCE_TASKS.org"
   "FINANCE_TASKS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -393,7 +553,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/FOOD.org"
   "FOOD.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -404,7 +568,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/GYM.org"
   "GYM.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -415,7 +583,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/HOME.org"
   "HOME.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -426,7 +598,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/HOME_APPLIANCES.org"
   "HOME_APPLIANCES.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -437,7 +613,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/HOME_AUDIO.org"
   "HOME_AUDIO.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -448,7 +628,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/HOME_COMPUTERS_ELECTRONICS.org"
   "HOME_COMPUTERS_ELECTRONICS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -459,7 +643,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/LOG_TRANSFER_FROM_OLD.org"
   "LOG_TRANSFER_FROM_OLD.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -470,8 +658,13 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/TAXES.org"
   "TAXES.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  2363
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   '(nil nil)
   nil
   nil
@@ -481,10 +674,14 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/VergiGymSchedule.org"
   "VergiGymSchedule.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
-  t
+  nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
@@ -492,7 +689,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/_keys-banks.org"
   "_keys-banks.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -503,7 +704,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/_keys-computer.org"
   "_keys-computer.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -514,7 +719,11 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/_keys-id.org"
   "_keys-id.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -525,6 +734,7 @@
   "/Users/iani/Copy/000WORKFILES/0_PRIVATE/_keys-other.org"
   "_keys-other.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
   '(nil nil)
@@ -812,6 +1022,9 @@
   "_Kia_Ng.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -819,6 +1032,7 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_CORRESPONDENCE/_Konstantinos_Makropoulos.org"
   "_Konstantinos_Makropoulos.org"
   'org-mode
@@ -845,6 +1059,12 @@
   "_Matthew_Wright.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/0_PRIVATE/_keys-web.org"
+  "_keys-web.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -852,10 +1072,17 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_CORRESPONDENCE/_Michalis_Meimaris.org"
   "_Michalis_Meimaris.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/0_PRIVATE/_keys-wifi.org"
+  "_keys-wifi.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -863,10 +1090,17 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_CORRESPONDENCE/_Sabine_Breitsameter.org"
   "_Sabine_Breitsameter.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/0_PRIVATE/_keys.org"
+  "_keys.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -874,17 +1108,26 @@
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_CORRESPONDENCE/_Stavros_Katsios.org"
   "_Stavros_Katsios.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
+=======
+  "/Users/iani/Dropbox/000WORKFILES/0_PRIVATE/log_2013.org"
+  "log_2013.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  76994
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   '(nil nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_CORRESPONDENCE/_Stephane_Natkin.org"
   "_Stephane_Natkin.org"
   'org-mode
@@ -900,6 +1143,12 @@
   "Algorithmic-Art.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/1_SCRIPTS/README.org"
+  "README.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -910,7 +1159,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Art-Science-Technology.org"
   "Art-Science-Technology.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -921,7 +1174,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Biology.org"
   "Biology.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -932,7 +1189,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/C++Study.org"
   "C++Study.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -943,7 +1204,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/CV.org"
   "CV.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -954,7 +1219,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Computer-Music_Acoustics_Music-Technology.org"
   "Computer-Music_Acoustics_Music-Technology.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -965,7 +1234,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Computers-Programming-Tools.org"
   "Computers-Programming-Tools.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -976,7 +1249,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Dance.org"
   "Dance.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -987,7 +1264,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Education.org"
   "Education.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -998,8 +1279,13 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Film.org"
   "Film.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+  1731
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   '(nil nil)
   nil
   nil
@@ -1009,7 +1295,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Literature_Criticism_Aesthetics.org"
   "Literature_Criticism_Aesthetics.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1020,7 +1310,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Mathematics_Computer-Science_Physics.org"
   "Mathematics_Computer-Science_Physics.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1031,7 +1325,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/MediaArt.org"
   "MediaArt.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1042,7 +1340,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Music.org"
   "Music.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1053,7 +1355,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Other.org"
   "Other.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1064,7 +1370,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Philosophy_Media-Theory.org"
   "Philosophy_Media-Theory.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1075,7 +1385,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Politics_Economy.org"
   "Politics_Economy.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1086,7 +1400,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/RESEARCH-NOTES.org"
   "RESEARCH-NOTES.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1097,7 +1415,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Religion.org"
   "Religion.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1108,7 +1430,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Research-Tools_Links_Bibliographies.org"
   "Research-Tools_Links_Bibliographies.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1119,7 +1445,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/SC_CODE_STUDY.org"
   "SC_CODE_STUDY.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1130,7 +1460,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Scholars_Artists.org"
   "Scholars_Artists.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1141,7 +1475,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/Sound-Art.org"
   "Sound-Art.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1152,7 +1490,11 @@
   "/Users/iani/Copy/000WORKFILES/1_RESEARCH_NOTES/WEBSITE-DEV.org"
   "WEBSITE-DEV.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1163,7 +1505,11 @@
   "/Users/iani/Copy/000WORKFILES/1_SCRIPTS/README.org"
   "README.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1174,7 +1520,11 @@
   "/Users/iani/Copy/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/LATEX_TEMPLATES_IMPORTED_NON_ORG.org"
   "LATEX_TEMPLATES_IMPORTED_NON_ORG.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1185,18 +1535,30 @@
   "/Users/iani/Copy/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/LaTeX_Notes.org"
   "LaTeX_Notes.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
   nil
+<<<<<<< HEAD
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+=======
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
 
 (desktop-create-buffer 206
   "/Users/iani/Copy/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/latex-greek-letter.org"
   "latex-greek-letter.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1207,7 +1569,11 @@
   "/Users/iani/Copy/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/latex-letter-tries.org"
   "latex-letter-tries.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1218,7 +1584,11 @@
   "/Users/iani/Copy/000WORKFILES/1_TESTS/2number-attachment-test.org"
   "2number-attachment-test.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1229,7 +1599,11 @@
   "/Users/iani/Copy/000WORKFILES/1_TESTS/HTML-export-test.org"
   "HTML-export-test.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1240,7 +1614,11 @@
   "/Users/iani/Copy/000WORKFILES/1_TESTS/LinkedAttachmentTest.org"
   "LinkedAttachmentTest.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1251,7 +1629,11 @@
   "/Users/iani/Copy/000WORKFILES/1_TESTS/latex-export-tests.org"
   "latex-export-tests.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1262,7 +1644,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS/AVARTS_FEST.org"
   "AVARTS_FEST.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1570,7 +1956,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/AUD821AlgorithmicComposition.org"
   "AUD821AlgorithmicComposition.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1581,7 +1971,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/AVA540-AudiovisualInteraction.org"
   "AVA540-AudiovisualInteraction.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1592,7 +1986,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/_EXAMS_AUD420InteractiveAudioSystems.org"
   "_EXAMS_AUD420InteractiveAudioSystems.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1603,7 +2001,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/_EXAMS_AUD722ComputerMusic.org"
   "_EXAMS_AUD722ComputerMusic.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1614,7 +2016,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/_EXAMS_AUD821AlgorithmicComposition.org"
   "_EXAMS_AUD821AlgorithmicComposition.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1625,7 +2031,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/_EXAMS_AVA540AudiovisualInteraction.org"
   "_EXAMS_AVA540AudiovisualInteraction.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1636,7 +2046,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/_EXAMS_Aud620SoundSynthesisTechniques.org"
   "_EXAMS_Aud620SoundSynthesisTechniques.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1647,7 +2061,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/ALEVIZAKI.org"
   "ALEVIZAKI.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1658,7 +2076,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/CHAMALIDI.org"
   "CHAMALIDI.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1669,7 +2091,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/DELIGIANNIS.org"
   "DELIGIANNIS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1680,7 +2106,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/KANELLOPOULOS.org"
   "KANELLOPOULOS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1691,7 +2121,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/LAMBOURA.org"
   "LAMBOURA.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1702,7 +2136,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/LEKKAS.org"
   "LEKKAS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1713,7 +2151,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/LOUFOPOULOS.org"
   "LOUFOPOULOS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1724,7 +2166,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/ONORATO.org"
   "ONORATO.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1735,7 +2181,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/PANAGOPOULOS.org"
   "PANAGOPOULOS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1746,7 +2196,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/TILIGADIS.org"
   "TILIGADIS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1757,7 +2211,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/TSIRIDOU.org"
   "TSIRIDOU.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1768,7 +2226,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/VERYKIOS.org"
   "VERYKIOS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1779,7 +2241,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/VLACHOS.org"
   "VLACHOS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1790,7 +2256,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_FACULTY_AND_STAFF/ZIVAS.org"
   "ZIVAS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1801,7 +2271,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_DIPLOMA/AlexandrosAngelakis.org"
   "AlexandrosAngelakis.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1812,7 +2286,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_DIPLOMA/AlexandrosSidiropoulos.org"
   "AlexandrosSidiropoulos.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1823,7 +2301,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_DIPLOMA/DimitrisKoulouridis.org"
   "DimitrisKoulouridis.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1834,7 +2316,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_DIPLOMA/EleftheriaOupala.org"
   "EleftheriaOupala.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1845,7 +2331,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_DIPLOMA/EvgeniosTrifonidis.org"
   "EvgeniosTrifonidis.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1856,7 +2346,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_DIPLOMA/ManolisMiminas.org"
   "ManolisMiminas.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1867,7 +2361,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_DIPLOMA/MariosPapasoulis.org"
   "MariosPapasoulis.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1878,7 +2376,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_INTERNSHIPS/InternshipTasks.org"
   "InternshipTasks.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1889,7 +2391,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_INTERNSHIPS/Kollimenos1412.org"
   "Kollimenos1412.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1900,7 +2406,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/ArisBezas.org"
   "ArisBezas.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1911,7 +2421,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/DanaPapachristou.org"
   "DanaPapachristou.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1922,7 +2436,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/DimitrisMylonas.org"
   "DimitrisMylonas.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1933,7 +2451,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/DimitrisTraperas.org"
   "DimitrisTraperas.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1955,7 +2477,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/KostasDrosos.org"
   "KostasDrosos.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1966,7 +2492,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/KostasTsioutas.org"
   "KostasTsioutas.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1977,7 +2507,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/MartinCarle.org"
   "MartinCarle.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1988,7 +2522,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/PhD_Students.org"
   "PhD_Students.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -1999,7 +2537,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/StratosKountouras.org"
   "StratosKountouras.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2021,7 +2563,11 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PRE_DIPLOMA/AleksandarVejnovic.org"
   "AleksandarVejnovic.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2032,6 +2578,7 @@
   "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PRE_DIPLOMA/LoukasBasoukos.org"
   "LoukasBasoukos.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
   '(nil nil)
@@ -2044,6 +2591,9 @@
   "UndergradStudents.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2054,7 +2604,11 @@
   "/Users/iani/Copy/000WORKFILES/3_JOINT_PROJECTS/Alex-Kia-Alan.org"
   "Alex-Kia-Alan.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2065,7 +2619,11 @@
   "/Users/iani/Copy/000WORKFILES/3_JOINT_PROJECTS/EASTM.org"
   "EASTM.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2076,7 +2634,11 @@
   "/Users/iani/Copy/000WORKFILES/3_JOINT_PROJECTS/ESPA184_1410.org"
   "ESPA184_1410.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2087,7 +2649,11 @@
   "/Users/iani/Copy/000WORKFILES/3_JOINT_PROJECTS/ErasmusStrategicPartnership1503.org"
   "ErasmusStrategicPartnership1503.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2098,7 +2664,11 @@
   "/Users/iani/Copy/000WORKFILES/3_JOINT_PROJECTS/HALKICENTRE.org"
   "HALKICENTRE.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2109,7 +2679,11 @@
   "/Users/iani/Copy/000WORKFILES/3_JOINT_PROJECTS/TSEPELOVO.org"
   "TSEPELOVO.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2120,7 +2694,11 @@
   "/Users/iani/Copy/000WORKFILES/3_JOINT_PROJECTS/YABURITSUGI.org"
   "YABURITSUGI.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2131,7 +2709,11 @@
   "/Users/iani/Copy/000WORKFILES/3_OTHER_INSTITUTIONS/AnastasiaGeorgaki_Exelixi_EKPA_2015.org"
   "AnastasiaGeorgaki_Exelixi_EKPA_2015.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2142,7 +2724,11 @@
   "/Users/iani/Copy/000WORKFILES/3_OTHER_INSTITUTIONS/StellaPaschalidou_Exelixi_TEI_CRETE_2014.org"
   "StellaPaschalidou_Exelixi_TEI_CRETE_2014.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2153,7 +2739,11 @@
   "/Users/iani/Copy/000WORKFILES/4_COMPOSITIONS/Rhythmanalysis.org"
   "Rhythmanalysis.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2164,7 +2754,11 @@
   "/Users/iani/Copy/000WORKFILES/4_INSTALLATIONS/2WORLDS.org"
   "2WORLDS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2175,7 +2769,11 @@
   "/Users/iani/Copy/000WORKFILES/4_INSTALLATIONS/HotelEuropaPaun.org"
   "HotelEuropaPaun.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2186,7 +2784,11 @@
   "/Users/iani/Copy/000WORKFILES/4_INSTALLATIONS/NEME_SoundOfMigration1509.org"
   "NEME_SoundOfMigration1509.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2197,7 +2799,11 @@
   "/Users/iani/Copy/000WORKFILES/4_INSTALLATIONS/Performigrations.org"
   "Performigrations.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2208,7 +2814,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PERFORMANCES/1404AnimalRefrains_ElectricNights.org"
   "1404AnimalRefrains_ElectricNights.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2219,7 +2829,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PERFORMANCES/150417_AthensScienceFestTechnopolis_Vicky.org"
   "150417_AthensScienceFestTechnopolis_Vicky.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2230,7 +2844,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PERFORMANCES/1504ElectricNights_TwoRooms.org"
   "1504ElectricNights_TwoRooms.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2241,7 +2859,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PERFORMANCES/1506ISCRIM_Bezas_Performance.org"
   "1506ISCRIM_Bezas_Performance.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2252,7 +2874,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PERFORMANCES/OdysseusTravel.org"
   "OdysseusTravel.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2263,7 +2889,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PERFORMANCES/TipsyCity.org"
   "TipsyCity.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2274,7 +2904,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PUBLICATIONS/14Logothetis.org"
   "14Logothetis.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2285,7 +2919,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PUBLICATIONS/14RevisitingInarticulacy_NEME2014.org"
   "14RevisitingInarticulacy_NEME2014.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2296,7 +2934,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PUBLICATIONS/1507LiveCodingConfBezas.org"
   "1507LiveCodingConfBezas.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2307,7 +2949,11 @@
   "/Users/iani/Copy/000WORKFILES/4_PUBLICATIONS/1509LiveCodingInPerformanceArtsBezas.org"
   "1509LiveCodingInPerformanceArtsBezas.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2318,6 +2964,7 @@
   "/Users/iani/Copy/000WORKFILES/4_PUBLICATIONS/15MathAndArt.org"
   "15MathAndArt.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
   1
   '(nil nil)
@@ -2341,6 +2988,9 @@
   "1409Post-ICMC-SMC14.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2461,7 +3111,11 @@
   "/Users/iani/Copy/000WORKFILES/5_WORKSHOPS_AND_SEMINARS/1507ICLC_LiveAudiovisualCodingWS.org"
   "1507ICLC_LiveAudiovisualCodingWS.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2472,7 +3126,11 @@
   "/Users/iani/Copy/000WORKFILES/6_WEBSITES-BLOGS/blogs.org"
   "blogs.org"
   'org-mode
+<<<<<<< HEAD
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2480,10 +3138,17 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/6_WEBSITES-GENERAL/WebSites.org"
   "WebSites.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/6_WEBSITES-GENERAL/WebSites.org"
+  "WebSites.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2491,10 +3156,17 @@
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/6_WEBSITES-ORG/README.org"
   "README.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/6_WEBSITES-ORG/README.org"
+  "README.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2502,6 +3174,7 @@
   '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/6_WEBSITES-ORG/SUDEL.org"
   "SUDEL.org"
   'org-mode
@@ -2517,6 +3190,12 @@
   "two-worlds-web.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/6_WEBSITES-ORG/two-worlds-web.org"
+  "two-worlds-web.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2524,10 +3203,17 @@
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/6_WEBSITES-WIKI/org.org"
   "org.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/6_WEBSITES-WIKI/org.org"
+  "org.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil
@@ -2535,6 +3221,7 @@
   '((indent-tabs-mode) (truncate-lines)))
 
 (desktop-create-buffer 206
+<<<<<<< HEAD
   "/Users/iani/Copy/000WORKFILES/6_WEBSITES-WIKI/orgmode.org"
   "orgmode.org"
   'org-mode
@@ -2550,6 +3237,12 @@
   "tiddlywiki.org"
   'org-mode
   '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode icicle-mode org-indent-mode)
+=======
+  "/Users/iani/Dropbox/000WORKFILES/6_WEBSITES-WIKI/orgmode.org"
+  "orgmode.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode icicle-mode)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
   1
   '(nil nil)
   nil

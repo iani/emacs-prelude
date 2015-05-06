@@ -3,7 +3,8 @@
 (moe-dark)
 
 (require 'powerline)
-(powerline-default-theme)
+;; (powerline-default-theme)
+(powerline-moe-theme)
 
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-12"))
@@ -94,7 +95,18 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(add-to-list 'el-get-recipe-path "~/.emacs.d/personal/el-get/recipes")
 (el-get 'sync)
+
+;; load all recipes contained in .emacs.d/personal/el-get/recipes:
+(el-get 'sync
+        (mapcar
+         (lambda (path)
+           (let ((name (file-name-nondirectory (file-name-sans-extension path))))
+             (message "el-get loading: %s" name)
+             name))
+         (file-expand-wildcards
+          (concat (file-truename (car el-get-recipe-path)) "/*.rcp"))))
 
 (require 'dash)
 
@@ -191,6 +203,7 @@ in under one default directory in users prelude folder."
 (global-set-key (kbd "H-[") 'windmove-left)
 (global-set-key (kbd "<C-s-left>") 'windmove-left)
 (global-set-key (kbd "<C-home>") 'windmove-left)
+
 (require 'buffer-move)
 (global-set-key (kbd "<S-prior>") 'buf-move-up)
 (global-set-key (kbd "<S-next>") 'buf-move-down)
@@ -199,6 +212,12 @@ in under one default directory in users prelude folder."
 
 (global-set-key (kbd "<s-home>") 'previous-buffer)
 (global-set-key (kbd "<s-end>") 'next-buffer)
+
+;; Alternatives for apple extended keyboard
+(global-set-key (kbd "<f13> <up>") 'buf-move-up)
+(global-set-key (kbd "<f13> <down>") 'buf-move-down)
+(global-set-key (kbd "<f13> <left>") 'buf-move-left)
+(global-set-key (kbd "<f13> <right>") 'buf-move-right)
 
 (require 'ido)
 (require 'flx-ido)
@@ -305,6 +324,16 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-h w") 'helm-world-time)
 (global-set-key (kbd "H-h s") 'helm-swoop)
 (global-set-key (kbd "C-c m") 'helm-mini)
+
+;; adding alternative for apple extended keyboard
+(global-set-key (kbd "<f13> p") 'helm-projectile)
+(global-set-key (kbd "<f13> g") 'helm-do-grep)
+(global-set-key (kbd "<f13> f") 'helm-find-files)
+(global-set-key (kbd "<f13> r") 'helm-resume)
+(global-set-key (kbd "<f13> b") 'helm-bookmarks)
+(global-set-key (kbd "<f13> <f13>") 'helm-buffers-list)
+(global-set-key (kbd "<f13> w") 'helm-world-time)
+(global-set-key (kbd "<f13> s") 'helm-swoop)
 
 (setq display-time-world-list
       '(("America/Los_Angeles" "Santa Barbara")
@@ -1552,6 +1581,26 @@ of iz-log-dir."
 (global-set-key (kbd "H-h H-a") 'org-agenda-list)
 (global-set-key (kbd "H-h H-t") 'org-todo-list)
 
+;; Adding alternatives for apple extended keyboard
+(global-set-key (kbd "<f13> m") 'iz-org-file-command-menu)
+;; (global-set-key (kbd "<f13> <f13>") 'iz-org-file-command-menu)
+(global-set-key (kbd "<f13> f") 'iz-find-file-flat)
+(global-set-key (kbd "<f13> F") 'iz-find-file)
+(global-set-key (kbd "<f13> S") 'sr-speedbar-toggle)
+(global-set-key (kbd "<f13> d") 'iz-open-project-folder)
+(global-set-key (kbd "<f13> l") 'iz-log-flat)
+(global-set-key (kbd "<f13> L") 'iz-log)
+(global-set-key (kbd "<f13> C-l") 'iz-goto-last-selected-file)
+(global-set-key (kbd "<f13> i") 'iz-insert-file-as-snippet)
+(global-set-key (kbd "<f13> t") 'iz-todo)
+(global-set-key (kbd "<f13> r") 'iz-refile)
+(global-set-key (kbd "<f13> r") 'iz-refile-to-date-tree)
+(global-set-key (kbd "<f13> g") 'iz-goto)
+(global-set-key (kbd "<f13> c w") 'iz-refile)
+(global-set-key (kbd "<f13> c a") 'org-agenda)
+(global-set-key (kbd "<f13> a") 'org-agenda-list)
+(global-set-key (kbd "<f13> t") 'org-todo-list)
+
 ;; Experimental:
 (defun iz-make-finance-capture-template ()
   (setq org-capture-templates
@@ -1972,6 +2021,8 @@ with the docpad website framework."
         "~/Documents/Dev"
         "~/.emacs.d/personal"
 ))
+;; needed since version 1.4.0:
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 (toggle-frame-fullscreen)
 (org-todo-list)

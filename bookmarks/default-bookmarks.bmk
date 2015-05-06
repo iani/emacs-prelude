@@ -2,6 +2,7 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
+<<<<<<< HEAD
 (#1=(#("Performigrations-sc" 0 19
       (bmkp-full-record #1#))
     (buffer-name . "secretschoolsc")
@@ -195,14 +196,33 @@
     (position . 976)
     (filename . "/Users/iani/Dropbox/000WORKFILES/6_WEBSITES-WIKI/")
     (dired-directory . "~/Dropbox/000WORKFILES/6_WEBSITES-WIKI/")
+=======
+(#1=(#("supecollider-extensions" 0 23
+      (bmkp-full-record #1#))
+    (buffer-name . "Extensions")
+    (front-context-string . ".DS_Store\nH drwx")
+    (rear-context-string . "48 May  3 15:32 ")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 1)
+    (time 21830 7666 654373 0)
+    (created 21830 7610 453729 0)
+    (position . 256)
+    (filename . "/Users/iani/Library/Application Support/SuperCollider/Extensions/")
+    (dired-directory . "~/Library/Application Support/SuperCollider/Extensions/")
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
     (dired-marked)
     (dired-switches . "-al")
     (dired-subdirs)
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
+<<<<<<< HEAD
 #1=(#("bach" 0 1
       (bmkp-full-record #1#)
       1 4
+=======
+#1=(#("bach" 0 4
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
       (bmkp-full-record #1#))
     (buffer-name . "bach")
     (front-context-string . ".DS_Store\n  drwx")
@@ -363,8 +383,8 @@
     (rear-context-string . "79 Jun 18  2014 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 1)
-    (time 21749 48270 790068 0)
+    (visits . 2)
+    (time 21830 7648 986693 0)
     (created 21749 39194 858375 0)
     (position . 798)
     (filename . "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/")
@@ -423,8 +443,8 @@
     (rear-context-string . "48 Sep 28 12:40 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 7)
-    (time 21755 16604 276332 0)
+    (visits . 8)
+    (time 21830 7599 388720 0)
     (created 21722 9326 59147 0)
     (position . 256)
     (filename . "/Users/iani/Library/Application Support/SuperCollider/Extensions/")
@@ -486,17 +506,28 @@
       (bmkp-full-record #1#)
       1 8
       (bmkp-full-record #1#))
+<<<<<<< HEAD
     (end-position . 52515)
+=======
+    (end-position . 53269)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
     (filename . "~/.emacs.d/personal/user/iani.org")
     (buffer-name . "iani.org")
     (front-context-string . "\n  (defun iz-upd")
     (rear-context-string . "rg-show-entry))\n")
     (front-context-region-string)
     (rear-context-region-string)
+<<<<<<< HEAD
     (visits . 104)
     (time 21798 28031 886711 0)
     (created 21676 59515 52572 0)
     (position . 52515))
+=======
+    (visits . 110)
+    (time 21832 4006 414051 0)
+    (created 21676 59515 52572 0)
+    (position . 53269))
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
 #1=(#("publications_others" 0 1
       (bmkp-full-record #1#)
       1 19
@@ -566,8 +597,8 @@
     (rear-context-string . "72 Mar 18  2014 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 7)
-    (time 21773 18202 958870 0)
+    (visits . 11)
+    (time 21831 7432 832364 0)
     (created 21654 40991 820304 0)
     (position . 870)
     (filename . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/")
@@ -778,8 +809,8 @@
     (rear-context-string . "64 Jun 26 13:23 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 3)
-    (time 21749 39182 343427 0)
+    (visits . 4)
+    (time 21830 7400 907190 0)
     (created 21640 27389 104719 0)
     (position . 247)
     (filename . "/Users/iani/Documents/Dev/SuperCollider/")
@@ -886,8 +917,8 @@
     (rear-context-string . "55 Nov 27 00:26 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 3)
-    (time 21642 5255 402838 0)
+    (visits . 4)
+    (time 21831 5810 626649 0)
     (created 21633 40597 557801 0)
     (position . 1457)
     (filename . "/Users/iani/.emacs.d/")
@@ -927,8 +958,8 @@
     (rear-context-string)
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 5)
-    (time 21763 25827 33972 0)
+    (visits . 6)
+    (time 21831 5386 505189 0)
     (created 21633 21059 609023 0)
     (position . 1))
 #1=(#("Google Drive" 0 1
@@ -987,6 +1018,7 @@
     (handler . bmkp-jump-dired))
 #1=(#("org-capture-last-stored" 0 23
       (bmkp-full-record #1#))
+<<<<<<< HEAD
     (filename . "~/Dropbox/000WORKFILES/0_PRIVATE/DIARY.org")
     (buffer-name . "DIARY.org")
     (front-context-string . "**** email mavro")
@@ -997,6 +1029,20 @@
     (time . #2=(21815 52761 318328 0))
     (created . #2#)
     (position . 40721))
+=======
+    (annotation)
+    (tags)
+    (filename . "~/Dropbox/000WORKFILES/6_WEBSITES-ORG/SUDEL.org")
+    (buffer-name . "SUDEL.org")
+    (front-context-string . "**** Maya Plisse")
+    (rear-context-string . "kinslecture.pdf\n")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21830 13238 303664 0))
+    (created . #2#)
+    (position . 144726))
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
 #1=(#("supercollider-scratchpad" 0 1
       (bmkp-full-record #1#)
       1 24
@@ -1131,13 +1177,23 @@
     (handler . bmkp-jump-desktop))
 #1=(#("auto-save-desktop" 0 17
       (bmkp-full-record #1#))
+<<<<<<< HEAD
     (buffer-name . "*cfw-calendar*")
     (visits . 0)
     (time . #2=(21834 5414 242943 0))
     (created . #2#)
     (position . 431)
+=======
+    (annotation)
+    (tags)
+    (buffer-name . "el-get")
+    (visits . 0)
+    (time . #2=(21832 8218 626490 0))
+    (created . #2#)
+    (position . 445)
+>>>>>>> b91bd98e0e2a01eaa4fbf27ebb9fd11bf571a9c3
     (filename . "   - no file -")
-    (desktop-file . "/Users/iani/Documents/Dev/Emacs/my-emacs-prelude-config/bookmarks/desktops/auto-save-desktop.desktop")
+    (desktop-file . "/Users/iani/.emacs.d/personal/bookmarks/desktops/auto-save-desktop.desktop")
     (handler . bmkp-jump-desktop))
 #1=(#("home" 0 1
       (bmkp-full-record #1#)
@@ -1168,8 +1224,8 @@
     (rear-context-string . "10 Dec  2 11:38 ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 18)
-    (time 21777 33543 101045 0)
+    (visits . 21)
+    (time 21832 3679 288797 0)
     (created 21629 34961 75199 0)
     (position . 707)
     (filename . "/Users/iani/Documents/Dev/Emacs/")
