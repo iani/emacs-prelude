@@ -2102,10 +2102,17 @@ Enable some cool languages in org-babel mode.
     (interactive)
     (org-babel-load-file (buffer-file-name (current-buffer))))
 
+  (defun org-babel-compile-current-file ()
+    (interactive)
+    (org-babel-load-current-file)
+    (byte-compile-file (concat (file-name-sans-extension (buffer-file-name)) ".el")))
+
   ;; Note: Overriding default key binding to provide consistent pattern:
   ;; C-c C-v f -> tangle, C-c C-v C-f -> load
   (eval-after-load 'org
     '(define-key org-mode-map (kbd "C-c C-v C-f") 'org-babel-load-current-file))
+  (eval-after-load 'org
+    '(define-key org-mode-map (kbd "C-c C-v C-F") 'org-babel-compile-current-file))
 #+END_SRC
 
 #+RESULTS:
