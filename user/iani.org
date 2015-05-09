@@ -7,15 +7,14 @@
 :END:
 *** Current theme: moe-dark
 #+BEGIN_SRC emacs-lisp
-  (require 'moe-theme)
-  (moe-dark)
+  (load-theme 'tangotango)
 #+END_SRC
 *** Powerline
 
 #+BEGIN_SRC emacs-lisp
 (require 'powerline)
 ;; (powerline-default-theme)
-(powerline-moe-theme)
+;; (powerline-moe-theme)
 #+END_SRC
 *** Alternative theme: firebelly
 
@@ -25,6 +24,8 @@
 #+END_SRC
 *** Notes / other alternatives
 
+- (require 'moe-theme)
+  (moe-dark)
 - firebelly
 - (not:) hipster (problems with elisp commented lines)
 

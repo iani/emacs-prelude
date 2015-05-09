@@ -1,10 +1,9 @@
 
-(require 'moe-theme)
-(moe-dark)
+(load-theme 'tangotango)
 
 (require 'powerline)
 ;; (powerline-default-theme)
-(powerline-moe-theme)
+;; (powerline-moe-theme)
 
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-12"))
@@ -459,6 +458,7 @@ Symbols matching the text at point are put first in the completion list."
 (key-chord-define-global "jk"     'ace-jump-char-mode)
 (key-chord-define-global "jj"     'ace-jump-word-mode)
 (key-chord-define-global "jl"     'ace-jump-line-mode)
+(key-chord-define-global "j;"     'ace-window)
 
 (key-chord-define-global "hj"     'undo)
 
