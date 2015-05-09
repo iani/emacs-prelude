@@ -5,7 +5,7 @@
 :PROPERTIES:
 :DATE:     [2014-12-02 Tue 11:21]
 :END:
-*** Current theme: moe-dark
+*** Current theme: tangotango
 #+BEGIN_SRC emacs-lisp
   (load-theme 'tangotango)
 #+END_SRC
@@ -13,7 +13,7 @@
 
 #+BEGIN_SRC emacs-lisp
 (require 'powerline)
-;; (powerline-default-theme)
+(powerline-default-theme)
 ;; (powerline-moe-theme)
 #+END_SRC
 *** Alternative theme: firebelly

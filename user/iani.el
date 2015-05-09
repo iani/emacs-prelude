@@ -2,7 +2,7 @@
 (load-theme 'tangotango)
 
 (require 'powerline)
-;; (powerline-default-theme)
+(powerline-default-theme)
 ;; (powerline-moe-theme)
 
 (add-to-list 'default-frame-alist
