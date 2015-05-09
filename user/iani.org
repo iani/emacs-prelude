@@ -706,6 +706,7 @@ Note: since March 2014 I mostly use helm-M-x (bound to Hyper-meta-x) instead of 
   (key-chord-define-global "jk"     'ace-jump-char-mode)
   (key-chord-define-global "jj"     'ace-jump-word-mode)
   (key-chord-define-global "jl"     'ace-jump-line-mode)
+  (key-chord-define-global "j;"     'ace-window)
 
   (key-chord-define-global "hj"     'undo)
 
