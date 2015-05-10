@@ -160,7 +160,7 @@ static char *gnus-pointer[] = {
  '(rainbow-delimiters-depth-3-face ((t (:foreground "#009933"))))
  '(rainbow-delimiters-depth-4-face ((t (:foreground "#3366FF"))))
  '(rainbow-delimiters-depth-5-face ((t (:foreground "#77BBFF"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "yellow"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "gold1"))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "#FF99CC"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "orange"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "#C00")))))
