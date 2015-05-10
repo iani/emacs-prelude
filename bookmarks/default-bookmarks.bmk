@@ -346,17 +346,17 @@
       (bmkp-full-record #1#)
       1 8
       (bmkp-full-record #1#))
-    (end-position . 53824)
+    (end-position . 53853)
     (filename . "~/.emacs.d/personal/user/iani.org")
     (buffer-name . "iani.org")
     (front-context-string . "\n  (defun iz-upd")
     (rear-context-string . "rg-show-entry))\n")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 116)
-    (time 21838 27505 963527 0)
+    (visits . 117)
+    (time 21839 14258 578862 0)
     (created 21676 59515 52572 0)
-    (position . 53824))
+    (position . 53853))
 #1=(#("publications_others" 0 1
       (bmkp-full-record #1#)
       1 19
