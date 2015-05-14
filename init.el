@@ -22,8 +22,8 @@
         (normal-top-level-add-subdirs-to-load-path))
 ;;; Load user-specific files, if present.
 ;;; 1: user/<username>.org
-    (message "this here is the user custom org file %s" user-custom-org-file)
-    (message " and it exists or not? %s" (file-exists-p user-custom-org-file))
+;;    (message "this here is the user custom org file %s" user-custom-org-file)
+;;    (message " and it exists or not? %s" (file-exists-p user-custom-org-file))
     (when (file-exists-p user-custom-org-file)
       (require 'org)
       (org-babel-load-file user-custom-org-file))
