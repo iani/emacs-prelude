@@ -687,6 +687,10 @@ Note: since March 2014 I mostly use helm-M-x (bound to Hyper-meta-x) instead of 
 #+END_SRC
 
 *** Key Chords
+:PROPERTIES:
+:ID:       0678E664-1B85-43A7-A8D1-D0D2E00394F5
+:eval-id:  3
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (require 'key-chord)
@@ -708,7 +712,7 @@ Note: since March 2014 I mostly use helm-M-x (bound to Hyper-meta-x) instead of 
   (key-chord-define-global "jj"     'ace-jump-word-mode)
   (key-chord-define-global "jl"     'ace-jump-line-mode)
   (key-chord-define-global "j;"     'ace-window)
-  (key-chord-define-global "ww"     'ace-window)
+  (key-chord-define-global "§§"     'ace-window)
 
   (key-chord-define-global "hj"     'undo)
 
