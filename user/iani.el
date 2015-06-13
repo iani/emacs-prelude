@@ -459,7 +459,7 @@ Symbols matching the text at point are put first in the completion list."
 (key-chord-define-global "jj"     'ace-jump-word-mode)
 (key-chord-define-global "jl"     'ace-jump-line-mode)
 (key-chord-define-global "j;"     'ace-window)
-(key-chord-define-global "ww"     'ace-window)
+(key-chord-define-global "§§"     'ace-window)
 
 (key-chord-define-global "hj"     'undo)
 
