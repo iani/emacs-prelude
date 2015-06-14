@@ -2,48 +2,125 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Sat Jun 13 22:15:59 2015
+;; Created Sun Jun 14 06:49:11 2015
 ;; Desktop file format version 206
 ;; Emacs version 24.4.1
 
 ;; Global section:
-(setq desktop-saved-frameset [frameset 1 (21884 33135 527858 0) (desktop . "206") "iani@turangalila2.lan" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#eeeeec") (background-color . "#2e3434") (line-spacing) (left-fringe . 10) (right-fringe . 11) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display-type . color) (background-mode . dark) (cursor-color . "#FF5") (powerline-cache) (frameset--id . "FF17-6ECA-F73F-AB15") (frameset--mini t) (height . 74) (width . 200) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 0) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (display . "turangalila2.lan") (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 20) (min-height-ignore . 3) (min-width-ignore . 16) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 48) (min-pixel-width . 140) (min-pixel-height-ignore . 36) (min-pixel-width-ignore . 112) (min-pixel-height-safe . 12) (min-pixel-width-safe . 28)) hc (pixel-width . 1436) (pixel-height . 884) (total-width . 205) (total-height . 73) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 715) (pixel-height . 884) (total-width . 102) (total-height . 73) (normal-height . 1.0) (normal-width . 0.5) (buffer "SUDEL.org" (selected) (hscroll . 0) (fringes 10 11 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 226754) (start . 1))) (leaf (last . t) (pixel-width . 721) (pixel-height . 884) (total-width . 103) (total-height . 73) (normal-height . 1.0) (normal-width . 0.5) (buffer "6_WEBSITES-ORG/README.org" (selected . t) (hscroll . 0) (fringes 10 11 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1)))) (((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#eeeeec") (background-color . "#2e3434") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2.lan") (display-type . color) (background-mode . dark) (cursor-color . "#FF5") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache . "Unprintable entity") (maximized) (frameset--id . "62B3-72D9-BBBE-1EDE") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 74) (width . 201) (left . 0) (top . 0)) ((min-height . 4) (min-width . 20) (min-height-ignore . 2) (min-width-ignore . 14) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 48) (min-pixel-width . 140) (min-pixel-height-ignore . 24) (min-pixel-width-ignore . 98) (min-pixel-height-safe . 12) (min-pixel-width-safe . 28)) hc (pixel-width . 1436) (pixel-height . 884) (total-width . 205) (total-height . 74) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 719) (pixel-height . 884) (total-width . 103) (total-height . 74) (normal-height . 1.0) (normal-width . 0.5) (buffer "Chuck.sc" (selected) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 1567) (start . 1))) (leaf (last . t) (pixel-width . 717) (pixel-height . 884) (total-width . 102) (total-height . 74) (normal-height . 1.0) (normal-width . 0.5) (buffer "*SCLang:PostBuffer*" (selected) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 3609) (start . 1501)))))])
+(setq desktop-saved-frameset [frameset 1 (21884 63927 62962 0) (desktop . "206") "iani@turangalila2-2.local" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Anonymous Pro-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#eeeeec") (background-color . "#2e3434") (line-spacing) (left-fringe . 7) (right-fringe . 7) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen . fullboth) (display . "turangalila2-2.local") (display-type . color) (background-mode . dark) (cursor-color . "#FF5") (visibility . t) (horizontal-scroll-bars . t) (environment) (powerline-cache) (maximized) (frameset--id . "62B3-72D9-BBBE-1EDE") (frameset--mini t . t) (modeline . t) (minibuffer . t) (unsplittable) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (explicit-name) (tool-bar-position . top) (height . 74) (width . 201) (left . 0) (top . 0)) ((min-height . 4) (min-width . 20) (min-height-ignore . 4) (min-width-ignore . 14) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 48) (min-pixel-width . 140) (min-pixel-height-ignore . 48) (min-pixel-width-ignore . 98) (min-pixel-height-safe . 12) (min-pixel-width-safe . 28)) hc (pixel-width . 1436) (pixel-height . 876) (total-width . 205) (total-height . 73) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 715) (pixel-height . 876) (total-width . 102) (total-height . 73) (normal-height . 1.0) (normal-width . 0.5) (buffer "*Help*" (selected) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1))) (leaf (last . t) (pixel-width . 721) (pixel-height . 876) (total-width . 103) (total-height . 73) (normal-height . 1.0) (normal-width . 0.5) (buffer "*Org Src iani.org[ emacs-lisp ]*" (selected . t) (hscroll . 0) (fringes 7 7 nil) (margins nil) (scroll-bars 15 3 t nil) (vscroll . 0) (dedicated) (point . 12354) (start . 9788)))))])
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
 (setq register-alist nil)
-(setq file-name-history '("~/Copy/000WORKFILES/6_WEBSITES-ORG/README.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckSource.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/TUTORIAL.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/README.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/MOTTO.txt" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ToxPatternFirstTries.scd" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckOperator.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/TUTORIAL.org" "~/Copy/000WORKFILES/3_JOINT_PROJECTS/EASTN_TS/IZ.xls" "~/Copy/000WORKFILES/3_JOINT_PROJECTS/EASTN_TS" "~/Documents/Dev/SuperCollider/tiny-sc/OperatorOverview.org" "~/Documents/Dev/SuperCollider/tiny-sc/TUTORIAL.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskPlayerOperators.sc" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/Chuck.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/SimpleEffectExample.scd" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChainingTaskOperators.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/*>OperatorTests.scd" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckSource.sc" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckOperator.sc" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskFilters.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskPlayerOperators.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG"))
+(setq file-name-history '("/Users/iani/Documents/Dev/SuperCollider/tiny-sc/TUTORIAL.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/README.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/MOTTO.txt" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ToxPatternFirstTries.scd" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckOperator.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/TUTORIAL.org" "~/Copy/000WORKFILES/3_JOINT_PROJECTS/EASTN_TS/IZ.xls" "~/Copy/000WORKFILES/3_JOINT_PROJECTS/EASTN_TS" "~/Documents/Dev/SuperCollider/tiny-sc/OperatorOverview.org" "~/Documents/Dev/SuperCollider/tiny-sc/TUTORIAL.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskPlayerOperators.sc" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/Chuck.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/SimpleEffectExample.scd" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChainingTaskOperators.org" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/*>OperatorTests.scd" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckSource.sc" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckOperator.sc" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskFilters.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskPlayerOperators.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChainingTaskOperators.org" "~/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskPlayerOperators.sc" "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/.git/COMMIT_EDITMSG"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/iani/Copy/000WORKFILES/6_WEBSITES-ORG/README.org"
-  "README.org"
-  'text-mode
-  '(abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode magit-auto-revert-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Copy/000WORKFILES/6_WEBSITES-ORG/SUDEL.org"
-  "SUDEL.org"
+  "/Users/iani/.emacs.d/personal/user/iani.org"
+  "iani.org"
   'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  226754
-  '(197953 nil)
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  65445
+  '(52468 nil)
   nil
   nil
   '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
-  "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/SCClassLibrary/Common/Collections/Event.sc"
-  "Event.sc"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  1
+  nil
+  "000WORKFILES"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  2784
+  '(2784 nil)
+  t
+  '("/Users/iani/Copy/000WORKFILES/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/iani/Copy/000WORKFILES/0_PRIVATE/DIARY.org"
+  "DIARY.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  4611
   '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Copy/000WORKFILES/4_INSTALLATIONS/Performigrations.org"
+  "Performigrations.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  214699
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/.emacs.d/elpa/helm-20141201.222/helm-grep.el"
+  "helm-grep.el"
+  'emacs-lisp-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode auto-complete-mode paredit-mode rainbow-delimiters-mode hs-minor-mode)
+  31696
+  '(32579 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/_EXAMS_AUD821AlgorithmicComposition.org"
+  "_EXAMS_AUD821AlgorithmicComposition.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  1001
+  '(1001 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  nil
+  "2_AVARTS_CLASSES_AND_EXAMS"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
+  1119
+  '(1119 nil)
+  t
+  '("/Users/iani/Copy/000WORKFILES/2_AVARTS_CLASSES_AND_EXAMS/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/iani/Copy/000WORKFILES/2_AVARTS_STUDENTS_PHD/ArisBezas.org"
+  "ArisBezas.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  613
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Dropbox/notes-deft/file1.org"
+  "file1.org"
+  'org-mode
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  19
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckOperator.sc"
+  "ChuckOperator.sc"
+  'sclang-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode)
+  443
+  '(162 nil)
   nil
   nil
   '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
@@ -52,20 +129,9 @@
   "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/Chuck.sc"
   "Chuck.sc"
   'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  395
-  '(5288 nil)
-  nil
-  nil
-  '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckOperator.sc"
-  "ChuckOperator.sc"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  1398
-  '(1323 nil)
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode)
+  1
+  '(nil nil)
   nil
   nil
   '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
@@ -74,117 +140,18 @@
   "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/README.org"
   "README.org"
   'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  1436
-  '(3365 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChuckSource.sc"
-  "ChuckSource.sc"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  1888
-  '(1681 nil)
-  nil
-  nil
-  '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskFilters.sc"
-  "TaskFilters.sc"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  1447
-  '(1466 nil)
-  nil
-  nil
-  '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskPlayer.sc"
-  "TaskPlayer.sc"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  973
-  '(1297 nil)
-  nil
-  nil
-  '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/TaskPlayerOperators.sc"
-  "TaskPlayerOperators.sc"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  3217
-  '(918 nil)
-  nil
-  nil
-  '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/ChainingTaskOperators.org"
-  "ChainingTaskOperators.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  942
-  '(906 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "Chuck"
-  'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode magit-auto-revert-mode)
-  319
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
+  163
   '(nil nil)
-  t
-  '("/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Classes/Chuck/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/Help/SubPatterns.scd"
-  "SubPatterns.scd"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  1467
-  '(1436 nil)
   nil
   nil
-  '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Library/Application Support/SuperCollider/Extensions/tiny-sc/Classes/Shortcuts/UGenPlusOut.sc"
-  "UGenPlusOut.sc"
-  'sclang-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode auto-complete-mode rainbow-delimiters-mode yas-minor-mode magit-auto-revert-mode)
-  1998
-  '(4168 nil)
-  nil
-  nil
-  '((tab-width . 4) (indent-tabs-mode . t) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/iani/Copy/000WORKFILES/1_DEV_NOTES/supercollider.org"
-  "supercollider.org"
-  'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
-  9420
-  '(9388 nil)
-  nil
-  nil
-  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines)))
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines)))
 
 (desktop-create-buffer 206
   "/Users/iani/Documents/Dev/SuperCollider/tiny-sc/TUTORIAL.org"
   "TUTORIAL.org"
   'org-mode
-  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode magit-auto-revert-mode)
+  '(abbrev-mode visual-line-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode org-indent-mode)
   5759
   '(3176 nil)
   nil
@@ -195,7 +162,7 @@
   nil
   "tiny-sc"
   'dired-mode
-  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode magit-auto-revert-mode)
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode diff-hl-dired-mode)
   796
   '(nil nil)
   t

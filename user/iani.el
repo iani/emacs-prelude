@@ -323,6 +323,7 @@ asks to select a *subdir* of selected project to dired."
 (global-set-key (kbd "H-h w") 'helm-world-time)
 (global-set-key (kbd "H-h s") 'helm-swoop)
 (global-set-key (kbd "C-c m") 'helm-mini)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 ;; adding alternative for apple extended keyboard
 (global-set-key (kbd "<f13> p") 'helm-projectile)
@@ -1385,6 +1386,14 @@ of iz-log-dir."
           (org-agenda-capture)
        (org-capture goto)))))
 
+(defun iz-helm-ack ()
+  (interactive)
+  (dired iz-log-dir)
+  (let ((helm-grep-use-ack-p t))
+    (helm-do-grep)))
+
+(global-set-key (kbd "H-h a") 'iz-helm-ack)
+
 (defun org-capture-store-template-selection (&optional capt-template)
   "Keep list of 20 latest log files used."
   ;; (message "the arg is: %s" capt-template)
@@ -2022,6 +2031,21 @@ with the docpad website framework."
       (message (format "written to path: %s" path))))
 
 (global-set-key (kbd "H-e H-b") 'org-html-export-as-html-body-only)
+
+(require 'deft)
+(setq deft-directory "~/Dropbox/notes-deft")
+(setq deft-extension "org")
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(global-set-key [f8] 'deft)
+
+(defun iz-deft ()
+  "Change DEFT-DIRECTORY to a directory selected interactively."
+  (interactive)
+  (setq deft-directory (concat iz-log-dir (iz-select-folder)))
+  (deft-setup)
+  (deft))
+(global-set-key (kbd "H-h d") 'iz-deft)
 
 (setq magit-repo-dirs
       '(

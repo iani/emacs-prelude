@@ -74,6 +74,7 @@ static char *gnus-pointer[] = {
 \"###..######.######\",
 \"###########.######\" };")) t)
  '(guru-global-mode nil)
+ '(helm-grep-preferred-ext "*.org")
  '(highlight-symbol-colors
    (quote
     ("#EFFF00" "#73CD4F" "#83DDFF" "MediumPurple1" "#66CDAA" "DarkOrange" "HotPink1" "#809FFF" "#ADFF2F")))

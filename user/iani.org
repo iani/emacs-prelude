@@ -526,6 +526,7 @@ https://raw.github.com/ShingoFukuyama/helm-swoop/
   (global-set-key (kbd "H-h w") 'helm-world-time)
   (global-set-key (kbd "H-h s") 'helm-swoop)
   (global-set-key (kbd "C-c m") 'helm-mini)
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
   ;; adding alternative for apple extended keyboard
   (global-set-key (kbd "<f13> p") 'helm-projectile)
@@ -1858,6 +1859,14 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
             (org-agenda-capture)
          (org-capture goto)))))
 
+  (defun iz-helm-ack ()
+    (interactive)
+    (dired iz-log-dir)
+    (let ((helm-grep-use-ack-p t))
+      (helm-do-grep)))
+
+  (global-set-key (kbd "H-h a") 'iz-helm-ack)
+
   (defun org-capture-store-template-selection (&optional capt-template)
     "Keep list of 20 latest log files used."
     ;; (message "the arg is: %s" capt-template)
@@ -2732,8 +2741,32 @@ Old style: Load from local file
 
 This will be replaced by el-get to load from git repository.
 
+** deft
+:PROPERTIES:
+:DATE:     <2015-06-13 Sat 22:20>
+:END:
 
 
+See:http://jblevins.org/projects/deft/ and http://jonathanchu.is/posts/setting-up-deft-mode-in-emacs-with-org-mode/
+
+#+BEGIN_SRC emacs-lisp
+(require 'deft)
+(setq deft-directory "~/Dropbox/notes-deft")
+(setq deft-extension "org")
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(global-set-key [f8] 'deft)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun iz-deft ()
+    "Change DEFT-DIRECTORY to a directory selected interactively."
+    (interactive)
+    (setq deft-directory (concat iz-log-dir (iz-select-folder)))
+    (deft-setup)
+    (deft))
+  (global-set-key (kbd "H-h d") 'iz-deft)
+#+END_SRC
 ** Magit (git for emacs) Add git repositories)
 
 Magit config: Manage git repos from inside emacs
