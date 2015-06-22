@@ -666,9 +666,16 @@ Symbols matching the text at point are put first in the completion list."
   (expand-file-name "~/Library/Application Support/SuperCollider"))
 
 ;; Make path of sclang executable available to emacs shell load path
+
+;; For Version 3.6.6:
 (add-to-list
  'exec-path
  "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/")
+
+;; For Version 3.7:
+(add-to-list
+ 'exec-path
+ "/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/")
 
 ;; Global keyboard shortcut for starting sclang
 (global-set-key (kbd "C-c M-s") 'sclang-start)
