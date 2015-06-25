@@ -1,4 +1,4 @@
-_June 2015: Please see https://github.com/iani/emacs-init for a newer version_
+*June 2015: Please see https://github.com/iani/emacs-init for a newer version*
 
 Parts of tbe present repository are now moved to separate repos as independent libraries.
 
