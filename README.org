@@ -1,3 +1,13 @@
+_June 2015: Please see https://github.com/iani/emacs-init for a newer version_
+
+Parts of tbe present repository are now moved to separate repos as independent libraries.
+
+- https://github.com/iani/org-pm
+- https://github.com/iani/org-notes
+
+
+-------
+
 These are the contents of folder "personal" in my .emacs.d folder.
 
 I use emacs-prelude (https://github.com/bbatsov/prelude) to manage configuration.
