@@ -1,5 +1,8 @@
 #+LATEX_TEMPLATE_COPY: /Users/iani/.emacs.d/personal/user/attachments/iani/tufte-handout-fixed.tex
 #+LATEX_TEMPLATE: /Users/iani/Copy/000WORKFILES/1_SNIPPETS_AND_TEMPLATES/tufte-handout-fixed.tex
+
+Note: Tidying and simplification started on: [2016-01-22 Fri]
+
 * Generic Emacs Customization
 ** Theme (experimental)
 :PROPERTIES:
