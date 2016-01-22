@@ -39,7 +39,7 @@ hl-line face background colors
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
-               '(font . "Anonymous Pro-12"))
+               '(font . "Anonymous Pro for Powerline-12"))
 
   (defun larger-frame-font ()
     (interactive)
@@ -250,7 +250,7 @@ I load it here to have it available when experimenting with code.
 #+RESULTS:
 : dash
 *** desktop
-    :PROPERTIES:
+:PROPERTIES:
     :ID:       8B25CBFB-8990-4B53-B364-967461073337
     :eval-id:  2
     :END:
@@ -1082,6 +1082,19 @@ Emacs sexp, install emacs web-beautify package:
 
 ** org-mode
 
+*** encryption
+:PROPERTIES:
+:DATE:     <2015-08-25 Tue 21:03>
+:END:
+
+#+BEGIN_SRC emacs-lisp
+(require 'epa-file)
+(epa-file-enable)
+#+END_SRC
+
+#+RESULTS:
+: `epa-file' already enabled
+
 *** Using ido for org-goto
 
 #+BEGIN_SRC emacs-lisp
@@ -1287,35 +1300,6 @@ Adapted from:
           ("SOMEDAY" . (:foreground "gray" :weight bold))))
 #+END_SRC
 
-*** Mobile Org
-
-#+BEGIN_SRC emacs-lisp
-  ;; the rest of the setup was done by customizing the variables
-  ;; org-mobile-directory and org-mobile-inbox-for-pull, and is in custom.el
-
-  (global-set-key (kbd "H-h m p") 'org-mobile-push)
-  (global-set-key (kbd "H-h m l") 'org-mobile-pull)
-
-#+END_SRC
-
-Following was tested, works OK, but is disabled for the moment:
-
-http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
-
-#+BEGIN_SRC elisp
-(defun install-monitor (file secs)
-  (run-with-timer
-   0 secs
-   (lambda (f p)
-     (unless (< p (second (time-since (elt (file-attributes f) 5))))
-       (org-mobile-pull)))
-   file secs))
-
-(defvar monitor-timer
-  (install-monitor (concat org-mobile-directory "/mobileorg.org") 30)
-  "Check if file changed every 30 s.")
-
-#+END_SRC
 *** line->headline
 
 #+BEGIN_SRC emacs-lisp
@@ -1616,57 +1600,6 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
       (org-paste-subtree 4)
       (save-buffer)
       (find-file origin-filename)))
-
-  (defun org-process-entry-from-mobile-org ()
-    "Get time from mobile-entry and put it in DATE property."
-    (interactive)
-    (org-back-to-heading 1)
-    (next-line 1)
-    (let ((time (cadr (org-element-timestamp-parser))))
-      (org-entry-put nil "DATE" (plist-get time :raw-value)))
-    (outline-next-heading))
-
-  (defun iz-get-and-refile-mobile-entries ()
-    "Refile mobile entries to log buffer.
-  Use timestamp from mobile to refile under date-tree.
-
-  After finishing the refile operation, save a copy of the
-  processed file with a timestamp, and erase the contents of
-  from-mobile.org, to wait for next pull operation."
-    (interactive)
-   (org-mobile-pull)
-   (let* ((mobile-file (file-truename "~/org/from-mobile.org"))
-          (mobile-buffer (find-file mobile-file))
-          (log-buffer (find-file (concat iz-log-dir "0_PRIVATE/DIARY.org"))))
-     (with-current-buffer
-         mobile-buffer
-       (org-map-entries
-        (lambda ()
-          (let* ((timestamp
-                  (cdr (assoc "TIMESTAMP_IA" (org-entry-properties))))
-                 (date
-                  (calendar-gregorian-from-absolute
-                   (org-time-string-to-absolute timestamp))))
-            (org-copy-subtree)
-            (with-current-buffer
-                log-buffer
-              (org-datetree-find-date-create date)
-              (move-end-of-line nil)
-              (open-line 1)
-              (next-line)
-              (org-paste-subtree 4)
-              (org-set-property "DATE" (concat "<" timestamp ">"))
-              (org-set-tags-to ":mobileorg:"))))))
-     (copy-file
-      mobile-file
-      (concat
-       (file-name-sans-extension mobile-file)
-       (format-time-string "%Y-%m-%d-%H-%M-%S")
-       ".org"))
-     (with-current-buffer
-         mobile-buffer
-       (erase-buffer)
-       (save-buffer))))
 
   (defun iz-refile-notes-to-log ()
     "Refile notes entered from terminal with quick-entry to log file.
@@ -2099,6 +2032,61 @@ http://kenmankoff.com/2012/08/17/emacs-org-mode-and-mobileorg-auto-sync/
             ))))
 #+END_SRC
 
+*** Mobile org
+#+BEGIN_SRC elisp
+
+  (defun org-process-entry-from-mobile-org ()
+    "Get time from mobile-entry and put it in DATE property."
+    (interactive)
+    (org-back-to-heading 1)
+    (next-line 1)
+    (let ((time (cadr (org-element-timestamp-parser))))
+      (org-entry-put nil "DATE" (plist-get time :raw-value)))
+    (outline-next-heading))
+
+  (defun iz-get-and-refile-mobile-entries ()
+    "Refile mobile entries to log buffer.
+  Use timestamp from mobile to refile under date-tree.
+
+  After finishing the refile operation, save a copy of the
+  processed file with a timestamp, and erase the contents of
+  from-mobile.org, to wait for next pull operation."
+    (interactive)
+   (org-mobile-pull)
+   (let* ((mobile-file (file-truename "~/org/from-mobile.org"))
+          (mobile-buffer (find-file mobile-file))
+          (log-buffer (find-file (concat iz-log-dir "0_PRIVATE/DIARY.org"))))
+     (with-current-buffer
+         mobile-buffer
+       (org-map-entries
+        (lambda ()
+          (let* ((timestamp
+                  (cdr (assoc "TIMESTAMP_IA" (org-entry-properties))))
+                 (date
+                  (calendar-gregorian-from-absolute
+                   (org-time-string-to-absolute timestamp))))
+            (org-copy-subtree)
+            (with-current-buffer
+                log-buffer
+              (org-datetree-find-date-create date)
+              (move-end-of-line nil)
+              (open-line 1)
+              (next-line)
+              (org-paste-subtree 4)
+              (org-set-property "DATE" (concat "<" timestamp ">"))
+              (org-set-tags-to ":mobileorg:"))))))
+     (copy-file
+      mobile-file
+      (concat
+       (file-name-sans-extension mobile-file)
+       (format-time-string "%Y-%m-%d-%H-%M-%S")
+       ".org"))
+     (with-current-buffer
+         mobile-buffer
+       (erase-buffer)
+       (save-buffer))))
+#+END_SRC
+
 *** Org-Babel
 **** Org-Babel: enable some languages
 
@@ -2266,7 +2254,7 @@ Todo:
   (require 'org-attach)
 
   (defvar latex-templates-path
-    (file-truename "~/Copy/000WORKFILES/1_SNIPPETS_AND_TEMPLATES"))
+    (file-truename "~/LATEX_TEMPLATES"))
 
   (defvar latex-section-template
     '(("\\section\{%s\}" . "\\section*\{%s\}")
@@ -2463,15 +2451,21 @@ Todo:
 
 
 *** Org-crypt: Encrypt selected org-mode entries
+:PROPERTIES:
+:ID:       F6F05606-5D98-4DA9-9343-BB78137E7901
+:eval-id:  2
+:END:
 
 #+BEGIN_SRC emacs-lisp
-(require 'org-crypt)
+(require 'org-crypt)CEG
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 ;; GPG key to use for encryption
 ;; Either the Key ID or set to nil to use symmetric encryption.
 (setq org-crypt-key nil)
 #+END_SRC
+
+#+RESULTS:
 
 *** org-reveal, ox-impress: Export slides for Reveal.js and impress.js from orgmode
 
@@ -2543,13 +2537,13 @@ Note: outline-previous-heading (C-c p) places the point at the beginning of the 
 
 *** Encryption
 
-#+BEGIN_SRC emacs-lisp
-(require 'org-crypt)
-(org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
-;; GPG key to use for encryption
-;; Either the Key ID or set to nil to use symmetric encryption.
-(setq org-crypt-key nil)
+#+BEGIN_SRC elisp
+  (require 'org-crypt)
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
+  (setq org-crypt-key nil)
 #+END_SRC
 
 *** Create menu for org-mode entries (lacarte lets you reach it from the keyboard, too)
